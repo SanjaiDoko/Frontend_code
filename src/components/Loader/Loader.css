@@ -1,0 +1,29 @@
+.loader-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background: #ffff;
+    z-index: 1;
+}
+
+.rotate {
+    width: 100px;
+    position: relative;
+    animation: example 2s infinite linear;
+}
+
+@keyframes example {
+    0% {
+        left: -100px;
+        top: 0px;
+    }
+
+    100% {
+        left: 100px;
+        top: 0px;
+    }
+
+}
