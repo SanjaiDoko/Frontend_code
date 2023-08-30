@@ -180,7 +180,7 @@ const Loginpage = () => {
                     className="formcontrol"
                   >
                     <option hidden>Select Type</option>
-                    <option value="1">I am a Customer</option>
+                    <option value="1">I am a User</option>
                     <option value="2">I am an Administrator</option>
                   </Form.Select>
                 )}

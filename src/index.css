@@ -24,3 +24,7 @@ div {
 	cursor: context-menu;
 	font-family: sans-serif !important;
 }
+.MuiIconButton-sizeSmall,
+.MuiDataGrid-iconSeparator {
+    display: none !important;
+}

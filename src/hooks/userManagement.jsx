@@ -9,7 +9,7 @@ const useGetAllUsers = () => {
     queryFn: () =>
       fetchData({
         url: URL + "user/getAllUsers",
-        isAuthRequired: true,
+        // isAuthRequired: true,
       }),
     refetchOnMount: true,
     onError: (error) => {

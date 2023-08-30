@@ -9,6 +9,8 @@ import { Provider } from "react-redux";
 import { store, persistor } from "./redux/store/store";
 import { PersistGate } from "redux-persist/integration/react";
 import { ToastContainer } from "react-toastify";
+import Loader from "./components/Loader/Loader";
+
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -24,7 +26,7 @@ function App() {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <QueryClientProvider client={queryClient}>
-          <Suspense fallback={"loading"}>
+          <Suspense fallback={<Loader/>}>
             <RouterRender />
           </Suspense>
         </QueryClientProvider>
