@@ -200,7 +200,7 @@ const fetchData = async (
 		headers = {},
 		isAuthRequired = false,
 		isEncrypted = false,
-		isEncryptedPayload = true,
+		isEncryptedPayload = false,
 	} = {},
 	data
 ) => {
