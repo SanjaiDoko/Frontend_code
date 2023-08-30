@@ -129,7 +129,6 @@ const Loginpage = () => {
 
   const onSubmit = (data) => {
     mutate(data)
-    console.log(data);
   };
 
   function togglePasswordVisiblity() {

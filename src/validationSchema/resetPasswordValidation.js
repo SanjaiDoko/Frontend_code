@@ -9,5 +9,5 @@ export const resetPasswordValidation = yup.object({
 			"Enter valid email address"
 		)
 		.required("Email is required"),
-	// type: yup.string().required("Type is required"),
+	type: yup.string().required("Type is required"),
 });

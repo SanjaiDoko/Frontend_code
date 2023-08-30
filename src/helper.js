@@ -202,6 +202,7 @@ const fetchData = async (
 		isEncrypted = false,
 		isEncryptedPayload = true,
 	} = {},
+	data
 ) => {
 	if (typeof url !== "string") {
 		throw new Error("URL is not in string");
@@ -217,8 +218,8 @@ const fetchData = async (
 	}
 	const fetchObject = {
 		method,
-		headers,
-		credentials: "include",
+		headers
+		// credentials: "include",
 	};
 	if (method === "POST") {
 		if (data === null || data === undefined) {

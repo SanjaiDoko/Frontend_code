@@ -2,15 +2,15 @@ import { useState } from "react";
 import styles from "./index.module.css";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import searchlogo from "../../assets/Images/searchlogo.png";
+import searchlogo from "../../../assets/Images/searchlogo.png";
 import { DataGrid } from "@mui/x-data-grid";
 import { useDispatch, useSelector } from "react-redux";
 // import { useNavigate } from "react-router-dom";
-import { openSidebar } from "../../redux/slices/sidebarSlice";
-import { useGetAllUsers, useMutateUser } from "../../hooks/userManagement";
-import Loader from "../Loader/Loader";
-import ActiveButton from "../ActiveButton/ActiveButton";
-import { convertFirstLettersAsUpperCase } from "../../helper";
+import { openSidebar } from "../../../redux/slices/sidebarSlice";
+import { useGetAllUsers } from "../../../hooks/userManagement";
+import Loader from "../../../components/Loader/Loader";
+import ActiveButton from "../../../components/ActiveButton/ActiveButton";
+import { convertFirstLettersAsUpperCase } from "../../../helper";
 import moment from "moment";
 // import { BiUndo } from "react-icons/bi";
 // import { useInternalUser } from "../../hooks/internalUser";
@@ -36,9 +36,7 @@ function IndividualStatusUserList() {
 	const dispatch = useDispatch();
 	// const navigate = useNavigate();
 	const sidebar = useSelector((state) => state.sidebar);
-	const { data, isLoading, isError, error } = useGetAllUsers(
-		type === "allUsers" ? selectedValue : userArray
-	);
+	const { data, isLoading, isError, error } = useGetAllUsers();
 
 	function filterArray(data) {
 		if (data != null) {
@@ -188,7 +186,7 @@ function IndividualStatusUserList() {
 	// 	dispatch(closePopup());
 	// };
 
-	if (isLoading || userLoading) {
+	if (isLoading) {
 		return <Loader />;
 	}
 
@@ -212,7 +210,7 @@ function IndividualStatusUserList() {
 							<MenuIcon />
 						</IconButton>
 					)}
-					<h3 className={styles.title}>{heading}</h3>
+					<h3 className={styles.title}>User Management</h3>
 				</div>
 			</div>
 			<div className={styles.searchdiv}>
@@ -224,7 +222,7 @@ function IndividualStatusUserList() {
 						onChange={(e) => setSearchValue(e.target.value)}
 					/>
 				</div>
-				{type === "allUsers" && (
+				{/* {type === "allUsers" && ( */}
 					<div className={styles.selectbox}>
 						<h4>Filter by</h4>
 						<div>
@@ -233,12 +231,12 @@ function IndividualStatusUserList() {
 								value={selectBoxValue}
 								id="filterSelect"
 								className={styles.selectuser}
-								// onChange={(e) => {
-								// 	setSelectedBoxValue(e.target.value);
-								// 	setSelectedValue(
-								// 		filterUsers(e.target.value, role)
-								// 	);
-								// }}
+								onChange={(e) => {
+									setSelectedBoxValue(e.target.value);
+									// setSelectedValue(
+									// 	filterUsers(e.target.value, role)
+									// );
+								}}
                                 >
 								<option value={""}>All Users</option>
 								<option value={role === 3 ? 3 : 4}>
@@ -260,7 +258,7 @@ function IndividualStatusUserList() {
 							</select>
 						</div>
 					</div>
-				)}
+				{/* )} */}
 			</div>
 			<div
 				style={{

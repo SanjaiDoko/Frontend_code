@@ -2,9 +2,12 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { logInApi } from "../api/loginApi";
 import jwtDecode from "jwt-decode";
+import { setProfileData } from "../redux/slices/profileSlice";
+import { useDispatch } from "react-redux";
 
-const useLoginData = () =>
-  useMutation({
+const useLoginData = () => {
+  const dispatch = useDispatch();
+  return useMutation({
     mutationFn: (data) => logInApi(data),
     onSuccess: async (data) => {
       if (data.status === 1) {
@@ -13,7 +16,8 @@ const useLoginData = () =>
         localStorage.setItem("allMasterToken", parsedData.token);
         localStorage.setItem("allMasterId", parsedData.userId);
         data.role = decodedData.role;
-        // dispatch(setProfileData(decodedData));
+        dispatch(setProfileData(decodedData));
+        console.log(decodedData,"decoded data")
         // await queryClient.refetchQueries({ queryKey: ["profileData"] });
         // checkStatus(decodedData.status, decodedData.role);
       } else {
@@ -32,5 +36,6 @@ const useLoginData = () =>
       toast.error(error.message.split(":")[1]);
     },
   });
+};
 
 export { useLoginData };

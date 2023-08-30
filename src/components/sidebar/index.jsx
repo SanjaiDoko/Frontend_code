@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import styles from "./Sidebar.module.css";
+import styles from "./index.module.css";
 // import IconButton from "@mui/material/IconButton";
 // import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 // import { ReactComponent as RateIcon } from "../../assets/Icons/rate.svg";
@@ -15,7 +15,7 @@ import { ReactComponent as Signout } from "../../assets/Icons/switch.svg";
 // import { BiCalendarEvent } from "react-icons/bi";
 // import { RiFileHistoryFill } from "react-icons/ri";
 import { Link, useLocation } from "react-router-dom";
-import { useLogoutUser } from "../../hooks/userAuthManagement";
+// import { useLogoutUser } from "../../hooks/userAuthManagement";
 // import { useDispatch, useSelector } from "react-redux";
 import AllMastersAdminlogo from "../../assets/Images/AllMastersAdminlogo.jpg";
 import { MdOutlineSecurity } from "react-icons/md";
@@ -27,7 +27,7 @@ import { MdOutlineSecurity } from "react-icons/md";
 function Sidebar() {
 //   const [dropdown, setDropdown] = useState(false);
 //   const ProfileRole = useSelector((state) => state.profile.role);
-  const { mutate } = useLogoutUser();
+//   const { mutate } = useLogoutUser();
 //   const page = 1;
   // const { isLoading: notificationDataLoading, data: notificationData } =
   // 	useQuery({
@@ -83,10 +83,11 @@ function Sidebar() {
 								</div>
 							</div>
 						))}
-					<IconButton
+					*/}
+					{/* <IconButton
 						color="inherit"
 						aria-label="open drawer"
-						onClick={onClick}
+						// onClick={onClick}
 						edge="start">
 						<ChevronLeftIcon />
 					</IconButton> */}
@@ -724,7 +725,7 @@ function Sidebar() {
             <li
               className={`${styles.forgot} ${styles.signout}`}
               style={{ cursor: "pointer" }}
-              onClick={() => mutate()}
+            //   onClick={() => mutate()}
             >
               Sign Out
               <Signout />

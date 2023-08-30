@@ -6,3 +6,21 @@
 #root {
   width:100%;
 }
+.MuiDataGrid-root{
+  background-color: #fff;
+}
+p,
+a,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+label,
+span,
+::placeholder,
+div {
+	cursor: context-menu;
+	font-family: sans-serif !important;
+}
