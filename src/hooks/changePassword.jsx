@@ -19,7 +19,7 @@ const useChangepasswordData = () => {
         {
             url: URL +'user/changeForgotPassword',
           method: "POST",
-          isAuthRequired: true,
+          // isAuthRequired: true,
           isEncryptedPayload:false,
         },
         { data: [postData] }
