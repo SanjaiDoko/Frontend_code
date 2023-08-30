@@ -47,8 +47,13 @@ function ChangePassword() {
   };
 
   const onSubmit = (data) => {
-    data.id = id;
-    mutate(data);
+    const payload = {
+      id,
+      password: data.password,
+      otp: data.otp,
+      type: Number(data.type),
+    };
+    mutate(payload);
   };
 
   const preventInputEvents = (e) => {

@@ -1,0 +1,110 @@
+.maindiv {
+  padding-top: 70px;
+}
+.overview {
+  padding-top: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.cards-container {
+  background: #f4f4f4;
+  overflow-x: hidden;
+  padding: 10px 0px !important;
+}
+
+.overviewtxt {
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 28px;
+  color: #272727;
+  padding-top: 5px;
+}
+.gridcontainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.gridcontainerlane {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.griditem {
+  background: linear-gradient(
+    65.11deg,
+    rgba(217, 217, 217, 0.3) 15.78%,
+    rgba(217, 217, 217, 0) 77.9%
+  );
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 5px;
+  padding: 5px 10px 5px 20px;
+}
+
+.item1 {
+  background: #000;
+}
+
+.item1 > h5 {
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  color: #ffffff;
+}
+
+.item1 > h1 {
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 47px;
+  color: #ffffff;
+}
+.item > h5 {
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  color: rgba(39, 39, 39, 0.71);
+}
+
+.item > h1 {
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 47px;
+  color: #272727;
+}
+.detailsCarddiv {
+    background: rgba(30, 106, 255, 0.1);
+  min-height: 60vh;
+  margin-top: 30px;
+}
+.groupcard {
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 5px;
+  width: 32%;
+  height: 290px;
+}
+.headergroup {
+  padding: 10px;
+  border-radius: 5px 5px 0px 0px;
+  background-color: rgb(208, 208, 208);
+}
+.headergroup>h5{
+    margin-bottom: 0;
+    font-weight: bold;
+}
+.groupcontent {
+  padding: 5px 10px 5px 20px;
+  border-radius: 0px 0px 5px 5px;
+}
+.groupcontent > h5 {
+  font-size: 17px;
+  color: rgb(86, 86, 86);
+}
+.groupcards{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    flex-wrap: wrap;
+}

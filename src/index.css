@@ -31,3 +31,21 @@ div {
 .masterlogo {
 	width: 100px !important;
 }
+.MuiDataGrid-cell {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width: 50px !important;
+	text-align: center !important;
+	padding: 10px !important;
+}
+.MuiDialogContent-root {
+	padding: 0 !important;
+}
+.masterlogo {
+	width: 100px !important;
+}
+.MuiDataGrid-columnHeaderTitleContainer,
+.MuiDataGrid-cell--textLeft {
+	justify-content: center !important;
+}

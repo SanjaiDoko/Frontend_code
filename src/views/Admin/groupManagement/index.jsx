@@ -1,11 +1,7 @@
 import { useState } from "react";
 import styles from "./index.module.css";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
 import searchlogo from "../../../assets/Images/searchlogo.png";
 import { DataGrid } from "@mui/x-data-grid";
-import { useDispatch, useSelector } from "react-redux";
-import { openSidebar } from "../../../redux/slices/sidebarSlice";
 import { useGetAllUsers, useMutateUser } from "../../../hooks/userManagement";
 import Loader from "../../../components/Loader/Loader";
 import ActiveButton from "../../../components/ActiveButton/ActiveButton";
@@ -16,8 +12,6 @@ import { Switch } from "@mui/material";
 function IndividualStatusUserList() {
   const [searchValue, setSearchValue] = useState("");
   const [selectBoxValue, setSelectedBoxValue] = useState("");
-  const dispatch = useDispatch();
-  const sidebar = useSelector((state) => state.sidebar);
   const { data, isLoading, isError, error } = useGetAllUsers();
 
   const { mutate } = useMutateUser();
@@ -56,7 +50,7 @@ function IndividualStatusUserList() {
       flex: 1,
       valueFormatter: ({ value }) => convertFirstLettersAsUpperCase(value),
     },
-    { field: "mobileNumber", headerName: "MOBILE", width: 180 },
+    { field: "mobileNumber", headerName: "MOBILE", width: 180, flex: 1 },
     {
       field: "email",
       headerName: "EMAIL",
@@ -101,18 +95,8 @@ function IndividualStatusUserList() {
       <div className="container">
         <div className={styles.headingdiv}>
           <div className={styles.titlediv}>
-            {!sidebar.sidebarStatus && (
-              <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                edge="start"
-                onClick={() => dispatch(openSidebar())}
-                className="icon"
-              >
-                <MenuIcon />
-              </IconButton>
-            )}
-            <h3 className={styles.title}>User Management</h3>
+            <h3 className={styles.title}>Group Management</h3>
+            <button className={styles.grpbtn}>Add Group</button>
           </div>
         </div>
         <div className={styles.searchdiv}>
@@ -136,8 +120,8 @@ function IndividualStatusUserList() {
                   setSelectedBoxValue(e.target.value);
                 }}
               >
-                <option value={""}>Active Users</option>
-                <option value={1}>Inactive Users</option>
+                <option value={""}>Active</option>
+                <option value={1}>Inactive</option>
               </select>
             </div>
           </div>
