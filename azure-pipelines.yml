@@ -1,4 +1,5 @@
 # Node.js with React
+
 # Build a Node.js project that uses React.
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
@@ -12,8 +13,13 @@ pool:
 steps:
 - task: NodeTool@0
   inputs:
-    versionSpec: '10.x'
+    versionSpec: '18.x'
   displayName: 'Install Node.js'
+
+- task: EnvTransform@0
+  inputs:
+    inputType: 'inline'
+    content: 'VITE_URL="http://20.68.182.130:3000/"'
 
 - script: |
     npm install
