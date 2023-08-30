@@ -53,7 +53,7 @@ function Header() {
                 className="linktag"
                 // to={redirectLink(role) + "mybookings#all"}
               >
-                My Bookings
+                My Ticket
               </Link>
             )}
             {role === 2 && (
