@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { fetchData } from "../helper";
 import { URL } from "../config";
@@ -17,5 +17,28 @@ const useGetAllUsers = () => {
     },
   });
 };
+const useMutateUser = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (data) =>
+      fetchData(
+        {
+          url: URL + "user/updateStatus",
+          method: "POST",
+          // isAuthRequired: true,
+        },
+        { data: [data] }
+      ),
+    onSuccess: async () => {
+      toast.success("Status Updated Successfully");
+      queryClient.invalidateQueries({
+        queryKey: ["allUsers"],
+      });
+    },
+    onError: (error) => {
+      toast.error(error.message.split(":")[1]);
+    },
+  });
+};
 
-export { useGetAllUsers };
+export { useGetAllUsers, useMutateUser };

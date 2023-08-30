@@ -12,6 +12,7 @@ const usePostRegistrationData = () => {
         toast.error(data.response);
       } else {
         navigate("/login");
+        toast.success('Registered Successfully')
       }
     },
     onError: (error) => {

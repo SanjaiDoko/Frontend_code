@@ -2,7 +2,6 @@ import { URL } from "../config";
 // import * as CryptoJS from "crypto-js";
 
 export async function logInApi(data) {
-	console.log(URL,'URL');
   // const encryptedPassword = CryptoJS.AES.encrypt(
   // 	JSON.stringify(data.password),
   // 	import.meta.env.VITE_ENCRYPTION_KEY

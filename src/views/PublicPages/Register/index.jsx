@@ -1,5 +1,5 @@
 import styles from "./index.module.css";
-// import Logo from "../../../assets/Images/AllMasterslogo.jpg";
+import Logo from "../../../assets/Images/AllMasterslogo.jpg";
 import { AiFillEye } from "react-icons/ai";
 import { BsFillEyeSlashFill } from "react-icons/bs";
 import { Form, Button } from "react-bootstrap";
@@ -8,12 +8,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { registerValidation } from "../../../validationSchema/registerValidation";
 import { Controller, useForm } from "react-hook-form";
 import { useState } from "react";
-// import { useMutation } from "@tanstack/react-query";
-// import { fetchData } from "../../../helper";
-// import { toast } from "react-toastify";
-// import { URL } from "../../../config";
-// import InfoIcon from "@mui/icons-material/Info";
-// import { saveregistration } from "../../../api/registrationApi";
 import { usePostRegistrationData } from "../../../hooks/register";
 import Loader from "../../../components/Loader/Loader";
 
@@ -80,6 +74,11 @@ function Register() {
         </div>
         <Form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
           <div className={styles.Logodiv}>
+          <img
+							src={Logo}
+							alt="AllMasters Logo"
+							className="masterlogo"
+						/>
             <h5 className="pt-2">Get Started</h5>
             <p>Freight Logistics Simplified</p>
           </div>
