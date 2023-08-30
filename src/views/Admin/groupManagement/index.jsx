@@ -2,19 +2,20 @@ import { useState } from "react";
 import styles from "./index.module.css";
 import searchlogo from "../../../assets/Images/searchlogo.png";
 import { DataGrid } from "@mui/x-data-grid";
-import { useGetAllUsers, useMutateUser } from "../../../hooks/userManagement";
+import { useGetAllUsers } from "../../../hooks/userManagement";
 import Loader from "../../../components/Loader/Loader";
 import ActiveButton from "../../../components/ActiveButton/ActiveButton";
 import { convertFirstLettersAsUpperCase } from "../../../helper";
 import moment from "moment";
-import { Switch } from "@mui/material";
+import RightDrawer from "../../../components/RightDrawer/RightDrawer";
+import AddAndEditGroup from "./AddAndEditGroup";
+import { useGetAllGroups } from "../../../hooks/groupManagement";
 
 function IndividualStatusUserList() {
   const [searchValue, setSearchValue] = useState("");
   const [selectBoxValue, setSelectedBoxValue] = useState("");
-  const { data, isLoading, isError, error } = useGetAllUsers();
-
-  const { mutate } = useMutateUser();
+  const { data, isLoading, isError, error } = useGetAllGroups();
+  const { data: userList, isLoading: userLoading } = useGetAllUsers();
 
   function filterArray(data) {
     if (data != null) {
@@ -24,7 +25,7 @@ function IndividualStatusUserList() {
         )
         .filter(
           (e) =>
-            e.fullName
+            e.name
               .toLowerCase()
               .replace(/\s/, "")
               .includes(searchValue.toLowerCase().replace(/\s/, "")) &&
@@ -35,54 +36,62 @@ function IndividualStatusUserList() {
     }
   }
 
-  function handleChange(params) {
-    const data = {
-      id: params._id,
-      status: params.status === 1 ? 2 : 1,
-    };
-    mutate(data);
-  }
-
+  const [popup, setPopup] = useState(null);
+  const [editData, setEditData] = useState(null);
+  console.log(editData, "editData");
+  const toggleDrawer = () => (event) => {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return setPopup(null);
+    }
+    setPopup(null);
+  };
   const columns = [
     {
-      field: "fullName",
-      headerName: "FULL NAME",
+      field: "name",
+      headerName: "GROUP NAME",
       flex: 1,
       valueFormatter: ({ value }) => convertFirstLettersAsUpperCase(value),
     },
-    { field: "mobileNumber", headerName: "MOBILE", width: 180, flex: 1 },
+    { field: "managedBy", headerName: "MANAGED BY", width: 180, flex: 1 },
     {
-      field: "email",
-      headerName: "EMAIL",
+      field: "users",
+      headerName: "USERS",
       flex: 2,
+      valueFormatter: ({ value }) => value.length,
     },
     {
       field: "status",
-      headerName: "Status",
+      headerName: "STATUS",
       flex: 1,
       renderCell: (value) => <ActiveButton status={value.row.status} />,
     },
     {
       flex: 1,
       field: "Actions",
-      headerName: "Actions",
+      headerName: "ACTIONS",
       sortable: false,
       renderCell: (params) => {
         return (
           params.row.status !== 3 && (
-            <Switch
-              disabled={params.row.status === 3}
-              inputProps={{ "aria-label": "controlled" }}
-              checked={params.row.status === 1}
-              onClick={() => handleChange(params.row)}
-            />
+            <button
+              className={styles.editbtn}
+              onClick={() => {
+                setEditData(params.row);
+                setPopup("edit");
+              }}
+            >
+              Edit
+            </button>
           )
         );
       },
     },
   ];
 
-  if (isLoading) {
+  if (isLoading || userLoading) {
     return <Loader />;
   }
 
@@ -91,67 +100,93 @@ function IndividualStatusUserList() {
   }
 
   return (
-    <div className={styles.countrydiv}>
-      <div className="container">
-        <div className={styles.headingdiv}>
-          <div className={styles.titlediv}>
-            <h3 className={styles.title}>Group Management</h3>
-            <button className={styles.grpbtn}>Add Group</button>
-          </div>
-        </div>
-        <div className={styles.searchdiv}>
-          <div className={styles.searchbox}>
-            <img src={searchlogo} alt="searchlogo" />
-            <input
-              type="text"
-              placeholder="Search by Full Name"
-              onChange={(e) => setSearchValue(e.target.value)}
-            />
-          </div>
-          <div className={styles.selectbox}>
-            <h4>Filter by</h4>
-            <div>
-              <select
-                style={{ background: "transparent" }}
-                value={selectBoxValue}
-                id="filterSelect"
-                className={styles.selectuser}
-                onChange={(e) => {
-                  setSelectedBoxValue(e.target.value);
-                }}
-              >
-                <option value={""}>Active</option>
-                <option value={1}>Inactive</option>
-              </select>
+    <>
+      <div className={styles.countrydiv}>
+        <div className="container">
+          <div className={styles.headingdiv}>
+            <div className={styles.titlediv}>
+              <h3 className={styles.title}>Group Management</h3>
+              <button className={styles.grpbtn} onClick={() => setPopup(true)}>
+                Add Group
+              </button>
             </div>
           </div>
-          {/* )} */}
-        </div>
-        <div
-          style={{
-            height: 430,
-            width: "100%",
-            marginTop: "10px",
-            borderRadius: "5px",
-          }}
-        >
-          <DataGrid
-            rows={filterArray(data)}
-            columns={columns}
-            initialState={{
-              pagination: {
-                paginationModel: {
-                  pageSize: 10,
-                },
-              },
+          <div className={styles.searchdiv}>
+            <div className={styles.searchbox}>
+              <img src={searchlogo} alt="searchlogo" />
+              <input
+                type="text"
+                placeholder="Search by Full Name"
+                onChange={(e) => setSearchValue(e.target.value)}
+              />
+            </div>
+            <div className={styles.selectbox}>
+              <h4>Filter by</h4>
+              <div>
+                <select
+                  style={{ background: "transparent" }}
+                  value={selectBoxValue}
+                  id="filterSelect"
+                  className={styles.selectuser}
+                  onChange={(e) => {
+                    setSelectedBoxValue(e.target.value);
+                  }}
+                >
+                  <option value={""}>Active</option>
+                  <option value={1}>Inactive</option>
+                </select>
+              </div>
+            </div>
+            {/* )} */}
+          </div>
+          <div
+            style={{
+              height: 430,
+              width: "100%",
+              marginTop: "10px",
+              borderRadius: "5px",
             }}
-            pageSizeOptions={[10]}
-            loading={isLoading}
-            getRowId={(row) => row._id}
-          />
+          >
+            <DataGrid
+              rows={filterArray(data)}
+              columns={columns}
+              initialState={{
+                pagination: {
+                  paginationModel: {
+                    pageSize: 10,
+                  },
+                },
+              }}
+              pageSizeOptions={[10]}
+              loading={isLoading}
+              getRowId={(row) => row._id}
+            />
+          </div>
         </div>
       </div>
-    </div>
+      <RightDrawer popup={popup !== null} handleDrawer={toggleDrawer}>
+        {popup === true ? (
+          <AddAndEditGroup
+            isEdit={popup === "edit"}
+            managedData={userList.filter((e) => e.status === 1)}
+            // handleAlignment={handleAlignment}
+            onCloseButtonClick={() => setPopup(null)}
+            setPopup={setPopup}
+            type="add"
+          />
+        ) : (
+          <AddAndEditGroup
+            // alignment={alignment}
+            managedData={userList.filter((e) => e.status === 1)}
+            // handleAlignment={handleAlignment}
+            onCloseButtonClick={() => setPopup(null)}
+            isEdit={popup === "edit"}
+            type="edit"
+            editData={editData}
+          />
+        )}
+      </RightDrawer>
+    </>
   );
 }
 

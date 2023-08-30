@@ -1,3 +1,11 @@
+.grpbtn {
+  background: #f3cf00;
+  border: none;
+  padding: 8px;
+  border-radius: 5px;
+  outline: none;
+  font-weight: bold;
+}
 .countrydiv {
   background: rgba(30, 106, 255, 0.1);
   width: 100%;
@@ -14,9 +22,9 @@
 
 .titlediv {
   width: 100%;
+  justify-content: space-between;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 10px;
 }
 
@@ -36,7 +44,7 @@
   font-weight: 500;
   font-size: 17px;
   color: #272727;
-  padding: 5px 20px !important;
+  padding: 2px 20px !important;
 }
 
 .title {
@@ -50,21 +58,22 @@
 }
 
 /* -------Add Country ----------- */
-.add_div {
-  padding: 25px;
+.addDiv {
+  padding: 15px 25px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   min-height: 100vh;
+  width: 100%;
 }
 
-.add_div-heading {
+.addDivHeading {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.add_div-heading > h3 {
+.addDivHeading > h3 {
   font-family: "Rubik";
   font-style: normal;
   font-weight: bold;
@@ -73,7 +82,7 @@
   color: #333333;
 }
 
-.add_div-heading > button {
+.addDivHeading > button {
   background: transparent;
   color: #d9d9d9;
   border: none;
@@ -93,14 +102,13 @@
 
 .formcontrol {
   width: 100%;
-  padding: 15px !important;
+  padding: 10px !important;
   border: 1px solid #d9d9d9;
   border-radius: 4px;
   font-family: "Rubik";
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
-  /* color: #858585; */
 }
 
 .formcontrol:focus {
@@ -108,29 +116,9 @@
   box-shadow: none !important;
 }
 
-.MuiToggleButton-root {
-  width: 100% !important;
-  margin-top: 20px !important;
-}
-.MuiToggleButton-root {
-  width: 50% !important;
-  font-family: "Rubik";
-  font-style: normal;
-  font-weight: 500;
-  font-size: 16px;
-  color: #272727;
-}
-
-.MuiDataGrid-row.Mui-selected {
-  background: #fff !important;
-  color: #000 !important;
-}
-
 .savebtn {
   background: #f3cf00;
-  font-family: "Rubik";
-  font-style: normal;
-  font-weight: 500;
+  font-weight: bold;
   font-size: 16px;
   color: #272727;
   box-shadow: 0px 4px 16px rgba(243, 207, 0, 0.2);
@@ -139,6 +127,8 @@
   border: none;
   outline: none;
   font-weight: bold;
+  padding: 10px !important;
+  margin-bottom: 20px;
 }
 
 .icon {
@@ -151,33 +141,34 @@
   padding-top: 20px;
 }
 
+.formcontrol option {
+  text-transform: capitalize;
+}
+
 .searchbox {
-  width: 100%;
+  display: flex;
+  align-items: center;
+  width: 75%;
   border: 1px solid #d9d9d9 !important;
   background: #fff;
   border-radius: 5px 0px 0px 5px;
   padding-left: 15px !important;
-  padding: 10px;
 }
 
 .selectbox {
-  width: 30%;
+  width: 25%;
   border: 1px solid #d9d9d9 !important;
   background: #fff;
   border-radius: 0px 5px 5px 0px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 0px 10px;
-}
-.selectuser {
-  border: none !important;
-  outline: none !important;
+  padding: 10px;
 }
 
 .selectbox > div {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-around !important;
+  width: 90%;
 }
 
 .selectbox > h4 {
@@ -185,6 +176,7 @@
   font-size: 14px;
   line-height: 17px;
   color: #000000;
+  width: 35%;
   margin-bottom: 0 !important;
 }
 
@@ -206,74 +198,72 @@
   box-shadow: none;
 }
 
-.MuiDataGrid-root {
-  background: #fff !important;
+.togglebtn > .Mui-selected {
+  background: #000 !important;
+  color: #fff !important;
   border-radius: 5px !important;
 }
 
-.MuiToggleButtonGroup-root {
-  width: 100% !important;
+.togglechildbtn {
+  padding: 10px !important;
 }
 
-.MuiDataGrid-columnHeaderTitleContainer:focus {
-  outline: none !important;
-  border-color: #fff !important;
+.portalign {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
 }
 
-.MuiIconButton-sizeSmall,
-.MuiDataGrid-iconSeparator {
-  display: none !important;
-}
-
-.MuiDataGrid-columnHeaderTitle {
+.addtitle {
+  font-family: "Rubik";
+  font-style: normal;
   font-weight: bold;
-  font-size: 12px;
-  line-height: 14px;
-  text-transform: uppercase;
-  color: #858585 !important;
-  letter-spacing: 0.13em;
+  font-size: 24px;
+  color: #333333;
+  margin-bottom: 0 !important;
 }
 
-.MuiDataGrid-cellContent {
+.scheduleid {
+  font-weight: 400;
+  font-size: 15px;
+  color: #000000;
+  margin-bottom: 0 !important;
+}
+
+::placeholder {
   font-family: "Rubik";
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
-  color: #000000 !important;
-}
-.MuiDataGrid-cell:focus,
-.MuiDataGrid-columnHeader:focus {
-  outline: none !important;
+  line-height: 17px;
+  color: #858585;
 }
 
-/* ----------- select-------- */
-.MuiInput-underline::before,
-.MuiInput-underline::after {
-  border: none !important;
-  box-shadow: none !important;
+.editicon {
+  color: #f4da47;
+  font-size: 20px;
 }
 
-.togglebtn > .Mui-selected {
-  background: #000 !important;
-  color: #fff !important;
+.addLaneSelect {
+  text-transform: capitalize !important;
 }
-.togglechildbtn {
-  padding: 10px !important;
+.laneDropdown {
+  text-transform: capitalize;
 }
-.MuiList-root {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-}
-.MuiMenu-root {
-  width: 150px !important;
+
+.menuitem {
+  text-transform: capitalize !important;
+  width: 200px !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
 }
 @media (max-width: 1200px) {
   .selectbox > h4 {
     width: 30%;
   }
 }
-@media (max-width: 600px) {
+@media (max-width: 400px) {
   .searchdiv,
   .headingdiv {
     flex-direction: column;
@@ -290,17 +280,16 @@
     padding: 6px 10px !important;
   }
   .buttondiv {
+    gap: 0 !important;
     width: 100%;
     justify-content: flex-start;
-    flex-direction: column;
-    gap: 10px !important;
   }
   .button {
     width: 100%;
     padding: 5px !important;
   }
   .title {
-    font-size: 22px;
+    font-size: 30px;
   }
   .titlediv {
     width: 100%;
@@ -311,30 +300,17 @@
   }
   .selectbox > div {
     width: 100%;
-    justify-content: flex-start;
   }
   .selectbox > h4 {
     width: 100%;
   }
-  .selectuser {
-    padding: 10px 0px !important;
-  }
 }
-.biundo {
-  font-size: 25px;
-  color: #f4da47;
-  cursor: pointer;
+.selectuser{
+    border: none !important;
+    outline: none !important;
 }
-.biundo:hover {
-  border: 2px solid #f4da47;
-  width: 50px;
-  border-radius: 5px;
-}
-.grpbtn{
-    background: #f3cf00;
-    border: none;
-    padding: 8px;
-    border-radius: 5px;
-    outline: none;
+.editbtn{
+    border: none !important;
+    background-color: transparent;
     font-weight: bold;
 }

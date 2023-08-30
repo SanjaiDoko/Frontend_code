@@ -64,7 +64,7 @@ function IndividualStatusUserList() {
     },
     {
       field: "status",
-      headerName: "Status",
+      headerName: "STATUS",
       flex: 1,
       renderCell: (value) => <ActiveButton status={value.row.status} />,
     },
