@@ -1,4 +1,3 @@
-import React from "react";
 import { ReactComponent as LoaderSvg } from "../../assets/Images/loader.svg";
 
 export default function Loader(){

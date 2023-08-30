@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
 import { resetPasswordValidation } from "../../../validationSchema/resetPasswordValidation";
+import { useResetpasswordData } from "../../../hooks/resetPassword";
 // import { useMutation } from "@tanstack/react-query";
 // import { toast } from "react-toastify";
 // import { CircularProgress } from "@mui/material";
@@ -34,10 +35,11 @@ function ResetPassword() {
     mode: "onChange",
     defaultValues: {
       email: "",
-      // type: "",
+      type: "",
     },
   });
   const navigate = useNavigate();
+  const { mutate } = useResetpasswordData();
   // const dispatch = useDispatch();
   // const resetpasswordData = useMutation({
   // 	mutationFn: (data) => {
@@ -65,6 +67,7 @@ function ResetPassword() {
   // };
 
   const onSubmit = (data) => {
+    mutate(data);
     // if (import.meta.env.VITE_CAPTCHA === "true") {
     // 	if (!captchaValue) {
     // 		toast.error("Please Enter Captcha");
@@ -78,8 +81,7 @@ function ResetPassword() {
     // } else {
     // 	resetpasswordData.mutate(data);
     // }
-    console.log(data);
-  };
+   };
   // const titleText = "Kind Note";
   // const contentText =
   // 	"Please know that we are currently operational only from Mumbai. Rest assured, we will soon be launching operations from more gateways. Stay tuned for further updates.";
@@ -126,7 +128,7 @@ function ResetPassword() {
             <p>& take back control now</p>
           </div>
           <div className="form-group pt-2 pb-3">
-            {/* <Form.Group className="pt-2">
+            <Form.Group className="pt-2">
 							<Form.Label htmlFor="type" className="formlabel">
 								Type <span style={{ color: "red" }}>*</span>
 							</Form.Label>
@@ -144,7 +146,7 @@ function ResetPassword() {
 											I am a Customer
 										</option>
 										<option value="2">
-											I am a Partner
+											I am a Admin
 										</option>
 									</Form.Select>
 								)}
@@ -154,7 +156,7 @@ function ResetPassword() {
 									{errors.type.message}
 								</span>
 							)}
-						</Form.Group> */}
+						</Form.Group>
             <Form.Label htmlFor="InputEmail">
               Email Address <span style={{ color: "red" }}>*</span>
             </Form.Label>

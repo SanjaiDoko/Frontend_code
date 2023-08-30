@@ -8,6 +8,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
 import { changePasswordValidation } from "../../../validationSchema/changePasswordValidation";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
+import { useChangepasswordData } from "../../../hooks/changePassword";
+
 // import { useMutation } from "@tanstack/react-query";
 // import { useNavigate, useParams } from "react-router-dom";
 // import { toast } from "react-toastify";
@@ -22,7 +25,8 @@ function ChangePassword() {
 	// const [validUser, setValidUser] = useState(false);
 	// const [captchaValue, setCaptchValue] = useState("");
 	const [passwordVisibile, setPasswordVisibile] = useState(false);
-	// const { id } = useParams();
+	const {mutate} = useChangepasswordData();
+	const { id } = useParams();
 	const [confirmPasswordVisibile, setConfirmPasswordVisibile] =
 		useState(false);
 	const userType = window.location.href.slice(-1);
@@ -40,33 +44,7 @@ function ChangePassword() {
 			otp: "",
 		},
 	});
-	// const navigate = useNavigate();
-	// const changepasswordData = useMutation({
-	// 	mutationFn: (data) => {
-	// 		const postData = { ...data };
-	// 		const encryptedPassword = CryptoJS.AES.encrypt(
-	// 			JSON.stringify(data.password),
-	// 			import.meta.env.VITE_ENCRYPTION_KEY
-	// 		).toString();
-	// 		postData.password = encryptedPassword;
-	// 		postData.type = parseInt(data.type);
-	// 		return fetchData(
-	// 			{
-	// 				url: URL + "user/changeForgotPassword",
-	// 				method: "POST",
-	// 				isAuthRequired: true,
-	// 			},
-	// 			{ data: [postData] }
-	// 		);
-	// 	},
-	// 	onSuccess: () => {
-	// 		toast.success("Password Changed Successfully");
-	// 		navigate("/login");
-	// 	},
-	// 	onError: (error) => {
-	// 		toast.error(error.message.split(":")[1]);
-	// 	},
-	// });
+	
 
 	const togglePasswordVisiblity = (type) => {
 		switch (type) {
@@ -83,6 +61,8 @@ function ChangePassword() {
 
 
 	const onSubmit = (data) => {
+		data.id = id
+		mutate(data)
         console.log(data,'data');
 		// if (import.meta.env.VITE_CAPTCHA === "true") {
 		// 	if (!captchaValue) {

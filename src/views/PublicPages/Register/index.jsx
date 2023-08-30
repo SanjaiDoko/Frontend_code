@@ -15,6 +15,7 @@ import { useState } from "react";
 // import InfoIcon from "@mui/icons-material/Info";
 // import { saveregistration } from "../../../api/registrationApi";
 import { usePostRegistrationData } from "../../../hooks/register";
+import Loader from "../../../components/Loader/Loader";
 
 function Register() {
   const [passwordVisibile, setPasswordVisibile] = useState(false);
@@ -59,8 +60,10 @@ function Register() {
 
   const onSubmit = (data) => {
     mutate(data);
-    console.log(data);
   };
+  if(registerLoading){
+    return <Loader />
+  }
 
   return (
     <div className={styles.maindiv}>

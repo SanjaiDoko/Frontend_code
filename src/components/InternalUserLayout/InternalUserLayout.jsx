@@ -1,10 +1,10 @@
-import Sidebar from "../Sidebar/Sidebar";
+import Sidebar from "../sidebar/index";
 import { Box, CssBaseline, Drawer, useMediaQuery } from "@mui/material";
 import Main from "../Main/Main";
 import { Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { closeSidebar } from "../../redux/slices/sidebarSlice";
-import NotificationSidebar from "../NotificationSidebar";
+// import NotificationSidebar from "../NotificationSidebar";
 
 const drawerWidth = 350;
 
@@ -34,7 +34,7 @@ function InternalUserLayout() {
 			<Main open={sidebar} ismobile={mobileView ? 1 : 0}>
 				<Outlet />
 			</Main>
-			{role !== 4 && <NotificationSidebar />}
+			{/* {role !== 4 && <NotificationSidebar />} */}
 		</Box>
 	);
 }

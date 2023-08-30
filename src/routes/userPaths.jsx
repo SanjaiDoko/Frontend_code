@@ -25,7 +25,7 @@ function UserApp() {
   const profileData = useSelector((state) => state.profile.profileData);
   return (
     <Routes>
-      {userPaths(userPaths, profileData.status).map(
+      {userPaths.map(
         (parentElement, parentIndex) => (
           <Route
             key={parentIndex}
