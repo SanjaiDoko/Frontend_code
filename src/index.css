@@ -1,5 +1,5 @@
 
-.errormsg {
+.errormsg , .error{
   color: red;
   margin-bottom: 0 !important;
 }
@@ -30,4 +30,27 @@ div {
 }
 .masterlogo {
 	width: 100px !important;
+}
+.MuiDataGrid-cell {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width: 50px !important;
+	text-align: center !important;
+	padding: 10px !important;
+}
+.MuiDialogContent-root {
+	padding: 0 !important;
+}
+.masterlogo {
+	width: 100px !important;
+}
+.MuiDataGrid-columnHeaderTitleContainer,
+.MuiDataGrid-cell--textLeft {
+	justify-content: center !important;
+}
+.togglebtn > .Mui-selected {
+	background: #000 !important;
+	color: #fff !important;
+	border-radius: 5px !important;
 }

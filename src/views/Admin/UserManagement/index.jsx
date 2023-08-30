@@ -60,11 +60,11 @@ function IndividualStatusUserList() {
     {
       field: "email",
       headerName: "EMAIL",
-      flex: 1,
+      flex: 2,
     },
     {
       field: "status",
-      headerName: "Status",
+      headerName: "STATUS",
       flex: 1,
       renderCell: (value) => <ActiveButton status={value.row.status} />,
     },
@@ -87,7 +87,7 @@ function IndividualStatusUserList() {
       },
     },
   ];
-  
+
   if (isLoading) {
     return <Loader />;
   }
@@ -98,72 +98,74 @@ function IndividualStatusUserList() {
 
   return (
     <div className={styles.countrydiv}>
-      <div className={styles.headingdiv}>
-        <div className={styles.titlediv}>
-          {!sidebar.sidebarStatus && (
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="start"
-              onClick={() => dispatch(openSidebar())}
-              className="icon"
-            >
-              <MenuIcon />
-            </IconButton>
-          )}
-          <h3 className={styles.title}>User Management</h3>
-        </div>
-      </div>
-      <div className={styles.searchdiv}>
-        <div className={styles.searchbox}>
-          <img src={searchlogo} alt="searchlogo" />
-          <input
-            type="text"
-            placeholder="Search by Full Name"
-            onChange={(e) => setSearchValue(e.target.value)}
-          />
-        </div>
-        <div className={styles.selectbox}>
-          <h4>Filter by</h4>
-          <div>
-            <select
-              style={{ background: "transparent" }}
-              value={selectBoxValue}
-              id="filterSelect"
-              className={styles.selectuser}
-              onChange={(e) => {
-                setSelectedBoxValue(e.target.value);
-              }}
-            >
-              <option value={""}>Active Users</option>
-              <option value={1}>Inactive Users</option>
-            </select>
+      <div className="container">
+        <div className={styles.headingdiv}>
+          <div className={styles.titlediv}>
+            {!sidebar.sidebarStatus && (
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                edge="start"
+                onClick={() => dispatch(openSidebar())}
+                className="icon"
+              >
+                <MenuIcon />
+              </IconButton>
+            )}
+            <h3 className={styles.title}>User Management</h3>
           </div>
         </div>
-        {/* )} */}
-      </div>
-      <div
-        style={{
-          height: 430,
-          width: "100%",
-          marginTop: "10px",
-          borderRadius: "5px",
-        }}
-      >
-        <DataGrid
-          rows={filterArray(data)}
-          columns={columns}
-          initialState={{
-            pagination: {
-              paginationModel: {
-                pageSize: 10,
-              },
-            },
+        <div className={styles.searchdiv}>
+          <div className={styles.searchbox}>
+            <img src={searchlogo} alt="searchlogo" />
+            <input
+              type="text"
+              placeholder="Search by Full Name"
+              onChange={(e) => setSearchValue(e.target.value)}
+            />
+          </div>
+          <div className={styles.selectbox}>
+            <h4>Filter by</h4>
+            <div>
+              <select
+                style={{ background: "transparent" }}
+                value={selectBoxValue}
+                id="filterSelect"
+                className={styles.selectuser}
+                onChange={(e) => {
+                  setSelectedBoxValue(e.target.value);
+                }}
+              >
+                <option value={""}>Active Users</option>
+                <option value={1}>Inactive Users</option>
+              </select>
+            </div>
+          </div>
+          {/* )} */}
+        </div>
+        <div
+          style={{
+            height: 430,
+            width: "100%",
+            marginTop: "10px",
+            borderRadius: "5px",
           }}
-          pageSizeOptions={[10]}
-          loading={isLoading}
-          getRowId={(row) => row._id}
-        />
+        >
+          <DataGrid
+            rows={filterArray(data)}
+            columns={columns}
+            initialState={{
+              pagination: {
+                paginationModel: {
+                  pageSize: 10,
+                },
+              },
+            }}
+            pageSizeOptions={[10]}
+            loading={isLoading}
+            getRowId={(row) => row._id}
+          />
+        </div>
       </div>
     </div>
   );

@@ -53,6 +53,21 @@ function Header() {
                 My Ticket
               </Link>
             )}
+            {role === 2 && (
+              <Link className="linktag" to={"/admin/dashboard"}>
+                Dashboard
+              </Link>
+            )}
+            {role === 2 && (
+              <Link className="linktag" to={"/admin/user"}>
+                User
+              </Link>
+            )}
+            {role === 2 && (
+              <Link className="linktag" to={"/admin/group"}>
+                Manage Group
+              </Link>
+            )}
             <Nav.Item className="d-flex gap-2">
               <div className="hellotextdiv">
                 <span className="linktag">Hello</span>
