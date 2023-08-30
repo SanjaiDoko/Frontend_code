@@ -5,6 +5,7 @@ import AddTicket from "./AddTicket";
 
 function Dashboard() {
   const [popup, setPopup] = useState(null);
+
   const toggleDrawer = () => (event) => {
     if (
       event.type === "keydown" &&
@@ -17,7 +18,12 @@ function Dashboard() {
 
   return (
     <div className={styles.mainDiv}>
-      <h1 onClick={() => setPopup(true)}>hello world</h1>
+      <div className={styles.subDiv}>
+        <h3 style={{ marginTop: "1em" }}>Received Ticket </h3>
+        <button onClick={() => setPopup(true)} className={styles.addTicketBtn}>
+          Add Ticket
+        </button>
+      </div>
       <RightDrawer popup={popup !== null} handleDrawer={toggleDrawer}>
         <AddTicket
           onCloseButtonClick={() => setPopup(null)}

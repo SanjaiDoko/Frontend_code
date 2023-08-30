@@ -7,17 +7,20 @@ import classes from "./index.module.css";
 import { addTicketValidation } from "../../../validationSchema/addTicketValidation";
 import { fileReaderFunction, openFileNewWindow } from "../../../helper";
 import { useState } from "react";
-import { useInsertTicket } from "../../../hooks/ticketHooks";
+import { useUpdateTicket } from "../../../hooks/ticketHooks";
 import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
 import moment from "moment";
 
-const AddTicket = ({ setPopup }) => {
+const EditTicket = ({ myTicketData, setPopup, editId }) => {
   const [file, setFile] = useState(null);
   const createdBy = localStorage.getItem("allMasterId");
+
+  const editData = myTicketData && myTicketData.filter((e) => e._id === editId);
+
   const onSuccess = () => {
     setPopup(null);
   };
-  const { mutate } = useInsertTicket(onSuccess);
+  const { mutate } = useUpdateTicket(onSuccess);
   const {
     handleSubmit,
     control,
@@ -26,15 +29,15 @@ const AddTicket = ({ setPopup }) => {
     resolver: yupResolver(addTicketValidation),
     mode: "onTouched",
     defaultValues: {
-      issueName: "",
-      issueGroup: "",
-      endTime: null,
-      startTime: null,
-      actualEndTime: null,
-      type: "",
-      issueDescription: "",
-      assignedTo: "",
-      managedBy: "",
+      issueName: editData[0].issueName,
+      issueGroup: editData[0].issueGroup,
+      endTime: moment(editData[0].endTime, "DD-MM-YYYY"),
+      startTime: moment(editData[0].startTime, "DD-MM-YYYY"),
+      actualEndTime: moment(editData[0].actualEndTime, "DD-MM-YYYY"),
+      type: editData[0].type,
+      issueDescription: editData[0].issueDescription,
+      assignedTo: editData[0].assignedTo,
+      managedBy: editData[0].managedBy,
       createdBy: createdBy,
     },
   });
@@ -61,6 +64,7 @@ const AddTicket = ({ setPopup }) => {
 
   const onSubmit = (data) => {
     data.issueGroup = "64eed7d9ab01e0f170cf8224";
+    data.id = editData[0]._id;
     data.startTime = moment(data.startTime).format("DD-MM-YYYY HH:MM");
     data.endTime = moment(data.endTime).format("DD-MM-YYYY HH:MM");
     data.actualEndTime = moment(data.actualEndTime).format("DD-MM-YYYY HH:MM");
@@ -71,7 +75,7 @@ const AddTicket = ({ setPopup }) => {
     <form onSubmit={handleSubmit(onSubmit)} className={classes.addDiv}>
       <div>
         <div className={classes.addDivHeading}>
-          <h2>Add Ticket</h2>
+          <h2>Edit Ticket</h2>
           <CloseIcon
             type="button"
             onClick={() => {
@@ -305,10 +309,10 @@ const AddTicket = ({ setPopup }) => {
         </Form.Group>
       </div>
       <button type="submit" className={classes.savebtn}>
-        Add Ticket
+        Update Ticket
       </button>
     </form>
   );
 };
 
-export default AddTicket;
+export default EditTicket;

@@ -49,10 +49,7 @@ function Header() {
               </Link>
             )}
             {role === 1 && (
-              <Link
-                className="linktag"
-                // to={redirectLink(role) + "mybookings#all"}
-              >
+              <Link className="linktag" to="/user/mytickets">
                 My Ticket
               </Link>
             )}
