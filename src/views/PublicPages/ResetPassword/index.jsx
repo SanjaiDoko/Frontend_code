@@ -143,21 +143,21 @@ function ResetPassword() {
 										className="formcontrol">
 										<option hidden>Select Type</option>
 										<option value="1">
-											I am a Customer
+											I am a User
 										</option>
 										<option value="2">
-											I am a Admin
+											I am a Administrator
 										</option>
 									</Form.Select>
 								)}
 							/>
 							{errors.type && (
-								<span className="error">
+								<span className="errormsg">
 									{errors.type.message}
 								</span>
 							)}
 						</Form.Group>
-            <Form.Label htmlFor="InputEmail">
+            <Form.Label htmlFor="InputEmail" className="pt-2">
               Email Address <span style={{ color: "red" }}>*</span>
             </Form.Label>
             <Controller
@@ -204,7 +204,7 @@ function ResetPassword() {
             Reset Password
             {/* )} */}
           </Button>
-          <Link to="/login">
+          <Link to="/login"className={styles.gobacklink}>
             <div className={styles.goback}>Go back</div>
           </Link>
         </Form>

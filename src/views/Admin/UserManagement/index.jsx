@@ -233,28 +233,10 @@ function IndividualStatusUserList() {
 								className={styles.selectuser}
 								onChange={(e) => {
 									setSelectedBoxValue(e.target.value);
-									// setSelectedValue(
-									// 	filterUsers(e.target.value, role)
-									// );
 								}}
                                 >
-								<option value={""}>All Users</option>
-								<option value={role === 3 ? 3 : 4}>
-									New Registration
-								</option>
-								{role === 3 && (
-									<option value={"pending"}>Pending</option>
-								)}
-								<option value={role === 3 ? "revalidate" : 6}>
-									Revalidated
-								</option>
-								<option value={1}>Approved</option>
-								<option value={role === 3 ? "rejected" : 7}>
-									{role === 3 ? "Rejected" : "OBT-Rejected"}
-								</option>
-								{role === 2 && (
-									<option value={10}>De-Activated</option>
-								)}
+								<option value={""}>Active Users</option>
+								<option value={1}>Inactive Users</option>
 							</select>
 						</div>
 					</div>
