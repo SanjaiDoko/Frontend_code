@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { ReactComponent as Uploadicon } from "../../../../src/assets/Icons/uploadicon.svg";
 import {
   useGetAllTicketById,
+  useGetSpecificTicketById,
   useUpdateTicket,
 } from "../../../hooks/ticketHooks";
 // import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
@@ -20,6 +21,7 @@ import { useSelector } from "react-redux";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { toast } from "react-toastify";
 import { URL } from "../../../config";
+import moment from "moment";
 
 const EditTicket = () => {
   const [uploadFile, setUploadFile] = useState([]);
@@ -35,6 +37,9 @@ const EditTicket = () => {
   const navigate = useNavigate();
 
   const { data: allTicketData, isloading } = useGetAllTicketById(userId);
+
+  const { data: uniqueTicketData, isLoading: ticketLoading } =
+  useGetSpecificTicketById(id);
 
   const createdBy = localStorage.getItem("allMasterId");
 
@@ -70,21 +75,17 @@ const EditTicket = () => {
   });
 
   useEffect(() => {
-    let Data = allTicketData && allTicketData.filter((e) => e._id === id);
-    console.log(Data, "data");
-    if (allGroupData) {
-      setEditData(Data);
-      Data[0].mailList = Data[0]?.mailList[0];
-      if (Data[0].files) {
-        setUploadFile(Data[0].files);
-      }
-      reset(Data[0]);
+    if (uniqueTicketData) {
+      uniqueTicketData[0].endTime = moment(uniqueTicketData[0].endTime);
+      console.log(uniqueTicketData[0],"idsdf");
+      reset(uniqueTicketData[0]);
+      setUploadFile(uniqueTicketData[0].files);
     }
   }, [allGroupData]);
 
   console.log(editData, "edit");
 
-  if (groupLoading) {
+  if (groupLoading || ticketLoading) {
     return <p>Loading...</p>;
   }
   const uploadMultipleFileFunction = async (event) => {
@@ -150,9 +151,11 @@ const EditTicket = () => {
   }
 
   const onSubmit = (data) => {
+    console.log(data,"data")
     const values = getValues();
     data.managedBy = values["managedId"];
-    data.id = editData[0]._id;
+    data.mailList = [data.mailList]
+    data.id = uniqueTicketData[0]._id;
     data.files = uploadFile;
     mutate(data);
   };
