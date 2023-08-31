@@ -3,6 +3,12 @@ import { lazy } from "react";
 
 const DashboardComponent = lazy(() => import("../views/User/Dashboard"));
 const MyTicketComponent = lazy(() => import("../views/User/MyTicket/index"));
+const EditTicketComponent = lazy(() =>
+  import("../../src/views/User/EditTicket/EditTicket")
+);
+const AddTicketComponent = lazy(() =>
+  import("../views/User/AddTicket/AddTicket")
+);
 const MainUserLayoutComponent = lazy(() =>
   import("../components/MainUserLayout/MainUserLayout")
 );
@@ -19,6 +25,14 @@ const userPaths = [
       {
         path: "mytickets",
         element: MyTicketComponent,
+      },
+      {
+        path: "addticket",
+        element: AddTicketComponent,
+      },
+      {
+        path: "editticket/:id",
+        element: EditTicketComponent,
       },
     ],
     status: [1],
@@ -53,7 +67,7 @@ function UserApp() {
           ))}
         </Route>
       ))}
-      <Route path="*" element={<Navigate to="/user/dashboard" replace />} />
+      <Route path="*" element={<Navigate to="/user/dashboard" replace />} />S
     </Routes>
   );
 }

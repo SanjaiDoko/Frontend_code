@@ -23,6 +23,28 @@ const useGetAllTicketById = (id) =>
     },
   });
 
+const useGetAllReceivedTicketById = (id, role) =>
+  useQuery({
+    queryKey: ["allTickets", id, role],
+    queryFn: () => {
+      return fetchData(
+        {
+          url: URL + "ticket/getAllRecievedTicketsByUserId",
+          method: "POST",
+          isAuthRequired: false,
+        },
+        {
+          data: [
+            {
+              id,
+              role,
+            },
+          ],
+        }
+      );
+    },
+  });
+
 const useInsertTicket = (onSuccessFunctions) => {
   const queryClient = useQueryClient();
   return useMutation({
@@ -41,6 +63,7 @@ const useInsertTicket = (onSuccessFunctions) => {
     },
   });
 };
+
 const useUpdateTicket = (onSuccessFunctions) => {
   const queryClient = useQueryClient();
   return useMutation({
@@ -60,4 +83,9 @@ const useUpdateTicket = (onSuccessFunctions) => {
   });
 };
 
-export { useGetAllTicketById, useInsertTicket, useUpdateTicket };
+export {
+  useGetAllTicketById,
+  useInsertTicket,
+  useUpdateTicket,
+  useGetAllReceivedTicketById,
+};

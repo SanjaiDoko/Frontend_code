@@ -3,13 +3,17 @@
   margin-left: 1em;
   margin-right: 1em;
 }
-
+.editBtn {
+  border-radius: 5px;
+  color: rgb(212, 241, 212);
+  background-color: green;
+  border: none;
+}
 .subDiv {
   display: flex;
   justify-content: space-between;
   gap: 5px;
 }
-
 .attachement {
   margin: 2em;
   color: red;

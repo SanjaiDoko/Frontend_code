@@ -7,7 +7,7 @@ export const addTicketValidation = yup.object({
   issueGroup: yup.string().trim().required("Issue Group is required"),
   managedBy: yup.string().trim().required("Managed By is required"),
   assignedTo: yup.string().trim().required("Assigned To is required"),
-  startTime: yup.string().trim().required("Start Time is required"),
-  endTime: yup.string().trim().required("End Time is required"),
-  actualEndTime: yup.string().trim().required("Actual End Time is required"),
+  // startTime: yup.string().trim().required("Start Time is required"),
+  // endTime: yup.string().trim().required("End Time is required"),
+  // actualEndTime: yup.string().trim().required("Actual End Time is required"),
 });

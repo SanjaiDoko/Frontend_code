@@ -2,7 +2,7 @@
 import moment from "moment";
 import styles from "./index.module.css";
 import RightDrawer from "../../components/RightDrawer/RightDrawer";
-import EditTicket from "./EditTicket/EditTicket";
+// import EditTicket from "./EditTicket/EditTicket";
 import { useState } from "react";
 
 function Booked({ data }) {
@@ -28,7 +28,7 @@ function Booked({ data }) {
     <div>
       <div>
         <RightDrawer popup={popup !== null} handleDrawer={toggleDrawer}>
-          <EditTicket myTicketData={data} setPopup={setPopup} editId={editId} />
+          {/* <EditTicket myTicketData={data} setPopup={setPopup} editId={editId} /> */}
         </RightDrawer>
       </div>
       <div className={styles.myTicketDiv}>
