@@ -38,7 +38,6 @@ function IndividualStatusUserList() {
 
   const [popup, setPopup] = useState(null);
   const [editData, setEditData] = useState(null);
-  console.log(editData, "editData");
   const toggleDrawer = () => (event) => {
     if (
       event.type === "keydown" &&
@@ -53,9 +52,15 @@ function IndividualStatusUserList() {
       field: "name",
       headerName: "GROUP NAME",
       flex: 1,
-      valueFormatter: ({ value }) => convertFirstLettersAsUpperCase(value),
+      valueFormatter: ({ value }) => value,
     },
-    { field: "managedBy", headerName: "MANAGED BY", width: 180, flex: 1 },
+    {
+      field: "managedBy",
+      headerName: "MANAGED BY",
+      width: 180,
+      flex: 1,
+      valueGetter: ({ value }) => value.name,
+    },
     {
       field: "users",
       headerName: "USERS",
@@ -66,7 +71,7 @@ function IndividualStatusUserList() {
       field: "status",
       headerName: "STATUS",
       flex: 1,
-      renderCell: (value) => <ActiveButton status={value.row.status} />,
+      renderCell: (value) => <ActiveButton status={Number(value.row.status)} />,
     },
     {
       flex: 1,
@@ -94,7 +99,6 @@ function IndividualStatusUserList() {
   if (isLoading || userLoading) {
     return <Loader />;
   }
-
   if (isError) {
     return <div>{error.message}</div>;
   }
@@ -106,9 +110,14 @@ function IndividualStatusUserList() {
           <div className={styles.headingdiv}>
             <div className={styles.titlediv}>
               <h3 className={styles.title}>Group Management</h3>
-              <button className={styles.grpbtn} onClick={() => setPopup(true)}>
-                Add Group
-              </button>
+              {userList.filter((e) => e.groupId === null).length !== 0 && (
+                <button
+                  className={styles.grpbtn}
+                  onClick={() => setPopup(true)}
+                >
+                  Add Group
+                </button>
+              )}
             </div>
           </div>
           <div className={styles.searchdiv}>
@@ -159,7 +168,7 @@ function IndividualStatusUserList() {
               }}
               pageSizeOptions={[10]}
               loading={isLoading}
-              getRowId={(row) => row._id}
+              getRowId={(row) => row.groupId}
             />
           </div>
         </div>

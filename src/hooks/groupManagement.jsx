@@ -18,7 +18,7 @@ const useGetAllGroups = () => {
   });
 };
 
-const useInsertGroup = () => {
+const useInsertGroup = (onSuccessFunctions) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (data) =>
@@ -31,6 +31,7 @@ const useInsertGroup = () => {
         { data: [data] }
       ),
     onSuccess: async () => {
+      onSuccessFunctions();
       toast.success("Group Added Successfully");
       queryClient.invalidateQueries({
         queryKey: ["allGroups"],
@@ -41,7 +42,7 @@ const useInsertGroup = () => {
     },
   });
 };
-const useUpdateGroup = () => {
+const useUpdateGroup = (onSuccessFunctions) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (data) =>
@@ -54,6 +55,7 @@ const useUpdateGroup = () => {
         { data: [data] }
       ),
     onSuccess: async () => {
+      onSuccessFunctions();
       toast.success("Group Updated Successfully");
       queryClient.invalidateQueries({
         queryKey: ["allGroups"],
@@ -64,5 +66,64 @@ const useUpdateGroup = () => {
     },
   });
 };
+const useRemoveUserById = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (data) => {
+      console.log(data, "data");
 
-export { useGetAllGroups, useInsertGroup, useUpdateGroup };
+      fetchData(
+        {
+          url: URL + "group/removeUserById",
+          method: "POST",
+          // isAuthRequired: true,
+        },
+        { data: [{ id: data }] }
+      );
+    },
+    onSuccess: async () => {
+      toast.success("User removed Successfully");
+      queryClient.invalidateQueries({
+        queryKey: ["allGroups"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["getUserByGroupId"],
+      });
+    },
+    onError: (error) => {
+      toast.error(error.message.split(":")[1]);
+    },
+  });
+};
+const useGetUserByGroupId = (id) =>
+  useQuery({
+    queryKey: ["getUserByGroupId"],
+    queryFn: () => {
+      return fetchData(
+        {
+          url: URL + "user/getUserByGroupId",
+          method: "POST",
+          // isAuthRequired: true,
+        },
+        {
+          data: [
+            {
+              id: id,
+            },
+          ],
+        }
+      );
+    },
+    enabled: id != null,
+    onError: (error) => {
+      toast.error(error.message.split(":")[1]);
+    },
+  });
+
+export {
+  useGetAllGroups,
+  useInsertGroup,
+  useUpdateGroup,
+  useRemoveUserById,
+  useGetUserByGroupId,
+};
