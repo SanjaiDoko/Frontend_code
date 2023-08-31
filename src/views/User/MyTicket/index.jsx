@@ -40,7 +40,7 @@ function Dashboard() {
       field: "Options",
       sortable: false,
       width: 100,
-      renderCell: () => <button className={styles.editBtn}>Update</button>,
+      renderCell: () => <button className={styles.editBtn}>Update Ticket</button>,
     },
   ];
 
