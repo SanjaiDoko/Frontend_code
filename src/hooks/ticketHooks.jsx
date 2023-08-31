@@ -22,6 +22,47 @@ const useGetAllTicketById = (id) =>
       );
     },
   });
+const useGetAllUserByGroupId = (id) =>
+  useQuery({
+    queryKey: ["allTickets", id],
+    queryFn: () => {
+      return fetchData(
+        {
+          url: URL + "user/getUserByGroupId",
+          method: "POST",
+          isAuthRequired: false,
+        },
+        {
+          data: [
+            {
+              id,
+            },
+          ],
+        }
+      );
+    },
+  });
+
+const useGetManageTicketById = (id) =>
+  useQuery({
+    queryKey: ["allTickets", id],
+    queryFn: () => {
+      return fetchData(
+        {
+          url: URL + "ticket/getAllRecievedTicketsByManagerId",
+          method: "POST",
+          isAuthRequired: false,
+        },
+        {
+          data: [
+            {
+              id,
+            },
+          ],
+        }
+      );
+    },
+  });
 
 const useGetAllReceivedTicketById = (id, role) =>
   useQuery({
@@ -88,4 +129,6 @@ export {
   useInsertTicket,
   useUpdateTicket,
   useGetAllReceivedTicketById,
+  useGetManageTicketById,
+  useGetAllUserByGroupId,
 };

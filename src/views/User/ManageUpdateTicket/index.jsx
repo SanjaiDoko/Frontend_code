@@ -10,17 +10,18 @@ import { useEffect, useState } from "react";
 import { ReactComponent as Uploadicon } from "../../../../src/assets/Icons/uploadicon.svg";
 import {
   useGetAllTicketById,
+  useGetAllUserByGroupId,
   useUpdateTicket,
 } from "../../../hooks/ticketHooks";
-// import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
-// import moment from "moment";
+import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
+import moment from "moment";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetAllGroups } from "../../../hooks/groupManagement";
 import { useSelector } from "react-redux";
-import DeleteIcon from "@mui/icons-material/Delete";
 import { toast } from "react-toastify";
+import DeleteIcon from "@mui/icons-material/Delete";
 
-const EditTicket = () => {
+const Index = () => {
   const [uploadFile, setUploadFile] = useState([]);
 
   const [editData, setEditData] = useState(null);
@@ -37,7 +38,10 @@ const EditTicket = () => {
 
   const createdBy = localStorage.getItem("allMasterId");
 
-  const { data: allGroupData, isLoading: groupLoading } = useGetAllGroups();
+  const { data: allGroupData, isLoading: groupLoading } =
+    useGetAllGroups(userId);
+
+  const { data: userData, isLoading: userLoading } = useGetAllUserByGroupId();
 
   const onSuccess = () => {
     navigate("/user/mytickets/");
@@ -61,6 +65,7 @@ const EditTicket = () => {
       type: "",
       issueDescription: "",
       // assignedTo: "",
+      endTime: null,
       mailList: "",
       managerName: "",
       managedId: "",
@@ -78,11 +83,24 @@ const EditTicket = () => {
     }
   }, [allGroupData]);
 
-  console.log(editData , 'edit')
-
-  if (groupLoading) {
+  if (groupLoading || userLoading) {
     return <p>Loading...</p>;
   }
+
+  if (isloading) {
+    return <p>Loading...</p>;
+  }
+
+  console.log(editData, "edit");
+
+  const onSubmit = (data) => {
+    const values = getValues();
+    data.managedBy = values["managedId"];
+    data.endTime = moment(data.endTime).format("DD-MM-YYYY HH:MM");
+    data.id = editData[0]._id;
+    mutate(data);
+  };
+
   const uploadMultipleFileFunction = async (event) => {
     const errorMessage = {
       NoFileError: `Upload file first`,
@@ -141,16 +159,7 @@ const EditTicket = () => {
     setUploadFile(array.filter((file, i) => i !== index));
   };
 
-  if (isloading) {
-    return <p>Loading...</p>;
-  }
-
-  const onSubmit = (data) => {
-    const values = getValues();
-    data.managedBy = values["managedId"];
-    data.id = editData[0]._id;
-    mutate(data);
-  };
+  console.log(userData, "userData");
 
   return (
     <div className={classes.mainDiv}>
@@ -257,13 +266,15 @@ const EditTicket = () => {
                           Choose Type
                         </option>
                         {allGroupData &&
-                          allGroupData.map((e, i) => {
-                            return (
-                              <option key={i} value={e.groupId}>
-                                {e.name}
-                              </option>
-                            );
-                          })}
+                          allGroupData
+                            .filter((e) => e.groupId !== createdBy)
+                            .map((e, i) => {
+                              return (
+                                <option key={i} value={e.groupId}>
+                                  {e.name}
+                                </option>
+                              );
+                            })}
                       </Form.Select>
                     )}
                   />
@@ -405,33 +416,35 @@ const EditTicket = () => {
                   {errors.startTime.message}
                 </span>
               )}
-            </Form.Group> */}
-                {/* <Form.Group className="pt-2">
-              <Form.Label htmlFor="endTime" className="formlabel">
-                End Time
-              </Form.Label>
-              <Controller
-                name="endTime"
-                control={control}
-                render={({ field }) => (
-                  <MobileDateTimePicker
-                    sx={{ width: "100%" }}
-                    {...field}
-                    ampm={false}
-                    slotProps={{
-                      textField: {
-                        readOnly: true,
-                      },
-                    }}
-                    format="DD-MM-YYYY HH:MM"
-                    onChange={(e) => field.onChange(e)}
+            </Form.Group>  */}
+                <Form.Group className="pt-2">
+                  <Form.Label htmlFor="endTime" className="formlabel">
+                    End Time
+                  </Form.Label>
+                  <Controller
+                    name="endTime"
+                    control={control}
+                    render={({ field }) => (
+                      <MobileDateTimePicker
+                        sx={{ width: "100%" }}
+                        {...field}
+                        ampm={false}
+                        slotProps={{
+                          textField: {
+                            readOnly: true,
+                          },
+                        }}
+                        format="DD-MM-YYYY HH:MM"
+                        onChange={(e) => field.onChange(e)}
+                      />
+                    )}
                   />
-                )}
-              />
-              {errors.endTime && (
-                <span className={classes.error}>{errors.endTime.message}</span>
-              )}
-            </Form.Group> */}
+                  {errors.endTime && (
+                    <span className={classes.error}>
+                      {errors.endTime.message}
+                    </span>
+                  )}
+                </Form.Group>
                 {/* <Form.Group className="pt-2">
               <Form.Label htmlFor="actualEndTime" className="formlabel">
                 Actual End Time
@@ -459,7 +472,7 @@ const EditTicket = () => {
                   {errors.actualEndTime.message}
                 </span>
               )}
-            </Form.Group> */}
+            </Form.Group>  */}
               </div>
             </div>
             <button type="submit" className={classes.savebtn}>
@@ -472,4 +485,4 @@ const EditTicket = () => {
   );
 };
 
-export default EditTicket;
+export default Index;

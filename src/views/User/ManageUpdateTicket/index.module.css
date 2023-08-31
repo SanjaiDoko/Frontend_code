@@ -5,13 +5,13 @@
   margin-top: 3em;
   width: 100%;
 }
-
-.hidden {
-  display: none;
-}
-.inputDiv {
+.inputDiv{
   display: flex;
-  gap: 10px;
+  gap: 15px;
+}
+
+.hidden{
+  display: none;
 }
 .subDiv {
   display: flex;

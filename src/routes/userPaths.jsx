@@ -6,6 +6,12 @@ const MyTicketComponent = lazy(() => import("../views/User/MyTicket/index"));
 const EditTicketComponent = lazy(() =>
   import("../../src/views/User/EditTicket/EditTicket")
 );
+const ManageTicketComponent = lazy(() =>
+  import("../../src/views/User/ManageTicket/index")
+);
+const UpdateManageTicketComponent = lazy(() =>
+  import("../../src/views/User/ManageUpdateTicket/index")
+);
 const AddTicketComponent = lazy(() =>
   import("../views/User/AddTicket/AddTicket")
 );
@@ -33,6 +39,14 @@ const userPaths = [
       {
         path: "editticket/:id",
         element: EditTicketComponent,
+      },
+      {
+        path: "manageticket",
+        element: ManageTicketComponent,
+      },
+      {
+        path: "updatemanageticket/:id",
+        element: UpdateManageTicketComponent,
       },
     ],
     status: [1],

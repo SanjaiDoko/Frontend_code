@@ -10,11 +10,13 @@ import { useInsertTicket } from "../../../hooks/ticketHooks";
 import { ReactComponent as Uploadicon } from "../../../../src/assets/Icons/uploadicon.svg";
 import { useNavigate } from "react-router-dom";
 import { useGetAllGroups } from "../../../hooks/groupManagement";
+import { toast } from "react-toastify";
+import DeleteIcon from "@mui/icons-material/Delete";
 // import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
 // import moment from "moment";
 
 const AddTicket = () => {
-  const [file, setFile] = useState(null);
+  const [uploadFile, setUploadFile] = useState([]);
   const navigate = useNavigate();
   const createdBy = localStorage.getItem("allMasterId");
   const onSuccess = () => {
@@ -41,30 +43,12 @@ const AddTicket = () => {
       type: "",
       issueDescription: "",
       // assignedTo: "",
-      managedBy: "",
+      managerName: "",
       managedId: "",
-      mailTo: "",
+      mailList: "",
       createdBy: createdBy,
     },
   });
-
-  const fileReaderHandler = async (event) => {
-    const errorMessage = {
-      NoFileError: "Please Upload file",
-      fileTypeErr: "Upload only PDF",
-      fileSizeErr: "File size should not be more than 5 MB",
-    };
-
-    fileReaderFunction({
-      fileEvent: event,
-      fileType: "pdf",
-      fileSize: 1024 * 1024 * 5,
-      errorMessage,
-      fileRead: "readAsDataURL",
-    }).then((result) => setFile(result));
-
-    event.target.value = "";
-  };
 
   if (groupLoading) {
     return <p>Loading...</p>;
@@ -76,7 +60,66 @@ const AddTicket = () => {
     // data.startTime = moment(data.startTime).format("DD-MM-YYYY HH:MM");
     // data.endTime = moment(data.endTime).format("DD-MM-YYYY HH:MM");
     // data.actualEndTime = moment(data.actualEndTime).format("DD-MM-YYYY HH:MM");
+    data.files = uploadFile;
     mutate(data);
+  };
+
+  const uploadMultipleFileFunction = async (event) => {
+    const errorMessage = {
+      NoFileError: `Upload file first`,
+      fileTypeErr: `Upload only Pdf`,
+      fileSizeErr: "Please upload file",
+    };
+    try {
+      let fileDataArray = await fileReaderFunction({
+        fileEvent: event,
+        errorMessage,
+        fileType: "pdf",
+        noLimit: true,
+      });
+      let sameFileExists;
+      if (fileDataArray.length > 0) {
+        fileDataArray = fileDataArray.map(({ fileName, fileData }) => {
+          return { fileName, fileData };
+        });
+
+        uploadFile.map((file) => {
+          fileDataArray.map((uploadfile) => {
+            if (file.fileName === uploadfile.fileName) {
+              sameFileExists = true;
+            }
+            return sameFileExists;
+          });
+          return sameFileExists;
+        });
+
+        if (sameFileExists === true) {
+          toast.error("File already uploaded");
+        } else {
+          setUploadFile([...uploadFile, ...fileDataArray]);
+        }
+      } else {
+        uploadFile.map((file) => {
+          if (file.fileName === fileDataArray.fileName) {
+            sameFileExists = true;
+          }
+          return sameFileExists;
+        });
+        if (sameFileExists === true) {
+          toast.error("File already uploaded");
+        } else {
+          setUploadFile([...uploadFile, fileDataArray]);
+        }
+      }
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
+      event.target.value = "";
+    }
+  };
+
+  const removeFileHandler = (array, index) => {
+    setUploadFile(array.filter((file, i) => i !== index));
   };
 
   return (
@@ -172,7 +215,7 @@ const AddTicket = () => {
                             allGroupData.filter(
                               (e) => e.groupId === watch("issueGroup")
                             );
-                          setValue("managedBy", managedBy[0].managedBy.name);
+                          setValue("managerName", managedBy[0].managedBy.name);
                           setValue(
                             "managedId",
                             managedBy[0].managedBy.managedBy
@@ -182,14 +225,17 @@ const AddTicket = () => {
                         <option value={""} hidden>
                           Choose Type
                         </option>
+
                         {allGroupData &&
-                          allGroupData.map((e, i) => {
-                            return (
-                              <option key={i} value={e.groupId}>
-                                {e.name}
-                              </option>
-                            );
-                          })}
+                          allGroupData
+                            .filter((e) => e.groupId !== createdBy)
+                            .map((e, i) => {
+                              return (
+                                <option key={i} value={e.groupId}>
+                                  {e.name}
+                                </option>
+                              );
+                            })}
                       </Form.Select>
                     )}
                   />
@@ -202,25 +248,25 @@ const AddTicket = () => {
               </div>
               <div>
                 <Form.Group className="pt-2">
-                  <Form.Label htmlFor="managedBy" className="formlabel">
+                  <Form.Label htmlFor="managerName" className="formlabel">
                     Managed By
                   </Form.Label>
                   <Controller
-                    name="managedBy"
+                    name="managerName"
                     control={control}
                     render={({ field }) => (
                       <Form.Control
                         type="text"
                         disabled
                         {...field}
-                        id="managedBy"
+                        id="managerName"
                         placeholder="Enter Managed By Name"
                       />
                     )}
                   />
-                  {errors.managedBy && (
+                  {errors.managerName && (
                     <span className={classes.error}>
-                      {errors.managedBy.message}
+                      {errors.managerName.message}
                     </span>
                   )}
                 </Form.Group>
@@ -247,48 +293,60 @@ const AddTicket = () => {
                   )}
                 </Form.Group> */}
                 <Form.Group className="pt-2">
-                  <Form.Label htmlFor="mailTo" className="formlabel">
+                  <Form.Label htmlFor="mailList" className="formlabel">
                     Mail To
                   </Form.Label>
                   <Controller
-                    name="mailTo"
+                    name="mailList"
                     control={control}
                     render={({ field }) => (
                       <Form.Control
                         type="text"
                         {...field}
-                        id="mailTo"
+                        id="mailList"
                         placeholder="Enter Mail To"
                       />
                     )}
                   />
-                  {errors.mailTo && (
+                  {errors.mailList && (
                     <span className={classes.error}>
-                      {errors.mailTo.message}
+                      {errors.mailList.message}
                     </span>
                   )}
                 </Form.Group>
                 <Form.Group className="pt-2">
                   <Form.Label htmlFor="fileupload" className={`formlabel`}>
-                    <Uploadicon />
-                    <span style={{ margin: "1em" }}>Attachment</span>
+                    <Uploadicon /> Upload
                   </Form.Label>
-                  {file === null && (
-                    <input
-                      type="file"
-                      name="fileupload"
-                      className={classes.hidden}
-                      style={{ display: "none" }}
-                      id="fileupload"
-                      onChange={(event) => fileReaderHandler(event)}
-                    />
-                  )}
-                  <span
-                    className={classes.attachement}
-                    onClick={() => openFileNewWindow(file.fileData)}
-                  >
-                    {file && file.fileName}
-                  </span>
+                  <input
+                    type="file"
+                    className={classes.hidden}
+                    id="fileupload"
+                    multiple
+                    onChange={(event) => uploadMultipleFileFunction(event)}
+                  />
+                  {uploadFile.map((e, i) => {
+                    return (
+                      <div className={classes.filecontainer} key={i}>
+                        <p
+                          title={e.fileName}
+                          onClick={() => openFileNewWindow(e.fileData)}
+                          className={classes.filename}
+                        >
+                          {e.fileName}
+                        </p>
+                        <div>
+                          <DeleteIcon
+                            sx={{
+                              cursor: "pointer",
+                              color: "red",
+                            }}
+                            onClick={() => removeFileHandler(uploadFile, i)}
+                          />
+                        </div>
+                      </div>
+                    );
+                  })}
                 </Form.Group>
                 {/* <Form.Group className="pt-2">
               <Form.Label htmlFor="startTime" className="formlabel">

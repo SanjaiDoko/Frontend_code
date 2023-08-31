@@ -50,6 +50,8 @@ function RouteChecker() {
             return <UserApp />;
           case 2:
             return <OperationAdminApp />;
+          case 3:
+            return <UserApp />;
           default:
             return null;
         }

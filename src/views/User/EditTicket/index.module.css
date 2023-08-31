@@ -9,6 +9,9 @@
   display: flex;
   gap: 15px;
 }
+.hidden{
+  display: none;
+}
 .subDiv {
   display: flex;
   justify-content: space-between;
