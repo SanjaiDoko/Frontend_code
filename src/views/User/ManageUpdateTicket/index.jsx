@@ -66,7 +66,7 @@ const Index = () => {
       issueGroup: "",
       type: "",
       issueDescription: "",
-      // assignedTo: "",
+      assignedTo: "",
       endTime: null,
       mailList: "",
       managerName: "",
@@ -78,7 +78,7 @@ const Index = () => {
   useEffect(() => {
     if (uniqueTicketData) {
       uniqueTicketData[0].endTime = moment(uniqueTicketData[0].endTime);
-      console.log(uniqueTicketData[0]);
+      console.log(uniqueTicketData[0],"idsdf");
       reset(uniqueTicketData[0]);
       setUploadFile(uniqueTicketData[0].files);
     }
