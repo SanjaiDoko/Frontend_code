@@ -4,60 +4,102 @@ import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ReactComponent as CloseIcon } from "../../../assets/Icons/closeIcon.svg";
 import styles from "./index.module.css";
-import { groupValidation } from "../../../validationSchema/groupValidation";
-import { useInsertGroup, useUpdateGroup } from "../../../hooks/groupManagement";
-import MenuItem from "@mui/material/MenuItem";
-import ListItemText from "@mui/material/ListItemText";
-import Select from "@mui/material/Select";
-import { Checkbox } from "@mui/material";
+import {
+  addGroupValidation,
+  editGroupValidation,
+} from "../../../validationSchema/groupValidation";
+import { Multiselect } from "multiselect-react-dropdown";
+import { MdDeleteForever } from "react-icons/md";
+import {
+  useGetUserByGroupId,
+  useInsertGroup,
+  useRemoveUserById,
+  useUpdateGroup,
+} from "../../../hooks/groupManagement";
+import { useEffect, useState } from "react";
+import { useGetAllUsers } from "../../../hooks/userManagement";
+import Loader from "../../../components/Loader/Loader";
+import { CircularProgress } from "@mui/material";
 
-const AddAndEditGroup = ({
-  onCloseButtonClick,
-  editData,
-  isEdit,
-  managedData,
-  type,
-}) => {
-  console.log(type, "type");
-  const { mutate: insertMutate, isLoading: insertLoading } = useInsertGroup();
-  const { mutate: updateMutate, isLoading: updateLoading } = useUpdateGroup();
+const AddAndEditGroup = ({ onCloseButtonClick, editData, isEdit, type }) => {
+  
+  const [selectedOptions, setSelectedOptions] = useState([]);
+  const [options, setOptions] = useState([]);
+  const [selectedUser, setselectedUser] = useState([]);
 
+  const onSelectOptions = (selectedList, selectedItem, onChange) => {
+    onChange([...selectedList, selectedItem]);
+  };
+  const onRemoveOptions = (selectedList, removedItem, onChange) => {
+    onChange([...selectedList, removedItem]);
+  };
+
+  const { mutate: insertMutate, isLoading: insertLoading } =
+    useInsertGroup(onCloseButtonClick);
+  const { data: userList, isLoading: userLoading } = useGetAllUsers();
+  const { mutate: updateMutate, isLoading: updateLoading } =
+    useUpdateGroup(onCloseButtonClick);
+  const { data: UserByGroupIdData, isLoading: getUserByGroupIdLoading } =
+    useGetUserByGroupId(editData?.groupId);
+  const { mutate: removeUserMuate } = useRemoveUserById();
+
+  const managedData = userList.filter((e) => e.status === 1);
   const {
     handleSubmit,
     formState: { errors },
     watch,
+    clearErrors,
     control,
   } = useForm({
-    resolver: yupResolver(groupValidation),
+    resolver: yupResolver(isEdit ? editGroupValidation : addGroupValidation),
     mode: "onTouched",
     defaultValues: {
       grpName: isEdit ? editData.name : "",
-      managedBy: isEdit ? editData.users[0] : "",
-      users: isEdit ? editData.users[0] : [],
+      managedBy: isEdit
+        ? UserByGroupIdData &&
+          UserByGroupIdData?.filter((e) => e.role === 3)?.map((e) => e._id)[0]
+        : "",
+      users: isEdit ? editData.users[0] : "",
       status: isEdit ? `${editData.status}` : "1",
     },
   });
+
+  useEffect(() => {
+    setOptions(
+      managedData
+        .filter((e) => e.groupId === null && e._id !== watch("managedBy"))
+        .map((e) => {
+          return { name: e.fullName, id: e._id };
+        })
+    );
+    isEdit && clearErrors("managedBy");
+  }, []);
+
   function onSubmit(data) {
     if (isEdit) {
       const payload = {
         name: data.grpName,
-        managedBy: data.managedBy,
-        users: data.users.map((e) => e._id),
+        managedBy:
+          UserByGroupIdData &&
+          UserByGroupIdData?.filter((e) => e.role === 3)?.map((e) => e._id)[0],
+        users: selectedUser.map((e) => e.id),
         status: data.status,
-        id: editData._id,
+        id: editData.groupId,
       };
-      //   console.log(payload, "payload");
       updateMutate(payload);
     } else {
+      data.users.pop();
       const payload = {
         name: data.grpName,
         managedBy: data.managedBy,
-        users: data.users.map((e) => e._id),
+        users: data.users.map((e) => e.id),
         status: data.status,
       };
-      //   console.log(payload, "payload");
       insertMutate(payload);
     }
+  }
+  if (userLoading) {
+    return <Loader />;
   }
 
   return (
@@ -65,7 +107,7 @@ const AddAndEditGroup = ({
       <div>
         <div className={styles.addDivHeading}>
           <div>
-            <h3 className={styles.addtitle}>Add Group</h3>
+            <h3 className={styles.addtitle}>{isEdit ? "Edit" : "Add"} Group</h3>
           </div>
           <CloseIcon
             type="button"
@@ -104,19 +146,36 @@ const AddAndEditGroup = ({
             control={control}
             render={({ field }) => (
               <Form.Select
+                disabled={editData}
                 style={{ textTransform: "capitalize" }}
                 {...field}
                 id="type"
                 value={watch("type")}
                 className="formcontrol"
               >
-                <option value="">Select Managed By</option>
-                {managedData &&
-                  managedData.map((e) => (
-                    <>
-                      <option value={e._id}>{e.fullName}</option>
-                    </>
-                  ))}
+                {editData ? (
+                  <>
+                    {UserByGroupIdData &&
+                      UserByGroupIdData?.filter((e) => e.role === 3)?.map(
+                        (e) => (
+                          <>
+                            <option value={e._id}>{e.fullName}</option>
+                          </>
+                        )
+                      )}
+                  </>
+                ) : (
+                  <>
+                    <option value="">Select Managed By</option>
+                    {managedData
+                      .filter((e) => e.groupId === null)
+                      .map((e) => (
+                        <>
+                          <option value={e._id}>{e.fullName}</option>
+                        </>
+                      ))}
+                  </>
+                )}
                 ;
               </Form.Select>
             )}
@@ -125,70 +184,55 @@ const AddAndEditGroup = ({
             <span className="error">{errors.managedBy.message}</span>
           )}
         </Form.Group>
-        {type === "edit" ? (
-          <Form.Group className="pt-2">
-            <Form.Label htmlFor="users">Users</Form.Label>
-            <Controller
-              control={control}
-              name="users"
-              render={({ field }) => (
-                <Form.Control
-                  style={{ textTransform: "capitalize" }}
-                  disabled
-                  {...field}
-                  type="text"
-                  id="users"
-                  className="formcontrol"
-                  placeholder="Enter Cost Heading"
-                />
-              )}
-            />
-            <p className={styles.error}>{errors.users?.message}</p>
-          </Form.Group>
-        ) : (
-          <Form.Group className="pt-2">
-            <Form.Label htmlFor="users">Users</Form.Label>
-            <Controller
-              control={control}
-              name="users"
-              render={({ field: { onChange, value } }) => (
-                <Select
-                  fullWidth
-                  id="users"
-                  multiple
-                  displayEmpty
-                  value={value}
-                  onChange={onChange}
-                  className={styles.costheadingSelect}
-                  sx={{
-                    textTransform: "capitalize",
-                    fontSize: "14px",
-                  }}
-                  renderValue={(selected) => {
-                    if (selected.length === 0) {
-                      return <span>Choose Users</span>;
-                    }
-                    return selected.map((e) => e.fullName).join(", ");
-                  }}
-                  // MenuProps={MenuProps}
-                >
-                  {managedData.map((e) => (
-                    <MenuItem key={e.id} value={e}>
-                      <Checkbox
-                        checked={
-                          watch("users")
-                            .map((data) => data.fullName)
-                            .indexOf(e.fullName) > -1
-                        }
-                      />
-                      <ListItemText primary={e.fullName} />
-                    </MenuItem>
-                  ))}
-                </Select>
-              )}
-            />
-            <p className={styles.error}>{errors.users?.message}</p>
-          </Form.Group>
+        <Form.Group className="pt-2">
+          <Form.Label htmlFor="type" className="formlabel">
+            Users
+          </Form.Label>
+          <Controller
+            name="users"
+            control={control}
+            render={({ field }) => (
+              <Multiselect
+                {...field}
+                options={options}
+                value={options}
+                name="users"
+                onSelect={(selectedList, selectedItem) => {
+                  setselectedUser(selectedList);
+                  onSelectOptions(selectedList, selectedItem, field.onChange);
+                }}
+                onRemove={(selectedList, selectedItem) =>
+                  onSelectOptions(selectedList, selectedItem, field.onChange)
+                }
+                displayValue="name"
+                closeIcon="cancel"
+                placeholder="Select Options"
+                selectedValues={selectedOptions}
+                className="multiSelectContainer"
+              />
+            )}
+          />
+          {errors.managedBy && (
+            <span className="error">{errors.managedBy.message}</span>
+          )}
+        </Form.Group>
+        {editData && (
+          <div className="pt-3">
+            Assigned Users
+            {UserByGroupIdData &&
+              UserByGroupIdData.filter((e) => e.role === 1).map((e) => {
+                return (
+                  <>
+                    <div className={styles.assignedUserdiv}>
+                      <p>{e.fullName}</p>
+                      <button onClick={() => removeUserMuate(e._id)}>
+                        <MdDeleteForever />
+                      </button>
+                    </div>
+                  </>
+                );
+              })}
+          </div>
         )}
         <div className="pt-4">
           <ToggleButtonGroup
@@ -239,7 +283,7 @@ const AddAndEditGroup = ({
         type="submit"
         disabled={insertLoading || updateLoading}
       >
-        Add Ticket
+        {insertLoading || updateLoading ? <CircularProgress /> : " Add Group"}
       </button>
     </form>
   );
