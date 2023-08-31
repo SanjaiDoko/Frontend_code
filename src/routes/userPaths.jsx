@@ -1,8 +1,25 @@
 import { Route, Routes, Navigate } from "react-router-dom";
 import { lazy } from "react";
-import { useSelector } from "react-redux";
 
 const DashboardComponent = lazy(() => import("../views/User/Dashboard"));
+const MyTicketComponent = lazy(() => import("../views/User/MyTicket/index"));
+const EditTicketComponent = lazy(() =>
+  import("../../src/views/User/EditTicket/EditTicket")
+);
+const ManageTicketComponent = lazy(() =>
+  import("../../src/views/User/ManageTicket/index")
+);
+const UpdateManageTicketComponent = lazy(() =>
+  import("../../src/views/User/ManageUpdateTicket/index")
+);
+const AddTicketComponent = lazy(() =>
+  import("../views/User/AddTicket/AddTicket")
+);
+
+const UpdateDashboardComponent = lazy(() =>
+  import("../views/User/ReceivedUpdateTicket/index")
+);
+
 const MainUserLayoutComponent = lazy(() =>
   import("../components/MainUserLayout/MainUserLayout")
 );
@@ -16,44 +33,64 @@ const userPaths = [
         path: "dashboard",
         element: DashboardComponent,
       },
+      {
+        path: "mytickets",
+        element: MyTicketComponent,
+      },
+      {
+        path: "addticket",
+        element: AddTicketComponent,
+      },
+      {
+        path: "editticket/:id",
+        element: EditTicketComponent,
+      },
+      {
+        path: "manageticket",
+        element: ManageTicketComponent,
+      },
+      {
+        path: "updatemanageticket/:id",
+        element: UpdateManageTicketComponent,
+      },
+      {
+        path: "dashboard/:id",
+        element: UpdateDashboardComponent,
+      },
     ],
     status: [1],
   },
 ];
 
 function UserApp() {
-  const profileData = useSelector((state) => state.profile.profileData);
-  console.log(profileData , 'profileData')
   return (
     <Routes>
-      {userPaths.map(
-        (parentElement, parentIndex) => (
-          <Route
-            key={parentIndex}
-            path={parentElement.path}
-            element={<parentElement.element />}
-          >
-            {parentElement?.children?.map((childrenElement, childrenIndex) => (
-              <Route
-                path={childrenElement.path}
-                element={<childrenElement.element />}
-                key={childrenIndex}
-              >
-                {childrenElement?.children?.map(
-                  (nestedChild, nestedChildIndex) => (
-                    <Route
-                      key={nestedChildIndex}
-                      path={nestedChild.path}
-                      element={<nestedChild.element />}
-                    />
-                  )
-                )}
-              </Route>
-            ))}
-          </Route>
-        )
-      )}
-      <Route path="*" element={<Navigate to="/user/dashboard" replace />} />
+      {userPaths.map((parentElement, parentIndex) => (
+        <Route
+          key={parentIndex}
+          path={parentElement.path}
+          element={<parentElement.element />}
+        >
+          {parentElement?.children?.map((childrenElement, childrenIndex) => (
+            <Route
+              path={childrenElement.path}
+              element={<childrenElement.element />}
+              key={childrenIndex}
+            >
+              {childrenElement?.children?.map(
+                (nestedChild, nestedChildIndex) => (
+                  <Route
+                    key={nestedChildIndex}
+                    path={nestedChild.path}
+                    element={<nestedChild.element />}
+                  />
+                )
+              )}
+            </Route>
+          ))}
+        </Route>
+      ))}
+      <Route path="*" element={<Navigate to="/user/dashboard" replace />} />S
     </Routes>
   );
 }
