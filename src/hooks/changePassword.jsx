@@ -8,13 +8,10 @@ const useChangepasswordData = () => {
   const navigate = useNavigate();
   return useMutation({
     mutationFn: (data) => {
-      const postData = { ...data };
       // const encryptedPassword = CryptoJS.AES.encrypt(
       // 	JSON.stringify(data.password),
       // 	import.meta.env.VITE_ENCRYPTION_KEY
       // ).toString();
-      postData.password = data;
-      postData.type = parseInt(data.type);
       return fetchData(
         {
             url: URL +'user/changeForgotPassword',
@@ -22,7 +19,7 @@ const useChangepasswordData = () => {
           // isAuthRequired: true,
           isEncryptedPayload:false,
         },
-        { data: [postData] }
+        { data: [data] }
       );
     },
     onSuccess: () => {

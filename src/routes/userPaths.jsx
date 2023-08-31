@@ -23,6 +23,7 @@ const userPaths = [
 
 function UserApp() {
   const profileData = useSelector((state) => state.profile.profileData);
+  console.log(profileData , 'profileData')
   return (
     <Routes>
       {userPaths.map(
