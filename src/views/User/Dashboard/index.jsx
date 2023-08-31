@@ -12,7 +12,7 @@ function Dashboard() {
     {
       field: "issueName",
       flex: 1,
-      headerName: "IssueName",
+      headerName: "Issue Name",
       width: 150,
     },
     {
@@ -30,7 +30,7 @@ function Dashboard() {
     {
       field: "type",
       flex: 1,
-      headerName: "TYPE",
+      headerName: "Type",
       width: 200,
     },
     {

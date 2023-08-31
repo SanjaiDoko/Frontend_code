@@ -10,11 +10,28 @@ function Dashboard() {
 
   const navigate = useNavigate();
 
+  const returnStatus = (status) => {
+    let ticketStatus = "";
+    if (status == 0) {
+      ticketStatus = "Not Assigned";
+    }
+    if (status == 1) {
+      ticketStatus = "Completed";
+    }
+    if (status == 2) {
+      ticketStatus = "Progress";
+    }
+    if (status == 3) {
+      ticketStatus = "Rejected";
+    }
+    return ticketStatus;
+  };
+
   const columns = [
     {
       field: "issueName",
       flex: 1,
-      headerName: "IssueName",
+      headerName: "Issue Name",
       width: 150,
     },
     {
@@ -28,19 +45,31 @@ function Dashboard() {
       flex: 1,
       headerName: "Assigned To",
       width: 150,
+      renderCell: (params) => {
+        return params.row.assignedName ? params.row.assignedName : "NA";
+      },
     },
     {
       field: "type",
       flex: 1,
-      headerName: "TYPE",
+      headerName: "Type",
       width: 200,
+    },
+    {
+      field: "status",
+      flex: 1,
+      headerName: "Status",
+      width: 200,
+      renderCell: (params) => returnStatus(params.row.status),
     },
     {
       flex: 1,
       field: "Options",
       sortable: false,
       width: 100,
-      renderCell: () => <button className={styles.editBtn}>Update Ticket</button>,
+      renderCell: () => (
+        <button className={styles.editBtn}>Update Ticket</button>
+      ),
     },
   ];
 
@@ -59,6 +88,12 @@ function Dashboard() {
       <div className={styles.mainDiv}>
         <div className={styles.subDiv}>
           <h3 style={{ marginTop: "1em" }}>My Ticket </h3>
+          <button
+            onClick={() => navigate("/user/addticket")}
+            className={styles.addTicketBtn}
+          >
+            Add Ticket
+          </button>
         </div>
         {data && data.length > 0 ? (
           <DataGrid

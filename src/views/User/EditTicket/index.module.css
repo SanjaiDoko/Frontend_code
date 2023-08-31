@@ -5,7 +5,10 @@
   margin-top: 3em;
   width: 100%;
 }
-
+.inputDiv{
+  display: flex;
+  gap: 15px;
+}
 .subDiv {
   display: flex;
   justify-content: space-between;

@@ -48,11 +48,11 @@ function Header() {
                 Dashboard
               </Link>
             )}
-                {role === 1 && (
-                  <Link className="linktag" to="/user/addticket">
-                    Add Ticket
-                  </Link>
-                )}
+            {role === 3 && (
+              <Link className="linktag" to="/user/manageticket">
+                Manage Ticket
+              </Link>
+            )}
             {role === 1 && (
               <Link className="linktag" to="/user/mytickets">
                 My Ticket

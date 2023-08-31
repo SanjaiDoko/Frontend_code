@@ -8,19 +8,26 @@ import { fileReaderFunction, openFileNewWindow } from "../../../helper";
 import { useState } from "react";
 import { useInsertTicket } from "../../../hooks/ticketHooks";
 import { ReactComponent as Uploadicon } from "../../../../src/assets/Icons/uploadicon.svg";
+import { useNavigate } from "react-router-dom";
+import { useGetAllGroups } from "../../../hooks/groupManagement";
 // import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
 // import moment from "moment";
 
-const AddTicket = ({ setPopup }) => {
+const AddTicket = () => {
   const [file, setFile] = useState(null);
+  const navigate = useNavigate();
   const createdBy = localStorage.getItem("allMasterId");
   const onSuccess = () => {
-    setPopup(null);
+    navigate("/user/mytickets");
   };
   const { mutate } = useInsertTicket(onSuccess);
+  const { data: allGroupData, isLoading: groupLoading } = useGetAllGroups();
   const {
     handleSubmit,
     control,
+    setValue,
+    watch,
+    getValues,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(addTicketValidation),
@@ -33,8 +40,10 @@ const AddTicket = ({ setPopup }) => {
       // actualEndTime: null,
       type: "",
       issueDescription: "",
-      assignedTo: "",
+      // assignedTo: "",
       managedBy: "",
+      managedId: "",
+      mailTo: "",
       createdBy: createdBy,
     },
   });
@@ -57,8 +66,13 @@ const AddTicket = ({ setPopup }) => {
     event.target.value = "";
   };
 
+  if (groupLoading) {
+    return <p>Loading...</p>;
+  }
+
   const onSubmit = (data) => {
-    data.issueGroup = "64eed7d9ab01e0f170cf8224";
+    const values = getValues();
+    data.managedBy = values["managedId"];
     // data.startTime = moment(data.startTime).format("DD-MM-YYYY HH:MM");
     // data.endTime = moment(data.endTime).format("DD-MM-YYYY HH:MM");
     // data.actualEndTime = moment(data.actualEndTime).format("DD-MM-YYYY HH:MM");
@@ -73,163 +87,210 @@ const AddTicket = ({ setPopup }) => {
             <div className={classes.addDivHeading}>
               <h2>Add Ticket</h2>
             </div>
-            <Form.Group className="pt-2">
-              <Form.Label htmlFor="Currency" className="formlabel">
-                Issue Name
-              </Form.Label>
-              <Controller
-                name="issueName"
-                control={control}
-                render={({ field }) => (
-                  <Form.Control
-                    {...field}
-                    type="text"
-                    id="issueName"
-                    placeholder="Enter Issue Name"
+            <div className={classes.inputDiv}>
+              <div>
+                <Form.Group className="pt-2">
+                  <Form.Label htmlFor="issueName" className="formlabel">
+                    Issue Name
+                  </Form.Label>
+                  <Controller
+                    name="issueName"
+                    control={control}
+                    render={({ field }) => (
+                      <Form.Control
+                        {...field}
+                        type="text"
+                        id="issueName"
+                        placeholder="Enter Issue Name"
+                      />
+                    )}
                   />
-                )}
-              />
-              {errors.issueName && (
-                <span className={classes.error}>
-                  {errors.issueName.message}
-                </span>
-              )}
-            </Form.Group>
-            <Form.Group className="pt-2">
-              <Form.Label htmlFor="ExchangeRate" className="formlabel">
-                Type
-              </Form.Label>
-              <Controller
-                name="type"
-                control={control}
-                render={({ field }) => (
-                  <Form.Control
-                    type="text"
-                    {...field}
-                    id="type"
-                    placeholder="Enter Type"
+                  {errors.issueName && (
+                    <span className={classes.error}>
+                      {errors.issueName.message}
+                    </span>
+                  )}
+                </Form.Group>
+                <Form.Group className="pt-2">
+                  <Form.Label htmlFor="type" className="formlabel">
+                    Type
+                  </Form.Label>
+                  <Controller
+                    name="type"
+                    control={control}
+                    render={({ field }) => (
+                      <Form.Control
+                        type="text"
+                        {...field}
+                        id="type"
+                        placeholder="Enter Type"
+                      />
+                    )}
                   />
-                )}
-              />
-              {errors.type && (
-                <span className={classes.error}>{errors.type.message}</span>
-              )}
-            </Form.Group>
-            <Form.Group className="pt-2">
-              <Form.Label htmlFor="ExchangeRate" className="formlabel">
-                Issue Description
-              </Form.Label>
-              <Controller
-                name="issueDescription"
-                control={control}
-                render={({ field }) => (
-                  <Form.Control
-                    type="text"
-                    {...field}
-                    id="issueDescription"
-                    placeholder="Enter CFS Branch Name"
+                  {errors.type && (
+                    <span className={classes.error}>{errors.type.message}</span>
+                  )}
+                </Form.Group>
+                <Form.Group className="pt-2">
+                  <Form.Label htmlFor="issueDescription" className="formlabel">
+                    Issue Description
+                  </Form.Label>
+                  <Controller
+                    name="issueDescription"
+                    control={control}
+                    render={({ field }) => (
+                      <Form.Control
+                        type="text"
+                        {...field}
+                        id="issueDescription"
+                        placeholder="Enter Issue Description"
+                      />
+                    )}
                   />
-                )}
-              />
-              {errors.issueDescription && (
-                <span className={classes.error}>
-                  {errors.issueDescription.message}
-                </span>
-              )}
-            </Form.Group>
-            <Form.Group className="pt-2">
-              <Form.Label htmlFor="issueGroup" className="formlabel">
-                Issue Group
-              </Form.Label>
-              <Controller
-                name="issueGroup"
-                control={control}
-                render={({ field }) => (
-                  <Form.Select
-                    className={`formcontrol`}
-                    {...field}
-                    id="issueGroup"
+                  {errors.issueDescription && (
+                    <span className={classes.error}>
+                      {errors.issueDescription.message}
+                    </span>
+                  )}
+                </Form.Group>
+                <Form.Group className="pt-2">
+                  <Form.Label htmlFor="issueGroup" className="formlabel">
+                    Issue Group
+                  </Form.Label>
+                  <Controller
+                    name="issueGroup"
+                    control={control}
+                    render={({ field }) => (
+                      <Form.Select
+                        className={`formcontrol`}
+                        {...field}
+                        id="issueGroup"
+                        onChange={(e) => {
+                          field.onChange(e);
+                          let managedBy =
+                            allGroupData &&
+                            allGroupData.filter(
+                              (e) => e.groupId === watch("issueGroup")
+                            );
+                          setValue("managedBy", managedBy[0].managedBy.name);
+                          setValue(
+                            "managedId",
+                            managedBy[0].managedBy.managedBy
+                          );
+                        }}
+                      >
+                        <option value={""} hidden>
+                          Choose Type
+                        </option>
+                        {allGroupData &&
+                          allGroupData.map((e, i) => {
+                            return (
+                              <option key={i} value={e.groupId}>
+                                {e.name}
+                              </option>
+                            );
+                          })}
+                      </Form.Select>
+                    )}
+                  />
+                  {errors.issueGroup && (
+                    <span className={classes.error}>
+                      {errors.issueGroup.message}
+                    </span>
+                  )}
+                </Form.Group>
+              </div>
+              <div>
+                <Form.Group className="pt-2">
+                  <Form.Label htmlFor="managedBy" className="formlabel">
+                    Managed By
+                  </Form.Label>
+                  <Controller
+                    name="managedBy"
+                    control={control}
+                    render={({ field }) => (
+                      <Form.Control
+                        type="text"
+                        disabled
+                        {...field}
+                        id="managedBy"
+                        placeholder="Enter Managed By Name"
+                      />
+                    )}
+                  />
+                  {errors.managedBy && (
+                    <span className={classes.error}>
+                      {errors.managedBy.message}
+                    </span>
+                  )}
+                </Form.Group>
+                {/* <Form.Group className="pt-2">
+                  <Form.Label htmlFor="assignedTo" className="formlabel">
+                    Assigned To
+                  </Form.Label>
+                  <Controller
+                    name="assignedTo"
+                    control={control}
+                    render={({ field }) => (
+                      <Form.Control
+                        type="text"
+                        {...field}
+                        id="assignedTo"
+                        placeholder="Enter AssignedTo Name"
+                      />
+                    )}
+                  />
+                  {errors.assignedTo && (
+                    <span className={classes.error}>
+                      {errors.assignedTo.message}
+                    </span>
+                  )}
+                </Form.Group> */}
+                <Form.Group className="pt-2">
+                  <Form.Label htmlFor="mailTo" className="formlabel">
+                    Mail To
+                  </Form.Label>
+                  <Controller
+                    name="mailTo"
+                    control={control}
+                    render={({ field }) => (
+                      <Form.Control
+                        type="text"
+                        {...field}
+                        id="mailTo"
+                        placeholder="Enter Mail To"
+                      />
+                    )}
+                  />
+                  {errors.mailTo && (
+                    <span className={classes.error}>
+                      {errors.mailTo.message}
+                    </span>
+                  )}
+                </Form.Group>
+                <Form.Group className="pt-2">
+                  <Form.Label htmlFor="fileupload" className={`formlabel`}>
+                    <Uploadicon />
+                    <span style={{ margin: "1em" }}>Attachment</span>
+                  </Form.Label>
+                  {file === null && (
+                    <input
+                      type="file"
+                      name="fileupload"
+                      className={classes.hidden}
+                      style={{ display: "none" }}
+                      id="fileupload"
+                      onChange={(event) => fileReaderHandler(event)}
+                    />
+                  )}
+                  <span
+                    className={classes.attachement}
+                    onClick={() => openFileNewWindow(file.fileData)}
                   >
-                    <option value={""} hidden>
-                      Choose Type
-                    </option>
-                    <option value={"com"}>common</option>
-                  </Form.Select>
-                )}
-              />
-              {errors.issueGroup && (
-                <span className={classes.error}>
-                  {errors.issueGroup.message}
-                </span>
-              )}
-            </Form.Group>
-            <Form.Group className="pt-2">
-              <Form.Label htmlFor="managedBy" className="formlabel">
-                Managed By
-              </Form.Label>
-              <Controller
-                name="managedBy"
-                control={control}
-                render={({ field }) => (
-                  <Form.Control
-                    type="text"
-                    {...field}
-                    id="managedBy"
-                    placeholder="Enter CFS Branch Name"
-                  />
-                )}
-              />
-              {errors.managedBy && (
-                <span className={classes.error}>
-                  {errors.managedBy.message}
-                </span>
-              )}
-            </Form.Group>
-            <Form.Group className="pt-2">
-              <Form.Label htmlFor="assignedTo" className="formlabel">
-                Assigned To
-              </Form.Label>
-              <Controller
-                name="assignedTo"
-                control={control}
-                render={({ field }) => (
-                  <Form.Control
-                    type="text"
-                    {...field}
-                    id="assignedTo"
-                    placeholder="Enter CFS Branch Name"
-                  />
-                )}
-              />
-              {errors.assignedTo && (
-                <span className={classes.error}>
-                  {errors.assignedTo.message}
-                </span>
-              )}
-            </Form.Group>
-            <Form.Group className="pt-2">
-              <Form.Label htmlFor="fileupload" className={`formlabel`}>
-                <Uploadicon />
-                <span style={{ margin: "1em" }}>Attachment</span>
-              </Form.Label>
-              {file === null && (
-                <input
-                  type="file"
-                  name="fileupload"
-                  className={classes.hidden}
-                  style={{ display: "none" }}
-                  id="fileupload"
-                  onChange={(event) => fileReaderHandler(event)}
-                />
-              )}
-              <span
-                className={classes.attachement}
-                onClick={() => openFileNewWindow(file.fileData)}
-              >
-                {file && file.fileName}
-              </span>
-            </Form.Group>
-            {/* <Form.Group className="pt-2">
+                    {file && file.fileName}
+                  </span>
+                </Form.Group>
+                {/* <Form.Group className="pt-2">
               <Form.Label htmlFor="startTime" className="formlabel">
                 Start Time
               </Form.Label>
@@ -257,7 +318,7 @@ const AddTicket = ({ setPopup }) => {
                 </span>
               )}
             </Form.Group> */}
-            {/* <Form.Group className="pt-2">
+                {/* <Form.Group className="pt-2">
               <Form.Label htmlFor="endTime" className="formlabel">
                 End Time
               </Form.Label>
@@ -283,7 +344,7 @@ const AddTicket = ({ setPopup }) => {
                 <span className={classes.error}>{errors.endTime.message}</span>
               )}
             </Form.Group> */}
-            {/* <Form.Group className="pt-2">
+                {/* <Form.Group className="pt-2">
               <Form.Label htmlFor="actualEndTime" className="formlabel">
                 Actual End Time
               </Form.Label>
@@ -311,10 +372,12 @@ const AddTicket = ({ setPopup }) => {
                 </span>
               )}
             </Form.Group> */}
+              </div>
+            </div>
+            <button type="submit" className={classes.savebtn}>
+              Add Ticket
+            </button>
           </div>
-          <button type="submit" className={classes.savebtn}>
-            Add Ticket
-          </button>
         </form>
       </div>
     </div>
