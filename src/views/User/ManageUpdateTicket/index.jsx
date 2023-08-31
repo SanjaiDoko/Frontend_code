@@ -9,6 +9,7 @@ import { fileReaderFunction, openFileNewWindow } from "../../../helper";
 import { useEffect, useState } from "react";
 import { ReactComponent as Uploadicon } from "../../../../src/assets/Icons/uploadicon.svg";
 import {
+  useGetAllUserByGroupId,
   useGetSpecificTicketById,
   useUpdateTicket,
 } from "../../../hooks/ticketHooks";
@@ -25,10 +26,15 @@ const Index = () => {
 
   const role = useSelector((state) => state.profile.role);
 
+  const groupId = localStorage.getItem("groupId");
+
   const { id } = useParams();
 
   const { data: uniqueTicketData, isLoading: ticketLoading } =
     useGetSpecificTicketById(id);
+
+  const { data: allUser, isLoading: userLoading } =
+    useGetAllUserByGroupId(groupId);
 
   const userId = localStorage.getItem("allMasterId");
 
@@ -71,12 +77,14 @@ const Index = () => {
 
   useEffect(() => {
     if (uniqueTicketData) {
+      uniqueTicketData[0].endTime = moment(uniqueTicketData[0].endTime);
+      console.log(uniqueTicketData[0]);
       reset(uniqueTicketData[0]);
       setUploadFile(uniqueTicketData[0].files);
     }
-  }, [uniqueTicketData]);
+  }, [reset, uniqueTicketData]);
 
-  if (groupLoading || ticketLoading) {
+  if (groupLoading || ticketLoading || userLoading) {
     return <p>Loading...</p>;
   }
 
@@ -87,6 +95,8 @@ const Index = () => {
     data.id = uniqueTicketData[0]._id;
     mutate(data);
   };
+
+  console.log(allUser, "user");
 
   const uploadMultipleFileFunction = async (event) => {
     const errorMessage = {
@@ -303,12 +313,23 @@ const Index = () => {
                       name="assignedTo"
                       control={control}
                       render={({ field }) => (
-                        <Form.Control
-                          type="text"
+                        <Form.Select
+                          className={`formcontrol`}
                           {...field}
                           id="assignedTo"
-                          placeholder="Enter Assigned To Name"
-                        />
+                        >
+                          <option value={""} hidden>
+                            Choose Type
+                          </option>
+                          {allUser &&
+                            allUser.map((e, i) => {
+                              return (
+                                <option key={i} value={e._id}>
+                                  {e.fullName}
+                                </option>
+                              );
+                            })}
+                        </Form.Select>
                       )}
                     />
                     {errors.assignedTo && (
@@ -351,28 +372,29 @@ const Index = () => {
                     multiple
                     onChange={(event) => uploadMultipleFileFunction(event)}
                   />
-                  {uploadFile.map((e, i) => {
-                    return (
-                      <div className={classes.filecontainer} key={i}>
-                        <p
-                          title={e.fileName}
-                          onClick={() => openFileNewWindow(e.fileData)}
-                          className={classes.filename}
-                        >
-                          {e.fileName}
-                        </p>
-                        <div>
-                          <DeleteIcon
-                            sx={{
-                              cursor: "pointer",
-                              color: "red",
-                            }}
-                            onClick={() => removeFileHandler(uploadFile, i)}
-                          />
+                  {uploadFile &&
+                    uploadFile.map((e, i) => {
+                      return (
+                        <div className={classes.filecontainer} key={i}>
+                          <p
+                            title={e.fileName}
+                            onClick={() => openFileNewWindow(e.fileData)}
+                            className={classes.filename}
+                          >
+                            {e.fileName}
+                          </p>
+                          <div>
+                            <DeleteIcon
+                              sx={{
+                                cursor: "pointer",
+                                color: "red",
+                              }}
+                              onClick={() => removeFileHandler(uploadFile, i)}
+                            />
+                          </div>
                         </div>
-                      </div>
-                    );
-                  })}
+                      );
+                    })}
                 </Form.Group>
                 {/* <Form.Group className="pt-2">
               <Form.Label htmlFor="startTime" className="formlabel">

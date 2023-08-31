@@ -12,7 +12,7 @@ import {
   useGetSpecificTicketById,
   useUpdateTicket,
 } from "../../../hooks/ticketHooks";
-// import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
+import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
 // import moment from "moment";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetAllGroups } from "../../../hooks/groupManagement";
@@ -20,6 +20,7 @@ import { useSelector } from "react-redux";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { toast } from "react-toastify";
 import { URL } from "../../../config";
+import moment from "moment";
 
 const EditTicket = () => {
   const [uploadFile, setUploadFile] = useState([]);
@@ -62,12 +63,18 @@ const EditTicket = () => {
       mailList: "",
       managerName: "",
       managedId: "",
+      actualEndTime: null,
+      endTime: null,
       createdBy: createdBy,
     },
   });
 
   useEffect(() => {
     if (uniqueTicketData) {
+      uniqueTicketData[0].actualEndTime = moment(
+        uniqueTicketData[0].actualEndTime
+      );
+      uniqueTicketData[0].endTime = moment(uniqueTicketData[0].endTime);
       reset(uniqueTicketData[0]);
       setUploadFile(uniqueTicketData[0].files);
     }
@@ -134,17 +141,17 @@ const EditTicket = () => {
     setUploadFile(array.filter((file, i) => i !== index));
   };
 
-
-  console.log(errors , 'eee')
-
   const onSubmit = (data) => {
-    console.log(data , 'dddd')
     const values = getValues();
     data.managedBy = values["managedId"];
+    data.endTime = moment(data.endTime).format("DD-MM-YYYY HH:MM");
+    data.actualEndTime = moment(data.actualEndTime).format("DD-MM-YYYY HH:MM");
     data.id = uniqueTicketData[0]._id;
     data.files = uploadFile;
     mutate(data);
   };
+
+  console.log(uniqueTicketData, "fff");
 
   return (
     <div className={classes.mainDiv}>
@@ -410,60 +417,64 @@ const EditTicket = () => {
                 </span>
               )}
             </Form.Group> */}
-                {/* <Form.Group className="pt-2">
-              <Form.Label htmlFor="endTime" className="formlabel">
-                End Time
-              </Form.Label>
-              <Controller
-                name="endTime"
-                control={control}
-                render={({ field }) => (
-                  <MobileDateTimePicker
-                    sx={{ width: "100%" }}
-                    {...field}
-                    ampm={false}
-                    slotProps={{
-                      textField: {
-                        readOnly: true,
-                      },
-                    }}
-                    format="DD-MM-YYYY HH:MM"
-                    onChange={(e) => field.onChange(e)}
+
+                <Form.Group className="pt-2">
+                  <Form.Label htmlFor="endTime" className="formlabel">
+                    End Time
+                  </Form.Label>
+                  <Controller
+                    name="endTime"
+                    control={control}
+                    render={({ field }) => (
+                      <MobileDateTimePicker
+                        sx={{ width: "100%" }}
+                        {...field}
+                        ampm={false}
+                        slotProps={{
+                          textField: {
+                            readOnly: true,
+                          },
+                        }}
+                        format="DD-MM-YYYY HH:MM"
+                        onChange={(e) => field.onChange(e)}
+                      />
+                    )}
                   />
-                )}
-              />
-              {errors.endTime && (
-                <span className={classes.error}>{errors.endTime.message}</span>
-              )}
-            </Form.Group> */}
-                {/* <Form.Group className="pt-2">
-              <Form.Label htmlFor="actualEndTime" className="formlabel">
-                Actual End Time
-              </Form.Label>
-              <Controller
-                name="actualEndTime"
-                control={control}
-                render={({ field }) => (
-                  <MobileDateTimePicker
-                    sx={{ width: "100%" }}
-                    {...field}
-                    ampm={false}
-                    slotProps={{
-                      textField: {
-                        readOnly: true,
-                      },
-                    }}
-                    format="DD-MM-YYYY HH:MM"
-                    onChange={(e) => field.onChange(e)}
+                  {errors.endTime && (
+                    <span className={classes.error}>
+                      {errors.endTime.message}
+                    </span>
+                  )}
+                </Form.Group>
+
+                <Form.Group className="pt-2">
+                  <Form.Label htmlFor="actualEndTime" className="formlabel">
+                    Actual End Time
+                  </Form.Label>
+                  <Controller
+                    name="actualEndTime"
+                    control={control}
+                    render={({ field }) => (
+                      <MobileDateTimePicker
+                        sx={{ width: "100%" }}
+                        {...field}
+                        ampm={false}
+                        slotProps={{
+                          textField: {
+                            readOnly: true,
+                          },
+                        }}
+                        format="DD-MM-YYYY HH:MM"
+                        onChange={(e) => field.onChange(e)}
+                      />
+                    )}
                   />
-                )}
-              />
-              {errors.actualEndTime && (
-                <span className={classes.error}>
-                  {errors.actualEndTime.message}
-                </span>
-              )}
-            </Form.Group> */}
+                  {errors.actualEndTime && (
+                    <span className={classes.error}>
+                      {errors.actualEndTime.message}
+                    </span>
+                  )}
+                </Form.Group>
               </div>
             </div>
             <button type="submit" className={classes.savebtn}>
