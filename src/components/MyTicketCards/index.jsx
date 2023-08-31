@@ -7,7 +7,6 @@ import { useState } from "react";
 
 function Booked({ data }) {
   const [popup, setPopup] = useState(null);
-  const [editId, setEditId] = useState("");
   const toggleDrawer = () => (event) => {
     if (
       event.type === "keydown" &&
@@ -18,9 +17,8 @@ function Booked({ data }) {
     setPopup(null);
   };
 
-  const editHandle = (id) => {
+  const editHandle = () => {
     setPopup(true);
-    setEditId(id);
   };
 
   return (

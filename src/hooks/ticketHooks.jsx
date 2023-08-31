@@ -22,9 +22,31 @@ const useGetAllTicketById = (id) =>
       );
     },
   });
+
+const useGetSpecificTicketById = (id) =>
+  useQuery({
+    queryKey: ["specifiTickets", id],
+    queryFn: () => {
+      return fetchData(
+        {
+          url: URL + "ticket/getTicketById",
+          method: "POST",
+          isAuthRequired: false,
+        },
+        {
+          data: [
+            {
+              id,
+            },
+          ],
+        }
+      );
+    },
+  });
+
 const useGetAllUserByGroupId = (id) =>
   useQuery({
-    queryKey: ["allTickets", id],
+    queryKey: ["allGroupTickets", id],
     queryFn: () => {
       return fetchData(
         {
@@ -45,7 +67,7 @@ const useGetAllUserByGroupId = (id) =>
 
 const useGetManageTicketById = (id) =>
   useQuery({
-    queryKey: ["allTickets", id],
+    queryKey: ["ManageTickets", id],
     queryFn: () => {
       return fetchData(
         {
@@ -66,7 +88,7 @@ const useGetManageTicketById = (id) =>
 
 const useGetAllReceivedTicketById = (id, role) =>
   useQuery({
-    queryKey: ["allTickets", id, role],
+    queryKey: ["ReceivedTickets", id, role],
     queryFn: () => {
       return fetchData(
         {
@@ -120,6 +142,9 @@ const useUpdateTicket = (onSuccessFunctions) => {
     onSuccess: (data) => {
       onSuccessFunctions(data);
       queryClient.invalidateQueries({ queryKey: ["allTickets"] });
+      queryClient.invalidateQueries({ queryKey: ["ReceivedTickets"] });
+      queryClient.invalidateQueries({ queryKey: ["ManageTickets"] });
+      queryClient.invalidateQueries({ queryKey: ["specifiTickets"] });
     },
   });
 };
@@ -131,4 +156,5 @@ export {
   useGetAllReceivedTicketById,
   useGetManageTicketById,
   useGetAllUserByGroupId,
+  useGetSpecificTicketById,
 };

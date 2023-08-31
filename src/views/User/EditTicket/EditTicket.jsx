@@ -19,6 +19,7 @@ import { useGetAllGroups } from "../../../hooks/groupManagement";
 import { useSelector } from "react-redux";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { toast } from "react-toastify";
+import { URL } from "../../../config";
 
 const EditTicket = () => {
   const [uploadFile, setUploadFile] = useState([]);
@@ -70,15 +71,18 @@ const EditTicket = () => {
 
   useEffect(() => {
     let Data = allTicketData && allTicketData.filter((e) => e._id === id);
-
+    console.log(Data, "data");
     if (allGroupData) {
       setEditData(Data);
       Data[0].mailList = Data[0]?.mailList[0];
+      if (Data[0].files) {
+        setUploadFile(Data[0].files);
+      }
       reset(Data[0]);
     }
   }, [allGroupData]);
 
-  console.log(editData , 'edit')
+  console.log(editData, "edit");
 
   if (groupLoading) {
     return <p>Loading...</p>;
@@ -149,6 +153,7 @@ const EditTicket = () => {
     const values = getValues();
     data.managedBy = values["managedId"];
     data.id = editData[0]._id;
+    data.files = uploadFile;
     mutate(data);
   };
 
@@ -298,7 +303,7 @@ const EditTicket = () => {
                     </span>
                   )}
                 </Form.Group>
-                {role === 3 && (
+                {/* {role === 3 && (
                   <Form.Group className="pt-2">
                     <Form.Label htmlFor="assignedTo" className="formlabel">
                       Assigned To
@@ -321,7 +326,7 @@ const EditTicket = () => {
                       </span>
                     )}
                   </Form.Group>
-                )}
+                )} */}
                 <Form.Group className="pt-2">
                   <Form.Label htmlFor="mailList" className="formlabel">
                     Mail To
@@ -358,13 +363,23 @@ const EditTicket = () => {
                   {uploadFile.map((e, i) => {
                     return (
                       <div className={classes.filecontainer} key={i}>
-                        <p
-                          title={e.fileName}
-                          onClick={() => openFileNewWindow(e.fileData)}
-                          className={classes.filename}
-                        >
-                          {e.fileName}
-                        </p>
+                        {e.fileData ? (
+                          <p
+                            title={e.fileName}
+                            onClick={() => openFileNewWindow(e.fileData)}
+                            className={classes.filename}
+                          >
+                            {e.fileName}
+                          </p>
+                        ) : (
+                          <a
+                            target="_blank"
+                            rel="noreferrer"
+                            href={`${URL}${e.filePath}`}
+                          >
+                            {e.fileName}
+                          </a>
+                        )}
                         <div>
                           <DeleteIcon
                             sx={{

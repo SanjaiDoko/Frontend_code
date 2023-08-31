@@ -15,6 +15,11 @@ const UpdateManageTicketComponent = lazy(() =>
 const AddTicketComponent = lazy(() =>
   import("../views/User/AddTicket/AddTicket")
 );
+
+const UpdateDashboardComponent = lazy(() =>
+  import("../views/User/ReceivedUpdateTicket/index")
+);
+
 const MainUserLayoutComponent = lazy(() =>
   import("../components/MainUserLayout/MainUserLayout")
 );
@@ -47,6 +52,10 @@ const userPaths = [
       {
         path: "updatemanageticket/:id",
         element: UpdateManageTicketComponent,
+      },
+      {
+        path: "dashboard/:id",
+        element: UpdateDashboardComponent,
       },
     ],
     status: [1],

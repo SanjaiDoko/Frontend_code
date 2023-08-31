@@ -2,11 +2,13 @@ import { useSelector } from "react-redux";
 import { useGetAllReceivedTicketById } from "../../../hooks/ticketHooks";
 import styles from "./index.module.css";
 import { DataGrid } from "@mui/x-data-grid";
+import { useNavigate } from "react-router-dom";
 
 function Dashboard() {
   const id = localStorage.getItem("allMasterId");
   const role = useSelector((state) => state.profile.role);
   const { data, isLoading } = useGetAllReceivedTicketById(id, role);
+  const navigate = useNavigate();
 
   const columns = [
     {
@@ -48,7 +50,7 @@ function Dashboard() {
 
   const rowClickFunction = (data) => {
     if (data.field === "Options") {
-      console.log("clicked");
+      navigate("/user/dashboard/" + data.row._id);
     }
   };
 
