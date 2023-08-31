@@ -9,13 +9,17 @@ import logo from "../../assets/Images/AllMastersHeaderLogo.png";
 // import { CircularProgress } from "@mui/material";
 import { useSelector } from "react-redux";
 import { useQueryClient } from "@tanstack/react-query";
+import { useLogoutUser } from "../../hooks/logout";
 
 function Header() {
   // const { mutate } = useLogoutUser();
   const queryClient = useQueryClient();
+
+  const {mutate} = useLogoutUser();
   // const navigate = useNavigate();
   // const id = localStorage.getItem("allMasterId");
   const role = useSelector((state) => state.profile.role);
+ 
   // const { data: userData, isLoading } = useProfileData(id, role);
 
   // function checkArrayAndReturnName(userData) {
@@ -106,7 +110,7 @@ function Header() {
                   </NavDropdown.Item>
                   <NavDropdown.Item
                     className="dropdownlink"
-                    // onClick={() => mutate()}
+                    onClick={() => mutate()}
                   >
                     Logout
                   </NavDropdown.Item>
