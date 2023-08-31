@@ -10,7 +10,8 @@ import { store, persistor } from "./redux/store/store";
 import { PersistGate } from "redux-persist/integration/react";
 import { ToastContainer } from "react-toastify";
 import Loader from "./components/Loader/Loader";
-
+import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
+import { LocalizationProvider } from "@mui/x-date-pickers";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -26,8 +27,10 @@ function App() {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <QueryClientProvider client={queryClient}>
-          <Suspense fallback={<Loader/>}>
-            <RouterRender />
+          <Suspense fallback={<Loader />}>
+            <LocalizationProvider dateAdapter={AdapterMoment}>
+              <RouterRender />
+            </LocalizationProvider>
           </Suspense>
         </QueryClientProvider>
         <ToastContainer position="top-center" />

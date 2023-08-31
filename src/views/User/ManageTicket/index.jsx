@@ -1,14 +1,31 @@
-import { useSelector } from "react-redux";
-import { useGetAllReceivedTicketById } from "../../../hooks/ticketHooks";
 import styles from "./index.module.css";
+import { useGetManageTicketById } from "../../../hooks/ticketHooks";
 import { DataGrid } from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
 
-function Dashboard() {
+function Index() {
   const id = localStorage.getItem("allMasterId");
-  const role = useSelector((state) => state.profile.role);
-  const { data, isLoading } = useGetAllReceivedTicketById(id, role);
+
+  const { data, isloading } = useGetManageTicketById(id);
+
   const navigate = useNavigate();
+
+  const returnStatus = (status) => {
+    let ticketStatus = "";
+    if (status == 0) {
+      ticketStatus = "Not Assigned";
+    }
+    if (status == 1) {
+      ticketStatus = "Completed";
+    }
+    if (status == 2) {
+      ticketStatus = "Progress";
+    }
+    if (status == 3) {
+      ticketStatus = "Rejected";
+    }
+    return ticketStatus;
+  };
 
   const columns = [
     {
@@ -28,6 +45,9 @@ function Dashboard() {
       flex: 1,
       headerName: "Assigned To",
       width: 150,
+      renderCell: (params) => {
+        return params.row.assignedName ? params.row.assignedName : "NA";
+      },
     },
     {
       field: "type",
@@ -36,32 +56,39 @@ function Dashboard() {
       width: 200,
     },
     {
+      field: "status",
+      flex: 1,
+      headerName: "Status",
+      width: 200,
+      renderCell: (params) => returnStatus(params.row.status),
+    },
+    {
       flex: 1,
       field: "Options",
       sortable: false,
       width: 100,
-      renderCell: () => <button className={styles.editBtn}>Update</button>,
+      renderCell: () => (
+        <button className={styles.editBtn}>Update Ticket</button>
+      ),
     },
   ];
 
-  if (isLoading) {
-    return <p>Loading...</p>;
+  if (isloading) {
+    return <p>Loading....</p>;
   }
 
   const rowClickFunction = (data) => {
     if (data.field === "Options") {
-      navigate("/user/dashboard/" + data.row._id);
+      navigate("/user/updatemanageticket/" + data.row._id);
     }
   };
 
-  console.log(data, "data");
-
-  return (
-    <div className={styles.mainDiv}>
-      <div className={styles.subDiv}>
-        <h3 style={{ marginTop: "1em" }}>Received Ticket </h3>
-      </div>
-      <div>
+  if (data !== undefined) {
+    return (
+      <div className={styles.mainDiv}>
+        <div className={styles.subDiv}>
+          <h3 style={{ marginTop: "1em" }}>Manage Ticket </h3>
+        </div>
         {data && data.length > 0 ? (
           <DataGrid
             sx={{ textTransform: "capitalize" }}
@@ -82,8 +109,8 @@ function Dashboard() {
           <p>No Data Found</p>
         )}
       </div>
-    </div>
-  );
+    );
+  }
 }
 
-export default Dashboard;
+export default Index;

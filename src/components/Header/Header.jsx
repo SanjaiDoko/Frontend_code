@@ -8,14 +8,12 @@ import { Link } from "react-router-dom";
 import logo from "../../assets/Images/AllMastersHeaderLogo.png";
 // import { CircularProgress } from "@mui/material";
 import { useSelector } from "react-redux";
-import { useQueryClient } from "@tanstack/react-query";
+import { useLogoutUser } from "../../hooks/logout";
 
 function Header() {
-  // const { mutate } = useLogoutUser();
-  const queryClient = useQueryClient();
-  // const navigate = useNavigate();
-  // const id = localStorage.getItem("allMasterId");
+  const { mutate } = useLogoutUser();
   const role = useSelector((state) => state.profile.role);
+
   // const { data: userData, isLoading } = useProfileData(id, role);
 
   // function checkArrayAndReturnName(userData) {
@@ -48,12 +46,19 @@ function Header() {
                 Dashboard
               </Link>
             )}
-            {role === 1 && (
-              <Link
-                className="linktag"
-                // to={redirectLink(role) + "mybookings#all"}
-              >
+            {role === 3 && (
+              <Link className="linktag" to="/user/manageticket">
+                Manage Ticket
+              </Link>
+            )}
+            {(role === 1 || role === 3) && (
+              <Link className="linktag" to="/user/mytickets">
                 My Ticket
+              </Link>
+            )}
+            {role === 3 && (
+              <Link className="linktag" to="/user/dashboard">
+                Received Ticket
               </Link>
             )}
             {role === 2 && (
@@ -72,39 +77,9 @@ function Header() {
               </Link>
             )}
             <Nav.Item className="d-flex gap-2">
-              <div className="hellotextdiv">
-                <span className="linktag">Hello</span>
-                <NavDropdown
-                  // title={
-                  // 	isLoading ? (
-                  // 		<CircularProgress size={15} />
-                  // 	) : (
-                  // 		// checkArrayAndReturnName(userData)
-                  // 	)
-                  // }
-                  id="basic-nav-dropdown"
-                >
-                  <NavDropdown.Item
-                    className="dropdownlink"
-                    onClick={() => {
-                      queryClient.invalidateQueries({
-                        queryKey: ["legalNameBookingList"],
-                      });
-                      // navigate(
-                      // 	redirectLink(role) + "Myaccount"
-                      // );
-                    }}
-                  >
-                    My Account
-                  </NavDropdown.Item>
-                  <NavDropdown.Item
-                    className="dropdownlink"
-                    // onClick={() => mutate()}
-                  >
-                    Logout
-                  </NavDropdown.Item>
-                </NavDropdown>
-              </div>
+              <NavDropdown.Item className="linktag" onClick={() => mutate()}>
+                Logout
+              </NavDropdown.Item>
             </Nav.Item>
           </Nav>
         </Navbar.Collapse>

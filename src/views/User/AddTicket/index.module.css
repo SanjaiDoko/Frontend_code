@@ -1,19 +1,33 @@
 .mainDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-top: 3em;
-  margin-left: 1em;
-  margin-right: 1em;
+  width: 100%;
 }
-.editBtn {
-  border-radius: 5px;
-  color: rgb(212, 241, 212);
-  background-color: green;
-  border: none;
+
+.hidden {
+  display: none;
+}
+.inputDiv {
+  display: flex;
+  gap: 10px;
 }
 .subDiv {
   display: flex;
   justify-content: space-between;
   gap: 5px;
 }
+.addDiv {
+  width: 500px !important;
+}
+
+.AddTicketDiv {
+  display: flex;
+
+  max-width: 500px;
+}
+
 .attachement {
   margin: 2em;
   color: red;
