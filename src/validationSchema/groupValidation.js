@@ -15,6 +15,6 @@ export const editGroupValidation = yup.object({
     .lowercase()
     .trim()
     .required("Group Name is required"),
-  managedBy: yup.string().lowercase().trim(),
-  users: yup.array(),
+  // managedBy: yup.string().lowercase().trim(),
+  // users: yup.array(),
 });

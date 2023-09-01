@@ -6,7 +6,6 @@ import Loader from "../../../components/Loader/Loader";
 function AdminDashboard() {
   const { data: groupList, isLoading: groupLoading } = useGetAllGroups();
   const { data: userList, isLoading: userLoading } = useGetAllUsers();
-  console.log(groupList, "groupList");
 
   if (userLoading || groupLoading) {
     return <Loader />;

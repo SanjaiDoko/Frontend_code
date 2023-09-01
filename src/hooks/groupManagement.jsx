@@ -87,6 +87,9 @@ const useRemoveUserById = () => {
         queryKey: ["allGroups"],
       });
       queryClient.invalidateQueries({
+        queryKey: ["allUsers"],
+      });
+      queryClient.invalidateQueries({
         queryKey: ["getUserByGroupId"],
       });
     },
@@ -95,10 +98,9 @@ const useRemoveUserById = () => {
     },
   });
 };
-const useGetUserByGroupId = (id) =>
-  useQuery({
-    queryKey: ["getUserByGroupId"],
-    queryFn: () => {
+const useGetUserByGroupId = () =>
+  useMutation({
+    mutationFn: (id) => {
       return fetchData(
         {
           url: URL + "user/getUserByGroupId",
@@ -114,7 +116,6 @@ const useGetUserByGroupId = (id) =>
         }
       );
     },
-    enabled: id != null,
     onError: (error) => {
       toast.error(error.message.split(":")[1]);
     },
