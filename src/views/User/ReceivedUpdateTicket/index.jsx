@@ -160,6 +160,15 @@ const EditTicket = () => {
           <div>
             <div className={classes.addDivHeading}>
               <h2>Edit Ticket</h2>
+              <button
+                type="button"
+                className={classes.rejectBtn}
+                onClick={() => {
+                  mutate({ id, status: 1 });
+                }}
+              >
+                Completed
+              </button>
             </div>
             <div className={classes.inputDiv}>
               <div>
