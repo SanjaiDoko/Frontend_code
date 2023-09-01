@@ -22,7 +22,6 @@ import Loader from "../../../components/Loader/Loader";
 import { CircularProgress } from "@mui/material";
 
 const AddAndEditGroup = ({ onCloseButtonClick, editData, isEdit, type }) => {
-  
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [options, setOptions] = useState([]);
   const [selectedUser, setselectedUser] = useState([]);
@@ -36,12 +35,23 @@ const AddAndEditGroup = ({ onCloseButtonClick, editData, isEdit, type }) => {
 
   const { mutate: insertMutate, isLoading: insertLoading } =
     useInsertGroup(onCloseButtonClick);
-  const { data: userList, isLoading: userLoading } = useGetAllUsers();
+  const {
+    data: userList,
+    isLoading: userLoading,
+    refetch: userRefetch,
+  } = useGetAllUsers();
+
   const { mutate: updateMutate, isLoading: updateLoading } =
     useUpdateGroup(onCloseButtonClick);
-  const { data: UserByGroupIdData, isLoading: getUserByGroupIdLoading } =
-    useGetUserByGroupId(editData?.groupId);
-  const { mutate: removeUserMuate } = useRemoveUserById();
+
+  const {
+    mutate: UserByGroupIdDataMutate,
+    data: UserByGroupIdData,
+    isLoading: getUserByGroupIdLoading,
+  } = useGetUserByGroupId();
+
+  const { mutate: removeUserMuate, isLoading: removeLoader } =
+    useRemoveUserById();
 
   const managedData = userList.filter((e) => e.status === 1);
   const {
@@ -65,6 +75,11 @@ const AddAndEditGroup = ({ onCloseButtonClick, editData, isEdit, type }) => {
   });
 
   useEffect(() => {
+    userRefetch();
+    if (isEdit) {
+      UserByGroupIdDataMutate(editData?.groupId);
+      clearErrors("managedBy");
+    }
     setOptions(
       managedData
         .filter((e) => e.groupId === null && e._id !== watch("managedBy"))
@@ -72,8 +87,7 @@ const AddAndEditGroup = ({ onCloseButtonClick, editData, isEdit, type }) => {
           return { name: e.fullName, id: e._id };
         })
     );
-    isEdit && clearErrors("managedBy");
-  }, []);
+  }, [watch("managedBy"), userList]);
 
   function onSubmit(data) {
     if (isEdit) {
@@ -225,9 +239,16 @@ const AddAndEditGroup = ({ onCloseButtonClick, editData, isEdit, type }) => {
                   <>
                     <div className={styles.assignedUserdiv}>
                       <p>{e.fullName}</p>
-                      <button onClick={() => removeUserMuate(e._id)}>
-                        <MdDeleteForever />
-                      </button>
+                      {removeLoader ? (
+                        <CircularProgress />
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={() => removeUserMuate(e._id)}
+                        >
+                          <MdDeleteForever />
+                        </button>
+                      )}
                     </div>
                   </>
                 );

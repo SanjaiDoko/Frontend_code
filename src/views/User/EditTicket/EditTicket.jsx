@@ -9,7 +9,6 @@ import { fileReaderFunction, openFileNewWindow } from "../../../helper";
 import { useEffect, useState } from "react";
 import { ReactComponent as Uploadicon } from "../../../../src/assets/Icons/uploadicon.svg";
 import {
-  useGetAllTicketById,
   useGetSpecificTicketById,
   useUpdateTicket,
 } from "../../../hooks/ticketHooks";
@@ -26,20 +25,16 @@ import moment from "moment";
 const EditTicket = () => {
   const [uploadFile, setUploadFile] = useState([]);
 
-  const [editData, setEditData] = useState(null);
-
   const role = useSelector((state) => state.profile.role);
 
   const { id } = useParams();
 
-  const userId = localStorage.getItem("allMasterId");
-
   const navigate = useNavigate();
 
-  const { data: allTicketData, isloading } = useGetAllTicketById(userId);
+  // const { data: allTicketData, isloading } = useGetAllTicketById(userId);
 
   const { data: uniqueTicketData, isLoading: ticketLoading } =
-  useGetSpecificTicketById(id);
+    useGetSpecificTicketById(id);
 
   const createdBy = localStorage.getItem("allMasterId");
 
@@ -77,13 +72,11 @@ const EditTicket = () => {
   useEffect(() => {
     if (uniqueTicketData) {
       uniqueTicketData[0].endTime = moment(uniqueTicketData[0].endTime);
-      console.log(uniqueTicketData[0],"idsdf");
+      console.log(uniqueTicketData[0], "idsdf");
       reset(uniqueTicketData[0]);
       setUploadFile(uniqueTicketData[0].files);
     }
-  }, [allGroupData]);
-
-  console.log(editData, "edit");
+  }, [uniqueTicketData]);
 
   if (groupLoading || ticketLoading) {
     return <p>Loading...</p>;
@@ -146,15 +139,15 @@ const EditTicket = () => {
     setUploadFile(array.filter((file, i) => i !== index));
   };
 
-  if (isloading) {
+  if (ticketLoading) {
     return <p>Loading...</p>;
   }
 
   const onSubmit = (data) => {
-    console.log(data,"data")
+    console.log(data, "data");
     const values = getValues();
     data.managedBy = values["managedId"];
-    data.mailList = [data.mailList]
+    data.mailList = [data.mailList];
     data.id = uniqueTicketData[0]._id;
     data.files = uploadFile;
     mutate(data);

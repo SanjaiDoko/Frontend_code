@@ -78,7 +78,7 @@ const Index = () => {
   useEffect(() => {
     if (uniqueTicketData) {
       uniqueTicketData[0].endTime = moment(uniqueTicketData[0].endTime);
-      console.log(uniqueTicketData[0],"idsdf");
+      console.log(uniqueTicketData[0], "idsdf");
       reset(uniqueTicketData[0]);
       setUploadFile(uniqueTicketData[0].files);
     }
@@ -163,7 +163,17 @@ const Index = () => {
           <div>
             <div className={classes.addDivHeading}>
               <h2>Edit Ticket</h2>
+              <button
+                type="button"
+                className={classes.rejectBtn}
+                onClick={() => {
+                  mutate({ id, status: 3 });
+                }}
+              >
+                Reject
+              </button>
             </div>
+
             <div className={classes.inputDiv}>
               <div>
                 <Form.Group className="pt-2">
