@@ -487,15 +487,15 @@ const EditTicket = () => {
               </div>
             </div>
             {uniqueTicketData[0].status !== 1 ? (
-              <button
-                type="submit"
-                className={classes.savebtn}
-                disabled={uniqueTicketData[0].status == 1}
-              >
+              <button type="submit" className={classes.savebtn}>
                 Update Ticket
               </button>
             ) : (
-              <button className={classes.savebtn} onClick={() => navigate(-1)}>
+              <button
+                type="button"
+                className={classes.savebtn}
+                onClick={() => navigate(-1)}
+              >
                 Back
               </button>
             )}

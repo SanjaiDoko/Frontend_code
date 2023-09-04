@@ -468,9 +468,20 @@ const EditTicket = () => {
             </Form.Group> */}
               </div>
             </div>
-            <button type="submit" className={classes.savebtn}>
-              Update Ticket
-            </button>
+            {uniqueTicketData[0].status === 1 ||
+            uniqueTicketData[0].status === 3 ? (
+              <button
+                type="button"
+                className={classes.savebtn}
+                onClick={() => navigate(-1)}
+              >
+                Back
+              </button>
+            ) : (
+              <button type="submit" className={classes.savebtn}>
+                Update Ticket
+              </button>
+            )}
           </div>
         </form>
       </div>

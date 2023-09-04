@@ -512,7 +512,11 @@ const Index = () => {
                 Update Ticket
               </button>
             ) : (
-              <button className={classes.savebtn} onClick={() => navigate(-1)}>
+              <button
+                type="button"
+                className={classes.savebtn}
+                onClick={() => navigate(-1)}
+              >
                 Back
               </button>
             )}
