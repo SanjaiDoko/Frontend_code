@@ -66,7 +66,7 @@ const EditTicket = () => {
       startTime: null,
       actualEndTime: null,
       endTime: null,
-      timelog: "",
+      timeLog: "",
       createdBy: createdBy,
     },
   });
@@ -491,17 +491,17 @@ const EditTicket = () => {
                 </Form.Group>
 
                 <Form.Group className="pt-2">
-                  <Form.Label htmlFor="timelog" className="formlabel">
+                  <Form.Label htmlFor="timeLog" className="formlabel">
                     Time Log
                   </Form.Label>
                   <Controller
-                    name="timelog"
+                    name="timeLog"
                     control={control}
                     render={({ field }) => (
                       <Form.Control
                         type="text"
                         {...field}
-                        id="timelog"
+                        id="timeLog"
                         placeholder="Enter timelog"
                       />
                     )}
