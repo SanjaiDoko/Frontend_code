@@ -177,7 +177,7 @@ const EditTicket = () => {
               )}
               {uniqueTicketData[0].status === 1 && (
                 <button type="button" className={classes.rejectBtn}>
-                  Completed Task
+                  Task is Completed
                 </button>
               )}
             </div>
