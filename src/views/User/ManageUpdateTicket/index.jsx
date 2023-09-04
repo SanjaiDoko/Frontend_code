@@ -232,18 +232,13 @@ const Index = () => {
                     name="issueDescription"
                     control={control}
                     render={({ field }) => (
-                      <Form.Control
-                        type="text"
-                        {...field}
-                        id="issueDescription"
-                        placeholder="Enter Issue Description"
-                      />
+                      <textarea {...field} rows={2} cols={20} />
                     )}
                   />
                   {errors.issueDescription && (
-                    <span className={classes.error}>
+                    <p className={classes.error}>
                       {errors.issueDescription.message}
-                    </span>
+                    </p>
                   )}
                 </Form.Group>
                 <Form.Group className="pt-2">
