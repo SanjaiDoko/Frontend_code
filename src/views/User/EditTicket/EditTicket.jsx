@@ -20,7 +20,7 @@ import { useSelector } from "react-redux";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { toast } from "react-toastify";
 import { URL } from "../../../config";
-import moment from "moment";
+// import moment from "moment";
 
 const EditTicket = () => {
   const [uploadFile, setUploadFile] = useState([]);
@@ -71,8 +71,12 @@ const EditTicket = () => {
 
   useEffect(() => {
     if (uniqueTicketData) {
-      uniqueTicketData[0].endTime = moment(uniqueTicketData[0].endTime);
-      console.log(uniqueTicketData[0], "idsdf");
+      // if (uniqueTicketData[0].endTime) {
+      //   uniqueTicketData[0].endTime = moment(uniqueTicketData[0].endTime);
+      // }
+      // else {
+      //   uniqueTicketData[0].endTime = null;
+      // }
       reset(uniqueTicketData[0]);
       setUploadFile(uniqueTicketData[0].files);
     }
@@ -144,7 +148,6 @@ const EditTicket = () => {
   }
 
   const onSubmit = (data) => {
-    console.log(data, "data");
     const values = getValues();
     data.managedBy = values["managedId"];
     data.mailList = [data.mailList];
@@ -217,9 +220,9 @@ const EditTicket = () => {
                     )}
                   />
                   {errors.issueDescription && (
-                    <span className={classes.error}>
+                    <p className={classes.error}>
                       {errors.issueDescription.message}
-                    </span>
+                    </p>
                   )}
                 </Form.Group>
                 <Form.Group className="pt-2">

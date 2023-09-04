@@ -72,10 +72,14 @@ const EditTicket = () => {
 
   useEffect(() => {
     if (uniqueTicketData) {
-      uniqueTicketData[0].actualEndTime = moment(
-        uniqueTicketData[0].actualEndTime
-      );
-      uniqueTicketData[0].endTime = moment(uniqueTicketData[0].endTime);
+      if (uniqueTicketData[0].actualEndTime) {
+        uniqueTicketData[0].actualEndTime = moment(
+          uniqueTicketData[0].actualEndTime
+        );
+      }
+      if (uniqueTicketData[0].endTime) {
+        uniqueTicketData[0].endTime = moment(uniqueTicketData[0].endTime);
+      }
       uniqueTicketData[0].startTime = moment(uniqueTicketData[0].startTime);
       reset(uniqueTicketData[0]);
       setUploadFile(uniqueTicketData[0].files);
@@ -146,14 +150,11 @@ const EditTicket = () => {
   const onSubmit = (data) => {
     const values = getValues();
     data.managedBy = values["managedId"];
-    data.endTime = moment(data.endTime).format("DD-MM-YYYY HH:MM");
-    data.actualEndTime = moment(data.actualEndTime).format("DD-MM-YYYY HH:MM");
+    data.actualEndTime = moment(data.actualEndTime);
     data.id = uniqueTicketData[0]._id;
     data.files = uploadFile;
     mutate(data);
   };
-
-  console.log(uniqueTicketData[0].status, "fff");
 
   return (
     <div className={classes.mainDiv}>
@@ -444,6 +445,7 @@ const EditTicket = () => {
                             readOnly: true,
                           },
                         }}
+                        disabled
                         format="DD-MM-YYYY HH:MM"
                         onChange={(e) => field.onChange(e)}
                       />
