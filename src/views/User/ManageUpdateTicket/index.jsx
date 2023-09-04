@@ -78,8 +78,11 @@ const Index = () => {
 
   useEffect(() => {
     if (uniqueTicketData) {
-      uniqueTicketData[0].endTime = moment(uniqueTicketData[0].endTime);
-      console.log(uniqueTicketData[0], "idsdf");
+      if (uniqueTicketData[0].endTime) {
+        uniqueTicketData[0].endTime = moment(uniqueTicketData[0].endTime);
+      } else {
+        uniqueTicketData[0].endTime = null;
+      }
       reset(uniqueTicketData[0]);
       setUploadFile(uniqueTicketData[0].files);
     }
@@ -92,7 +95,7 @@ const Index = () => {
   const onSubmit = (data) => {
     const values = getValues();
     data.managedBy = values["managedId"];
-    data.endTime = moment(data.endTime).format("DD-MM-YYYY HH:MM");
+    data.endTime = moment(data.endTime);
     data.id = uniqueTicketData[0]._id;
     mutate(data);
   };
@@ -157,8 +160,6 @@ const Index = () => {
     setUploadFile(array.filter((file, i) => i !== index));
   };
 
-  console.log(uniqueTicketData[0].status, "fff");
-
   return (
     <div className={classes.mainDiv}>
       <div className={classes.AddTicketDiv}>
@@ -174,7 +175,7 @@ const Index = () => {
                     mutate({ id, status: 3 });
                   }}
                 >
-                  Reject
+                  Reject Task
                 </button>
               )}
             </div>

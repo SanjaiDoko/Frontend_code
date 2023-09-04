@@ -66,16 +66,21 @@ const EditTicket = () => {
       startTime: null,
       actualEndTime: null,
       endTime: null,
+      timelog: "",
       createdBy: createdBy,
     },
   });
 
   useEffect(() => {
     if (uniqueTicketData) {
-      uniqueTicketData[0].actualEndTime = moment(
-        uniqueTicketData[0].actualEndTime
-      );
-      uniqueTicketData[0].endTime = moment(uniqueTicketData[0].endTime);
+      if (uniqueTicketData[0].actualEndTime) {
+        uniqueTicketData[0].actualEndTime = moment(
+          uniqueTicketData[0].actualEndTime
+        );
+      }
+      if (uniqueTicketData[0].endTime) {
+        uniqueTicketData[0].endTime = moment(uniqueTicketData[0].endTime);
+      }
       uniqueTicketData[0].startTime = moment(uniqueTicketData[0].startTime);
       reset(uniqueTicketData[0]);
       setUploadFile(uniqueTicketData[0].files);
@@ -146,14 +151,13 @@ const EditTicket = () => {
   const onSubmit = (data) => {
     const values = getValues();
     data.managedBy = values["managedId"];
-    data.endTime = moment(data.endTime).format("DD-MM-YYYY HH:MM");
-    data.actualEndTime = moment(data.actualEndTime).format("DD-MM-YYYY HH:MM");
+    data.actualEndTime = moment(data.actualEndTime);
     data.id = uniqueTicketData[0]._id;
     data.files = uploadFile;
     mutate(data);
   };
 
-  console.log(uniqueTicketData[0].status, "fff");
+  console.log(uniqueTicketData[0], "xgdg");
 
   return (
     <div className={classes.mainDiv}>
@@ -170,7 +174,7 @@ const EditTicket = () => {
                     mutate({ id, status: 1 });
                   }}
                 >
-                  Completed
+                  Complete Task
                 </button>
               )}
             </div>
@@ -444,6 +448,7 @@ const EditTicket = () => {
                             readOnly: true,
                           },
                         }}
+                        disabled
                         format="DD-MM-YYYY HH:MM"
                         onChange={(e) => field.onChange(e)}
                       />
@@ -483,6 +488,24 @@ const EditTicket = () => {
                       {errors.actualEndTime.message}
                     </span>
                   )}
+                </Form.Group>
+
+                <Form.Group className="pt-2">
+                  <Form.Label htmlFor="timelog" className="formlabel">
+                    Time Log
+                  </Form.Label>
+                  <Controller
+                    name="timelog"
+                    control={control}
+                    render={({ field }) => (
+                      <Form.Control
+                        type="text"
+                        {...field}
+                        id="timelog"
+                        placeholder="Enter timelog"
+                      />
+                    )}
+                  />
                 </Form.Group>
               </div>
             </div>
