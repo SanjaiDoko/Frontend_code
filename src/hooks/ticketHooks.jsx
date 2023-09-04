@@ -10,7 +10,7 @@ const useGetAllTicketById = (id) =>
         {
           url: URL + "ticket/getTicketsByUserId",
           method: "POST",
-          isAuthRequired: false,
+          isAuthRequired: true,
         },
         {
           data: [
@@ -31,7 +31,7 @@ const useGetSpecificTicketById = (id) =>
         {
           url: URL + "ticket/getTicketById",
           method: "POST",
-          isAuthRequired: false,
+          isAuthRequired: true,
         },
         {
           data: [
@@ -52,7 +52,7 @@ const useGetAllUserByGroupId = (id) =>
         {
           url: URL + "user/getUserByGroupId",
           method: "POST",
-          isAuthRequired: false,
+          isAuthRequired: true,
         },
         {
           data: [
@@ -73,7 +73,7 @@ const useGetManageTicketById = (id) =>
         {
           url: URL + "ticket/getAllRecievedTicketsByManagerId",
           method: "POST",
-          isAuthRequired: false,
+          isAuthRequired: true,
         },
         {
           data: [
@@ -94,7 +94,7 @@ const useGetAllReceivedTicketById = (id, role) =>
         {
           url: URL + "ticket/getAllRecievedTicketsByUserId",
           method: "POST",
-          isAuthRequired: false,
+          isAuthRequired: true,
         },
         {
           data: [
@@ -116,7 +116,7 @@ const useInsertTicket = (onSuccessFunctions) => {
         {
           url: URL + "ticket/insertTicket",
           method: "POST",
-          isAuthRequired: false,
+          isAuthRequired: true,
         },
         { data: [data] }
       ),
@@ -135,7 +135,7 @@ const useUpdateTicket = (onSuccessFunctions) => {
         {
           url: URL + "ticket/updateTicket",
           method: "POST",
-          isAuthRequired: false,
+          isAuthRequired: true,
         },
         { data: [data] }
       ),

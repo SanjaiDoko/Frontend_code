@@ -5,12 +5,19 @@
   margin-top: 3em;
   width: 100%;
 }
-.inputDiv{
+.inputDiv {
   display: flex;
   gap: 15px;
 }
 
-.hidden{
+.rejectBtn {
+  font-weight: 500 !important;
+  font-size: 17px !important;
+  color: #01c442 !important;
+  padding: 2px 20px !important;
+}
+
+.hidden {
   display: none;
 }
 .subDiv {

@@ -43,7 +43,7 @@ function Header() {
           <Nav>
             {role === 1 && (
               <Link className="linktag" to="/user/dashboard">
-                Dashboard
+                Received Ticket
               </Link>
             )}
             {role === 3 && (

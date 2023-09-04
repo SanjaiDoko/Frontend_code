@@ -213,12 +213,7 @@ const EditTicket = () => {
                     name="issueDescription"
                     control={control}
                     render={({ field }) => (
-                      <Form.Control
-                        type="text"
-                        {...field}
-                        id="issueDescription"
-                        placeholder="Enter Issue Description"
-                      />
+                      <textarea {...field} rows={2} cols={20} />
                     )}
                   />
                   {errors.issueDescription && (
@@ -473,9 +468,20 @@ const EditTicket = () => {
             </Form.Group> */}
               </div>
             </div>
-            <button type="submit" className={classes.savebtn}>
-              Update Ticket
-            </button>
+            {uniqueTicketData[0].status === 1 ||
+            uniqueTicketData[0].status === 3 ? (
+              <button
+                type="button"
+                className={classes.savebtn}
+                onClick={() => navigate(-1)}
+              >
+                Back
+              </button>
+            ) : (
+              <button type="submit" className={classes.savebtn}>
+                Update Ticket
+              </button>
+            )}
           </div>
         </form>
       </div>

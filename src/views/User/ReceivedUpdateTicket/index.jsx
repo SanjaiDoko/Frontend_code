@@ -63,6 +63,7 @@ const EditTicket = () => {
       mailList: "",
       managerName: "",
       managedId: "",
+      startTime: null,
       actualEndTime: null,
       endTime: null,
       createdBy: createdBy,
@@ -75,6 +76,7 @@ const EditTicket = () => {
         uniqueTicketData[0].actualEndTime
       );
       uniqueTicketData[0].endTime = moment(uniqueTicketData[0].endTime);
+      uniqueTicketData[0].startTime = moment(uniqueTicketData[0].startTime);
       reset(uniqueTicketData[0]);
       setUploadFile(uniqueTicketData[0].files);
     }
@@ -151,7 +153,7 @@ const EditTicket = () => {
     mutate(data);
   };
 
-  console.log(uniqueTicketData, "fff");
+  console.log(uniqueTicketData[0].status, "fff");
 
   return (
     <div className={classes.mainDiv}>
@@ -160,6 +162,17 @@ const EditTicket = () => {
           <div>
             <div className={classes.addDivHeading}>
               <h2>Edit Ticket</h2>
+              {uniqueTicketData[0].status !== 1 && (
+                <button
+                  type="button"
+                  className={classes.rejectBtn}
+                  onClick={() => {
+                    mutate({ id, status: 1 });
+                  }}
+                >
+                  Completed
+                </button>
+              )}
             </div>
             <div className={classes.inputDiv}>
               <div>
@@ -213,12 +226,7 @@ const EditTicket = () => {
                     name="issueDescription"
                     control={control}
                     render={({ field }) => (
-                      <Form.Control
-                        type="text"
-                        {...field}
-                        id="issueDescription"
-                        placeholder="Enter Issue Description"
-                      />
+                      <textarea {...field} rows={2} cols={20} />
                     )}
                   />
                   {errors.issueDescription && (
@@ -274,8 +282,6 @@ const EditTicket = () => {
                     </span>
                   )}
                 </Form.Group>
-              </div>
-              <div>
                 <Form.Group className="pt-2">
                   <Form.Label htmlFor="managerName" className="formlabel">
                     Managed By
@@ -299,6 +305,8 @@ const EditTicket = () => {
                     </span>
                   )}
                 </Form.Group>
+              </div>
+              <div>
                 {/* {role === 3 && (
                   <Form.Group className="pt-2">
                     <Form.Label htmlFor="assignedTo" className="formlabel">
@@ -389,34 +397,35 @@ const EditTicket = () => {
                     );
                   })}
                 </Form.Group>
-                {/* <Form.Group className="pt-2">
-              <Form.Label htmlFor="startTime" className="formlabel">
-                Start Time
-              </Form.Label>
-              <Controller
-                name="startTime"
-                control={control}
-                render={({ field }) => (
-                  <MobileDateTimePicker
-                    sx={{ width: "100%" }}
-                    {...field}
-                    ampm={false}
-                    slotProps={{
-                      textField: {
-                        readOnly: true,
-                      },
-                    }}
-                    format="DD-MM-YYYY HH:MM"
-                    onChange={(e) => field.onChange(e)}
+                <Form.Group className="pt-2">
+                  <Form.Label htmlFor="startTime" className="formlabel">
+                    Start Time
+                  </Form.Label>
+                  <Controller
+                    name="startTime"
+                    control={control}
+                    render={({ field }) => (
+                      <MobileDateTimePicker
+                        sx={{ width: "100%" }}
+                        {...field}
+                        ampm={false}
+                        disabled
+                        slotProps={{
+                          textField: {
+                            readOnly: true,
+                          },
+                        }}
+                        format="DD-MM-YYYY HH:MM"
+                        onChange={(e) => field.onChange(e)}
+                      />
+                    )}
                   />
-                )}
-              />
-              {errors.startTime && (
-                <span className={classes.error}>
-                  {errors.startTime.message}
-                </span>
-              )}
-            </Form.Group> */}
+                  {errors.startTime && (
+                    <span className={classes.error}>
+                      {errors.startTime.message}
+                    </span>
+                  )}
+                </Form.Group>
 
                 <Form.Group className="pt-2">
                   <Form.Label htmlFor="endTime" className="formlabel">
@@ -477,9 +486,19 @@ const EditTicket = () => {
                 </Form.Group>
               </div>
             </div>
-            <button type="submit" className={classes.savebtn}>
-              Update Ticket
-            </button>
+            {uniqueTicketData[0].status !== 1 ? (
+              <button type="submit" className={classes.savebtn}>
+                Update Ticket
+              </button>
+            ) : (
+              <button
+                type="button"
+                className={classes.savebtn}
+                onClick={() => navigate(-1)}
+              >
+                Back
+              </button>
+            )}
           </div>
         </form>
       </div>
