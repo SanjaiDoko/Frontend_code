@@ -78,7 +78,7 @@ function Dashboard() {
     }
   };
 
-  console.log(data, "data");
+
 
   return (
     <div className={styles.mainDiv}>

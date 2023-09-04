@@ -157,6 +157,8 @@ const Index = () => {
     setUploadFile(array.filter((file, i) => i !== index));
   };
 
+  console.log(uniqueTicketData[0].status, "fff");
+
   return (
     <div className={classes.mainDiv}>
       <div className={classes.AddTicketDiv}>
@@ -164,15 +166,17 @@ const Index = () => {
           <div>
             <div className={classes.addDivHeading}>
               <h2>Edit Ticket</h2>
-              <button
-                type="button"
-                className={classes.rejectBtn}
-                onClick={() => {
-                  mutate({ id, status: 3 });
-                }}
-              >
-                Reject
-              </button>
+              {uniqueTicketData[0].status !== 3 && (
+                <button
+                  type="button"
+                  className={classes.rejectBtn}
+                  onClick={() => {
+                    mutate({ id, status: 3 });
+                  }}
+                >
+                  Reject
+                </button>
+              )}
             </div>
 
             <div className={classes.inputDiv}>
@@ -503,9 +507,15 @@ const Index = () => {
             </Form.Group>  */}
               </div>
             </div>
-            <button type="submit" className={classes.savebtn}>
-              Update Ticket
-            </button>
+            {uniqueTicketData[0].status !== 3 ? (
+              <button type="submit" className={classes.savebtn}>
+                Update Ticket
+              </button>
+            ) : (
+              <button className={classes.savebtn} onClick={() => navigate(-1)}>
+                Back
+              </button>
+            )}
           </div>
         </form>
       </div>
