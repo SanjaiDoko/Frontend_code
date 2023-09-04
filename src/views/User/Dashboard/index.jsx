@@ -10,6 +10,23 @@ function Dashboard() {
   const { data, isLoading } = useGetAllReceivedTicketById(id, role);
   const navigate = useNavigate();
 
+  const returnStatus = (status) => {
+    let ticketStatus = "";
+    if (status == 0) {
+      ticketStatus = "Not Assigned";
+    }
+    if (status == 1) {
+      ticketStatus = "Completed";
+    }
+    if (status == 2) {
+      ticketStatus = "Progress";
+    }
+    if (status == 3) {
+      ticketStatus = "Rejected";
+    }
+    return ticketStatus;
+  };
+
   const columns = [
     {
       field: "issueName",
@@ -34,6 +51,13 @@ function Dashboard() {
       flex: 1,
       headerName: "Type",
       width: 200,
+    },
+    {
+      field: "status",
+      flex: 1,
+      headerName: "Status",
+      width: 200,
+      renderCell: (params) => returnStatus(params.row.status),
     },
     {
       flex: 1,

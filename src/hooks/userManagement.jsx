@@ -9,7 +9,7 @@ const useGetAllUsers = () => {
     queryFn: () =>
       fetchData({
         url: URL + "user/getAllUsers",
-        // isAuthRequired: true,
+        isAuthRequired: true,
       }),
     refetchOnMount: true,
     onError: (error) => {
@@ -25,7 +25,7 @@ const useMutateUser = () => {
         {
           url: URL + "user/updateStatus",
           method: "POST",
-          // isAuthRequired: true,
+          isAuthRequired: true,
         },
         { data: [data] }
       ),

@@ -213,12 +213,7 @@ const EditTicket = () => {
                     name="issueDescription"
                     control={control}
                     render={({ field }) => (
-                      <Form.Control
-                        type="text"
-                        {...field}
-                        id="issueDescription"
-                        placeholder="Enter Issue Description"
-                      />
+                      <textarea {...field} rows={2} cols={20} />
                     )}
                   />
                   {errors.issueDescription && (

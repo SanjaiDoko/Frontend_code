@@ -9,7 +9,7 @@ const useGetAllGroups = () => {
     queryFn: () =>
       fetchData({
         url: URL + "group/getAllGroups",
-        // isAuthRequired: true,
+        isAuthRequired: true,
       }),
     refetchOnMount: true,
     onError: (error) => {
@@ -26,7 +26,7 @@ const useInsertGroup = (onSuccessFunctions) => {
         {
           url: URL + "group/insertGroup",
           method: "POST",
-          // isAuthRequired: true,
+          isAuthRequired: true,
         },
         { data: [data] }
       ),
@@ -50,7 +50,7 @@ const useUpdateGroup = (onSuccessFunctions) => {
         {
           url: URL + "group/UpdateGroup",
           method: "POST",
-          // isAuthRequired: true,
+          isAuthRequired: true,
         },
         { data: [data] }
       ),
@@ -76,7 +76,7 @@ const useRemoveUserById = () => {
         {
           url: URL + "group/removeUserById",
           method: "POST",
-          // isAuthRequired: true,
+          isAuthRequired: true,
         },
         { data: [{ id: data }] }
       );
@@ -105,7 +105,7 @@ const useGetUserByGroupId = () =>
         {
           url: URL + "user/getUserByGroupId",
           method: "POST",
-          // isAuthRequired: true,
+          isAuthRequired: true,
         },
         {
           data: [

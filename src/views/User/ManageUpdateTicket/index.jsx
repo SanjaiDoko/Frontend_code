@@ -20,6 +20,7 @@ import { useGetAllGroups } from "../../../hooks/groupManagement";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { URL } from "../../../config";
 
 const Index = () => {
   const [uploadFile, setUploadFile] = useState([]);
@@ -386,13 +387,23 @@ const Index = () => {
                     uploadFile.map((e, i) => {
                       return (
                         <div className={classes.filecontainer} key={i}>
-                          <p
-                            title={e.fileName}
-                            onClick={() => openFileNewWindow(e.fileData)}
-                            className={classes.filename}
-                          >
-                            {e.fileName}
-                          </p>
+                          {e.fileData ? (
+                            <p
+                              title={e.fileName}
+                              onClick={() => openFileNewWindow(e.fileData)}
+                              className={classes.filename}
+                            >
+                              {e.fileName}
+                            </p>
+                          ) : (
+                            <a
+                              target="_blank"
+                              rel="noreferrer"
+                              href={`${URL}${e.filePath}`}
+                            >
+                              {e.fileName}
+                            </a>
+                          )}
                           <div>
                             <DeleteIcon
                               sx={{

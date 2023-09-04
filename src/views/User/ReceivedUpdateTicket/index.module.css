@@ -5,7 +5,7 @@
   margin-top: 3em;
   width: 100%;
 }
-.inputDiv{
+.inputDiv {
   display: flex;
   gap: 15px;
 }
@@ -17,7 +17,7 @@
   padding: 2px 20px !important;
 }
 
-.hidden{
+.hidden {
   display: none;
 }
 .subDiv {

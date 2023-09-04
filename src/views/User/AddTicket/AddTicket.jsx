@@ -182,20 +182,17 @@ const AddTicket = () => {
                     name="issueDescription"
                     control={control}
                     render={({ field }) => (
-                      <Form.Control
-                        type="text"
-                        {...field}
-                        id="issueDescription"
-                        placeholder="Enter Issue Description"
-                      />
+                      <textarea {...field} rows={2} cols={20} />
                     )}
                   />
                   {errors.issueDescription && (
-                    <span className={classes.error}>
+                    <p className={classes.error}>
                       {errors.issueDescription.message}
-                    </span>
+                    </p>
                   )}
                 </Form.Group>
+              </div>
+              <div>
                 <Form.Group className="pt-2">
                   <Form.Label htmlFor="issueGroup" className="formlabel">
                     Issue Group
@@ -245,8 +242,6 @@ const AddTicket = () => {
                     </span>
                   )}
                 </Form.Group>
-              </div>
-              <div>
                 <Form.Group className="pt-2">
                   <Form.Label htmlFor="managerName" className="formlabel">
                     Managed By

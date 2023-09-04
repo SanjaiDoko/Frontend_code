@@ -151,7 +151,7 @@ const EditTicket = () => {
     mutate(data);
   };
 
-  console.log(uniqueTicketData, "fff");
+  console.log(uniqueTicketData[0].status, "fff");
 
   return (
     <div className={classes.mainDiv}>
@@ -160,15 +160,17 @@ const EditTicket = () => {
           <div>
             <div className={classes.addDivHeading}>
               <h2>Edit Ticket</h2>
-              <button
-                type="button"
-                className={classes.rejectBtn}
-                onClick={() => {
-                  mutate({ id, status: 1 });
-                }}
-              >
-                Completed
-              </button>
+              {uniqueTicketData[0].status !== 1 && (
+                <button
+                  type="button"
+                  className={classes.rejectBtn}
+                  onClick={() => {
+                    mutate({ id, status: 1 });
+                  }}
+                >
+                  Completed
+                </button>
+              )}
             </div>
             <div className={classes.inputDiv}>
               <div>
@@ -222,12 +224,7 @@ const EditTicket = () => {
                     name="issueDescription"
                     control={control}
                     render={({ field }) => (
-                      <Form.Control
-                        type="text"
-                        {...field}
-                        id="issueDescription"
-                        placeholder="Enter Issue Description"
-                      />
+                      <textarea {...field} rows={2} cols={20} />
                     )}
                   />
                   {errors.issueDescription && (
@@ -283,8 +280,6 @@ const EditTicket = () => {
                     </span>
                   )}
                 </Form.Group>
-              </div>
-              <div>
                 <Form.Group className="pt-2">
                   <Form.Label htmlFor="managerName" className="formlabel">
                     Managed By
@@ -308,6 +303,8 @@ const EditTicket = () => {
                     </span>
                   )}
                 </Form.Group>
+              </div>
+              <div>
                 {/* {role === 3 && (
                   <Form.Group className="pt-2">
                     <Form.Label htmlFor="assignedTo" className="formlabel">
