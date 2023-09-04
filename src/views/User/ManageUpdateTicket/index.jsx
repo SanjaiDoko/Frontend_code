@@ -100,7 +100,7 @@ const Index = () => {
     mutate(data);
   };
 
-  console.log(allUser, "user");
+  // console.log(allUser, "user");
 
   const uploadMultipleFileFunction = async (event) => {
     const errorMessage = {
