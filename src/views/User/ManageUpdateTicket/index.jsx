@@ -167,7 +167,7 @@ const Index = () => {
           <div>
             <div className={classes.addDivHeading}>
               <h2>Edit Ticket</h2>
-              {uniqueTicketData[0].status !== 3 && (
+              {uniqueTicketData[0].status === 0 && (
                 <button
                   type="button"
                   className={classes.rejectBtn}

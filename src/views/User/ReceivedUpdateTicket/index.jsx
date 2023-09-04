@@ -157,8 +157,6 @@ const EditTicket = () => {
     mutate(data);
   };
 
-  console.log(uniqueTicketData[0], "xgdg");
-
   return (
     <div className={classes.mainDiv}>
       <div className={classes.AddTicketDiv}>
@@ -166,7 +164,7 @@ const EditTicket = () => {
           <div>
             <div className={classes.addDivHeading}>
               <h2>Edit Ticket</h2>
-              {uniqueTicketData[0].status !== 1 && (
+              {uniqueTicketData[0].status === 2 && (
                 <button
                   type="button"
                   className={classes.rejectBtn}
@@ -175,6 +173,11 @@ const EditTicket = () => {
                   }}
                 >
                   Complete Task
+                </button>
+              )}
+              {uniqueTicketData[0].status === 1 && (
+                <button type="button" className={classes.rejectBtn}>
+                  Completed Task
                 </button>
               )}
             </div>
