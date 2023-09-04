@@ -175,7 +175,7 @@ const Index = () => {
                     mutate({ id, status: 3 });
                   }}
                 >
-                  Reject
+                  Reject Task
                 </button>
               )}
             </div>

@@ -66,6 +66,7 @@ const EditTicket = () => {
       startTime: null,
       actualEndTime: null,
       endTime: null,
+      timelog: "",
       createdBy: createdBy,
     },
   });
@@ -156,6 +157,8 @@ const EditTicket = () => {
     mutate(data);
   };
 
+  console.log(uniqueTicketData[0], "xgdg");
+
   return (
     <div className={classes.mainDiv}>
       <div className={classes.AddTicketDiv}>
@@ -171,7 +174,7 @@ const EditTicket = () => {
                     mutate({ id, status: 1 });
                   }}
                 >
-                  Completed
+                  Complete Task
                 </button>
               )}
             </div>
@@ -485,6 +488,24 @@ const EditTicket = () => {
                       {errors.actualEndTime.message}
                     </span>
                   )}
+                </Form.Group>
+
+                <Form.Group className="pt-2">
+                  <Form.Label htmlFor="timelog" className="formlabel">
+                    Time Log
+                  </Form.Label>
+                  <Controller
+                    name="timelog"
+                    control={control}
+                    render={({ field }) => (
+                      <Form.Control
+                        type="text"
+                        {...field}
+                        id="timelog"
+                        placeholder="Enter timelog"
+                      />
+                    )}
+                  />
                 </Form.Group>
               </div>
             </div>
