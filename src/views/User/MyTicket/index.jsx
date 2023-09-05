@@ -92,7 +92,7 @@ function Dashboard() {
             onClick={() => navigate("/user/addticket")}
             className={styles.addTicketBtn}
           >
-            Add Ticket
+            Create Ticket
           </button>
         </div>
         {data && data.length > 0 ? (

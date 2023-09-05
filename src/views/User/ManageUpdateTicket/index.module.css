@@ -22,6 +22,11 @@
   background-color: #f24c4c !important;
 }
 
+.filecontainer {
+  display: flex;
+  gap: 3px;
+}
+
 .completed {
   font-weight: 500 !important;
   font-size: 17px !important;

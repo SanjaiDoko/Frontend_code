@@ -21,9 +21,12 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { URL } from "../../../config";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 const Index = () => {
   const [uploadFile, setUploadFile] = useState([]);
+  const [taskIssue, setTaskIssue] = useState("");
 
   const role = useSelector((state) => state.profile.role);
 
@@ -97,10 +100,9 @@ const Index = () => {
     data.managedBy = values["managedId"];
     data.endTime = moment(data.endTime);
     data.id = uniqueTicketData[0]._id;
+    data.issueDescription = taskIssue;
     mutate(data);
   };
-
-  // console.log(allUser, "user");
 
   const uploadMultipleFileFunction = async (event) => {
     const errorMessage = {
@@ -159,6 +161,8 @@ const Index = () => {
   const removeFileHandler = (array, index) => {
     setUploadFile(array.filter((file, i) => i !== index));
   };
+
+  console.log(uniqueTicketData[0], "ffff");
 
   return (
     <div className={classes.mainDiv}>
@@ -233,23 +237,6 @@ const Index = () => {
                   />
                   {errors.type && (
                     <span className={classes.error}>{errors.type.message}</span>
-                  )}
-                </Form.Group>
-                <Form.Group className="pt-2">
-                  <Form.Label htmlFor="issueDescription" className="formlabel">
-                    Issue Description
-                  </Form.Label>
-                  <Controller
-                    name="issueDescription"
-                    control={control}
-                    render={({ field }) => (
-                      <textarea {...field} rows={2} cols={20} />
-                    )}
-                  />
-                  {errors.issueDescription && (
-                    <p className={classes.error}>
-                      {errors.issueDescription.message}
-                    </p>
                   )}
                 </Form.Group>
                 <Form.Group className="pt-2">
@@ -361,101 +348,7 @@ const Index = () => {
                     )}
                   </Form.Group>
                 )}
-                <Form.Group className="pt-2">
-                  <Form.Label htmlFor="mailList" className="formlabel">
-                    Mail To
-                  </Form.Label>
-                  <Controller
-                    name="mailList"
-                    control={control}
-                    render={({ field }) => (
-                      <Form.Control
-                        type="text"
-                        {...field}
-                        id="mailList"
-                        placeholder="Enter Mail To"
-                      />
-                    )}
-                  />
-                  {errors.mailTo && (
-                    <span className={classes.error}>
-                      {errors.mailTo.message}
-                    </span>
-                  )}
-                </Form.Group>
-                <Form.Group className="pt-2">
-                  <Form.Label htmlFor="fileupload" className={`formlabel`}>
-                    <Uploadicon /> Upload
-                  </Form.Label>
-                  <input
-                    type="file"
-                    className={classes.hidden}
-                    id="fileupload"
-                    multiple
-                    onChange={(event) => uploadMultipleFileFunction(event)}
-                  />
-                  {uploadFile &&
-                    uploadFile.map((e, i) => {
-                      return (
-                        <div className={classes.filecontainer} key={i}>
-                          {e.fileData ? (
-                            <p
-                              title={e.fileName}
-                              onClick={() => openFileNewWindow(e.fileData)}
-                              className={classes.filename}
-                            >
-                              {e.fileName}
-                            </p>
-                          ) : (
-                            <a
-                              target="_blank"
-                              rel="noreferrer"
-                              href={`${URL}${e.filePath}`}
-                            >
-                              {e.fileName}
-                            </a>
-                          )}
-                          <div>
-                            <DeleteIcon
-                              sx={{
-                                cursor: "pointer",
-                                color: "red",
-                              }}
-                              onClick={() => removeFileHandler(uploadFile, i)}
-                            />
-                          </div>
-                        </div>
-                      );
-                    })}
-                </Form.Group>
-                {/* <Form.Group className="pt-2">
-              <Form.Label htmlFor="startTime" className="formlabel">
-                Start Time
-              </Form.Label>
-              <Controller
-                name="startTime"
-                control={control}
-                render={({ field }) => (
-                  <MobileDateTimePicker
-                    sx={{ width: "100%" }}
-                    {...field}
-                    ampm={false}
-                    slotProps={{
-                      textField: {
-                        readOnly: true,
-                      },
-                    }}
-                    format="DD-MM-YYYY HH:MM"
-                    onChange={(e) => field.onChange(e)}
-                  />
-                )}
-              />
-              {errors.startTime && (
-                <span className={classes.error}>
-                  {errors.startTime.message}
-                </span>
-              )}
-            </Form.Group>  */}
+
                 <Form.Group className="pt-2">
                   <Form.Label htmlFor="endTime" className="formlabel">
                     End Time
@@ -484,36 +377,102 @@ const Index = () => {
                     </span>
                   )}
                 </Form.Group>
-                {/* <Form.Group className="pt-2">
-              <Form.Label htmlFor="actualEndTime" className="formlabel">
-                Actual End Time
-              </Form.Label>
-              <Controller
-                name="actualEndTime"
-                control={control}
-                render={({ field }) => (
-                  <MobileDateTimePicker
-                    sx={{ width: "100%" }}
-                    {...field}
-                    ampm={false}
-                    slotProps={{
-                      textField: {
-                        readOnly: true,
-                      },
-                    }}
-                    format="DD-MM-YYYY HH:MM"
-                    onChange={(e) => field.onChange(e)}
-                  />
-                )}
-              />
-              {errors.actualEndTime && (
-                <span className={classes.error}>
-                  {errors.actualEndTime.message}
-                </span>
-              )}
-            </Form.Group>  */}
               </div>
             </div>
+
+            <div>
+              <Form.Label>Issue Description</Form.Label>
+              <CKEditor
+                editor={ClassicEditor}
+                data={uniqueTicketData[0].issueDescription}
+                onChange={(event, editor) => {
+                  const data = editor.getData();
+                  setTaskIssue(data);
+                  // console.log({ event, editor, data });
+                }}
+                onBlur={(event, editor) => {
+                  console.log("Blur.", editor);
+                }}
+                onFocus={(event, editor) => {
+                  console.log("Focus.", editor);
+                }}
+              />
+            </div>
+
+            <div>
+              <Form.Group className="pt-2">
+                <Form.Label htmlFor="mailList" className="formlabel">
+                  Mail To
+                </Form.Label>
+                <Controller
+                  name="mailList"
+                  control={control}
+                  render={({ field }) => (
+                    <Form.Control
+                      type="text"
+                      {...field}
+                      id="mailList"
+                      placeholder="Enter Mail To"
+                    />
+                  )}
+                />
+                {errors.mailTo && (
+                  <span className={classes.error}>{errors.mailTo.message}</span>
+                )}
+              </Form.Group>
+
+              <Form.Group className="pt-2" style={{ marginTop: "-23px" }}>
+                <Form.Label
+                  htmlFor="fileupload"
+                  className={`formlabel`}
+                  style={{ marginTop: "32px", marginLeft: "7px" }}
+                >
+                  <Uploadicon />  <span style={{marginLeft:'10PX'}}>Upload</span>
+                </Form.Label>
+                <input
+                  type="file"
+                  className={classes.hidden}
+                  id="fileupload"
+                  multiple
+                  onChange={(event) => uploadMultipleFileFunction(event)}
+                />
+                {uploadFile &&
+                  uploadFile.map((e, i) => {
+                    return (
+                      <div className={classes.filecontainer} key={i}>
+                        {e.fileData ? (
+                          <p
+                            title={e.fileName}
+                            onClick={() => openFileNewWindow(e.fileData)}
+                            className={classes.filename}
+                          >
+                            {e.fileName}
+                          </p>
+                        ) : (
+                          <a
+                            target="_blank"
+                            rel="noreferrer"
+                            href={`${URL}${e.filePath}`}
+                            style={{textDecoration:'none', color:'black'}}
+                          >
+                            {e.fileName}
+                          </a>
+                        )}
+                        <div>
+                          <DeleteIcon
+                            sx={{
+                              cursor: "pointer",
+                              color: "red",
+                            }}
+                            onClick={() => removeFileHandler(uploadFile, i)}
+                          />
+                        </div>
+                      </div>
+                    );
+                  })}
+              </Form.Group>
+            </div>
+
             {uniqueTicketData[0].status !== 3 &&
             uniqueTicketData[0].status !== 1 ? (
               <button type="submit" className={classes.savebtn}>

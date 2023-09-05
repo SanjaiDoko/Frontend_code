@@ -275,6 +275,11 @@
     color: #f4da47;
     font-size: 20px;
   }
+
+  .filecontainer {
+    display: flex;
+    gap: 3px;
+  }
   
   .addLaneSelect {
     text-transform: capitalize !important;
