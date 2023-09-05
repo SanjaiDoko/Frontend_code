@@ -23,7 +23,6 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 const EditTicket = () => {
   const [uploadFile, setUploadFile] = useState([]);
-  const [taskIssue, setTaskIssue] = useState("");
 
   const role = useSelector((state) => state.profile.role);
 
@@ -144,7 +143,6 @@ const EditTicket = () => {
     data.mailList = [data.mailList];
     data.id = uniqueTicketData[0]._id;
     data.files = uploadFile;
-    data.issueDescription = taskIssue;
     mutate(data);
   };
 
@@ -276,21 +274,29 @@ const EditTicket = () => {
             </div>
             <div>
               <Form.Label>Issue Description</Form.Label>
-              <CKEditor
-                editor={ClassicEditor}
-                data={uniqueTicketData[0].issueDescription}
-                onChange={(event, editor) => {
-                  const data = editor.getData();
-                  setTaskIssue(data);
-                  // console.log({ event, editor, data });
-                }}
-                onBlur={(event, editor) => {
-                  console.log("Blur.", editor);
-                }}
-                onFocus={(event, editor) => {
-                  console.log("Focus.", editor);
-                }}
+              <Controller
+                name="issueDescription"
+                control={control}
+                render={({ field }) => (
+                  <CKEditor
+                    editor={ClassicEditor}
+                    {...field}
+                    data={uniqueTicketData[0].issueDescription}
+                    id="issueDescription"
+                    onChange={(event, editor) => {
+                      const data = editor.getData();
+                      field.onChange(data);
+                    }}
+                    defaultValue=""
+                    name="issueDescription"
+                  />
+                )}
               />
+              {errors.issueDescription && (
+                <span className={classes.error}>
+                  {errors.issueDescription.message}
+                </span>
+              )}
             </div>
             <div>
               <Form.Group className="pt-2">
@@ -344,7 +350,7 @@ const EditTicket = () => {
                         <a
                           target="_blank"
                           rel="noreferrer"
-                          style={{textDecoration:'none', color:'black'}}
+                          style={{ textDecoration: "none", color: "black" }}
                           href={`${URL}${e.filePath}`}
                         >
                           {e.fileName}

@@ -19,7 +19,6 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 const AddTicket = () => {
   const [uploadFile, setUploadFile] = useState([]);
-  const [taskIssue, setTaskIssue] = useState("");
   const navigate = useNavigate();
   const createdBy = localStorage.getItem("allMasterId");
   const onSuccess = () => {
@@ -58,15 +57,10 @@ const AddTicket = () => {
   }
 
   const onSubmit = (data) => {
-    if (taskIssue !== "") {
-      const values = getValues();
-      data.managedBy = values["managedId"];
-      data.issueDescription = taskIssue;
-      data.files = uploadFile;
-      mutate(data);
-    } else {
-      toast.error("Issue Description is required");
-    }
+    const values = getValues();
+    data.managedBy = values["managedId"];
+    data.files = uploadFile;
+    mutate(data);
   };
 
   const uploadMultipleFileFunction = async (event) => {
@@ -263,19 +257,11 @@ const AddTicket = () => {
                 render={({ field }) => (
                   <CKEditor
                     editor={ClassicEditor}
-                    data={taskIssue}
                     {...field}
                     id="issueDescription"
                     onChange={(event, editor) => {
                       const data = editor.getData();
-                      setTaskIssue(data);
-                      // console.log({ event, editor, data });
-                    }}
-                    onBlur={(event, editor) => {
-                      console.log("Blur.", editor);
-                    }}
-                    onFocus={(event, editor) => {
-                      console.log("Focus.", editor);
+                      field.onChange(data);
                     }}
                     defaultValue=""
                     name="issueDescription"

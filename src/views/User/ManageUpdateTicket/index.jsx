@@ -26,7 +26,6 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 const Index = () => {
   const [uploadFile, setUploadFile] = useState([]);
-  const [taskIssue, setTaskIssue] = useState("");
 
   const role = useSelector((state) => state.profile.role);
 
@@ -100,7 +99,6 @@ const Index = () => {
     data.managedBy = values["managedId"];
     data.endTime = moment(data.endTime);
     data.id = uniqueTicketData[0]._id;
-    data.issueDescription = taskIssue;
     mutate(data);
   };
 
@@ -382,21 +380,29 @@ const Index = () => {
 
             <div>
               <Form.Label>Issue Description</Form.Label>
-              <CKEditor
-                editor={ClassicEditor}
-                data={uniqueTicketData[0].issueDescription}
-                onChange={(event, editor) => {
-                  const data = editor.getData();
-                  setTaskIssue(data);
-                  // console.log({ event, editor, data });
-                }}
-                onBlur={(event, editor) => {
-                  console.log("Blur.", editor);
-                }}
-                onFocus={(event, editor) => {
-                  console.log("Focus.", editor);
-                }}
+              <Controller
+                name="issueDescription"
+                control={control}
+                render={({ field }) => (
+                  <CKEditor
+                    editor={ClassicEditor}
+                    {...field}
+                    data={uniqueTicketData[0].issueDescription}
+                    id="issueDescription"
+                    onChange={(event, editor) => {
+                      const data = editor.getData();
+                      field.onChange(data);
+                    }}
+                    defaultValue=""
+                    name="issueDescription"
+                  />
+                )}
               />
+              {errors.issueDescription && (
+                <span className={classes.error}>
+                  {errors.issueDescription.message}
+                </span>
+              )}
             </div>
 
             <div>
@@ -427,7 +433,8 @@ const Index = () => {
                   className={`formlabel`}
                   style={{ marginTop: "32px", marginLeft: "7px" }}
                 >
-                  <Uploadicon />  <span style={{marginLeft:'10PX'}}>Upload</span>
+                  <Uploadicon />{" "}
+                  <span style={{ marginLeft: "10PX" }}>Upload</span>
                 </Form.Label>
                 <input
                   type="file"
@@ -453,7 +460,7 @@ const Index = () => {
                             target="_blank"
                             rel="noreferrer"
                             href={`${URL}${e.filePath}`}
-                            style={{textDecoration:'none', color:'black'}}
+                            style={{ textDecoration: "none", color: "black" }}
                           >
                             {e.fileName}
                           </a>
