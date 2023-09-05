@@ -17,7 +17,8 @@ function Header() {
   const { mutate } = useLogoutUser(type);
   const role = useSelector((state) => state.profile.role);
   const userId = localStorage.getItem("allMasterId");
-  const { data, isLoading } = useGetUserDetailsById(userId);
+
+  const { data, isLoading } = useGetUserDetailsById(userId , type);
 
   // const { data: userData, isLoading } = useProfileData(id, role);
 
@@ -90,7 +91,7 @@ function Header() {
             <Nav.Item className="d-flex gap-2">
               <div className="hellotextdiv">
                 <span className="linktag">Hello</span>
-                <span className="linktag">{data.fullName}</span>
+                <span className="linktag">{data && data.fullName}</span>
                 <NavDropdown>
                   <NavDropdown.Item
                     className="dropdownlink"

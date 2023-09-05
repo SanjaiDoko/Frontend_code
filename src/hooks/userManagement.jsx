@@ -42,9 +42,9 @@ const useMutateUser = () => {
   });
 };
 
-const useGetUserDetailsById = (id) =>
+const useGetUserDetailsById = (id, type) =>
   useQuery({
-    queryKey: ["userId", id],
+    queryKey: ["userId", id, type],
     queryFn: () => {
       return fetchData(
         {
@@ -56,6 +56,7 @@ const useGetUserDetailsById = (id) =>
           data: [
             {
               id,
+              type,
             },
           ],
         }

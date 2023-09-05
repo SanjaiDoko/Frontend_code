@@ -4,9 +4,8 @@ import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import classes from "./index.module.css";
 import { addTicketValidation } from "../../../validationSchema/addTicketValidation";
-import { fileReaderFunction, openFileNewWindow } from "../../../helper";
+import { openFileNewWindow } from "../../../helper";
 import { useEffect, useState } from "react";
-import { ReactComponent as Uploadicon } from "../../../../src/assets/Icons/uploadicon.svg";
 import {
   useGetSpecificTicketById,
   useUpdateTicket,
@@ -16,7 +15,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useGetAllGroups } from "../../../hooks/groupManagement";
 import { useSelector } from "react-redux";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { toast } from "react-toastify";
 import { URL } from "../../../config";
 import moment from "moment";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
@@ -89,59 +87,6 @@ const EditTicket = () => {
   if (groupLoading || ticketLoading) {
     return <p>Loading...</p>;
   }
-  const uploadMultipleFileFunction = async (event) => {
-    const errorMessage = {
-      NoFileError: `Upload file first`,
-      fileTypeErr: `Upload only Pdf`,
-      fileSizeErr: "Please upload file",
-    };
-    try {
-      let fileDataArray = await fileReaderFunction({
-        fileEvent: event,
-        errorMessage,
-        fileType: "pdf",
-        noLimit: true,
-      });
-      let sameFileExists;
-      if (fileDataArray.length > 0) {
-        fileDataArray = fileDataArray.map(({ fileName, fileData }) => {
-          return { fileName, fileData };
-        });
-
-        uploadFile.map((file) => {
-          fileDataArray.map((uploadfile) => {
-            if (file.fileName === uploadfile.fileName) {
-              sameFileExists = true;
-            }
-            return sameFileExists;
-          });
-          return sameFileExists;
-        });
-
-        if (sameFileExists === true) {
-          toast.error("File already uploaded");
-        } else {
-          setUploadFile([...uploadFile, ...fileDataArray]);
-        }
-      } else {
-        uploadFile.map((file) => {
-          if (file.fileName === fileDataArray.fileName) {
-            sameFileExists = true;
-          }
-          return sameFileExists;
-        });
-        if (sameFileExists === true) {
-          toast.error("File already uploaded");
-        } else {
-          setUploadFile([...uploadFile, fileDataArray]);
-        }
-      }
-    } catch (error) {
-      toast.error(error.message);
-    } finally {
-      event.target.value = "";
-    }
-  };
 
   const removeFileHandler = (array, index) => {
     setUploadFile(array.filter((file, i) => i !== index));
@@ -199,6 +144,7 @@ const EditTicket = () => {
                         {...field}
                         type="text"
                         id="issueName"
+                        disabled
                         placeholder="Enter Issue Name"
                       />
                     )}
@@ -221,6 +167,7 @@ const EditTicket = () => {
                         type="text"
                         {...field}
                         id="type"
+                        disabled
                         placeholder="Enter Type"
                       />
                     )}
@@ -418,6 +365,7 @@ const EditTicket = () => {
                   <CKEditor
                     editor={ClassicEditor}
                     {...field}
+                    disabled
                     data={uniqueTicketData[0].issueDescription}
                     id="issueDescription"
                     onChange={(event, editor) => {
@@ -448,6 +396,7 @@ const EditTicket = () => {
                       type="text"
                       {...field}
                       id="mailList"
+                      disabled
                       placeholder="Enter Mail To"
                     />
                   )}
@@ -456,56 +405,40 @@ const EditTicket = () => {
                   <span className={classes.error}>{errors.mailTo.message}</span>
                 )}
               </Form.Group>
-              <Form.Group className="pt-2" style={{ marginTop: "-23PX" }}>
-                <Form.Label
-                  htmlFor="fileupload"
-                  className={`formlabel`}
-                  style={{ marginTop: "32px", marginLeft: "7px" }}
-                >
-                  <Uploadicon />{" "}
-                  <span style={{ marginLeft: "10px" }}>Upload</span>
-                </Form.Label>
-                <input
-                  type="file"
-                  className={classes.hidden}
-                  id="fileupload"
-                  multiple
-                  onChange={(event) => uploadMultipleFileFunction(event)}
-                />
-                {uploadFile.map((e, i) => {
-                  return (
-                    <div className={classes.filecontainer} key={i}>
-                      {e.fileData ? (
-                        <p
-                          title={e.fileName}
-                          onClick={() => openFileNewWindow(e.fileData)}
-                          className={classes.filename}
-                        >
-                          {e.fileName}
-                        </p>
-                      ) : (
-                        <a
-                          target="_blank"
-                          rel="noreferrer"
-                          style={{ textDecoration: "none", color: "black" }}
-                          href={`${URL}${e.filePath}`}
-                        >
-                          {e.fileName}
-                        </a>
-                      )}
-                      <div>
-                        <DeleteIcon
-                          sx={{
-                            cursor: "pointer",
-                            color: "red",
-                          }}
-                          onClick={() => removeFileHandler(uploadFile, i)}
-                        />
-                      </div>
+
+              {uploadFile.map((e, i) => {
+                return (
+                  <div className={classes.filecontainer} key={i}>
+                    {e.fileData ? (
+                      <p
+                        title={e.fileName}
+                        onClick={() => openFileNewWindow(e.fileData)}
+                        className={classes.filename}
+                      >
+                        {e.fileName}
+                      </p>
+                    ) : (
+                      <a
+                        target="_blank"
+                        rel="noreferrer"
+                        style={{ textDecoration: "none", color: "black" }}
+                        href={`${URL}${e.filePath}`}
+                      >
+                        {e.fileName}
+                      </a>
+                    )}
+                    <div>
+                      <DeleteIcon
+                        sx={{
+                          cursor: "pointer",
+                          color: "red",
+                        }}
+                        onClick={() => removeFileHandler(uploadFile, i)}
+                      />
                     </div>
-                  );
-                })}
-              </Form.Group>
+                  </div>
+                );
+              })}
             </div>
             {uniqueTicketData[0].status !== 1 &&
             uniqueTicketData[0].status !== 3 ? (
