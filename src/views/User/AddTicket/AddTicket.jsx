@@ -301,7 +301,7 @@ const AddTicket = () => {
                 <Form.Label
                   htmlFor="fileupload"
                   className={`formlabel`}
-                  style={{ marginTop: "32px", marginLeft: "7px" }}
+                  style={{ marginTop: "0px", marginLeft: "7px" }}
                 >
                   <Uploadicon />{" "}
                   <span style={{ marginLeft: "10px" }}>Upload</span>
