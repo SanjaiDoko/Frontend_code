@@ -34,7 +34,7 @@ function AdminDashboard() {
         </div>
         <div className="container">
           <div className={styles.overview}>
-            <h1 className={styles.overviewtxt}>Groups</h1>
+            <h1 className={styles.overviewtxt} style={{marginTop:"10px"}}>Groups</h1>
           </div>
           <div className={styles.groupcards}>
             {groupList.map((e, i) => {
@@ -42,7 +42,7 @@ function AdminDashboard() {
                 <>
                   <div key={i} className={`${styles.groupcard} ${styles.item}`}>
                     <div className={styles.headergroup}>
-                      <h5>Group Name: {e.name}</h5>
+                      <h5 style={{textTransform:"capitalize",textAlign:"center"}}> {e.name} Group</h5>
                     </div>
                     <div className={styles.groupcontent}>
                       <h5>Manager By : {e.managedBy.name}</h5>
