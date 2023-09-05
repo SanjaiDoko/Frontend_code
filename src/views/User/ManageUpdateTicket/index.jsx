@@ -100,7 +100,7 @@ const Index = () => {
     mutate(data);
   };
 
-  console.log(allUser, "user");
+  // console.log(allUser, "user");
 
   const uploadMultipleFileFunction = async (event) => {
     const errorMessage = {
@@ -167,7 +167,7 @@ const Index = () => {
           <div>
             <div className={classes.addDivHeading}>
               <h2>Edit Ticket</h2>
-              {uniqueTicketData[0].status !== 3 && (
+              {uniqueTicketData[0].status === 0 && (
                 <button
                   type="button"
                   className={classes.rejectBtn}
@@ -176,6 +176,17 @@ const Index = () => {
                   }}
                 >
                   Reject Task
+                </button>
+              )}
+
+              {uniqueTicketData[0].status === 3 && (
+                <button type="button" className={classes.reject}>
+                  Task is Rejected
+                </button>
+              )}
+              {uniqueTicketData[0].status === 1 && (
+                <button type="button" className={classes.completed}>
+                  Task is Completed
                 </button>
               )}
             </div>
@@ -503,7 +514,8 @@ const Index = () => {
             </Form.Group>  */}
               </div>
             </div>
-            {uniqueTicketData[0].status !== 3 ? (
+            {uniqueTicketData[0].status !== 3 &&
+            uniqueTicketData[0].status !== 1 ? (
               <button type="submit" className={classes.savebtn}>
                 Update Ticket
               </button>

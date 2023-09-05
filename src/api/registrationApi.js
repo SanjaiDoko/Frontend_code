@@ -9,7 +9,7 @@ export const saveregistration = async (data) => {
   // 	JSON.stringify({ data: [data] }),
   // 	import.meta.env.VITE_ENCRYPTION_KEY
   // ).toString();
-  console.log(URL, "url");
+  // console.log(URL, "url");
   try {
     const response = await fetch(URL + "user/register", {
       method: "POST",
@@ -25,7 +25,7 @@ export const saveregistration = async (data) => {
     }
     return responseJson;
   } catch (error) {
-    console.log(error, "error");
+    // console.log(error, "error");
     toast.error(error.message);
     throw new Error(error.message);
   }
