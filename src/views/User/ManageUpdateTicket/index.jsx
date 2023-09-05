@@ -80,13 +80,13 @@ const Index = () => {
 
   useEffect(() => {
     if (uniqueTicketData) {
+      setUploadFile(uniqueTicketData[0].files);
       if (uniqueTicketData[0].endTime) {
         uniqueTicketData[0].endTime = moment(uniqueTicketData[0].endTime);
       } else {
         uniqueTicketData[0].endTime = null;
       }
       reset(uniqueTicketData[0]);
-      setUploadFile(uniqueTicketData[0].files);
     }
   }, [reset, uniqueTicketData]);
 
@@ -99,6 +99,7 @@ const Index = () => {
     data.managedBy = values["managedId"];
     data.endTime = moment(data.endTime);
     data.id = uniqueTicketData[0]._id;
+    data.files = uploadFile;
     mutate(data);
   };
 

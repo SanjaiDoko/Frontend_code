@@ -11,7 +11,8 @@ import { useSelector } from "react-redux";
 import { useLogoutUser } from "../../hooks/logout";
 
 function Header() {
-  const { mutate } = useLogoutUser();
+  const type = useSelector((state) => state.profile.type);
+  const { mutate } = useLogoutUser(type);
   const role = useSelector((state) => state.profile.role);
 
   // const { data: userData, isLoading } = useProfileData(id, role);
