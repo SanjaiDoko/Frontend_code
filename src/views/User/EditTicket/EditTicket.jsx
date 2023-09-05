@@ -153,6 +153,16 @@ const EditTicket = () => {
           <div>
             <div className={classes.addDivHeading}>
               <h2>Edit Ticket</h2>
+              {uniqueTicketData[0].status === 3 && (
+                <button type="button" className={classes.reject}>
+                  Task is Rejected
+                </button>
+              )}
+              {uniqueTicketData[0].status === 1 && (
+                <button type="button" className={classes.completed}>
+                  Task is Completed
+                </button>
+              )}
             </div>
             <div className={classes.inputDiv}>
               <div>
