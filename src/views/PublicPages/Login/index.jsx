@@ -66,6 +66,7 @@ const Loginpage = () => {
         const decodedData = jwtDecode(parsedData.token);
         localStorage.setItem("allMasterToken", parsedData.token);
         localStorage.setItem("allMasterId", parsedData.userId);
+        localStorage.setItem("groupId", parsedData.groupId);
         data.role = decodedData.role;
         dispatch(setProfileData(decodedData));
         await queryClient.refetchQueries({ queryKey: ["profileData"] });
@@ -231,7 +232,7 @@ const Loginpage = () => {
               id="Signin"
               className={`${styles.loginbtn} w-100`}
             >
-            Sign In
+              Sign In
             </Button>
           </Form>
         </div>
