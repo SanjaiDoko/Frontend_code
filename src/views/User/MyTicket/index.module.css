@@ -54,7 +54,8 @@
   font-family: "Rubik";
   font-style: normal;
   font-weight: 500;
-  font-size: 17px;
+  padding: 4px;
+  font-size: 20px;
   color: #272727;
 }
 

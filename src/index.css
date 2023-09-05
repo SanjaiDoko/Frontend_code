@@ -1,12 +1,12 @@
-
-.errormsg , .error{
+.errormsg,
+.error {
   color: red;
   margin-bottom: 0 !important;
 }
 #root {
-  width:100%;
+  width: 100%;
 }
-.MuiDataGrid-root{
+.MuiDataGrid-root {
   background-color: #fff;
 }
 p,
@@ -21,36 +21,43 @@ label,
 span,
 ::placeholder,
 div {
-	cursor: context-menu;
-	font-family: sans-serif !important;
+  cursor: context-menu;
+  font-family: sans-serif !important;
 }
 .MuiIconButton-sizeSmall,
 .MuiDataGrid-iconSeparator {
-    display: none !important;
+  display: none !important;
 }
 .masterlogo {
-	width: 100px !important;
+  width: 100px !important;
 }
 .MuiDataGrid-cell {
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	width: 50px !important;
-	text-align: center !important;
-	padding: 10px !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 50px !important;
+  text-align: center !important;
+  padding: 10px !important;
 }
 .MuiDialogContent-root {
-	padding: 0 !important;
+  padding: 0 !important;
 }
 .masterlogo {
-	width: 100px !important;
+  width: 100px !important;
 }
 .MuiDataGrid-columnHeaderTitleContainer,
 .MuiDataGrid-cell--textLeft {
-	justify-content: center !important;
+  justify-content: center !important;
 }
 .togglebtn > .Mui-selected {
-	background: #000 !important;
-	color: #fff !important;
-	border-radius: 5px !important;
+  background: #000 !important;
+  color: #fff !important;
+  border-radius: 5px !important;
+}
+
+.css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input.Mui-disabled {
+  height: 2.5px !important;
+}
+.css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
+  height: 2.5px !important;
 }
