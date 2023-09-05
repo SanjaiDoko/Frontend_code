@@ -125,11 +125,11 @@ function IndividualStatusUserList() {
               <img src={searchlogo} alt="searchlogo" />
               <input
                 type="text"
-                placeholder="Search by Full Name"
+                placeholder="Search by Group Name"
                 onChange={(e) => setSearchValue(e.target.value)}
               />
             </div>
-            <div className={styles.selectbox}>
+            {/* <div className={styles.selectbox}>
               <h4>Filter by</h4>
               <div>
                 <select
@@ -145,7 +145,7 @@ function IndividualStatusUserList() {
                   <option value={1}>Inactive</option>
                 </select>
               </div>
-            </div>
+            </div> */}
             {/* )} */}
           </div>
           <div
@@ -157,6 +157,7 @@ function IndividualStatusUserList() {
             }}
           >
             <DataGrid
+              sx={{textTransform:"capitalize"}}
               rows={filterArray(data)}
               columns={columns}
               initialState={{

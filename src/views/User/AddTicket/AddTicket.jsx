@@ -21,6 +21,7 @@ const AddTicket = () => {
   const [uploadFile, setUploadFile] = useState([]);
   const navigate = useNavigate();
   const createdBy = localStorage.getItem("allMasterId");
+  const groupId = localStorage.getItem("groupId");
   const onSuccess = () => {
     navigate("/user/mytickets");
   };
@@ -206,8 +207,7 @@ const AddTicket = () => {
                         </option>
 
                         {allGroupData &&
-                          allGroupData
-                            .filter((e) => e.groupId !== createdBy)
+                          allGroupData.filter(e => e.groupId !== groupId )
                             .map((e, i) => {
                               return (
                                 <option key={i} value={e.groupId}>
