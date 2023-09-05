@@ -13,8 +13,28 @@
 .rejectBtn {
   font-weight: 500 !important;
   font-size: 17px !important;
-  color: #f24c4c !important;
+  color: #fff !important;
+  padding: 20px !important;
+  margin: 5px !important;
+  width: 150px !important;
+  border: 0.5px solid rgb(191, 240, 191) !important;
+  border-radius: 4px !important;
+  background-color: #f24c4c !important;
+}
+
+.completed {
+  font-weight: 500 !important;
+  font-size: 17px !important;
+  color: #01c442 !important;
   padding: 2px 20px !important;
+}
+
+.reject {
+  font-weight: 500 !important;
+  font-size: 17px !important;
+  color: #f24c4c !important;
+  padding: 20px !important;
+  margin: 5px !important;
 }
 
 .hidden {

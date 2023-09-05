@@ -176,8 +176,13 @@ const EditTicket = () => {
                 </button>
               )}
               {uniqueTicketData[0].status === 1 && (
-                <button type="button" className={classes.rejectBtn}>
-                  Completed Task
+                <button type="button" className={classes.completed}>
+                  Task is Completed
+                </button>
+              )}
+              {uniqueTicketData[0].status === 3 && (
+                <button type="button" className={classes.reject}>
+                  Task is Rejected
                 </button>
               )}
             </div>
@@ -512,7 +517,8 @@ const EditTicket = () => {
                 </Form.Group>
               </div>
             </div>
-            {uniqueTicketData[0].status !== 1 ? (
+            {uniqueTicketData[0].status !== 1 &&
+            uniqueTicketData[0].status !== 3 ? (
               <button type="submit" className={classes.savebtn}>
                 Update Ticket
               </button>
