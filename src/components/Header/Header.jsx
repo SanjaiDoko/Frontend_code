@@ -9,11 +9,15 @@ import logo from "../../assets/Images/AllMastersHeaderLogo.png";
 // import { CircularProgress } from "@mui/material";
 import { useSelector } from "react-redux";
 import { useLogoutUser } from "../../hooks/logout";
+import { useGetUserDetailsById } from "../../hooks/userManagement";
+import Loader from "../Loader/Loader";
 
 function Header() {
   const type = useSelector((state) => state.profile.type);
   const { mutate } = useLogoutUser(type);
   const role = useSelector((state) => state.profile.role);
+  const userId = localStorage.getItem("allMasterId");
+  const { data, isLoading } = useGetUserDetailsById(userId);
 
   // const { data: userData, isLoading } = useProfileData(id, role);
 
@@ -26,6 +30,12 @@ function Header() {
   // 		return "";
   // 	}
   // }
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  console.log(data, "dddddd");
 
   return (
     <Navbar collapseOnSelect expand="lg">
@@ -78,9 +88,18 @@ function Header() {
               </Link>
             )}
             <Nav.Item className="d-flex gap-2">
-              <NavDropdown.Item className="linktag" onClick={() => mutate()}>
-                Logout
-              </NavDropdown.Item>
+              <div className="hellotextdiv">
+                <span className="linktag">Hello</span>
+                <span className="linktag">{data.fullName}</span>
+                <NavDropdown>
+                  <NavDropdown.Item
+                    className="dropdownlink"
+                    onClick={() => mutate()}
+                  >
+                    Logout
+                  </NavDropdown.Item>
+                </NavDropdown>
+              </div>
             </Nav.Item>
           </Nav>
         </Navbar.Collapse>
