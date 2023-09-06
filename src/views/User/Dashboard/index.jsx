@@ -78,33 +78,31 @@ function Dashboard() {
     }
   };
 
-
-
   return (
-    <div className={styles.mainDiv}>
-      <div className={styles.subDiv}>
-        <h3 style={{ marginTop: "1em" }}>Received Ticket </h3>
-      </div>
-      <div>
-        {data && data.length > 0 ? (
-          <DataGrid
-            sx={{ textTransform: "capitalize" }}
-            rows={data}
-            columns={columns}
-            getRowId={(data) => data._id}
-            hideFooterSelectedRowCount={true}
-            onCellClick={(row) => rowClickFunction(row)}
-            initialState={{
-              pagination: {
-                paginationModel: {
-                  pageSize: 10,
+    <div className="container">
+      <div className={styles.mainDiv}>
+        <h3>Received Ticket </h3>
+        <div>
+          {data && data.length > 0 ? (
+            <DataGrid
+              sx={{ textTransform: "capitalize" }}
+              rows={data}
+              columns={columns}
+              getRowId={(data) => data._id}
+              hideFooterSelectedRowCount={true}
+              onCellClick={(row) => rowClickFunction(row)}
+              initialState={{
+                pagination: {
+                  paginationModel: {
+                    pageSize: 10,
+                  },
                 },
-              },
-            }}
-          />
-        ) : (
-          <p>No Data Found</p>
-        )}
+              }}
+            />
+          ) : (
+            <p>No Data Found</p>
+          )}
+        </div>
       </div>
     </div>
   );

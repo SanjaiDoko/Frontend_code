@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 3em;
+  padding-top: 80px;
   width: 100%;
 }
 .inputDiv {
@@ -37,12 +37,11 @@
   gap: 5px;
 }
 .addDiv {
-  width: 500px !important;
+  width: 600px !important;
 }
 
 .AddTicketDiv {
   display: flex;
-
   max-width: 500px;
 }
 
@@ -82,8 +81,6 @@
   background: #f4da47;
   border-radius: 4px;
   border: none;
-  font-family: "Rubik";
-  font-style: normal;
   font-weight: 500;
   font-size: 17px;
   color: #272727;
@@ -93,8 +90,6 @@
   background: #f4da47;
   border-radius: 4px;
   border: none;
-  font-family: "Rubik";
-  font-style: normal;
   font-weight: 500;
   font-size: 17px;
   color: #272727;
@@ -102,8 +97,6 @@
 }
 
 .title {
-  font-family: "Rubik";
-  font-style: normal;
   font-weight: 700;
   font-size: 32px;
   line-height: 38px;
@@ -128,12 +121,9 @@
 }
 
 .addDivHeading > h3 {
-  font-family: "Rubik";
-  font-style: normal;
   font-weight: bold;
-  font-size: 24px;
-  line-height: 28px;
   color: #333333;
+  margin-bottom: 0;
 }
 
 .addDivHeading > button {
@@ -146,8 +136,6 @@
 }
 
 .formlabel {
-  font-family: "Rubik";
-  font-style: normal;
   font-weight: 400;
   font-size: 15px;
   line-height: 17px;
@@ -159,8 +147,6 @@
   padding: 10px !important;
   border: 1px solid #d9d9d9;
   border-radius: 4px;
-  font-family: "Rubik";
-  font-style: normal;
   font-weight: 500;
   font-size: 14px;
 }
@@ -177,8 +163,6 @@
 
 .savebtn {
   background: #f3cf00;
-  font-family: "Rubik";
-  font-style: normal;
   font-weight: 500;
   font-size: 16px;
   color: #272727;
@@ -278,8 +262,6 @@
 }
 
 .addtitle {
-  font-family: "Rubik";
-  font-style: normal;
   font-weight: bold;
   font-size: 24px;
   color: #333333;
@@ -294,8 +276,6 @@
 }
 
 ::placeholder {
-  font-family: "Rubik";
-  font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
@@ -367,4 +347,7 @@
   .selectbox > h4 {
     width: 100%;
   }
+}
+.inputDiv > div {
+  width: 50%;
 }
