@@ -5,7 +5,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { Link } from "react-router-dom";
 // import { useLogoutUser, useProfileData } from "../../hooks/userAuthManagement";
 // import { convertFirstLettersAsUpperCase } from "../../helper";
-import logo from "../../assets/Images/AllMastersHeaderLogo.png";
+import Mainlogo from "../../assets/Images/mainlogo.png";
 // import { CircularProgress } from "@mui/material";
 import { useSelector } from "react-redux";
 import { useLogoutUser } from "../../hooks/logout";
@@ -18,7 +18,7 @@ function Header() {
   const role = useSelector((state) => state.profile.role);
   const userId = localStorage.getItem("allMasterId");
 
-  const { data, isLoading } = useGetUserDetailsById(userId , type);
+  const { data, isLoading } = useGetUserDetailsById(userId, type);
 
   // const { data: userData, isLoading } = useProfileData(id, role);
 
@@ -42,8 +42,7 @@ function Header() {
     <Navbar collapseOnSelect expand="lg">
       <Container className="container">
         <Link to="/home" className="brandlogo">
-          <img src={logo} className="headerlogo" alt="" />
-          AllMasters
+          <img src={Mainlogo} className="headerlogo" alt="" />
         </Link>
         <Navbar.Toggle aria-controls="responsive-navbar-nav">
           <GiHamburgerMenu />

@@ -85,29 +85,29 @@ function Index() {
 
   if (data !== undefined) {
     return (
-      <div className={styles.mainDiv}>
-        <div className={styles.subDiv}>
-          <h3 style={{ marginTop: "1em" }}>Manage Ticket </h3>
-        </div>
-        {data && data.length > 0 ? (
-          <DataGrid
-            sx={{ textTransform: "capitalize" }}
-            rows={data}
-            columns={columns}
-            getRowId={(data) => data._id}
-            hideFooterSelectedRowCount={true}
-            onCellClick={(row) => rowClickFunction(row)}
-            initialState={{
-              pagination: {
-                paginationModel: {
-                  pageSize: 10,
+      <div className="container">
+        <div className={styles.mainDiv}>
+          <h3>Manage Ticket </h3>
+          {data && data.length > 0 ? (
+            <DataGrid
+              sx={{ textTransform: "capitalize" }}
+              rows={data}
+              columns={columns}
+              getRowId={(data) => data._id}
+              hideFooterSelectedRowCount={true}
+              onCellClick={(row) => rowClickFunction(row)}
+              initialState={{
+                pagination: {
+                  paginationModel: {
+                    pageSize: 10,
+                  },
                 },
-              },
-            }}
-          />
-        ) : (
-          <p>No Data Found</p>
-        )}
+              }}
+            />
+          ) : (
+            <p>No Data Found</p>
+          )}
+        </div>
       </div>
     );
   }

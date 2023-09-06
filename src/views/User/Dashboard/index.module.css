@@ -1,13 +1,58 @@
 .mainDiv {
-  margin-top: 3em;
-  margin-left: 5em;
-  margin-right: 1em;
+  padding-top: 80px;
 }
+.mainDiv > h3 {
+  font-weight: bold;
+}
+
+.overview {
+  padding-top: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.overviewcontainer{
+  padding: 20px 0 !important;
+}
+
+.overviewtxt {
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 28px;
+  color: #272727;
+  padding-top: 5px;
+}
+
+.gridcontainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.gridcontainerlane {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.griditem {
+  background: linear-gradient(
+    65.11deg,
+    rgba(217, 217, 217, 0.3) 15.78%,
+    rgba(217, 217, 217, 0) 77.9%
+  );
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 5px;
+  padding: 5px 10px 5px 20px;
+}
+
 .editBtn {
   border-radius: 5px;
   color: rgb(212, 241, 212);
-  background-color: green;
+  background-color: #00a1ff;
   border: none;
+  padding: 5px 10px !important;
+  font-weight: bold;
 }
 .subDiv {
   display: flex;
@@ -50,8 +95,6 @@
   background: #f4da47;
   border-radius: 4px;
   border: none;
-  font-family: "Rubik";
-  font-style: normal;
   font-weight: 500;
   font-size: 17px;
   color: #272727;
@@ -61,8 +104,6 @@
   background: #f4da47;
   border-radius: 4px;
   border: none;
-  font-family: "Rubik";
-  font-style: normal;
   font-weight: 500;
   font-size: 17px;
   color: #272727;
@@ -70,8 +111,6 @@
 }
 
 .title {
-  font-family: "Rubik";
-  font-style: normal;
   font-weight: 700;
   font-size: 32px;
   line-height: 38px;
@@ -96,8 +135,6 @@
 }
 
 .addDivHeading > h3 {
-  font-family: "Rubik";
-  font-style: normal;
   font-weight: bold;
   font-size: 24px;
   line-height: 28px;
@@ -114,8 +151,6 @@
 }
 
 .formlabel {
-  font-family: "Rubik";
-  font-style: normal;
   font-weight: 400;
   font-size: 15px;
   line-height: 17px;
@@ -127,8 +162,6 @@
   padding: 10px !important;
   border: 1px solid #d9d9d9;
   border-radius: 4px;
-  font-family: "Rubik";
-  font-style: normal;
   font-weight: 500;
   font-size: 14px;
 }
@@ -145,8 +178,6 @@
 
 .savebtn {
   background: #f3cf00;
-  font-family: "Rubik";
-  font-style: normal;
   font-weight: 500;
   font-size: 16px;
   color: #272727;
@@ -246,8 +277,6 @@
 }
 
 .addtitle {
-  font-family: "Rubik";
-  font-style: normal;
   font-weight: bold;
   font-size: 24px;
   color: #333333;
@@ -262,8 +291,6 @@
 }
 
 ::placeholder {
-  font-family: "Rubik";
-  font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
