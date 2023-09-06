@@ -1,5 +1,5 @@
 import styles from "./index.module.css";
-import Logo from "../../../assets/Images/AllMasterslogo.jpg";
+import Logo from "../../../assets/Images/blacklogo.png";
 import { AiFillEye } from "react-icons/ai";
 import { BsFillEyeSlashFill } from "react-icons/bs";
 import Form from "react-bootstrap/Form";
