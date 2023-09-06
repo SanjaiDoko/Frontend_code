@@ -115,22 +115,22 @@
   font-size: 20px;
 }
 
-/* .progress {
+.progress {
   height: 45px !important;
   width: 134px !important;
   border-radius: 0 !important;
   background-image: url("/src/assets/Images/Isolation.png") !important;
   background-repeat: no-repeat;
   overflow: hidden;
-} */
+}
 
-/* .progress-bar {
+.progress-bar {
   color: white !important;
   background: linear-gradient(to right, rgb(133, 133, 133), black) !important;
   font-size: 15px !important;
   font-weight: 700 !important;
   margin: 3px !important;
-} */
+}
 
 .form-check-input {
   border-radius: 0px !important;

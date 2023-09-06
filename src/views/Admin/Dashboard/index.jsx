@@ -50,6 +50,7 @@ function AdminDashboard() {
               Groups
             </h1>
           </div>
+          {groupList.length > 0 ? 
           <div className={styles.groupcards}>
             {groupList.map((e, i) => {
               return (
@@ -106,6 +107,12 @@ function AdminDashboard() {
               );
             })}
           </div>
+          :
+          <div className={styles.nogroup}>
+            <h4>No Groups Find!</h4>
+            <h4>Hurry Up... Go and Create The Group</h4>
+          </div>
+          }
         </div>
       </div>
     </div>

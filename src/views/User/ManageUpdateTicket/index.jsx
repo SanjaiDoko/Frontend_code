@@ -4,8 +4,8 @@ import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 // import { ReactComponent as CloseIcon } from "../../../assets/Icons/closeIcon.svg";
 import classes from "./index.module.css";
-import { addTicketValidation } from "../../../validationSchema/addTicketValidation";
-import { openFileNewWindow } from "../../../helper";
+import { updateManageTicketValidation } from "../../../validationSchema/updateManageTicketValidation";
+import {openFileNewWindow } from "../../../helper";
 import { useEffect, useState } from "react";
 import {
   useGetAllUserByGroupId,
@@ -65,7 +65,7 @@ const Index = () => {
     getValues,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(addTicketValidation),
+    resolver: yupResolver(updateManageTicketValidation),
     mode: "onTouched",
     defaultValues: {
       issueName: "",
