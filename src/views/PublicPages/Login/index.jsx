@@ -44,6 +44,7 @@ const Loginpage = () => {
   const watchFields = watch();
 
   const { mutateAsync: logOut, isLoading: isLogOutLoading } = useLogoutUser(
+    false,
     watchFields.type
   );
 
