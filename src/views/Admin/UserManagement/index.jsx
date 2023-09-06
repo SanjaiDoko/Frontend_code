@@ -30,6 +30,7 @@ function IndividualStatusUserList() {
         )
         .filter(
           (e) =>
+            e.fullName &&
             e.fullName
               .toLowerCase()
               .replace(/\s/, "")
@@ -95,6 +96,8 @@ function IndividualStatusUserList() {
   if (isError) {
     return <div>{error.message}</div>;
   }
+
+  console.log(data, "data");
 
   return (
     <div className={styles.countrydiv}>
