@@ -2,11 +2,14 @@ import styles from "./index.module.css";
 import { useGetManageTicketById } from "../../../hooks/ticketHooks";
 import { DataGrid } from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Index() {
   const id = localStorage.getItem("allMasterId");
 
-  const { data, isloading } = useGetManageTicketById(id);
+  const role = useSelector((state) => state.profile.role);
+
+  const { data, isloading } = useGetManageTicketById(id, role);
 
   const navigate = useNavigate();
 
