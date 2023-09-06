@@ -1,0 +1,37 @@
+.titletext {
+    word-wrap: break-word !important;
+    font-weight: bold !important;
+    font-family: "Rubik" !important;
+    font-size: 18px !important;
+    color: #f4da47 !important;
+    display: flex !important;
+    justify-content: space-between !important;
+}
+.contenttxt {
+	word-wrap: break-word;
+}
+.yesbtn , .yesbtn:hover{
+    background: #f4da47 !important;
+    color: #272727 !important;
+    padding: 3px 20px !important;
+    font-family: "Rubik" !important;
+	font-size: 15px !important;
+    border: 1.5px solid #f4da47 !important;
+}
+.nobtn , .nobtn:hover{
+    background: #fff !important;
+    color: #f4da47 !important;
+    padding: 3px 20px !important;
+    font-family: "Rubik" !important;
+	font-size: 15px !important;
+    border: 1.5px solid #f4da47 !important;
+}
+.closebtns{
+    padding: 0 !important;
+    color: #919191 !important;
+    font-size: 24px !important;
+    display: contents !important;
+}
+.terms {
+	color: #f4da47 !important;
+}

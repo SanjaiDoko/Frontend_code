@@ -13,16 +13,22 @@ import {
 import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetAllGroups } from "../../../hooks/groupManagement";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { URL } from "../../../config";
 import moment from "moment";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { closePopup, openPopup } from "../../../redux/slices/popupSlice";
+import CommanPopup from "../../../components/popup";
 
 const EditTicket = () => {
   const [uploadFile, setUploadFile] = useState([]);
   const role = useSelector((state) => state.profile.role);
+  const [popUpState, setPopupState] = useState({
+    problem: "",
+    resolution: "",
+  });
 
   const { id } = useParams();
 
@@ -30,6 +36,7 @@ const EditTicket = () => {
     useGetSpecificTicketById(id);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const createdBy = localStorage.getItem("allMasterId");
 
@@ -38,6 +45,9 @@ const EditTicket = () => {
   const onSuccess = () => {
     navigate("/user/dashboard/");
   };
+
+  const titleText = "Update Status ";
+  const contentText = "Are you sure that you want to update Status";
 
   const { mutate } = useUpdateTicket(onSuccess);
   const {
@@ -98,7 +108,16 @@ const EditTicket = () => {
     setUploadFile(array.filter((file, i) => i !== index));
   };
 
+  const handleAgree = () => {
+    let payload = uniqueTicketData[0];
+    payload.id = uniqueTicketData[0]._id;
+    delete payload._id;
+    payload.status = 1;
+    mutate(payload);
+  };
+
   const onSubmit = (data) => {
+    dispatch(closePopup());
     const values = getValues();
     data.managedBy = values["managedId"];
     data.actualEndTime = moment(data.actualEndTime);
@@ -114,17 +133,19 @@ const EditTicket = () => {
           <div>
             <div className={classes.addDivHeading}>
               <h2>Edit Ticket</h2>
-              {uniqueTicketData[0].status === 2 && (
+
+              {uniqueTicketData && uniqueTicketData[0].status !== 1 && (
                 <button
                   type="button"
                   className={classes.rejectBtn}
                   onClick={() => {
-                    mutate({ id, status: 1 });
+                    dispatch(openPopup());
                   }}
                 >
                   Complete Task
                 </button>
               )}
+
               {uniqueTicketData[0].status === 1 && (
                 <button type="button" className={classes.completed}>
                   Task is Completed
@@ -463,6 +484,15 @@ const EditTicket = () => {
             )}
           </div>
         </form>
+      </div>
+      <div>
+        <CommanPopup
+          popUpState={popUpState}
+          setPopupState={setPopupState}
+          handleAgree={handleAgree}
+          titleText={titleText}
+          contentText={contentText}
+        />
       </div>
     </div>
   );
