@@ -2,11 +2,14 @@ import styles from "./index.module.css";
 import { useGetManageTicketById } from "../../../hooks/ticketHooks";
 import { DataGrid } from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Index() {
   const id = localStorage.getItem("allMasterId");
 
-  const { data, isloading } = useGetManageTicketById(id);
+  const role = useSelector((state) => state.profile.role);
+
+  const { data, isloading } = useGetManageTicketById(id, role);
 
   const navigate = useNavigate();
 
@@ -26,7 +29,7 @@ function Index() {
     }
     return ticketStatus;
   };
-
+console.log(data)
   const columns = [
     {
       field: "issueName",
@@ -35,19 +38,19 @@ function Index() {
       width: 150,
     },
     {
+      field: "assignedName",
+      flex: 1,
+      headerName: "Issue Group",
+      width: 150,
+      renderCell: (params) => {
+        return params.row.issueGroupName 
+      },
+    },
+    {
       field: "managerName",
       flex: 1,
       headerName: "Managed By",
       width: 150,
-    },
-    {
-      field: "assignedName",
-      flex: 1,
-      headerName: "Assigned To",
-      width: 150,
-      renderCell: (params) => {
-        return params.row.assignedName ? params.row.assignedName : "NA";
-      },
     },
     {
       field: "type",
