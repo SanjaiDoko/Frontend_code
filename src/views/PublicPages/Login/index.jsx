@@ -92,7 +92,6 @@ const Loginpage = () => {
   };
 
   const handleAgree = async () => {
-    console.log(watchFields.type);
     await logOut(watchFields.type);
     await loginData.mutateAsync(watchFields);
   };

@@ -36,7 +36,6 @@ function Header() {
     return <Loader />;
   }
 
-  console.log(data, "dddddd");
 
   return (
     <Navbar collapseOnSelect expand="lg">
