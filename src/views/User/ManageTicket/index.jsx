@@ -70,8 +70,8 @@ console.log(data)
       field: "Options",
       sortable: false,
       width: 100,
-      renderCell: () => (
-        <button className={styles.editBtn}>Update Ticket</button>
+      renderCell: (params) => (
+        <button className={styles.editBtn}>{params.row.status === 0 ?"Update Ticket" : "View Ticket"}</button> 
       ),
     },
   ];
