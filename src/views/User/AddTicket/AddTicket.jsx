@@ -61,6 +61,7 @@ const AddTicket = () => {
   const onSubmit = (data) => {
     const values = getValues();
     data.managedBy = values["managedId"];
+    data.mailList = data.mailList ? data.mailList.split(",") : [];
     data.files = uploadFile;
     mutate(data);
   };

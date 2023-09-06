@@ -12,7 +12,6 @@ import {
 } from "../../../hooks/ticketHooks";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetAllGroups } from "../../../hooks/groupManagement";
-import { useSelector } from "react-redux";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { URL } from "../../../config";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
@@ -21,8 +20,6 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 const EditTicket = () => {
   const [uploadFile, setUploadFile] = useState([]);
-
-  const role = useSelector((state) => state.profile.role);
 
   const { id } = useParams();
 
@@ -172,7 +169,7 @@ const EditTicket = () => {
                         style ={{textTransform:"capitalize"}}
                         {...field}
                         id="issueGroup"
-                        disabled={role === 3}
+                        disabled
                         onChange={(e) => {
                           field.onChange(e);
                           let managedBy =
