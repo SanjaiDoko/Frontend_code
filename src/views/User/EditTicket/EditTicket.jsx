@@ -12,7 +12,6 @@ import {
 } from "../../../hooks/ticketHooks";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetAllGroups } from "../../../hooks/groupManagement";
-import DeleteIcon from "@mui/icons-material/Delete";
 import { URL } from "../../../config";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
@@ -71,13 +70,15 @@ const EditTicket = () => {
     return <p>Loading...</p>;
   }
 
-  const removeFileHandler = (array, index) => {
-    setUploadFile(array.filter((file, i) => i !== index));
-  };
-
   if (ticketLoading) {
     return <p>Loading...</p>;
   }
+
+  const editorConfiguration = {
+    toolbar: {
+      items: [],
+    },
+  };
 
   const onSubmit = (data) => {
     const values = getValues();
@@ -117,8 +118,8 @@ const EditTicket = () => {
                     control={control}
                     render={({ field }) => (
                       <Form.Control
-                      {...field}
-                      style ={{textTransform:"capitalize"}}
+                        {...field}
+                        style={{ textTransform: "capitalize" }}
                         type="text"
                         id="issueName"
                         disabled
@@ -142,7 +143,7 @@ const EditTicket = () => {
                     render={({ field }) => (
                       <Form.Control
                         type="text"
-                        style ={{textTransform:"capitalize"}}
+                        style={{ textTransform: "capitalize" }}
                         {...field}
                         id="type"
                         disabled
@@ -166,7 +167,7 @@ const EditTicket = () => {
                     render={({ field }) => (
                       <Form.Select
                         className={`formcontrol`}
-                        style ={{textTransform:"capitalize"}}
+                        style={{ textTransform: "capitalize" }}
                         {...field}
                         id="issueGroup"
                         disabled
@@ -214,7 +215,7 @@ const EditTicket = () => {
                     render={({ field }) => (
                       <Form.Control
                         type="text"
-                        style ={{textTransform:"capitalize"}}
+                        style={{ textTransform: "capitalize" }}
                         disabled
                         {...field}
                         id="managerName"
@@ -242,13 +243,7 @@ const EditTicket = () => {
                     {...field}
                     data={uniqueTicketData[0].issueDescription}
                     id="issueDescription"
-                    disabled
-                    onChange={(event, editor) => {
-                      const data = editor.getData();
-                      field.onChange(data);
-                    }}
-                    defaultValue=""
-                    name="issueDescription"
+                    config={editorConfiguration}
                   />
                 )}
               />
@@ -282,9 +277,11 @@ const EditTicket = () => {
               </Form.Group>
 
               <Form.Group className="pt-2">
-                <Form.Label htmlFor="mailList" className="formlabel">
-                  Uploaded File
-                </Form.Label>
+                {uploadFile && uploadFile.length > 0 && (
+                  <Form.Label htmlFor="mailList" className="formlabel">
+                    Uploaded File
+                  </Form.Label>
+                )}
               </Form.Group>
 
               {uploadFile.map((e, i) => {
