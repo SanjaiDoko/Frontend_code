@@ -74,6 +74,12 @@ const EditTicket = () => {
     return <p>Loading...</p>;
   }
 
+  const editorConfiguration = {
+    toolbar: {
+      items: [],
+    },
+  };
+
   const onSubmit = (data) => {
     const values = getValues();
     data.managedBy = values["managedId"];
@@ -237,13 +243,7 @@ const EditTicket = () => {
                     {...field}
                     data={uniqueTicketData[0].issueDescription}
                     id="issueDescription"
-                    disabled
-                    onChange={(event, editor) => {
-                      const data = editor.getData();
-                      field.onChange(data);
-                    }}
-                    defaultValue=""
-                    name="issueDescription"
+                    config={editorConfiguration}
                   />
                 )}
               />
@@ -277,9 +277,11 @@ const EditTicket = () => {
               </Form.Group>
 
               <Form.Group className="pt-2">
-                <Form.Label htmlFor="mailList" className="formlabel">
-                  Uploaded File
-                </Form.Label>
+                {uploadFile && uploadFile.length > 0 && (
+                  <Form.Label htmlFor="mailList" className="formlabel">
+                    Uploaded File
+                  </Form.Label>
+                )}
               </Form.Group>
 
               {uploadFile.map((e, i) => {

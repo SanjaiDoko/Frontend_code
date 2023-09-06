@@ -68,6 +68,12 @@ const EditTicket = () => {
     },
   });
 
+  const editorConfiguration = {
+    toolbar: {
+      items: [],
+    },
+  };
+
   useEffect(() => {
     if (uniqueTicketData) {
       if (uniqueTicketData[0].actualEndTime) {
@@ -353,8 +359,10 @@ const EditTicket = () => {
                       />
                     )}
                   />
-                       {errors.timeLog && (
-                    <span className={classes.error}>{errors.timeLog.message}</span>
+                  {errors.timeLog && (
+                    <span className={classes.error}>
+                      {errors.timeLog.message}
+                    </span>
                   )}
                 </Form.Group>
               </div>
@@ -371,13 +379,7 @@ const EditTicket = () => {
                     disabled
                     data={uniqueTicketData[0].issueDescription}
                     id="issueDescription"
-                    onChange={(event, editor) => {
-                      const data = editor.getData();
-                      field.onChange(data);
-                    }}
-
-                    
-                    defaultValue=""
+                    config={editorConfiguration}
                     name="issueDescription"
                   />
                 )}
