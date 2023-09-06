@@ -78,12 +78,26 @@
   min-height: 60vh;
   margin-top: 30px;
 }
-.groupcard {
-  background: #fff;
+/* .groupcard {
   border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 5px;
-  width: 32%;
-  height: 290px;
+  
+} */
+.groupcard{
+  
+  background: #fff;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+    box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+    border: none;
+    margin-bottom: 30px;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    width: 32%;
+    height: 290px;
+  }
+  .groupcard:hover{
+    transform: scale(1.01);
+
 }
 .headergroup {
   padding: 10px;

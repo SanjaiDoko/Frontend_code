@@ -68,7 +68,7 @@ function Dashboard() {
       sortable: false,
       width: 100,
       renderCell: () => (
-        <button className={styles.editBtn}>Update Ticket</button>
+        <button className={styles.editBtn}>View Ticket</button>
       ),
     },
   ];

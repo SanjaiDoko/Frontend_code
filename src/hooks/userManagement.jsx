@@ -17,6 +17,7 @@ const useGetAllUsers = () => {
     },
   });
 };
+
 const useMutateUser = () => {
   const queryClient = useQueryClient();
   return useMutation({
@@ -41,4 +42,26 @@ const useMutateUser = () => {
   });
 };
 
-export { useGetAllUsers, useMutateUser };
+const useGetUserDetailsById = (id, type) =>
+  useQuery({
+    queryKey: ["userId", id, type],
+    queryFn: () => {
+      return fetchData(
+        {
+          url: URL + "user/getUserDetails",
+          method: "POST",
+          isAuthRequired: true,
+        },
+        {
+          data: [
+            {
+              id,
+              type,
+            },
+          ],
+        }
+      );
+    },
+  });
+
+export { useGetAllUsers, useMutateUser, useGetUserDetailsById };

@@ -1,11 +1,10 @@
 import { useMutation } from "@tanstack/react-query";
 import { fetchData } from "../helper";
 import { URL } from "../config";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 
-const useLogoutUser = () => {
+const useLogoutUser = (type) => {
   const id = localStorage.getItem("allMasterId");
-  const type = useSelector((state) => state.profile.type);
 
   return useMutation({
     mutationFn: () =>
@@ -15,7 +14,7 @@ const useLogoutUser = () => {
           method: "POST",
           //   isAuthRequired: true,
         },
-        { data: [{ id, type }] }
+        { data: [{ id, type: +type }] }
       ),
     onSuccess: () => {
       window.location.replace("/login");
