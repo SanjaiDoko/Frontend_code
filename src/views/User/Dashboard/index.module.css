@@ -11,7 +11,7 @@
   justify-content: space-between;
 }
 
-.overviewcontainer{
+.overviewcontainer {
   padding: 20px 0 !important;
 }
 
@@ -38,17 +38,17 @@
 .griditem {
   background: linear-gradient(
     65.11deg,
-    rgba(217, 217, 217, 0.3) 15.78%,
+    rgb(222 250 255 / 30%) 15.78%,
     rgba(217, 217, 217, 0) 77.9%
   );
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  border: 1px solid rgb(222 247 255);
   border-radius: 5px;
   padding: 5px 10px 5px 20px;
 }
 
 .editBtn {
   border-radius: 5px;
-  color: rgb(212, 241, 212);
+  color: #fff;
   background-color: #00a1ff;
   border: none;
   padding: 5px 10px !important;
@@ -58,6 +58,9 @@
   display: flex;
   justify-content: space-between;
   gap: 5px;
+}
+.subDiv > h3 {
+  font-weight: bold;
 }
 .attachement {
   margin: 2em;

@@ -5,7 +5,7 @@
 }
 .termsStyls {
 	text-decoration: none;
-	color: #f3cf00 !important;
+	color: #00A1ff !important;
 }
 
 .newuser > p {
@@ -42,7 +42,7 @@
 	font-weight: 500;
 	font-size: 14px;
 	line-height: 17px;
-	color: #f3cf00;
+	color: #00A1ff;
 	text-decoration: none;
     background: none;
     border: none !important;
@@ -52,7 +52,7 @@
 	font-weight: 500;
 	font-size: 14px;
 	line-height: 17px;
-	color: #f3cf00 !important;
+	color: #00A1ff !important;
 	text-decoration: none;
 }
 
@@ -84,19 +84,17 @@
 	padding: 10px;
 }
 .loginbtn {
-	background: #f3cf00 !important;
+	background: #00A1ff !important;
 	border-radius: 6px;
 	padding: 10px !important;
 	font-weight: 500;
 	font-size: 16px;
-	color: #000 !important;
+	color: #fff !important;
 	border: none !important;
 	width: 100%;
 	margin: 0px 0px 20px 0px;
 }
-.loginbtn:hover {
-	color: #000;
-}
+
 
 .flexdiv {
 	display: flex;
