@@ -65,7 +65,7 @@ const useGetAllUserByGroupId = (id) =>
     },
   });
 
-const useGetManageTicketById = (id) =>
+const useGetManageTicketById = (id, role) =>
   useQuery({
     queryKey: ["ManageTickets", id],
     queryFn: () => {
@@ -84,6 +84,7 @@ const useGetManageTicketById = (id) =>
         }
       );
     },
+    enabled: role === 3
   });
 
 const useGetAllReceivedTicketById = (id, role) =>
