@@ -1,6 +1,6 @@
 import styles from "./index.module.css";
 import { AiFillEye } from "react-icons/ai";
-import Logo from "../../../assets/Images/AllMasterslogo.jpg";
+import {ReactComponent as Logo} from "../../../assets/Images/mainlogo.svg";
 import { BsFillEyeSlashFill } from "react-icons/bs";
 import { Form, Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
@@ -123,9 +123,9 @@ const Loginpage = () => {
             onSubmit={handleSubmit(onSubmit)}
           >
             <div className={styles.Logodiv}>
-              <img src={Logo} alt="AllMasters Logo" className="masterlogo" />
+              <Logo className={styles.logo} />
               <h5 className="pt-2">Welcome back !</h5>
-              <p>Book & Track your shipments</p>
+              <p>Raise & Resolve Tickets </p>
             </div>
             <Form.Group className="pt-2">
               <Form.Label htmlFor="type" className="formlabel">
