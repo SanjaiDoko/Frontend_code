@@ -4,6 +4,48 @@
 .mainDiv > h3 {
   font-weight: bold;
 }
+
+.overview {
+  padding-top: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.overviewcontainer{
+  padding: 20px 0 !important;
+}
+
+.overviewtxt {
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 28px;
+  color: #272727;
+  padding-top: 5px;
+}
+
+.gridcontainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.gridcontainerlane {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.griditem {
+  background: linear-gradient(
+    65.11deg,
+    rgba(217, 217, 217, 0.3) 15.78%,
+    rgba(217, 217, 217, 0) 77.9%
+  );
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 5px;
+  padding: 5px 10px 5px 20px;
+}
+
 .editBtn {
   border-radius: 5px;
   color: rgb(212, 241, 212);

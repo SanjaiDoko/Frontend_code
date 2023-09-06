@@ -1,13 +1,15 @@
 import { useSelector } from "react-redux";
-import { useGetAllReceivedTicketById } from "../../../hooks/ticketHooks";
+import { useGetAllReceivedTicketById, useGetManageTicketById } from "../../../hooks/ticketHooks";
 import styles from "./index.module.css";
 import { DataGrid } from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
 
 function Dashboard() {
+  let openTickets = 0, completedTickets = 0, managerTickets = 0
   const id = localStorage.getItem("allMasterId");
   const role = useSelector((state) => state.profile.role);
-  const { data, isLoading } = useGetAllReceivedTicketById(id, role);
+  const { data, isLoading, isSuccess: receivedTickets } = useGetAllReceivedTicketById(id, role);
+  const {data: managerTicketsData, isSuccess: managerTicketsSuccess} = useGetManageTicketById(id, role)
   const navigate = useNavigate();
 
   const returnStatus = (status) => {
@@ -72,6 +74,26 @@ function Dashboard() {
     return <p>Loading...</p>;
   }
 
+  if(receivedTickets){
+     data.forEach((ticket) => {
+      if(ticket.status === 1){
+        completedTickets += 1
+      }else if(ticket.status === 2){
+        openTickets += 1
+      }else {
+        return false
+      }
+     })
+  }
+
+  if(role === 3 && managerTicketsSuccess){
+    managerTicketsData.forEach((ticket) => {
+      if(ticket.status === 0){
+        managerTickets += 1
+      }
+     })
+  }
+
   const rowClickFunction = (data) => {
     if (data.field === "Options") {
       navigate("/user/dashboard/" + data.row._id);
@@ -79,33 +101,52 @@ function Dashboard() {
   };
 
   return (
-    <div className="container">
-      <div className={styles.mainDiv}>
-        <h3>Received Ticket </h3>
-        <div>
-          {data && data.length > 0 ? (
-            <DataGrid
-              sx={{ textTransform: "capitalize" }}
-              rows={data}
-              columns={columns}
-              getRowId={(data) => data._id}
-              hideFooterSelectedRowCount={true}
-              onCellClick={(row) => rowClickFunction(row)}
-              initialState={{
-                pagination: {
-                  paginationModel: {
-                    pageSize: 10,
-                  },
+    <div className={styles.mainDiv}>
+      <div className={`container ${styles.overviewcontainer}`}>
+          <div className={styles.overview}>
+            <h1 className={styles.overviewtxt}>Overview</h1>
+          </div>
+          <div className={styles.gridcontainer}>
+            <div  onClick={() => navigate("/admin/group")}  className={`${styles.griditem} ${styles.item1}`}>
+              <h1>{openTickets}</h1>
+              <h5>Open Tickets</h5>
+            </div>
+            <div onClick={() => navigate("/admin/user")} className={`${styles.griditem} ${styles.item}`}>
+              <h1>{completedTickets}</h1>
+              <h5>Completed Tickets</h5>
+            </div>
+            {role === 3 && <div onClick={() => navigate("/admin/group")} className={`${styles.griditem} ${styles.item}`}>
+              <h1>{managerTickets}</h1>
+              <h5>Managed Tickets</h5>
+            </div>}
+          </div>
+        </div>
+      <div className={styles.subDiv}>
+        <h3 style={{ marginTop: "1em" }}>Received Ticket </h3>
+      </div>
+      <div>
+        {data && data.length > 0 ? (
+          <DataGrid
+            sx={{ textTransform: "capitalize" }}
+            rows={data}
+            columns={columns}
+            getRowId={(data) => data._id}
+            hideFooterSelectedRowCount={true}
+            onCellClick={(row) => rowClickFunction(row)}
+            initialState={{
+              pagination: {
+                paginationModel: {
+                  pageSize: 10,
                 },
-              }}
+              }}}
             />
           ) : (
             <p>No Data Found</p>
           )}
         </div>
+        
       </div>
-    </div>
-  );
+  )
 }
 
 export default Dashboard;
