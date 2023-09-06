@@ -23,7 +23,7 @@ function AdminDashboard() {
           <div className={styles.gridcontainer}>
             <div
               onClick={() => navigate("/admin/group")}
-              className={`${styles.griditem} ${styles.item1}`}
+              className={`${styles.griditem} ${styles.item}`}
             >
               <h1>{groupList.length}</h1>
               <h5>Total Groups</h5>
