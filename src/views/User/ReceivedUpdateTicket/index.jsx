@@ -25,10 +25,6 @@ import CommanPopup from "../../../components/popup";
 const EditTicket = () => {
   const [uploadFile, setUploadFile] = useState([]);
   const role = useSelector((state) => state.profile.role);
-  const [popUpState, setPopupState] = useState({
-    problem: "",
-    resolution: "",
-  });
 
   const { id } = useParams();
 
@@ -139,7 +135,7 @@ const EditTicket = () => {
                     type="button"
                     className={classes.rejectBtn}
                     onClick={() => {
-                      mutate({ id, status: 1 });
+                      dispatch(openPopup());
                     }}
                   >
                     Complete Task
@@ -158,184 +154,182 @@ const EditTicket = () => {
               </div>
               <div className={classes.inputdiv}>
                 <div className={classes.flexdiv}>
-                <div className={classes.infodiv}>
-                  <div className={classes.flexeddiv}>
-                    <Form.Group className="pt-2">
-                      <Form.Label htmlFor="issueName" className="formlabel">
-                        Issue Name :
-                      </Form.Label>
-                      <Controller
-                        name="issueName"
-                        control={control}
-                        render={({ field }) => (
-                          <Form.Control
-                            {...field}
-                            type="text"
-                            id="issueName"
-                            disabled
-                            placeholder="Enter Issue Name"
-                          />
-                        )}
-                      />
-                      {errors.issueName && (
-                        <span className={classes.error}>
-                          {errors.issueName.message}
-                        </span>
-                      )}
-                    </Form.Group>
-                    <Form.Group className="pt-2">
-                      <Form.Label htmlFor="type" className="formlabel">
-                        Type :
-                      </Form.Label>
-                      <Controller
-                        name="type"
-                        control={control}
-                        render={({ field }) => (
-                          <Form.Control
-                            type="text"
-                            {...field}
-                            id="type"
-                            disabled
-                            placeholder="Enter Type"
-                          />
-                        )}
-                      />
-                      {errors.type && (
-                        <span className={classes.error}>
-                          {errors.type.message}
-                        </span>
-                      )}
-                    </Form.Group>
-                  </div>
-                  <div className={classes.flexeddiv}>
-                    <Form.Group className="pt-2">
-                      <Form.Label htmlFor="issueGroup" className="formlabel">
-                        Issue Group :
-                      </Form.Label>
-                      <Controller
-                        name="issueGroup"
-                        control={control}
-                        render={({ field }) => (
-                          <Form.Select
-                            className={`formcontrol`}
-                            {...field}
-                            id="issueGroup"
-                            disabled={role === 3}
-                            onChange={(e) => {
-                              field.onChange(e);
-                              let managedBy =
-                                allGroupData &&
-                                allGroupData.filter(
-                                  (e) => e.groupId === watch("issueGroup")
-                                );
-                              setValue(
-                                "managedBy",
-                                managedBy[0].managedBy.name
-                              );
-                              setValue(
-                                "managedId",
-                                managedBy[0].managedBy.managedBy
-                              );
-                            }}
-                          >
-                            <option value={""} hidden>
-                              Choose Type
-                            </option>
-                            {allGroupData &&
-                              allGroupData.map((e, i) => {
-                                return (
-                                  <option key={i} value={e.groupId}>
-                                    {e.name}
-                                  </option>
-                                );
-                              })}
-                          </Form.Select>
-                        )}
-                      />
-                      {errors.issueGroup && (
-                        <span className={classes.error}>
-                          {errors.issueGroup.message}
-                        </span>
-                      )}
-                    </Form.Group>
-                    <Form.Group className="pt-2">
-                      <Form.Label htmlFor="managerName" className="formlabel">
-                        Managed By :
-                      </Form.Label>
-                      <Controller
-                        name="managerName"
-                        control={control}
-                        render={({ field }) => (
-                          <Form.Control
-                            type="text"
-                            disabled
-                            {...field}
-                            id="managerName"
-                            placeholder="Enter Managed By Name"
-                          />
-                        )}
-                      />
-                      {errors.managedBy && (
-                        <span className={classes.error}>
-                          {errors.managedBy.message}
-                        </span>
-                      )}
-                    </Form.Group>
-                  </div>
-                  <div className={classes.flexeddiv}>
-                    <Form.Group className="pt-2">
-                      <Form.Label htmlFor="mailList" className="formlabel">
-                        Mail To :
-                      </Form.Label>
-                      <Controller
-                        name="mailList"
-                        control={control}
-                        render={({ field }) => (
-                          <Form.Control
-                            type="text"
-                            {...field}
-                            id="mailList"
-                            disabled
-                            placeholder="Enter Mail To"
-                          />
-                        )}
-                      />
-                      {errors.mailTo && (
-                        <span className={classes.error}>
-                          {errors.mailTo.message}
-                        </span>
-                      )}
-                    </Form.Group>
-                  </div>
-                  <div>
-                    <Form.Label style={{ fontWeight: "bold" }}>
-                      Issue Description :
-                    </Form.Label>
-                    <Controller
-                      name="issueDescription"
-                      control={control}
-                      render={({ field }) => (
-                        <CKEditor
-                          editor={ClassicEditor}
-                          {...field}
-                          disabled
-                          data={uniqueTicketData[0].issueDescription}
-                          id="issueDescription"
-                          config={editorConfiguration}
-                          name="issueDescription"
+                  <div className={classes.infodiv}>
+                    <div className={classes.flexeddiv}>
+                      <Form.Group className="pt-2">
+                        <Form.Label htmlFor="issueName" className="formlabel">
+                          Issue Name :
+                        </Form.Label>
+                        <Controller
+                          name="issueName"
+                          control={control}
+                          render={({ field }) => (
+                            <Form.Control
+                              {...field}
+                              type="text"
+                              id="issueName"
+                              disabled
+                              placeholder="Enter Issue Name"
+                            />
+                          )}
                         />
+                        {errors.issueName && (
+                          <span className={classes.error}>
+                            {errors.issueName.message}
+                          </span>
+                        )}
+                      </Form.Group>
+                      <Form.Group className="pt-2">
+                        <Form.Label htmlFor="type" className="formlabel">
+                          Type :
+                        </Form.Label>
+                        <Controller
+                          name="type"
+                          control={control}
+                          render={({ field }) => (
+                            <Form.Control
+                              type="text"
+                              {...field}
+                              id="type"
+                              disabled
+                              placeholder="Enter Type"
+                            />
+                          )}
+                        />
+                        {errors.type && (
+                          <span className={classes.error}>
+                            {errors.type.message}
+                          </span>
+                        )}
+                      </Form.Group>
+                    </div>
+                    <div className={classes.flexeddiv}>
+                      <Form.Group className="pt-2">
+                        <Form.Label htmlFor="issueGroup" className="formlabel">
+                          Issue Group :
+                        </Form.Label>
+                        <Controller
+                          name="issueGroup"
+                          control={control}
+                          render={({ field }) => (
+                            <Form.Select
+                              className={`formcontrol`}
+                              {...field}
+                              id="issueGroup"
+                              disabled={role === 3}
+                              onChange={(e) => {
+                                field.onChange(e);
+                                let managedBy =
+                                  allGroupData &&
+                                  allGroupData.filter(
+                                    (e) => e.groupId === watch("issueGroup")
+                                  );
+                                setValue(
+                                  "managedBy",
+                                  managedBy[0].managedBy.name
+                                );
+                                setValue(
+                                  "managedId",
+                                  managedBy[0].managedBy.managedBy
+                                );
+                              }}
+                            >
+                              <option value={""} hidden>
+                                Choose Type
+                              </option>
+                              {allGroupData &&
+                                allGroupData.map((e, i) => {
+                                  return (
+                                    <option key={i} value={e.groupId}>
+                                      {e.name}
+                                    </option>
+                                  );
+                                })}
+                            </Form.Select>
+                          )}
+                        />
+                        {errors.issueGroup && (
+                          <span className={classes.error}>
+                            {errors.issueGroup.message}
+                          </span>
+                        )}
+                      </Form.Group>
+                      <Form.Group className="pt-2">
+                        <Form.Label htmlFor="managerName" className="formlabel">
+                          Managed By :
+                        </Form.Label>
+                        <Controller
+                          name="managerName"
+                          control={control}
+                          render={({ field }) => (
+                            <Form.Control
+                              type="text"
+                              disabled
+                              {...field}
+                              id="managerName"
+                              placeholder="Enter Managed By Name"
+                            />
+                          )}
+                        />
+                        {errors.managedBy && (
+                          <span className={classes.error}>
+                            {errors.managedBy.message}
+                          </span>
+                        )}
+                      </Form.Group>
+                    </div>
+                    <div className={classes.flexeddiv}>
+                      <Form.Group className="pt-2">
+                        <Form.Label htmlFor="mailList" className="formlabel">
+                          Mail To :
+                        </Form.Label>
+                        <Controller
+                          name="mailList"
+                          control={control}
+                          render={({ field }) => (
+                            <Form.Control
+                              type="text"
+                              {...field}
+                              id="mailList"
+                              disabled
+                              placeholder="Enter Mail To"
+                            />
+                          )}
+                        />
+                        {errors.mailTo && (
+                          <span className={classes.error}>
+                            {errors.mailTo.message}
+                          </span>
+                        )}
+                      </Form.Group>
+                    </div>
+                    <div>
+                      <Form.Label style={{ fontWeight: "bold" }}>
+                        Issue Description :
+                      </Form.Label>
+                      <Controller
+                        name="issueDescription"
+                        control={control}
+                        render={({ field }) => (
+                          <CKEditor
+                            editor={ClassicEditor}
+                            {...field}
+                            disabled
+                            data={uniqueTicketData[0].issueDescription}
+                            id="issueDescription"
+                            config={editorConfiguration}
+                            name="issueDescription"
+                          />
+                        )}
+                      />
+                      {errors.issueDescription && (
+                        <span className={classes.error}>
+                          {errors.issueDescription.message}
+                        </span>
                       )}
-                    />
-                    {errors.issueDescription && (
-                      <span className={classes.error}>
-                        {errors.issueDescription.message}
-                      </span>
-                    )}
+                    </div>
                   </div>
-                </div>
-                <div className={classes.chatdiv}>
-                  sdfghjkledrfghjk
-                </div>
+                  <div className={classes.chatdiv}>sdfghjkledrfghjk</div>
                 </div>
                 <div className={classes.inputdetailsdiv}>
                   {uploadFile.map((e, i) => {
@@ -501,8 +495,7 @@ const EditTicket = () => {
       </div>
       <div>
         <CommanPopup
-          popUpState={popUpState}
-          setPopupState={setPopupState}
+          uniqueTicketData={uniqueTicketData[0]}
           handleAgree={handleAgree}
           titleText={titleText}
           contentText={contentText}

@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
@@ -12,16 +11,18 @@ import { closePopup } from "../../redux/slices/popupSlice";
 import { Controller, useForm } from "react-hook-form";
 import { Form } from "react-bootstrap";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { resolutionValidation } from "../../validationSchema/resolutaionValidation";
+import { useUpdateTicket } from "../../hooks/ticketHooks";
+import { useNavigate } from "react-router-dom";
 
-function CommanPopup({
-  popUpState,
-  setPopupState,
-  handleAgree,
-  contentText,
-  titleText,
-}) {
+function CommanPopup({ uniqueTicketData, contentText, titleText }) {
   const popupStatus = useSelector((state) => state.popup.popupStatus);
+  const navigate = useNavigate();
 
+  const onSuccess = () => {
+    navigate("/user/dashboard/");
+  };
+  const { mutate } = useUpdateTicket(onSuccess);
   const dispatch = useDispatch();
 
   const {
@@ -29,18 +30,23 @@ function CommanPopup({
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(),
+    resolver: yupResolver(resolutionValidation),
     mode: "onTouched",
     defaultValues: {
-      issueName: "",
-      issueGroup: "",
+      problem: "",
+      resolution: "",
     },
   });
 
-  const handleChange = (e) => {
-    let name = e.target.name;
-    let value = e.target.value;
-    setPopupState({ ...popUpState, [name]: value });
+  const onSubmit = (data) => {
+    let payload = uniqueTicketData;
+    payload.id = uniqueTicketData._id;
+    delete payload._id;
+    payload.problem = data.problem;
+    payload.resolution = data.resolution;
+    payload.status = 1 ;
+    mutate(payload);
+    dispatch(closePopup());
   };
 
   return (
@@ -53,69 +59,79 @@ function CommanPopup({
       aria-describedby="alert-dialog-description"
     >
       <DialogTitle id="alert-dialog-title" className="titletext">
-        <p>{titleText}</p>
+        <p className="title">{titleText}</p>
         <Button onClick={() => dispatch(closePopup())} className="closebtns">
           <AiOutlineClose />
         </Button>
       </DialogTitle>
       <DialogContent>
         <DialogContentText className="contenttxt" id="alert-dialog-description">
+          <p className="contentText">
           {contentText}
+
+          </p>
         </DialogContentText>
         <DialogContentText className="contenttxt" id="alert-dialog-description">
-          <form onSubmit={handleSubmit()}></form>
-          <div style={{ margin: "10px" }}>
-            <Form.Group className="pt-2">
-              <Form.Label htmlFor="problem" className="formlabel">
-                Problem
-              </Form.Label>
-              <Controller
-                name="problem"
-                control={control}
-                render={({ field }) => (
-                  <Form.Control
-                    {...field}
-                    type="text"
-                    required
-                    id="issueName"
-                    placeholder="Enter Problem "
-                    onChange={(e) => handleChange(e)}
-                  />
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div style={{ margin: "10px" }}>
+              <Form.Group className="pt-2">
+                <Form.Label htmlFor="problem" className="formlabel">
+                  Problem
+                </Form.Label>
+                <Controller
+                  name="problem"
+                  control={control}
+                  render={({ field }) => (
+                    <Form.Control
+                      {...field}
+                      type="text"
+                      id="problem"
+                      placeholder="Enter Problem "
+                    />
+                  )}
+                />
+                {errors.problem && (
+                  <span style={{ color: "red" }}>{errors.problem.message}</span>
                 )}
-              />
-              {errors.problem && <span>{errors.problem.message}</span>}
-            </Form.Group>
-            <Form.Group className="pt-2">
-              <Form.Label htmlFor="resolution" className="formlabel">
-                Resolution
-              </Form.Label>
-              <Controller
-                name="resolution"
-                control={control}
-                render={({ field }) => (
-                  <Form.Control
-                    {...field}
-                    type="text"
-                    required
-                    id="resolution"
-                    placeholder="Enter Resolution"
-                    onChange={(e) => handleChange(e)}
-                  />
+              </Form.Group>
+              <Form.Group className="pt-2">
+                <Form.Label htmlFor="resolution" className="formlabel">
+                  Resolution
+                </Form.Label>
+                <Controller
+                  name="resolution"
+                  control={control}
+                  render={({ field }) => (
+                    <Form.Control
+                      {...field}
+                      type="text"
+                      id="resolution"
+                      placeholder="Enter Resolution"
+                    />
+                  )}
+                />
+                {errors.resolution && (
+                  <span style={{ color: "red" }}>
+                    {errors.resolution.message}
+                  </span>
                 )}
-              />
-              {errors.issueName && <span>{errors.issueName.message}</span>}
-            </Form.Group>
-          </div>
+              </Form.Group>
+            </div>
+            <div className="buttonDiv">
+              <button type="submit" className="yesbtn">
+                Yes
+              </button>
+              <button
+                type="button"
+                className="nobtn"
+                onClick={() => dispatch(closePopup())}
+              >
+                No
+              </button>
+            </div>
+          </form>
         </DialogContentText>
       </DialogContent>
-      <DialogActions>
-        <Button onClick={handleAgree} autoFocus className="yesbtn">
-          Yes
-        </Button>
-        <Button onClick={() => dispatch(closePopup())} className="nobtn">
-          No
-        </Button>
-      </DialogActions>
     </Dialog>
   );
 }
