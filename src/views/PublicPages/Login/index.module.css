@@ -34,7 +34,7 @@
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;
-  color: #f3cf00;
+  color: #00A1ff;
   text-decoration: none;
   border: none !important;
   background: transparent;
@@ -45,7 +45,7 @@
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;
-  color: #f3cf00 !important;
+  color: #00A1ff !important;
   text-decoration: none;
 }
 
@@ -82,20 +82,20 @@
 }
 
 .loginbtn {
-  background: #f3cf00 !important;
+  background: #00A1ff !important;
   border-radius: 6px;
   padding: 10px !important;
   font-weight: 500;
   font-size: 16px;
-  color: #000;
+  color: #fff;
   border: none !important;
   width: 100%;
   margin: 20px 0px;
 }
 
-.loginbtn:hover {
+/* .loginbtn:hover {
   color: #000;
-}
+} */
 
 .footers {
   width: 329px;
@@ -139,7 +139,7 @@
 }
 
 .form-check-input:checked {
-  background-color: #f3cf00 !important;
+  background-color: #00A1ff !important;
   border: none !important;
 }
 
@@ -171,4 +171,11 @@
   font-family: "Rubik" !important;
   font-size: 15px !important;
   border: 1.5px solid #f4da47 !important;
+}
+
+.logo path {
+	fill: #f4da47;
+}
+.logo{
+  width: 120px;
 }

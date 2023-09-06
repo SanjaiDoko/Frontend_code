@@ -13,7 +13,7 @@ function Dashboard() {
   const returnStatus = (status) => {
     let ticketStatus = "";
     if (status == 0) {
-      ticketStatus = "Not Assigned";
+      ticketStatus = "Progress";
     }
     if (status == 1) {
       ticketStatus = "Completed";

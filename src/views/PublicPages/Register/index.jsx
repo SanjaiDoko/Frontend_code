@@ -74,13 +74,13 @@ function Register() {
         </div>
         <Form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
           <div className={styles.Logodiv}>
-          <img
+          {/* <img
 							src={Logo}
 							alt="AllMasters Logo"
 							className="masterlogo"
-						/>
+						/> */}
             <h5 className="pt-2">Get Started</h5>
-            <p>Freight Logistics Simplified</p>
+            <p>Solution For Your Issues</p>
           </div>
           <div className={styles.forminputs}>
             <Form.Group className="pt-2">
