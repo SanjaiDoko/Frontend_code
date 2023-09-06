@@ -5,7 +5,6 @@ import { DataGrid } from "@mui/x-data-grid";
 import { useGetAllUsers } from "../../../hooks/userManagement";
 import Loader from "../../../components/Loader/Loader";
 import ActiveButton from "../../../components/ActiveButton/ActiveButton";
-import { convertFirstLettersAsUpperCase } from "../../../helper";
 import moment from "moment";
 import RightDrawer from "../../../components/RightDrawer/RightDrawer";
 import AddAndEditGroup from "./AddAndEditGroup";
@@ -13,7 +12,6 @@ import { useGetAllGroups } from "../../../hooks/groupManagement";
 
 function IndividualStatusUserList() {
   const [searchValue, setSearchValue] = useState("");
-  const [selectBoxValue, setSelectedBoxValue] = useState("");
   const { data, isLoading, isError, error } = useGetAllGroups();
   const { data: userList, isLoading: userLoading } = useGetAllUsers();
 

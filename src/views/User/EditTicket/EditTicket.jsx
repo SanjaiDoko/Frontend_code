@@ -97,7 +97,7 @@ const EditTicket = () => {
         <form onSubmit={handleSubmit(onSubmit)} className={classes.addDiv}>
           <div>
             <div className={classes.addDivHeading}>
-              <h2>View Ticket</h2>
+              <h3>View Ticket</h3>
               {uniqueTicketData[0].status === 3 && (
                 <button type="button" className={classes.reject}>
                   Task is Rejected

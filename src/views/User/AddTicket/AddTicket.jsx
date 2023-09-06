@@ -14,6 +14,7 @@ import { toast } from "react-toastify";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+// import StylesMap from "@ckeditor/ckeditor5-engine/src/view/stylesmap";
 // import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
 // import moment from "moment";
 
@@ -131,125 +132,76 @@ const AddTicket = () => {
               <h2>Create Ticket</h2>
             </div>
             <div className={classes.inputDiv}>
-              <div>
-                <Form.Group className="pt-2">
-                  <Form.Label htmlFor="issueName" className="formlabel">
-                    Issue Name
-                  </Form.Label>
-                  <Controller
-                    name="issueName"
-                    control={control}
-                    render={({ field }) => (
-                      <Form.Control
-                        {...field}
-                        type="text"
-                        id="issueName"
-                        placeholder="Enter Issue Name"
-                      />
-                    )}
-                  />
-                  {errors.issueName && (
-                    <span className={classes.error}>
-                      {errors.issueName.message}
-                    </span>
+              <Form.Group className="pt-2">
+                <Form.Label htmlFor="issueName" className="formlabel">
+                  Issue Name
+                </Form.Label>
+                <Controller
+                  name="issueName"
+                  control={control}
+                  render={({ field }) => (
+                    <Form.Control
+                      {...field}
+                      type="text"
+                      id="issueName"
+                      placeholder="Enter Issue Name"
+                    />
                   )}
-                </Form.Group>
-                <Form.Group className="pt-2">
-                  <Form.Label htmlFor="type" className="formlabel">
-                    Type
-                  </Form.Label>
-                  <Controller
-                    name="type"
-                    control={control}
-                    render={({ field }) => (
-                      <Form.Control
-                        type="text"
-                        {...field}
-                        id="type"
-                        placeholder="Enter Type"
-                      />
-                    )}
-                  />
-                  {errors.type && (
-                    <span className={classes.error}>{errors.type.message}</span>
-                  )}
-                </Form.Group>
-              </div>
-              <div>
-                <Form.Group className="pt-2">
-                  <Form.Label htmlFor="issueGroup" className="formlabel">
-                    Issue Group
-                  </Form.Label>
-                  <Controller
-                    name="issueGroup"
-                    control={control}
-                    render={({ field }) => (
-                      <Form.Select
-                        className={`formcontrol`}
-                        {...field}
-                        id="issueGroup"
-                        onChange={(e) => {
-                          field.onChange(e);
-                          let managedBy =
-                            allGroupData &&
-                            allGroupData.filter(
-                              (e) => e.groupId === watch("issueGroup")
-                            );
-                          setValue("managerName", managedBy[0].managedBy.name);
-                          setValue(
-                            "managedId",
-                            managedBy[0].managedBy.managedBy
+                />
+                {errors.issueName && (
+                  <span className={classes.error}>
+                    {errors.issueName.message}
+                  </span>
+                )}
+              </Form.Group>
+              <Form.Group className="pt-2">
+                <Form.Label htmlFor="issueGroup" className="formlabel">
+                  Issue Group
+                </Form.Label>
+                <Controller
+                  name="issueGroup"
+                  control={control}
+                  render={({ field }) => (
+                    <Form.Select
+                      className={`formcontrol`}
+                      {...field}
+                      id="issueGroup"
+                      onChange={(e) => {
+                        field.onChange(e);
+                        let managedBy =
+                          allGroupData &&
+                          allGroupData.filter(
+                            (e) => e.groupId === watch("issueGroup")
                           );
-                        }}
-                      >
-                        <option value={""} hidden>
-                          Choose Type
-                        </option>
+                        setValue("managerName", managedBy[0].managedBy.name);
+                        setValue("managedId", managedBy[0].managedBy.managedBy);
+                      }}
+                    >
+                      <option value={""} hidden>
+                        Choose Type
+                      </option>
 
-                        {allGroupData &&
-                          allGroupData.filter(e => e.groupId !== groupId )
-                            .map((e, i) => {
-                              return (
-                                <option key={i} value={e.groupId}>
-                                  {e.name}
-                                </option>
-                              );
-                            })}
-                      </Form.Select>
-                    )}
-                  />
-                  {errors.issueGroup && (
-                    <span className={classes.error}>
-                      {errors.issueGroup.message}
-                    </span>
+                      {allGroupData &&
+                        allGroupData
+                          .filter((e) => e.groupId !== groupId)
+                          .map((e, i) => {
+                            return (
+                              <option key={i} value={e.groupId}>
+                                {e.name}
+                              </option>
+                            );
+                          })}
+                    </Form.Select>
                   )}
-                </Form.Group>
-                <Form.Group className="pt-2">
-                  <Form.Label htmlFor="managerName" className="formlabel">
-                    Managed By
-                  </Form.Label>
-                  <Controller
-                    name="managerName"
-                    control={control}
-                    render={({ field }) => (
-                      <Form.Control
-                        type="text"
-                        disabled
-                        {...field}
-                        id="managerName"
-                        placeholder="Enter Managed By Name"
-                      />
-                    )}
-                  />
-                  {errors.managerName && (
-                    <span className={classes.error}>
-                      {errors.managerName.message}
-                    </span>
-                  )}
-                </Form.Group>
-              </div>
+                />
+                {errors.issueGroup && (
+                  <span className={classes.error}>
+                    {errors.issueGroup.message}
+                  </span>
+                )}
+              </Form.Group>
             </div>
-            <div>
+            <div className="pt-2">
               <Form.Label>Issue Description</Form.Label>
               <Controller
                 name="issueDescription"
@@ -273,6 +225,51 @@ const AddTicket = () => {
                   {errors.issueDescription.message}
                 </span>
               )}
+            </div>
+            <div className={classes.inputDiv}>
+              <Form.Group className="pt-2">
+                <Form.Label htmlFor="type" className="formlabel">
+                  Type
+                </Form.Label>
+                <Controller
+                  name="type"
+                  control={control}
+                  render={({ field }) => (
+                    <Form.Control
+                      type="text"
+                      {...field}
+                      id="type"
+                      placeholder="Enter Type"
+                    />
+                  )}
+                />
+                {errors.type && (
+                  <span className={classes.error}>{errors.type.message}</span>
+                )}
+              </Form.Group>
+              <Form.Group className="pt-2">
+                <Form.Label htmlFor="managerName" className="formlabel">
+                  Managed By
+                </Form.Label>
+                <Controller
+                  name="managerName"
+                  control={control}
+                  render={({ field }) => (
+                    <Form.Control
+                      type="text"
+                      disabled
+                      {...field}
+                      id="managerName"
+                      placeholder="Enter Managed By Name"
+                    />
+                  )}
+                />
+                {errors.managerName && (
+                  <span className={classes.error}>
+                    {errors.managerName.message}
+                  </span>
+                )}
+              </Form.Group>
             </div>
             <div>
               <Form.Group className="pt-2">
@@ -298,14 +295,16 @@ const AddTicket = () => {
                 )}
               </Form.Group>
               <Form.Group className="pt-2">
-                <Form.Label
-                  htmlFor="fileupload"
-                  className={`formlabel`}
-                  style={{ marginTop: "0px", marginLeft: "7px" }}
-                >
-                  <Uploadicon />{" "}
-                  <span style={{ marginLeft: "10px" }}>Upload</span>
-                </Form.Label>
+                <div className={classes.uploaddiv}>
+                  <Form.Label
+                    htmlFor="fileupload"
+                    className={`formlabel`}
+                    style={{ marginTop: "0px", marginLeft: "7px" }}
+                  >
+                    <Uploadicon className={classes.uploadicon} />{" "}
+                    <span style={{ marginLeft: "10px" }}>Upload</span>
+                  </Form.Label>
+                </div>
                 <input
                   type="file"
                   className={classes.hidden}
@@ -327,7 +326,7 @@ const AddTicket = () => {
                         <DeleteIcon
                           sx={{
                             cursor: "pointer",
-                            color: "red",
+                            color: "#a1a1a1",
                           }}
                           onClick={() => removeFileHandler(uploadFile, i)}
                         />

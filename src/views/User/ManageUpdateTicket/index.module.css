@@ -51,7 +51,7 @@
   gap: 5px;
 }
 .addDiv {
-  width: 500px !important;
+  width: 600px !important;
 }
 
 .AddTicketDiv {
@@ -381,4 +381,7 @@
   .selectbox > h4 {
     width: 100%;
   }
+}
+.inputDiv > div {
+  width: 50%;
 }

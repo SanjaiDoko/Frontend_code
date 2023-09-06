@@ -67,9 +67,7 @@ function Dashboard() {
       field: "Options",
       sortable: false,
       width: 100,
-      renderCell: () => (
-        <button className={styles.editBtn}>View Ticket</button>
-      ),
+      renderCell: () => <button className={styles.editBtn}>View Ticket</button>,
     },
   ];
 
@@ -85,35 +83,37 @@ function Dashboard() {
 
   if (data !== undefined) {
     return (
-      <div className={styles.mainDiv}>
-        <div className={styles.subDiv}>
-          <h3 style={{ marginTop: "1em" }}>My Ticket </h3>
-          <button
-            onClick={() => navigate("/user/addticket")}
-            className={styles.addTicketBtn}
-          >
-            Create Ticket
-          </button>
-        </div>
-        {data && data.length > 0 ? (
-          <DataGrid
-            sx={{ textTransform: "capitalize" }}
-            rows={data}
-            columns={columns}
-            getRowId={(data) => data._id}
-            hideFooterSelectedRowCount={true}
-            onCellClick={(row) => rowClickFunction(row)}
-            initialState={{
-              pagination: {
-                paginationModel: {
-                  pageSize: 10,
+      <div className="container">
+        <div className={styles.mainDiv}>
+          <div className={styles.subDiv}>
+            <h3>My Ticket </h3>
+            <button
+              onClick={() => navigate("/user/addticket")}
+              className={styles.addTicketBtn}
+            >
+              Create Ticket
+            </button>
+          </div>
+          {data && data.length > 0 ? (
+            <DataGrid
+              sx={{ textTransform: "capitalize" }}
+              rows={data}
+              columns={columns}
+              getRowId={(data) => data._id}
+              hideFooterSelectedRowCount={true}
+              onCellClick={(row) => rowClickFunction(row)}
+              initialState={{
+                pagination: {
+                  paginationModel: {
+                    pageSize: 10,
+                  },
                 },
-              },
-            }}
-          />
-        ) : (
-          <p>No Data Found</p>
-        )}
+              }}
+            />
+          ) : (
+            <p>No Data Found</p>
+          )}
+        </div>
       </div>
     );
   }
