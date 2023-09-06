@@ -30,6 +30,10 @@
   margin-bottom: 0;
   color: #00a1ff;
 }
+.filecontainer > a {
+  margin-bottom: 0;
+  color: #00a1ff;
+}
 .subDiv {
   display: flex;
   justify-content: space-between;
