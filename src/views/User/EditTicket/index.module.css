@@ -2,34 +2,36 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top: 80px;
   width: 100%;
+  padding-top: 80px;
+}
+
+.hidden {
+  display: none;
 }
 .inputDiv {
   display: flex;
-  gap: 15px;
+  gap: 10px;
 }
-.hidden {
-  display: none;
+.inputDiv > div {
+  width: 50%;
 }
 .filecontainer {
   display: flex;
   gap: 3px;
+  background: #e9f7ff80;
+  width: 100%;
+  /* margin-top: 10px; */
+  border-radius: 5px;
+  padding: 10px;
+  justify-content: space-between;
 }
-
-.completed {
-  font-weight: 500 !important;
-  font-size: 17px !important;
-  color: #01c442 !important;
-  padding: 2px 20px !important;
+.filename{
+  color: #00a1ff;
 }
-
-.reject {
-  font-weight: 500 !important;
-  font-size: 17px !important;
-  color: #f24c4c !important;
-  padding: 20px !important;
-  margin: 5px !important;
+.filecontainer > p {
+  margin-bottom: 0;
+  color: #00a1ff;
 }
 .subDiv {
   display: flex;
@@ -42,7 +44,8 @@
 
 .AddTicketDiv {
   display: flex;
-  max-width: 500px;
+
+  max-width: 700px;
 }
 
 .attachement {
@@ -106,7 +109,6 @@
 
 /* -------Add Country ----------- */
 .addDiv {
-  padding: 15px 25px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -120,10 +122,9 @@
   align-items: center;
 }
 
-.addDivHeading > h3 {
+.addDivHeading > h2 {
   font-weight: bold;
-  color: #333333;
-  margin-bottom: 0;
+  font-size: 28px;
 }
 
 .addDivHeading > button {
@@ -162,20 +163,25 @@
 }
 
 .savebtn {
-  background: #f3cf00;
+  background: transparent;
   font-weight: 500;
   font-size: 16px;
-  color: #272727;
-  box-shadow: 0px 4px 16px rgba(243, 207, 0, 0.2);
+  color: #00a1ff;
   width: 100%;
   text-align: center;
-  border: none;
+  border: 2px solid #00a1ff;
   outline: none;
   font-weight: bold;
   margin-top: 2em;
   margin-bottom: 2em;
   padding: 10px !important;
   border-radius: 5px;
+}
+.savebtn:hover {
+  background: #00a1ff;
+  color: #fff;
+  border: none;
+  border: 2px solid #fff;
 }
 
 .icon {
@@ -348,6 +354,18 @@
     width: 100%;
   }
 }
-.inputDiv > div {
-  width: 50%;
+.uploaddiv {
+  background: #e9f7ff80;
+  font-weight: 500;
+  font-size: 16px;
+  color: #00a1ff;
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+  margin-top: 2em;
+  border-radius: 5px;
+  padding-top: 10px;
+}
+.uploadicon path {
+  fill: #00a1ff;
 }
