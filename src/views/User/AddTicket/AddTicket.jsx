@@ -61,6 +61,7 @@ const AddTicket = () => {
   const onSubmit = (data) => {
     const values = getValues();
     data.managedBy = values["managedId"];
+    data.mailList = data.mailList ? data.mailList.split(",") : [];
     data.files = uploadFile;
     mutate(data);
   };
@@ -229,7 +230,7 @@ const AddTicket = () => {
             <div className={classes.inputDiv}>
               <Form.Group className="pt-2">
                 <Form.Label htmlFor="type" className="formlabel">
-                  Type
+                Issue Type
                 </Form.Label>
                 <Controller
                   name="type"
@@ -239,7 +240,7 @@ const AddTicket = () => {
                       type="text"
                       {...field}
                       id="type"
-                      placeholder="Enter Type"
+                      placeholder="Enter Issue Type"
                     />
                   )}
                 />
@@ -260,7 +261,7 @@ const AddTicket = () => {
                       disabled
                       {...field}
                       id="managerName"
-                      placeholder="Enter Managed By Name"
+                      placeholder="Managed By"
                     />
                   )}
                 />
@@ -274,7 +275,7 @@ const AddTicket = () => {
             <div>
               <Form.Group className="pt-2">
                 <Form.Label htmlFor="mailList" className="formlabel">
-                  Mail To
+                 CC Mail
                 </Form.Label>
                 <Controller
                   name="mailList"
@@ -284,7 +285,7 @@ const AddTicket = () => {
                       type="text"
                       {...field}
                       id="mailList"
-                      placeholder="Enter Mail To"
+                      placeholder="Enter CC Mail"
                     />
                   )}
                 />

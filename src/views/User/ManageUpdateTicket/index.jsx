@@ -4,7 +4,7 @@ import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 // import { ReactComponent as CloseIcon } from "../../../assets/Icons/closeIcon.svg";
 import classes from "./index.module.css";
-import { addTicketValidation } from "../../../validationSchema/addTicketValidation";
+import { updateManageTicketValidation } from "../../../validationSchema/updateManageTicketValidation";
 import {openFileNewWindow } from "../../../helper";
 import { useEffect, useState } from "react";
 import {
@@ -60,7 +60,7 @@ const Index = () => {
     getValues,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(addTicketValidation),
+    resolver: yupResolver(updateManageTicketValidation),
     mode: "onTouched",
     defaultValues: {
       issueName: "",
@@ -100,6 +100,9 @@ const Index = () => {
     data.files = uploadFile;
     mutate(data);
   };
+
+
+  console.log(errors , 'error')
 
 
   const removeFileHandler = (array, index) => {

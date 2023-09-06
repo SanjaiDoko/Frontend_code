@@ -3,7 +3,7 @@ import { Form } from "react-bootstrap";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import classes from "./index.module.css";
-import { addTicketValidation } from "../../../validationSchema/addTicketValidation";
+import { updateReceivedTicketValidation } from "../../../validationSchema/updateReceivedTicketValidation";
 import { openFileNewWindow } from "../../../helper";
 import { useEffect, useState } from "react";
 import {
@@ -49,7 +49,7 @@ const EditTicket = () => {
     getValues,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(addTicketValidation),
+    resolver: yupResolver(updateReceivedTicketValidation),
     mode: "onTouched",
     defaultValues: {
       issueName: "",
@@ -67,6 +67,12 @@ const EditTicket = () => {
       createdBy: createdBy,
     },
   });
+
+  const editorConfiguration = {
+    toolbar: {
+      items: [],
+    },
+  };
 
   useEffect(() => {
     if (uniqueTicketData) {
@@ -353,6 +359,11 @@ const EditTicket = () => {
                       />
                     )}
                   />
+                  {errors.timeLog && (
+                    <span className={classes.error}>
+                      {errors.timeLog.message}
+                    </span>
+                  )}
                 </Form.Group>
               </div>
             </div>
@@ -368,11 +379,7 @@ const EditTicket = () => {
                     disabled
                     data={uniqueTicketData[0].issueDescription}
                     id="issueDescription"
-                    onChange={(event, editor) => {
-                      const data = editor.getData();
-                      field.onChange(data);
-                    }}
-                    defaultValue=""
+                    config={editorConfiguration}
                     name="issueDescription"
                   />
                 )}

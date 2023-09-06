@@ -12,8 +12,6 @@ import {
 } from "../../../hooks/ticketHooks";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetAllGroups } from "../../../hooks/groupManagement";
-import { useSelector } from "react-redux";
-import DeleteIcon from "@mui/icons-material/Delete";
 import { URL } from "../../../config";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
@@ -21,8 +19,6 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 const EditTicket = () => {
   const [uploadFile, setUploadFile] = useState([]);
-
-  const role = useSelector((state) => state.profile.role);
 
   const { id } = useParams();
 
@@ -74,13 +70,15 @@ const EditTicket = () => {
     return <p>Loading...</p>;
   }
 
-  const removeFileHandler = (array, index) => {
-    setUploadFile(array.filter((file, i) => i !== index));
-  };
-
   if (ticketLoading) {
     return <p>Loading...</p>;
   }
+
+  const editorConfiguration = {
+    toolbar: {
+      items: [],
+    },
+  };
 
   const onSubmit = (data) => {
     const values = getValues();
@@ -121,6 +119,7 @@ const EditTicket = () => {
                     render={({ field }) => (
                       <Form.Control
                         {...field}
+                        style={{ textTransform: "capitalize" }}
                         type="text"
                         id="issueName"
                         disabled
@@ -144,6 +143,7 @@ const EditTicket = () => {
                     render={({ field }) => (
                       <Form.Control
                         type="text"
+                        style={{ textTransform: "capitalize" }}
                         {...field}
                         id="type"
                         disabled
@@ -167,9 +167,10 @@ const EditTicket = () => {
                     render={({ field }) => (
                       <Form.Select
                         className={`formcontrol`}
+                        style={{ textTransform: "capitalize" }}
                         {...field}
                         id="issueGroup"
-                        disabled={role === 3}
+                        disabled
                         onChange={(e) => {
                           field.onChange(e);
                           let managedBy =
@@ -214,6 +215,7 @@ const EditTicket = () => {
                     render={({ field }) => (
                       <Form.Control
                         type="text"
+                        style={{ textTransform: "capitalize" }}
                         disabled
                         {...field}
                         id="managerName"
@@ -241,13 +243,7 @@ const EditTicket = () => {
                     {...field}
                     data={uniqueTicketData[0].issueDescription}
                     id="issueDescription"
-                    disabled
-                    onChange={(event, editor) => {
-                      const data = editor.getData();
-                      field.onChange(data);
-                    }}
-                    defaultValue=""
-                    name="issueDescription"
+                    config={editorConfiguration}
                   />
                 )}
               />
@@ -280,6 +276,14 @@ const EditTicket = () => {
                 )}
               </Form.Group>
 
+              <Form.Group className="pt-2">
+                {uploadFile && uploadFile.length > 0 && (
+                  <Form.Label htmlFor="mailList" className="formlabel">
+                    Uploaded File
+                  </Form.Label>
+                )}
+              </Form.Group>
+
               {uploadFile.map((e, i) => {
                 return (
                   <div className={classes.filecontainer} key={i}>
@@ -295,39 +299,33 @@ const EditTicket = () => {
                       <a
                         target="_blank"
                         rel="noreferrer"
-                        style={{ textDecoration: "none", color: "black" }}
+                        style={{ textDecoration: "none" }}
                         href={`${URL}${e.filePath}`}
                       >
                         {e.fileName}
                       </a>
                     )}
                     <div>
-                      <DeleteIcon
+                      {/* <DeleteIcon
                         sx={{
                           cursor: "pointer",
                           color: "red",
                         }}
                         onClick={() => removeFileHandler(uploadFile, i)}
-                      />
+                      /> */}
                     </div>
                   </div>
                 );
               })}
             </div>
-            {uniqueTicketData[0].status === 1 ||
-            uniqueTicketData[0].status === 3 ? (
-              <button
-                type="button"
-                className={classes.savebtn}
-                onClick={() => navigate(-1)}
-              >
-                Back
-              </button>
-            ) : (
-              <button type="submit" className={classes.savebtn}>
-                Update Ticket
-              </button>
-            )}
+
+            <button
+              type="button"
+              onClick={() => navigate("/user/mytickets")}
+              className={classes.savebtn}
+            >
+              Back
+            </button>
           </div>
         </form>
       </div>
