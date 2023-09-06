@@ -2,7 +2,6 @@
 import { Form } from "react-bootstrap";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-// import { ReactComponent as CloseIcon } from "../../../assets/Icons/closeIcon.svg";
 import classes from "./index.module.css";
 import { addTicketValidation } from "../../../validationSchema/addTicketValidation";
 import { fileReaderFunction, openFileNewWindow } from "../../../helper";
@@ -13,7 +12,6 @@ import {
   useUpdateTicket,
 } from "../../../hooks/ticketHooks";
 import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
-// import moment from "moment";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetAllGroups } from "../../../hooks/groupManagement";
 import { useSelector } from "react-redux";
@@ -21,10 +19,11 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { toast } from "react-toastify";
 import { URL } from "../../../config";
 import moment from "moment";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 const EditTicket = () => {
   const [uploadFile, setUploadFile] = useState([]);
-
   const role = useSelector((state) => state.profile.role);
 
   const { id } = useParams();
@@ -231,23 +230,6 @@ const EditTicket = () => {
                   )}
                 </Form.Group>
                 <Form.Group className="pt-2">
-                  <Form.Label htmlFor="issueDescription" className="formlabel">
-                    Issue Description
-                  </Form.Label>
-                  <Controller
-                    name="issueDescription"
-                    control={control}
-                    render={({ field }) => (
-                      <textarea {...field} rows={2} cols={20} />
-                    )}
-                  />
-                  {errors.issueDescription && (
-                    <span className={classes.error}>
-                      {errors.issueDescription.message}
-                    </span>
-                  )}
-                </Form.Group>
-                <Form.Group className="pt-2">
                   <Form.Label htmlFor="issueGroup" className="formlabel">
                     Issue Group
                   </Form.Label>
@@ -319,96 +301,6 @@ const EditTicket = () => {
                 </Form.Group>
               </div>
               <div>
-                {/* {role === 3 && (
-                  <Form.Group className="pt-2">
-                    <Form.Label htmlFor="assignedTo" className="formlabel">
-                      Assigned To
-                    </Form.Label>
-                    <Controller
-                      name="assignedTo"
-                      control={control}
-                      render={({ field }) => (
-                        <Form.Control
-                          type="text"
-                          {...field}
-                          id="assignedTo"
-                          placeholder="Enter Assigned To Name"
-                        />
-                      )}
-                    />
-                    {errors.assignedTo && (
-                      <span className={classes.error}>
-                        {errors.assignedTo.message}
-                      </span>
-                    )}
-                  </Form.Group>
-                )} */}
-                <Form.Group className="pt-2">
-                  <Form.Label htmlFor="mailList" className="formlabel">
-                    Mail To
-                  </Form.Label>
-                  <Controller
-                    name="mailList"
-                    control={control}
-                    render={({ field }) => (
-                      <Form.Control
-                        type="text"
-                        {...field}
-                        id="mailList"
-                        placeholder="Enter Mail To"
-                      />
-                    )}
-                  />
-                  {errors.mailTo && (
-                    <span className={classes.error}>
-                      {errors.mailTo.message}
-                    </span>
-                  )}
-                </Form.Group>
-                <Form.Group className="pt-2">
-                  <Form.Label htmlFor="fileupload" className={`formlabel`}>
-                    <Uploadicon /> Upload
-                  </Form.Label>
-                  <input
-                    type="file"
-                    className={classes.hidden}
-                    id="fileupload"
-                    multiple
-                    onChange={(event) => uploadMultipleFileFunction(event)}
-                  />
-                  {uploadFile.map((e, i) => {
-                    return (
-                      <div className={classes.filecontainer} key={i}>
-                        {e.fileData ? (
-                          <p
-                            title={e.fileName}
-                            onClick={() => openFileNewWindow(e.fileData)}
-                            className={classes.filename}
-                          >
-                            {e.fileName}
-                          </p>
-                        ) : (
-                          <a
-                            target="_blank"
-                            rel="noreferrer"
-                            href={`${URL}${e.filePath}`}
-                          >
-                            {e.fileName}
-                          </a>
-                        )}
-                        <div>
-                          <DeleteIcon
-                            sx={{
-                              cursor: "pointer",
-                              color: "red",
-                            }}
-                            onClick={() => removeFileHandler(uploadFile, i)}
-                          />
-                        </div>
-                      </div>
-                    );
-                  })}
-                </Form.Group>
                 <Form.Group className="pt-2">
                   <Form.Label htmlFor="startTime" className="formlabel">
                     Start Time
@@ -418,7 +310,7 @@ const EditTicket = () => {
                     control={control}
                     render={({ field }) => (
                       <MobileDateTimePicker
-                        sx={{ width: "100%" }}
+                        sx={{ width: "100%", height: "10%" }}
                         {...field}
                         ampm={false}
                         disabled
@@ -516,6 +408,104 @@ const EditTicket = () => {
                   />
                 </Form.Group>
               </div>
+            </div>
+            <div>
+              <Form.Label>Issue Description</Form.Label>
+              <Controller
+                name="issueDescription"
+                control={control}
+                render={({ field }) => (
+                  <CKEditor
+                    editor={ClassicEditor}
+                    {...field}
+                    data={uniqueTicketData[0].issueDescription}
+                    id="issueDescription"
+                    onChange={(event, editor) => {
+                      const data = editor.getData();
+                      field.onChange(data);
+                    }}
+                    defaultValue=""
+                    name="issueDescription"
+                  />
+                )}
+              />
+              {errors.issueDescription && (
+                <span className={classes.error}>
+                  {errors.issueDescription.message}
+                </span>
+              )}
+            </div>
+            <div>
+              <Form.Group className="pt-2">
+                <Form.Label htmlFor="mailList" className="formlabel">
+                  Mail To
+                </Form.Label>
+                <Controller
+                  name="mailList"
+                  control={control}
+                  render={({ field }) => (
+                    <Form.Control
+                      type="text"
+                      {...field}
+                      id="mailList"
+                      placeholder="Enter Mail To"
+                    />
+                  )}
+                />
+                {errors.mailTo && (
+                  <span className={classes.error}>{errors.mailTo.message}</span>
+                )}
+              </Form.Group>
+              <Form.Group className="pt-2" style={{ marginTop: "-23PX" }}>
+                <Form.Label
+                  htmlFor="fileupload"
+                  className={`formlabel`}
+                  style={{ marginTop: "32px", marginLeft: "7px" }}
+                >
+                  <Uploadicon />{" "}
+                  <span style={{ marginLeft: "10px" }}>Upload</span>
+                </Form.Label>
+                <input
+                  type="file"
+                  className={classes.hidden}
+                  id="fileupload"
+                  multiple
+                  onChange={(event) => uploadMultipleFileFunction(event)}
+                />
+                {uploadFile.map((e, i) => {
+                  return (
+                    <div className={classes.filecontainer} key={i}>
+                      {e.fileData ? (
+                        <p
+                          title={e.fileName}
+                          onClick={() => openFileNewWindow(e.fileData)}
+                          className={classes.filename}
+                        >
+                          {e.fileName}
+                        </p>
+                      ) : (
+                        <a
+                          target="_blank"
+                          rel="noreferrer"
+                          style={{ textDecoration: "none", color: "black" }}
+                          href={`${URL}${e.filePath}`}
+                        >
+                          {e.fileName}
+                        </a>
+                      )}
+                      <div>
+                        <DeleteIcon
+                          sx={{
+                            cursor: "pointer",
+                            color: "red",
+                          }}
+                          onClick={() => removeFileHandler(uploadFile, i)}
+                        />
+                      </div>
+                    </div>
+                  );
+                })}
+              </Form.Group>
             </div>
             {uniqueTicketData[0].status !== 1 &&
             uniqueTicketData[0].status !== 3 ? (

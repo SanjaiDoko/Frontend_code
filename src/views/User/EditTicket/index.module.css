@@ -5,12 +5,16 @@
   margin-top: 3em;
   width: 100%;
 }
-.inputDiv{
+.inputDiv {
   display: flex;
   gap: 15px;
 }
-.hidden{
+.hidden {
   display: none;
+}
+.filecontainer {
+  display: flex;
+  gap: 3px;
 }
 .subDiv {
   display: flex;

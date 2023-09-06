@@ -12,6 +12,8 @@ import { useNavigate } from "react-router-dom";
 import { useGetAllGroups } from "../../../hooks/groupManagement";
 import { toast } from "react-toastify";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 // import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
 // import moment from "moment";
 
@@ -57,9 +59,6 @@ const AddTicket = () => {
   const onSubmit = (data) => {
     const values = getValues();
     data.managedBy = values["managedId"];
-    // data.startTime = moment(data.startTime).format("DD-MM-YYYY HH:MM");
-    // data.endTime = moment(data.endTime).format("DD-MM-YYYY HH:MM");
-    // data.actualEndTime = moment(data.actualEndTime).format("DD-MM-YYYY HH:MM");
     data.files = uploadFile;
     mutate(data);
   };
@@ -128,7 +127,7 @@ const AddTicket = () => {
         <form onSubmit={handleSubmit(onSubmit)} className={classes.addDiv}>
           <div>
             <div className={classes.addDivHeading}>
-              <h2>Add Ticket</h2>
+              <h2>Create Ticket</h2>
             </div>
             <div className={classes.inputDiv}>
               <div>
@@ -172,23 +171,6 @@ const AddTicket = () => {
                   />
                   {errors.type && (
                     <span className={classes.error}>{errors.type.message}</span>
-                  )}
-                </Form.Group>
-                <Form.Group className="pt-2">
-                  <Form.Label htmlFor="issueDescription" className="formlabel">
-                    Issue Description
-                  </Form.Label>
-                  <Controller
-                    name="issueDescription"
-                    control={control}
-                    render={({ field }) => (
-                      <textarea {...field} rows={2} cols={20} />
-                    )}
-                  />
-                  {errors.issueDescription && (
-                    <p className={classes.error}>
-                      {errors.issueDescription.message}
-                    </p>
                   )}
                 </Form.Group>
               </div>
@@ -265,170 +247,98 @@ const AddTicket = () => {
                     </span>
                   )}
                 </Form.Group>
-                {/* <Form.Group className="pt-2">
-                  <Form.Label htmlFor="assignedTo" className="formlabel">
-                    Assigned To
-                  </Form.Label>
-                  <Controller
-                    name="assignedTo"
-                    control={control}
-                    render={({ field }) => (
-                      <Form.Control
-                        type="text"
-                        {...field}
-                        id="assignedTo"
-                        placeholder="Enter AssignedTo Name"
-                      />
-                    )}
-                  />
-                  {errors.assignedTo && (
-                    <span className={classes.error}>
-                      {errors.assignedTo.message}
-                    </span>
-                  )}
-                </Form.Group> */}
-                <Form.Group className="pt-2">
-                  <Form.Label htmlFor="mailList" className="formlabel">
-                    Mail To
-                  </Form.Label>
-                  <Controller
-                    name="mailList"
-                    control={control}
-                    render={({ field }) => (
-                      <Form.Control
-                        type="text"
-                        {...field}
-                        id="mailList"
-                        placeholder="Enter Mail To"
-                      />
-                    )}
-                  />
-                  {errors.mailList && (
-                    <span className={classes.error}>
-                      {errors.mailList.message}
-                    </span>
-                  )}
-                </Form.Group>
-                <Form.Group className="pt-2">
-                  <Form.Label htmlFor="fileupload" className={`formlabel`}>
-                    <Uploadicon /> Upload
-                  </Form.Label>
-                  <input
-                    type="file"
-                    className={classes.hidden}
-                    id="fileupload"
-                    multiple
-                    onChange={(event) => uploadMultipleFileFunction(event)}
-                  />
-                  {uploadFile.map((e, i) => {
-                    return (
-                      <div className={classes.filecontainer} key={i}>
-                        <p
-                          title={e.fileName}
-                          onClick={() => openFileNewWindow(e.fileData)}
-                          className={classes.filename}
-                        >
-                          {e.fileName}
-                        </p>
-                        <div>
-                          <DeleteIcon
-                            sx={{
-                              cursor: "pointer",
-                              color: "red",
-                            }}
-                            onClick={() => removeFileHandler(uploadFile, i)}
-                          />
-                        </div>
-                      </div>
-                    );
-                  })}
-                </Form.Group>
-                {/* <Form.Group className="pt-2">
-              <Form.Label htmlFor="startTime" className="formlabel">
-                Start Time
-              </Form.Label>
-              <Controller
-                name="startTime"
-                control={control}
-                render={({ field }) => (
-                  <MobileDateTimePicker
-                    sx={{ width: "100%" }}
-                    {...field}
-                    ampm={false}
-                    slotProps={{
-                      textField: {
-                        readOnly: true,
-                      },
-                    }}
-                    format="DD-MM-YYYY HH:MM"
-                    onChange={(e) => field.onChange(e)}
-                  />
-                )}
-              />
-              {errors.startTime && (
-                <span className={classes.error}>
-                  {errors.startTime.message}
-                </span>
-              )}
-            </Form.Group> */}
-                {/* <Form.Group className="pt-2">
-              <Form.Label htmlFor="endTime" className="formlabel">
-                End Time
-              </Form.Label>
-              <Controller
-                name="endTime"
-                control={control}
-                render={({ field }) => (
-                  <MobileDateTimePicker
-                    sx={{ width: "100%" }}
-                    {...field}
-                    ampm={false}
-                    slotProps={{
-                      textField: {
-                        readOnly: true,
-                      },
-                    }}
-                    format="DD-MM-YYYY HH:MM"
-                    onChange={(e) => field.onChange(e)}
-                  />
-                )}
-              />
-              {errors.endTime && (
-                <span className={classes.error}>{errors.endTime.message}</span>
-              )}
-            </Form.Group> */}
-                {/* <Form.Group className="pt-2">
-              <Form.Label htmlFor="actualEndTime" className="formlabel">
-                Actual End Time
-              </Form.Label>
-              <Controller
-                name="actualEndTime"
-                control={control}
-                render={({ field }) => (
-                  <MobileDateTimePicker
-                    sx={{ width: "100%" }}
-                    {...field}
-                    ampm={false}
-                    slotProps={{
-                      textField: {
-                        readOnly: true,
-                      },
-                    }}
-                    format="DD-MM-YYYY HH:MM"
-                    onChange={(e) => field.onChange(e)}
-                  />
-                )}
-              />
-              {errors.actualEndTime && (
-                <span className={classes.error}>
-                  {errors.actualEndTime.message}
-                </span>
-              )}
-            </Form.Group> */}
               </div>
             </div>
+            <div>
+              <Form.Label>Issue Description</Form.Label>
+              <Controller
+                name="issueDescription"
+                control={control}
+                render={({ field }) => (
+                  <CKEditor
+                    editor={ClassicEditor}
+                    {...field}
+                    id="issueDescription"
+                    onChange={(event, editor) => {
+                      const data = editor.getData();
+                      field.onChange(data);
+                    }}
+                    defaultValue=""
+                    name="issueDescription"
+                  />
+                )}
+              />
+              {errors.issueDescription && (
+                <span className={classes.error}>
+                  {errors.issueDescription.message}
+                </span>
+              )}
+            </div>
+            <div>
+              <Form.Group className="pt-2">
+                <Form.Label htmlFor="mailList" className="formlabel">
+                  Mail To
+                </Form.Label>
+                <Controller
+                  name="mailList"
+                  control={control}
+                  render={({ field }) => (
+                    <Form.Control
+                      type="text"
+                      {...field}
+                      id="mailList"
+                      placeholder="Enter Mail To"
+                    />
+                  )}
+                />
+                {errors.mailList && (
+                  <span className={classes.error}>
+                    {errors.mailList.message}
+                  </span>
+                )}
+              </Form.Group>
+              <Form.Group className="pt-2">
+                <Form.Label
+                  htmlFor="fileupload"
+                  className={`formlabel`}
+                  style={{ marginTop: "32px", marginLeft: "7px" }}
+                >
+                  <Uploadicon />{" "}
+                  <span style={{ marginLeft: "10px" }}>Upload</span>
+                </Form.Label>
+                <input
+                  type="file"
+                  className={classes.hidden}
+                  id="fileupload"
+                  multiple
+                  onChange={(event) => uploadMultipleFileFunction(event)}
+                />
+                {uploadFile.map((e, i) => {
+                  return (
+                    <div className={classes.filecontainer} key={i}>
+                      <p
+                        title={e.fileName}
+                        onClick={() => openFileNewWindow(e.fileData)}
+                        className={classes.filename}
+                      >
+                        {e.fileName}
+                      </p>
+                      <div>
+                        <DeleteIcon
+                          sx={{
+                            cursor: "pointer",
+                            color: "red",
+                          }}
+                          onClick={() => removeFileHandler(uploadFile, i)}
+                        />
+                      </div>
+                    </div>
+                  );
+                })}
+              </Form.Group>
+            </div>
             <button type="submit" className={classes.savebtn}>
-              Add Ticket
+              Create Ticket
             </button>
           </div>
         </form>
