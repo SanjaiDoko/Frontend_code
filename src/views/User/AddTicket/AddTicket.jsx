@@ -327,7 +327,6 @@ const AddTicket = () => {
                         <DeleteIcon
                           sx={{
                             cursor: "pointer",
-                            color: "#a1a1a1",
                           }}
                           onClick={() => removeFileHandler(uploadFile, i)}
                         />

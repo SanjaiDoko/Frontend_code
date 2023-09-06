@@ -26,10 +26,14 @@
   padding: 10px;
   justify-content: space-between;
 }
-.filename{
+.filename {
   color: #00a1ff;
 }
 .filecontainer > p {
+  margin-bottom: 0;
+  color: #00a1ff;
+}
+.filecontainer > a {
   margin-bottom: 0;
   color: #00a1ff;
 }
@@ -122,9 +126,8 @@
   align-items: center;
 }
 
-.addDivHeading > h2 {
+.addDivHeading > h3 {
   font-weight: bold;
-  font-size: 28px;
 }
 
 .addDivHeading > button {
