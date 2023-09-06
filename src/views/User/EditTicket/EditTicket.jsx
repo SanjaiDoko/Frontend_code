@@ -120,7 +120,8 @@ const EditTicket = () => {
                     control={control}
                     render={({ field }) => (
                       <Form.Control
-                        {...field}
+                      {...field}
+                      style ={{textTransform:"capitalize"}}
                         type="text"
                         id="issueName"
                         disabled
@@ -144,6 +145,7 @@ const EditTicket = () => {
                     render={({ field }) => (
                       <Form.Control
                         type="text"
+                        style ={{textTransform:"capitalize"}}
                         {...field}
                         id="type"
                         disabled
@@ -167,6 +169,7 @@ const EditTicket = () => {
                     render={({ field }) => (
                       <Form.Select
                         className={`formcontrol`}
+                        style ={{textTransform:"capitalize"}}
                         {...field}
                         id="issueGroup"
                         disabled={role === 3}
@@ -214,6 +217,7 @@ const EditTicket = () => {
                     render={({ field }) => (
                       <Form.Control
                         type="text"
+                        style ={{textTransform:"capitalize"}}
                         disabled
                         {...field}
                         id="managerName"
@@ -280,6 +284,12 @@ const EditTicket = () => {
                 )}
               </Form.Group>
 
+              <Form.Group className="pt-2">
+                <Form.Label htmlFor="mailList" className="formlabel">
+                  Uploaded File
+                </Form.Label>
+              </Form.Group>
+
               {uploadFile.map((e, i) => {
                 return (
                   <div className={classes.filecontainer} key={i}>
@@ -295,20 +305,20 @@ const EditTicket = () => {
                       <a
                         target="_blank"
                         rel="noreferrer"
-                        style={{ textDecoration: "none", color: "black" }}
+                        style={{ textDecoration: "none" }}
                         href={`${URL}${e.filePath}`}
                       >
                         {e.fileName}
                       </a>
                     )}
                     <div>
-                      <DeleteIcon
+                      {/* <DeleteIcon
                         sx={{
                           cursor: "pointer",
                           color: "red",
                         }}
                         onClick={() => removeFileHandler(uploadFile, i)}
-                      />
+                      /> */}
                     </div>
                   </div>
                 );

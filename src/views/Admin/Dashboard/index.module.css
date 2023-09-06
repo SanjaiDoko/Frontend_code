@@ -166,5 +166,11 @@
   font-size: 0.9rem;
   color: #777;
 }
-
-/* Adjust colors and fonts to match your design preferences */
+.nogroup{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  height: 200px;
+}
