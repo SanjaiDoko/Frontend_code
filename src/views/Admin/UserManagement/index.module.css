@@ -1,5 +1,5 @@
 .countrydiv {
-    background: rgba(30, 106, 255, 0.1);
+    background: #fff;
     width: 100%;
     position: relative;
     padding: 30px;
@@ -155,7 +155,7 @@
     width: 100%;
     border: 1px solid #D9D9D9 !important;
     background: #fff;
-    border-radius: 5px 0px 0px 5px;
+    border-radius: 5px;
     padding-left: 15px !important;
     padding: 10px;
 }
