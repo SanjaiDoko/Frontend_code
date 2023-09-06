@@ -44,6 +44,7 @@ const Loginpage = () => {
   const watchFields = watch();
 
   const { mutateAsync: logOut, isLoading: isLogOutLoading } = useLogoutUser(
+    false,
     watchFields.type
   );
 
@@ -92,7 +93,6 @@ const Loginpage = () => {
   };
 
   const handleAgree = async () => {
-    console.log(watchFields.type);
     await logOut(watchFields.type);
     await loginData.mutateAsync(watchFields);
   };
