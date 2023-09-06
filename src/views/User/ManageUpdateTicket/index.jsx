@@ -116,7 +116,7 @@ const Index = () => {
           <form onSubmit={handleSubmit(onSubmit)} className={classes.addDiv}>
             <div>
               <div className={classes.addDivHeading}>
-                <h3>Edit Ticket</h3>
+                <h3>Assign Ticket</h3>
                 {uniqueTicketData[0].status === 0 && (
                   <button
                     type="button"
@@ -154,6 +154,7 @@ const Index = () => {
                           render={({ field }) => (
                             <Form.Control
                               {...field}
+                              style={{textTransform:"capitalize"}}
                               type="text"
                               id="issueName"
                               disabled
@@ -177,6 +178,7 @@ const Index = () => {
                           render={({ field }) => (
                             <Form.Control
                               type="text"
+                              style={{textTransform:"capitalize"}}
                               {...field}
                               id="type"
                               disabled
@@ -203,8 +205,9 @@ const Index = () => {
                             <Form.Select
                               className={`formcontrol`}
                               {...field}
+                              style={{textTransform:"capitalize"}}
                               id="issueGroup"
-                              disabled={role === 3}
+                              disabled={role === 3 }
                               onChange={(e) => {
                                 field.onChange(e);
                                 let managedBy =
@@ -254,6 +257,7 @@ const Index = () => {
                           render={({ field }) => (
                             <Form.Control
                               type="text"
+                              style={{textTransform:"capitalize"}}
                               disabled
                               {...field}
                               id="managerName"
@@ -317,6 +321,10 @@ const Index = () => {
                       </Form.Group> */}
                     {/* </div> */}
                   </div>
+                  <h3>Chats</h3>
+                  <div className={classes.chat}>
+                    
+                  </div>
                 </div>
                 <div className={classes.inputdivs}>
                   <div>
@@ -359,7 +367,7 @@ const Index = () => {
                     {role === 3 && (
                       <Form.Group className="pt-2">
                         <Form.Label htmlFor="assignedTo" className="formlabel">
-                          Assigned To
+                         {uniqueTicketData[0].status ===0 ? "Assign To": "Assigned To"} 
                         </Form.Label>
                         <Controller
                           name="assignedTo"
@@ -367,6 +375,7 @@ const Index = () => {
                           render={({ field }) => (
                             <Form.Select
                               className={`formcontrol`}
+                              disabled={ uniqueTicketData[0].status === 3}
                               {...field}
                               id="assignedTo"
                             >
@@ -376,7 +385,7 @@ const Index = () => {
                               {allUser &&
                                 allUser.map((e, i) => {
                                   return (
-                                    <option key={i} value={e._id}>
+                                    <option key={i} value={e._id} style={{textTransform:"capitalize"}}                                    >
                                       {e.fullName}
                                     </option>
                                   );
@@ -401,6 +410,7 @@ const Index = () => {
                         render={({ field }) => (
                           <MobileDateTimePicker
                             sx={{ width: "100%" }}
+                            disabled={ uniqueTicketData[0].status === 3}
                             {...field}
                             ampm={false}
                             slotProps={{
@@ -423,7 +433,7 @@ const Index = () => {
                   {uniqueTicketData[0].status !== 3 &&
                   uniqueTicketData[0].status !== 1 ? (
                     <button type="submit" className={classes.savebtn}>
-                      Update Ticket
+                      Assign Ticket
                     </button>
                   ) : (
                     <button
