@@ -16,7 +16,7 @@ function Index() {
   const returnStatus = (status) => {
     let ticketStatus = "";
     if (status == 0) {
-      ticketStatus = "Progress";
+      ticketStatus = "Not Assigned";
     }
     if (status == 1) {
       ticketStatus = "Completed";
