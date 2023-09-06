@@ -375,6 +375,8 @@ const EditTicket = () => {
                       const data = editor.getData();
                       field.onChange(data);
                     }}
+
+                    
                     defaultValue=""
                     name="issueDescription"
                   />
