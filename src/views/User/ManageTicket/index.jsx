@@ -4,11 +4,15 @@ import { DataGrid } from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Loader from "../../../components/Loader/Loader";
+import { useState } from "react";
+import searchLogo from "../../../assets/Images/searchLogo.png";
 
 function Index() {
   const id = localStorage.getItem("allMasterId");
 
   const role = useSelector((state) => state.profile.role);
+
+  const [searchValue, setSearchValue] = useState("");
 
   const { data, isloading } = useGetManageTicketById(id, role);
 
@@ -30,7 +34,9 @@ function Index() {
     }
     return ticketStatus;
   };
-  console.log(data);
+
+
+  
   const columns = [
     {
       field: "ticketId",
@@ -86,7 +92,7 @@ function Index() {
   ];
 
   if (isloading) {
-    return <Loader/>;
+    return <Loader />;
   }
 
   const rowClickFunction = (data) => {
@@ -100,10 +106,27 @@ function Index() {
       <div className="container">
         <div className={styles.mainDiv}>
           <h3>Manage Ticket </h3>
+          <div className={styles.searchDiv}>
+            <img src={searchLogo} alt="searchlogo" />
+            <input
+              type="text"
+              className={styles.searchInput}
+              onChange={(e) => setSearchValue(e.target.value)}
+              placeholder="Search by Ticket ID"
+            />
+          </div>
           {data && data.length > 0 ? (
             <DataGrid
-              sx={{ textTransform: "capitalize" }}
-              rows={data}
+              sx={{ textTransform: "capitalize", minHeight: "400px" }}
+              rows={
+                data && searchValue !== ""
+                  ? data.filter((e) =>
+                      e.ticketId
+                        .toLowerCase()
+                        .includes(searchValue.toLowerCase())
+                    )
+                  : data
+              }
               columns={columns}
               getRowId={(data) => data._id}
               hideFooterSelectedRowCount={true}
