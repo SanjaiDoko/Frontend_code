@@ -56,7 +56,10 @@
   margin: 2em;
   color: red;
 }
-
+.reject {
+  color: red !important;
+  font-size: 17px !important;
+}
 .countrydiv {
   background: rgba(30, 106, 255, 0.1);
   width: 100%;
@@ -372,7 +375,7 @@
 .uploadicon path {
   fill: #00a1ff;
 }
-.completed{
+.completed {
   color: #01c442 !important;
   font-size: 17px !important;
 }
