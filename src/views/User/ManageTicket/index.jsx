@@ -79,7 +79,7 @@ function Index() {
       width: 100,
       renderCell: (params) => (
         <button className={styles.editBtn}>
-          {params.row.status === 0 ? "Update Ticket" : "View Ticket"}
+          {params.row.status === 0 ? "Assign Ticket" : "View Ticket"}
         </button>
       ),
     },

@@ -85,7 +85,6 @@ function Dashboard() {
       width: 100,
       renderCell: (params) => (
         <button className={styles.editBtn}>
-          {" "}
           {params.row.status === 1 || params.row.status === 3
             ? "View Ticket"
             : "Update Ticket"}

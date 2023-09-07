@@ -438,8 +438,7 @@ const Index = () => {
                           <MobileDateTimePicker
                             sx={{ width: "100%" }}
                             disabled={
-                              uniqueTicketData[0].status === 3 ||
-                              uniqueTicketData[0].status === 1
+                              uniqueTicketData[0].status !== 0 
                             }
                             {...field}
                             ampm={false}
