@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap");
 .errormsg,
 .error {
   color: red;
@@ -22,7 +23,7 @@ span,
 ::placeholder,
 div {
   cursor: context-menu;
-  font-family: sans-serif !important;
+  font-family: "Rubik" !important;
 }
 .MuiIconButton-sizeSmall,
 .MuiDataGrid-iconSeparator {

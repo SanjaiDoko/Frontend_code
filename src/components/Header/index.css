@@ -33,6 +33,7 @@
 .navbar {
   background: #00a1ff;
   position: fixed;
+  padding: 13px 0px;
   top: 0;
   width: 100%;
   z-index: 111;
@@ -97,7 +98,7 @@
 .linktag {
   text-decoration: none;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 15px;
   color: #f2f2f2;
 }
 .linktag:hover {
@@ -110,4 +111,8 @@
   display: flex;
   align-items: center;
   gap: 7px;
+}
+.logoutbtn{
+  border: none !important;
+  background: transparent !important;
 }

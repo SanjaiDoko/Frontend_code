@@ -14,7 +14,6 @@ import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetAllGroups } from "../../../hooks/groupManagement";
 import { useDispatch, useSelector } from "react-redux";
-import DeleteIcon from "@mui/icons-material/Delete";
 import { URL } from "../../../config";
 import moment from "moment";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
@@ -363,7 +362,7 @@ const EditTicket = () => {
                       </div>
                     )}
                   </div>
-                  <div className={classes.chatdiv}>sdfghjkledrfghjk</div>
+                  <div className={classes.chatdiv}>Chat</div>
                 </div>
                 <div className={classes.inputdetailsdiv}>
                   {uploadFile.map((e, i) => {
@@ -387,7 +386,7 @@ const EditTicket = () => {
                             {e.fileName}
                           </a>
                         )}
-                        <div>
+                        {/* <div>
                           <DeleteIcon
                             sx={{
                               cursor: "pointer",
@@ -395,7 +394,7 @@ const EditTicket = () => {
                             }}
                             onClick={() => removeFileHandler(uploadFile, i)}
                           />
-                        </div>
+                        </div> */}
                       </div>
                     );
                   })}
@@ -475,7 +474,7 @@ const EditTicket = () => {
                               readOnly: true,
                             },
                           }}
-                          format="DD-MM-YYYY HH:MM"
+                          format="DD-MM-YYYY HH:mm"
                           onChange={(e) => field.onChange(e)}
                         />
                       )}
