@@ -1,138 +1,148 @@
 .newuser {
-	padding-top: 30px;
-    display: flex;
-    justify-content: end;
+  padding-top: 30px;
+  display: flex;
+  justify-content: end;
 }
 .termsStyls {
-	text-decoration: none;
-	color: #00A1ff !important;
+  text-decoration: none;
+  color: #00a1ff !important;
 }
 
 .newuser > p {
-	font-weight: 600;
-	font-size: 14px;
-	line-height: 17px;
-	color: #3f3f3f;
-	margin: 0;
-	font-family: "Rubik", sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+  color: #3f3f3f;
+  margin: 0;
+  font-family: "Rubik", sans-serif;
 }
-.Logodiv{
-    text-align: left !important;
+.Logodiv {
+  text-align: left !important;
 }
 
 .Logodiv > h5 {
-	font-weight: 700;
-	font-size: 32px;
-	line-height: 38px;
-	color: #000000;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 38px;
+  color: #000000;
 }
 
 .Logodiv > p {
-	font-weight: 400;
-	font-size: 24px;
-	line-height: 28px;
-	color: #000000;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 28px;
+  color: #000000;
 }
 
 .form {
-	width: 329px;
-	margin: auto;
+  width: 329px;
+  margin: auto;
 }
 .forgot {
-	font-weight: 500;
-	font-size: 14px;
-	line-height: 17px;
-	color: #00A1ff;
-	text-decoration: none;
-    background: none;
-    border: none !important;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: #00a1ff;
+  text-decoration: none;
+  background: none;
+  border: none !important;
 }
 
 .forgot:hover {
-	font-weight: 500;
-	font-size: 14px;
-	line-height: 17px;
-	color: #00A1ff !important;
-	text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: #00a1ff !important;
+  text-decoration: none;
 }
 
 .forgot:focus-visible {
-	outline: none !important;
+  outline: none !important;
 }
 .Formlabel {
-	font-weight: 400;
-	font-size: 14px;
-	line-height: 17px;
-	color: #000000;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #000000;
 }
 ::placeholder {
-	font-weight: 400;
-	font-size: 14px !important;
-	line-height: 17px;
-	color: #858585;
+  font-weight: 400;
+  font-size: 14px !important;
+  line-height: 17px;
+  color: #858585;
 }
 .checkdiv > label {
-	font-weight: 500;
-	font-size: 14px;
-	line-height: 17px;
-	color: #3f3f3f;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: #3f3f3f;
 }
 #InputEmail1,
 #InputPassword1 {
-	border: 1px solid #d9d9d9;
-	border-radius: 4px;
-	padding: 10px;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  padding: 10px;
 }
 .loginbtn {
-	background: #00A1ff !important;
-	border-radius: 6px;
-	padding: 10px !important;
-	font-weight: 500;
-	font-size: 16px;
-	color: #fff !important;
-	border: none !important;
-	width: 100%;
-	margin: 0px 0px 20px 0px;
+  background: #00a1ff !important;
+  border-radius: 6px;
+  padding: 10px !important;
+  font-weight: 500;
+  font-size: 16px;
+  color: #fff !important;
+  border: none !important;
+  width: 100%;
+  margin: 0px 0px 20px 0px;
 }
-
 
 .flexdiv {
-	display: flex;
-	flex-direction: column;
-	justify-items: center;
-	min-height: 100vh;
-	gap: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  min-height: 100vh;
+  gap: 25px;
 }
 .iconposition {
-	position: relative;
-	width: 100%;
+  position: relative;
+  width: 100%;
 }
 .passicons {
-	color: #858585;
-	position: absolute;
-	right: 13px;
-	top: 41px;
-	font-size: 20px;
+  color: #858585;
+  position: absolute;
+  right: 13px;
+  top: 41px;
+  font-size: 20px;
 }
 #Signin {
-	font-weight: 500;
-	font-size: 16px;
-	line-height: 19px;
-	color: #ffffff;
-	width: 100%;
-	padding: 10px;
-	margin: 20px 0px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  color: #ffffff;
+  width: 100%;
+  padding: 10px;
+  margin: 20px 0px;
 }
 .form-select {
-	padding: 10px !important;
-	border-radius: 4px !important;
+  padding: 10px !important;
+  border-radius: 4px !important;
 }
 .maindiv {
-	background: #fff !important;
+  background: #fff !important;
 }
 .checkboxStyls {
-	margin: 10px 5px;
+  margin: 10px 5px;
 }
-.forminputs{
-    text-align: left !important;
+.forminputs {
+  text-align: left !important;
+}
+@media (max-width: 500px) {
+  .form {
+    padding-top: 40px;
+  }
+}
+@media (max-width: 400px) {
+  .form {
+    width: 300px;
+    padding-top: 50px;
+  }
 }

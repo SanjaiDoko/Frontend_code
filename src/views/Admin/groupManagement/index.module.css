@@ -346,3 +346,11 @@
   border: none;
   outline: none;
 }
+@media (max-width: 500px) {
+  .dataGrid {
+    width: 700px !important;
+  }
+  .girdoverflow {
+    overflow-x: scroll;
+  }
+}

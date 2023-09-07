@@ -154,21 +154,24 @@ function IndividualStatusUserList() {
               borderRadius: "5px",
             }}
           >
-            <DataGrid
-              sx={{textTransform:"capitalize"}}
-              rows={filterArray(data)}
-              columns={columns}
-              initialState={{
-                pagination: {
-                  paginationModel: {
-                    pageSize: 10,
+            <div className={styles.girdoverflow}>
+              <DataGrid
+                className={styles.dataGrid}
+                sx={{ textTransform: "capitalize" }}
+                rows={filterArray(data)}
+                columns={columns}
+                initialState={{
+                  pagination: {
+                    paginationModel: {
+                      pageSize: 10,
+                    },
                   },
-                },
-              }}
-              pageSizeOptions={[10]}
-              loading={isLoading}
-              getRowId={(row) => row.groupId}
-            />
+                }}
+                pageSizeOptions={[10]}
+                loading={isLoading}
+                getRowId={(row) => row.groupId}
+              />
+            </div>
           </div>
         </div>
       </div>

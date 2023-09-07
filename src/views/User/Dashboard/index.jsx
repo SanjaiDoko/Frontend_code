@@ -82,7 +82,12 @@ function Dashboard() {
       field: "Options",
       sortable: false,
       width: 100,
-      renderCell: (params) => <button className={styles.editBtn}> {params.row.status === 1 ? "View" : "Update"}</button>,
+      renderCell: (params) => (
+        <button className={styles.editBtn}>
+          {" "}
+          {params.row.status === 1 ? "View" : "Update"}
+        </button>
+      ),
     },
   ];
 
@@ -154,21 +159,24 @@ function Dashboard() {
         </div>
         <div>
           {data && data.length > 0 ? (
-            <DataGrid
-              sx={{ textTransform: "capitalize" }}
-              rows={data}
-              columns={columns}
-              getRowId={(data) => data._id}
-              hideFooterSelectedRowCount={true}
-              onCellClick={(row) => rowClickFunction(row)}
-              initialState={{
-                pagination: {
-                  paginationModel: {
-                    pageSize: 10,
+            <div className={styles.girdoverflow}>
+              <DataGrid
+                className={styles.dataGrid}
+                sx={{ textTransform: "capitalize" }}
+                rows={data}
+                columns={columns}
+                getRowId={(data) => data._id}
+                hideFooterSelectedRowCount={true}
+                onCellClick={(row) => rowClickFunction(row)}
+                initialState={{
+                  pagination: {
+                    paginationModel: {
+                      pageSize: 10,
+                    },
                   },
-                },
-              }}
-            />
+                }}
+              />
+            </div>
           ) : (
             <div className={styles.nogroup}>
               <h4>Until now, You have not received any tickets to solve.</h4>
