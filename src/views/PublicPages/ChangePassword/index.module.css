@@ -1,102 +1,106 @@
-.Logodiv{
-    padding-top: 50px;
+.maindiv {
+ display: flex;
+ flex-direction: column;
+ min-height: 100vh;
+ align-items: center;
+ justify-content: center;
 }
-.Logodiv>h5 {
-    font-weight: 700;
-    font-size: 32px;
-    line-height: 38px;
-    color: #000000;
+.Logodiv > h5 {
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 38px;
+  color: #000000;
 }
 
-.Logodiv>p {
-    font-weight: 400;
-    font-size: 24px;
-    line-height: 28px;
-    color: #000000;
+.Logodiv > p {
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 28px;
+  color: #000000;
 }
 
 form {
-    width: 329px;
-    margin: auto;
+  width: 329px;
+  margin: auto;
 }
-.forgot{
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 17px;
-    color: #1E6AFF;
-    text-decoration: none;
+.forgot {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: #1e6aff;
+  text-decoration: none;
 }
-.Formlabel{
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 17px;
-    color: #000000;
+.Formlabel {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #000000;
 }
-::placeholder{
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 17px;
-    color: #858585;
+::placeholder {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #858585;
 }
-.checkdiv>label{
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 17px;
-    color: #3F3F3F;
+.checkdiv > label {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: #3f3f3f;
 }
-.footers{
-    width: 329px;
-    margin: auto;
+.footers {
+  width: 329px;
+  margin: auto;
 }
-.passiconposition{
-    position: relative;
-    width: 100%;
+.passiconposition {
+  position: relative;
+  width: 100%;
 }
-.conpassiconposition{
-    position: relative;
-    width: 100%;
+.conpassiconposition {
+  position: relative;
+  width: 100%;
 }
 .passicons {
-    color: #858585;
-    position: absolute;
-    right: 14px;
-    top: 35px;
-    font-size: 20px;
+  color: #858585;
+  position: absolute;
+  right: 14px;
+  top: 35px;
+  font-size: 20px;
 }
 .conpassicons {
-    color: #858585;
-    position: absolute;
-    right: 13px;
-    top: 40px;
-    font-size: 20px;
+  color: #858585;
+  position: absolute;
+  right: 13px;
+  top: 40px;
+  font-size: 20px;
 }
-.changepasslabel{
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 17px;
-    color: #000000;
+.changepasslabel {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: #000000;
 }
 .loginbtn {
-    background: #F3CF00 !important;
-    border-radius: 6px;
-    padding: 10px !important;
-    font-weight: 500;
-    font-size: 16px;
-    color: #000;
-    border: none !important;
-    width: 100%;
-    margin-top: 20px;
+  background: #00a1ff !important;
+  border-radius: 6px;
+  padding: 10px !important;
+  font-weight: 500;
+  font-size: 16px;
+  color: #fff !important;
+  border: none !important;
+  width: 100%;
+  margin: 0px 0px 20px 0px;
 }
 .loginbtn:hover {
-    color: #000;
+  color: #000;
 }
-.maindiv{
-    background: #fff !important;
+.maindiv {
+  background: #fff !important;
 }
-.recaptcha{
-    transform:scale(0.77);
-    -webkit-transform:scale(1.08);
-    transform-origin:0 0;
-    -webkit-transform-origin:0 0;
-    margin-top: 10px;
+.recaptcha {
+  transform: scale(0.77);
+  -webkit-transform: scale(1.08);
+  transform-origin: 0 0;
+  -webkit-transform-origin: 0 0;
+  margin-top: 10px;
 }

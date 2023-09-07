@@ -2,14 +2,17 @@ import styles from "./index.module.css";
 import { useGetAllGroups } from "../../../hooks/groupManagement";
 import { useGetAllUsers } from "../../../hooks/userManagement";
 import Loader from "../../../components/Loader/Loader";
+import { useNavigate } from "react-router";
 
 function AdminDashboard() {
   const { data: groupList, isLoading: groupLoading } = useGetAllGroups();
   const { data: userList, isLoading: userLoading } = useGetAllUsers();
+  const navigate = useNavigate();
 
   if (userLoading || groupLoading) {
     return <Loader />;
   }
+  console.log(groupList, "list");
   return (
     <div className={styles.maindiv}>
       <div>
@@ -18,15 +21,24 @@ function AdminDashboard() {
             <h1 className={styles.overviewtxt}>Overview</h1>
           </div>
           <div className={styles.gridcontainer}>
-            <div className={`${styles.griditem} ${styles.item1}`}>
+            <div
+              onClick={() => navigate("/admin/group")}
+              className={`${styles.griditem} ${styles.item}`}
+            >
               <h1>{groupList.length}</h1>
               <h5>Total Groups</h5>
             </div>
-            <div className={`${styles.griditem} ${styles.item}`}>
+            <div
+              onClick={() => navigate("/admin/user")}
+              className={`${styles.griditem} ${styles.item}`}
+            >
               <h1>{userList.length}</h1>
               <h5>Total Users</h5>
             </div>
-            <div className={`${styles.griditem} ${styles.item}`}>
+            <div
+              onClick={() => navigate("/admin/group")}
+              className={`${styles.griditem} ${styles.item}`}
+            >
               <h1>{groupList.filter((e) => e.status == 1).length}</h1>
               <h5>Active Groups</h5>
             </div>
@@ -34,23 +46,58 @@ function AdminDashboard() {
         </div>
         <div className="container">
           <div className={styles.overview}>
-            <h1 className={styles.overviewtxt}>Groups</h1>
+            <h1 className={styles.overviewtxt} style={{ marginTop: "10px" }}>
+              Groups
+            </h1>
           </div>
+          {groupList.length > 0 ? 
           <div className={styles.groupcards}>
             {groupList.map((e, i) => {
               return (
                 <>
                   <div key={i} className={`${styles.groupcard} ${styles.item}`}>
                     <div className={styles.headergroup}>
-                      <h5>Group Name: {e.name}</h5>
+                      <h5
+                        style={{
+                          textTransform: "capitalize",
+                          textAlign: "center",
+                        }}
+                      >
+                        {e.name}
+                      </h5>
                     </div>
                     <div className={styles.groupcontent}>
-                      <h5>Manager By : {e.managedBy.name}</h5>
+                      <div className={styles.manager} style={{marginBottom:"10px"}}>
+                        <h5>Group Manager</h5>
+                        <h5>{e.managedBy.name}</h5>
+                      </div>
+                      <div className={styles.tickets}>
+                        <h5 style={{ textAlign: "center" }}>Tickets</h5>
+                        <div className={styles.manager}>
+                          <h5>Total Ticket</h5>
+                          <h5>{e.totalTicket}</h5>
+                        </div>
+                        <div className={styles.manager}>
+                          <h5>Open Tickets</h5>
+                          <h5>{e.openTicket + e.inProgressTicket}</h5>
+                        </div>
+                        <div className={styles.manager}>
+                          <h5>Completed </h5>
+                          <h5>{e.completedTicket}</h5>
+                        </div>
+                        <div className={styles.manager}>
+
+                        <h5>Rejected </h5>
+                        <h5>{e.rejectedTicket}</h5>
+                        </div>
+                      </div>
                       <div className={styles.userNamediv}>
                         <h5>
-                          Users :
+                          Group Members
+                        </h5>
+                        <h5>
                           {e.users.map((data) => {
-                            return <p>{data.fullName}</p>;
+                            return <p key={i}>{data.fullName}</p>;
                           })}
                         </h5>
                       </div>
@@ -60,6 +107,12 @@ function AdminDashboard() {
               );
             })}
           </div>
+          :
+          <div className={styles.nogroup}>
+            <h4>No Groups Find!</h4>
+            <h4>Hurry Up... Go and Create The Group</h4>
+          </div>
+          }
         </div>
       </div>
     </div>

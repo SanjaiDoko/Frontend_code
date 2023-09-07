@@ -70,7 +70,7 @@ const useRemoveUserById = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (data) => {
-      console.log(data, "data");
+      // console.log(data, "data");
 
       fetchData(
         {

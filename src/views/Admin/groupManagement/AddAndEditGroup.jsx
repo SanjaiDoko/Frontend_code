@@ -141,6 +141,7 @@ const AddAndEditGroup = ({ onCloseButtonClick, editData, isEdit, type }) => {
             render={({ field }) => (
               <Form.Control
                 {...field}
+                style ={{textTransform:"capitalize"}}
                 type="text"
                 id="grpname"
                 placeholder="Enter Group Name"
@@ -153,7 +154,7 @@ const AddAndEditGroup = ({ onCloseButtonClick, editData, isEdit, type }) => {
         </Form.Group>
         <Form.Group className="pt-2">
           <Form.Label htmlFor="type" className="formlabel">
-            Managered By
+          Manager
           </Form.Label>
           <Controller
             name="managedBy"
@@ -173,7 +174,7 @@ const AddAndEditGroup = ({ onCloseButtonClick, editData, isEdit, type }) => {
                       UserByGroupIdData?.filter((e) => e.role === 3)?.map(
                         (e) => (
                           <>
-                            <option value={e._id}>{e.fullName}</option>
+                            <option value={e._id} style ={{textTransform:"capitalize"}}>{e.fullName}</option>
                           </>
                         )
                       )}
@@ -185,7 +186,7 @@ const AddAndEditGroup = ({ onCloseButtonClick, editData, isEdit, type }) => {
                       .filter((e) => e.groupId === null)
                       .map((e) => (
                         <>
-                          <option value={e._id}>{e.fullName}</option>
+                          <option value={e._id} style ={{textTransform:"capitalize"}}>{e.fullName}</option>
                         </>
                       ))}
                   </>
@@ -200,7 +201,7 @@ const AddAndEditGroup = ({ onCloseButtonClick, editData, isEdit, type }) => {
         </Form.Group>
         <Form.Group className="pt-2">
           <Form.Label htmlFor="type" className="formlabel">
-            Users
+            Members
           </Form.Label>
           <Controller
             name="users"
@@ -246,7 +247,7 @@ const AddAndEditGroup = ({ onCloseButtonClick, editData, isEdit, type }) => {
                           type="button"
                           onClick={() => removeUserMuate(e._id)}
                         >
-                          <MdDeleteForever />
+                          <MdDeleteForever style={{color:'#898989' , fontSize:'20px'}} />
                         </button>
                       )}
                     </div>
@@ -304,7 +305,13 @@ const AddAndEditGroup = ({ onCloseButtonClick, editData, isEdit, type }) => {
         type="submit"
         disabled={insertLoading || updateLoading}
       >
-        {insertLoading || updateLoading ? <CircularProgress /> : " Add Group"}
+        {insertLoading || updateLoading ? (
+          <CircularProgress />
+        ) : isEdit ? (
+          "Update Group"
+        ) : (
+          "Add Group"
+        )}
       </button>
     </form>
   );

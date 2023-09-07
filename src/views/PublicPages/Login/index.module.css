@@ -9,13 +9,13 @@
   line-height: 17px;
   color: #3f3f3f;
   margin: 0;
-  font-family: "Rubik", sans-serif;
 }
 
 .Logodiv > h5 {
   font-size: 32px;
   line-height: 38px;
   color: #000000;
+  font-weight: bold;
 }
 
 .Logodiv > p {
@@ -34,7 +34,7 @@
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;
-  color: #f3cf00;
+  color: #00a1ff;
   text-decoration: none;
   border: none !important;
   background: transparent;
@@ -45,7 +45,7 @@
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;
-  color: #f3cf00 !important;
+  color: #00a1ff !important;
   text-decoration: none;
 }
 
@@ -82,20 +82,20 @@
 }
 
 .loginbtn {
-  background: #f3cf00 !important;
+  background: #00a1ff !important;
   border-radius: 6px;
   padding: 10px !important;
   font-weight: 500;
   font-size: 16px;
-  color: #000;
+  color: #fff;
   border: none !important;
   width: 100%;
   margin: 20px 0px;
 }
 
-.loginbtn:hover {
+/* .loginbtn:hover {
   color: #000;
-}
+} */
 
 .footers {
   width: 329px;
@@ -115,23 +115,6 @@
   font-size: 20px;
 }
 
-/* .progress {
-  height: 45px !important;
-  width: 134px !important;
-  border-radius: 0 !important;
-  background-image: url("/src/assets/Images/Isolation.png") !important;
-  background-repeat: no-repeat;
-  overflow: hidden;
-} */
-
-/* .progress-bar {
-  color: white !important;
-  background: linear-gradient(to right, rgb(133, 133, 133), black) !important;
-  font-size: 15px !important;
-  font-weight: 700 !important;
-  margin: 3px !important;
-} */
-
 .form-check-input {
   border-radius: 0px !important;
   outline: none !important;
@@ -139,7 +122,7 @@
 }
 
 .form-check-input:checked {
-  background-color: #f3cf00 !important;
+  background-color: #00a1ff !important;
   border: none !important;
 }
 
@@ -154,21 +137,30 @@
   background: #fff !important;
 }
 .title {
-  color: #f3cf00 !important;
+  color: #00a1ff !important;
+  padding: 10px !important;
 }
 .yesbtn {
-  background: #f4da47 !important;
-  color: #272727 !important;
+  background: #00a1ff !important;
+  color: #fff !important;
   padding: 3px 20px !important;
-  font-family: "Rubik" !important;
   font-size: 15px !important;
-  border: 1.5px solid #f4da47 !important;
+  border: 1.5px solid #00a1ff !important;
 }
 .nobtn {
   background: #fff !important;
-  color: #f4da47 !important;
+  color: #00a1ff !important;
   padding: 3px 20px !important;
-  font-family: "Rubik" !important;
   font-size: 15px !important;
-  border: 1.5px solid #f4da47 !important;
+  border: 1.5px solid #00a1ff !important;
+}
+
+.logo path {
+  fill: #f4da47;
+}
+.logo {
+  width: 120px;
+}
+.txtcontent {
+  padding: 10px !important;
 }

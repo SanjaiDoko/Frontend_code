@@ -15,7 +15,6 @@ import { Switch } from "@mui/material";
 
 function IndividualStatusUserList() {
   const [searchValue, setSearchValue] = useState("");
-  const [selectBoxValue, setSelectedBoxValue] = useState("");
   const dispatch = useDispatch();
   const sidebar = useSelector((state) => state.sidebar);
   const { data, isLoading, isError, error } = useGetAllUsers();
@@ -30,6 +29,7 @@ function IndividualStatusUserList() {
         )
         .filter(
           (e) =>
+            e.fullName &&
             e.fullName
               .toLowerCase()
               .replace(/\s/, "")
@@ -96,6 +96,8 @@ function IndividualStatusUserList() {
     return <div>{error.message}</div>;
   }
 
+  console.log(data, "data");
+
   return (
     <div className={styles.countrydiv}>
       <div className="container">
@@ -124,24 +126,6 @@ function IndividualStatusUserList() {
               onChange={(e) => setSearchValue(e.target.value)}
             />
           </div>
-          <div className={styles.selectbox}>
-            <h4>Filter by</h4>
-            <div>
-              <select
-                style={{ background: "transparent" }}
-                value={selectBoxValue}
-                id="filterSelect"
-                className={styles.selectuser}
-                onChange={(e) => {
-                  setSelectedBoxValue(e.target.value);
-                }}
-              >
-                <option value={""}>Active Users</option>
-                <option value={1}>Inactive Users</option>
-              </select>
-            </div>
-          </div>
-          {/* )} */}
         </div>
         <div
           style={{

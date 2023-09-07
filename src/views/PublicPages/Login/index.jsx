@@ -1,6 +1,6 @@
 import styles from "./index.module.css";
 import { AiFillEye } from "react-icons/ai";
-import Logo from "../../../assets/Images/AllMasterslogo.jpg";
+import Logo from "../../../assets/Images/blacklogo.png";
 import { BsFillEyeSlashFill } from "react-icons/bs";
 import { Form, Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
@@ -8,16 +8,28 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { loginValidation } from "../../../validationSchema/loginValidation";
 import { Controller, useForm } from "react-hook-form";
 import { useState } from "react";
-import { useLoginData } from "../../../hooks/login";
-import { CircularProgress } from "@mui/material";
+// import { CircularProgress } from "@mui/material";
+import AlreadyLoggedInPopup from "./alreadyLoggedInPopup";
+import { useLogoutUser } from "../../../hooks/logout";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { logInApi } from "../../../api/loginApi";
+import jwtDecode from "jwt-decode";
+import { useDispatch } from "react-redux";
+import { setProfileData } from "../../../redux/slices/profileSlice";
+import { toast } from "react-toastify";
 
 const Loginpage = () => {
   const [passwordVisibile, setPasswordVisibile] = useState(false);
-  const { mutate, isLoading } = useLoginData();
+  const queryClient = useQueryClient();
+  const [loggedInCheck, setLoggedInCheck] = useState({
+    modal: false,
+  });
   const {
     handleSubmit,
     formState: { errors },
     control,
+    watch,
+    reset,
   } = useForm({
     resolver: yupResolver(loginValidation),
     mode: "onTouched",
@@ -28,17 +40,65 @@ const Loginpage = () => {
     },
   });
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const watchFields = watch();
 
-  const onSubmit = (data) => {
-    mutate(data);
-  };
+  const { mutateAsync: logOut, isLoading: isLogOutLoading } = useLogoutUser(
+    false,
+    watchFields.type
+  );
 
   function togglePasswordVisiblity() {
     setPasswordVisibile(!passwordVisibile);
   }
 
+  const handleClose = () => {
+    setLoggedInCheck({
+      modal: false,
+    });
+    reset({ email: "", password: "", type: "1" });
+  };
+
+  const loginData = useMutation({
+    mutationFn: (data) => logInApi(data),
+    onSuccess: async (data) => {
+      if (data.status === 1) {
+        const parsedData = JSON.parse(data.data);
+        const decodedData = jwtDecode(parsedData.token);
+        localStorage.setItem("allMasterToken", parsedData.token);
+        localStorage.setItem("allMasterId", parsedData.userId);
+        localStorage.setItem("groupId", parsedData.groupId);
+        data.role = decodedData.role;
+        dispatch(setProfileData(decodedData));
+        await queryClient.refetchQueries({ queryKey: ["profileData"] });
+      } else {
+        if (data.status === 0 && data.data != null) {
+          localStorage.setItem("allMasterId", data.data);
+          setLoggedInCheck({
+            userId: data.data,
+            modal: true,
+          });
+        } else {
+          toast.error(data.response);
+        }
+      }
+    },
+    onError: (error) => {
+      toast.error(error.message.split(":")[1]);
+    },
+  });
+
   const preventEvents = (e) => {
     e.preventDefault();
+  };
+
+  const handleAgree = async () => {
+    await logOut(watchFields.type);
+    await loginData.mutateAsync(watchFields);
+  };
+
+  const onSubmit = (data) => {
+    loginData.mutate(data);
   };
 
   return (
@@ -65,7 +125,7 @@ const Loginpage = () => {
             <div className={styles.Logodiv}>
               <img src={Logo} alt="AllMasters Logo" className="masterlogo" />
               <h5 className="pt-2">Welcome back !</h5>
-              <p>Book & Track your shipments</p>
+              <p>Raise & Resolve Tickets </p>
             </div>
             <Form.Group className="pt-2">
               <Form.Label htmlFor="type" className="formlabel">
@@ -168,15 +228,20 @@ const Loginpage = () => {
               </Link>
             </div>
             <Button
-              disabled={isLoading}
               type="submit"
               id="Signin"
               className={`${styles.loginbtn} w-100`}
             >
-              {isLoading ? <CircularProgress /> : "Sign In"}
+              Sign In
             </Button>
           </Form>
         </div>
+        <AlreadyLoggedInPopup
+          isLogOutLoading={isLogOutLoading || loginData.isLoading}
+          handleAgree={handleAgree}
+          handleClose={handleClose}
+          modalOpen={loggedInCheck.modal}
+        />
       </div>
     </>
   );

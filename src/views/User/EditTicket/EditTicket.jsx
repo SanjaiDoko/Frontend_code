@@ -2,36 +2,24 @@
 import { Form } from "react-bootstrap";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-// import { ReactComponent as CloseIcon } from "../../../assets/Icons/closeIcon.svg";
 import classes from "./index.module.css";
 import { addTicketValidation } from "../../../validationSchema/addTicketValidation";
-import { fileReaderFunction, openFileNewWindow } from "../../../helper";
+import { openFileNewWindow } from "../../../helper";
 import { useEffect, useState } from "react";
-import { ReactComponent as Uploadicon } from "../../../../src/assets/Icons/uploadicon.svg";
-import {
-  useGetSpecificTicketById,
-  useUpdateTicket,
-} from "../../../hooks/ticketHooks";
-// import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
-// import moment from "moment";
+import { useGetSpecificTicketById } from "../../../hooks/ticketHooks";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetAllGroups } from "../../../hooks/groupManagement";
-import { useSelector } from "react-redux";
-import DeleteIcon from "@mui/icons-material/Delete";
-import { toast } from "react-toastify";
 import { URL } from "../../../config";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 // import moment from "moment";
 
 const EditTicket = () => {
   const [uploadFile, setUploadFile] = useState([]);
 
-  const role = useSelector((state) => state.profile.role);
-
   const { id } = useParams();
 
   const navigate = useNavigate();
-
-  // const { data: allTicketData, isloading } = useGetAllTicketById(userId);
 
   const { data: uniqueTicketData, isLoading: ticketLoading } =
     useGetSpecificTicketById(id);
@@ -40,18 +28,11 @@ const EditTicket = () => {
 
   const { data: allGroupData, isLoading: groupLoading } = useGetAllGroups();
 
-  const onSuccess = () => {
-    navigate("/user/mytickets/");
-  };
-
-  const { mutate } = useUpdateTicket(onSuccess);
   const {
-    handleSubmit,
     control,
     reset,
     watch,
     setValue,
-    getValues,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(addTicketValidation),
@@ -61,7 +42,6 @@ const EditTicket = () => {
       issueGroup: "",
       type: "",
       issueDescription: "",
-      // assignedTo: "",
       mailList: "",
       managerName: "",
       managedId: "",
@@ -71,12 +51,6 @@ const EditTicket = () => {
 
   useEffect(() => {
     if (uniqueTicketData) {
-      // if (uniqueTicketData[0].endTime) {
-      //   uniqueTicketData[0].endTime = moment(uniqueTicketData[0].endTime);
-      // }
-      // else {
-      //   uniqueTicketData[0].endTime = null;
-      // }
       reset(uniqueTicketData[0]);
       setUploadFile(uniqueTicketData[0].files);
     }
@@ -85,84 +59,34 @@ const EditTicket = () => {
   if (groupLoading || ticketLoading) {
     return <p>Loading...</p>;
   }
-  const uploadMultipleFileFunction = async (event) => {
-    const errorMessage = {
-      NoFileError: `Upload file first`,
-      fileTypeErr: `Upload only Pdf`,
-      fileSizeErr: "Please upload file",
-    };
-    try {
-      let fileDataArray = await fileReaderFunction({
-        fileEvent: event,
-        errorMessage,
-        fileType: "pdf",
-        noLimit: true,
-      });
-      let sameFileExists;
-      if (fileDataArray.length > 0) {
-        fileDataArray = fileDataArray.map(({ fileName, fileData }) => {
-          return { fileName, fileData };
-        });
-
-        uploadFile.map((file) => {
-          fileDataArray.map((uploadfile) => {
-            if (file.fileName === uploadfile.fileName) {
-              sameFileExists = true;
-            }
-            return sameFileExists;
-          });
-          return sameFileExists;
-        });
-
-        if (sameFileExists === true) {
-          toast.error("File already uploaded");
-        } else {
-          setUploadFile([...uploadFile, ...fileDataArray]);
-        }
-      } else {
-        uploadFile.map((file) => {
-          if (file.fileName === fileDataArray.fileName) {
-            sameFileExists = true;
-          }
-          return sameFileExists;
-        });
-        if (sameFileExists === true) {
-          toast.error("File already uploaded");
-        } else {
-          setUploadFile([...uploadFile, fileDataArray]);
-        }
-      }
-    } catch (error) {
-      toast.error(error.message);
-    } finally {
-      event.target.value = "";
-    }
-  };
-
-  const removeFileHandler = (array, index) => {
-    setUploadFile(array.filter((file, i) => i !== index));
-  };
 
   if (ticketLoading) {
     return <p>Loading...</p>;
   }
 
-  const onSubmit = (data) => {
-    const values = getValues();
-    data.managedBy = values["managedId"];
-    data.mailList = [data.mailList];
-    data.id = uniqueTicketData[0]._id;
-    data.files = uploadFile;
-    mutate(data);
+  const editorConfiguration = {
+    toolbar: {
+      items: [],
+    },
   };
 
   return (
     <div className={classes.mainDiv}>
       <div className={classes.AddTicketDiv}>
-        <form onSubmit={handleSubmit(onSubmit)} className={classes.addDiv}>
+        <form className={classes.addDiv}>
           <div>
             <div className={classes.addDivHeading}>
-              <h2>Edit Ticket</h2>
+              <h3>View Ticket</h3>
+              {uniqueTicketData[0].status === 3 && (
+                <button type="button" className={classes.reject}>
+                  Task is Rejected
+                </button>
+              )}
+              {uniqueTicketData[0].status === 1 && (
+                <button type="button" className={classes.completed}>
+                  Task is Completed
+                </button>
+              )}
             </div>
             <div className={classes.inputDiv}>
               <div>
@@ -176,8 +100,10 @@ const EditTicket = () => {
                     render={({ field }) => (
                       <Form.Control
                         {...field}
+                        style={{ textTransform: "capitalize" }}
                         type="text"
                         id="issueName"
+                        disabled
                         placeholder="Enter Issue Name"
                       />
                     )}
@@ -198,8 +124,10 @@ const EditTicket = () => {
                     render={({ field }) => (
                       <Form.Control
                         type="text"
+                        style={{ textTransform: "capitalize" }}
                         {...field}
                         id="type"
+                        disabled
                         placeholder="Enter Type"
                       />
                     )}
@@ -208,23 +136,8 @@ const EditTicket = () => {
                     <span className={classes.error}>{errors.type.message}</span>
                   )}
                 </Form.Group>
-                <Form.Group className="pt-2">
-                  <Form.Label htmlFor="issueDescription" className="formlabel">
-                    Issue Description
-                  </Form.Label>
-                  <Controller
-                    name="issueDescription"
-                    control={control}
-                    render={({ field }) => (
-                      <textarea {...field} rows={2} cols={20} />
-                    )}
-                  />
-                  {errors.issueDescription && (
-                    <p className={classes.error}>
-                      {errors.issueDescription.message}
-                    </p>
-                  )}
-                </Form.Group>
+              </div>
+              <div>
                 <Form.Group className="pt-2">
                   <Form.Label htmlFor="issueGroup" className="formlabel">
                     Issue Group
@@ -235,9 +148,10 @@ const EditTicket = () => {
                     render={({ field }) => (
                       <Form.Select
                         className={`formcontrol`}
+                        style={{ textTransform: "capitalize" }}
                         {...field}
                         id="issueGroup"
-                        disabled={role === 3}
+                        disabled
                         onChange={(e) => {
                           field.onChange(e);
                           let managedBy =
@@ -272,8 +186,6 @@ const EditTicket = () => {
                     </span>
                   )}
                 </Form.Group>
-              </div>
-              <div>
                 <Form.Group className="pt-2">
                   <Form.Label htmlFor="managerName" className="formlabel">
                     Managed By
@@ -284,6 +196,7 @@ const EditTicket = () => {
                     render={({ field }) => (
                       <Form.Control
                         type="text"
+                        style={{ textTransform: "capitalize" }}
                         disabled
                         {...field}
                         id="managerName"
@@ -297,194 +210,104 @@ const EditTicket = () => {
                     </span>
                   )}
                 </Form.Group>
-                {/* {role === 3 && (
-                  <Form.Group className="pt-2">
-                    <Form.Label htmlFor="assignedTo" className="formlabel">
-                      Assigned To
-                    </Form.Label>
-                    <Controller
-                      name="assignedTo"
-                      control={control}
-                      render={({ field }) => (
-                        <Form.Control
-                          type="text"
-                          {...field}
-                          id="assignedTo"
-                          placeholder="Enter Assigned To Name"
-                        />
-                      )}
-                    />
-                    {errors.assignedTo && (
-                      <span className={classes.error}>
-                        {errors.assignedTo.message}
-                      </span>
-                    )}
-                  </Form.Group>
-                )} */}
-                <Form.Group className="pt-2">
-                  <Form.Label htmlFor="mailList" className="formlabel">
-                    Mail To
-                  </Form.Label>
-                  <Controller
-                    name="mailList"
-                    control={control}
-                    render={({ field }) => (
-                      <Form.Control
-                        type="text"
-                        {...field}
-                        id="mailList"
-                        placeholder="Enter Mail To"
-                      />
-                    )}
-                  />
-                  {errors.mailTo && (
-                    <span className={classes.error}>
-                      {errors.mailTo.message}
-                    </span>
-                  )}
-                </Form.Group>
-                <Form.Group className="pt-2">
-                  <Form.Label htmlFor="fileupload" className={`formlabel`}>
-                    <Uploadicon /> Upload
-                  </Form.Label>
-                  <input
-                    type="file"
-                    className={classes.hidden}
-                    id="fileupload"
-                    multiple
-                    onChange={(event) => uploadMultipleFileFunction(event)}
-                  />
-                  {uploadFile.map((e, i) => {
-                    return (
-                      <div className={classes.filecontainer} key={i}>
-                        {e.fileData ? (
-                          <p
-                            title={e.fileName}
-                            onClick={() => openFileNewWindow(e.fileData)}
-                            className={classes.filename}
-                          >
-                            {e.fileName}
-                          </p>
-                        ) : (
-                          <a
-                            target="_blank"
-                            rel="noreferrer"
-                            href={`${URL}${e.filePath}`}
-                          >
-                            {e.fileName}
-                          </a>
-                        )}
-                        <div>
-                          <DeleteIcon
-                            sx={{
-                              cursor: "pointer",
-                              color: "red",
-                            }}
-                            onClick={() => removeFileHandler(uploadFile, i)}
-                          />
-                        </div>
-                      </div>
-                    );
-                  })}
-                </Form.Group>
-                {/* <Form.Group className="pt-2">
-              <Form.Label htmlFor="startTime" className="formlabel">
-                Start Time
-              </Form.Label>
-              <Controller
-                name="startTime"
-                control={control}
-                render={({ field }) => (
-                  <MobileDateTimePicker
-                    sx={{ width: "100%" }}
-                    {...field}
-                    ampm={false}
-                    slotProps={{
-                      textField: {
-                        readOnly: true,
-                      },
-                    }}
-                    format="DD-MM-YYYY HH:MM"
-                    onChange={(e) => field.onChange(e)}
-                  />
-                )}
-              />
-              {errors.startTime && (
-                <span className={classes.error}>
-                  {errors.startTime.message}
-                </span>
-              )}
-            </Form.Group> */}
-                {/* <Form.Group className="pt-2">
-              <Form.Label htmlFor="endTime" className="formlabel">
-                End Time
-              </Form.Label>
-              <Controller
-                name="endTime"
-                control={control}
-                render={({ field }) => (
-                  <MobileDateTimePicker
-                    sx={{ width: "100%" }}
-                    {...field}
-                    ampm={false}
-                    slotProps={{
-                      textField: {
-                        readOnly: true,
-                      },
-                    }}
-                    format="DD-MM-YYYY HH:MM"
-                    onChange={(e) => field.onChange(e)}
-                  />
-                )}
-              />
-              {errors.endTime && (
-                <span className={classes.error}>{errors.endTime.message}</span>
-              )}
-            </Form.Group> */}
-                {/* <Form.Group className="pt-2">
-              <Form.Label htmlFor="actualEndTime" className="formlabel">
-                Actual End Time
-              </Form.Label>
-              <Controller
-                name="actualEndTime"
-                control={control}
-                render={({ field }) => (
-                  <MobileDateTimePicker
-                    sx={{ width: "100%" }}
-                    {...field}
-                    ampm={false}
-                    slotProps={{
-                      textField: {
-                        readOnly: true,
-                      },
-                    }}
-                    format="DD-MM-YYYY HH:MM"
-                    onChange={(e) => field.onChange(e)}
-                  />
-                )}
-              />
-              {errors.actualEndTime && (
-                <span className={classes.error}>
-                  {errors.actualEndTime.message}
-                </span>
-              )}
-            </Form.Group> */}
               </div>
             </div>
-            {uniqueTicketData[0].status === 1 ||
-            uniqueTicketData[0].status === 3 ? (
-              <button
-                type="button"
-                className={classes.savebtn}
-                onClick={() => navigate(-1)}
-              >
-                Back
-              </button>
-            ) : (
-              <button type="submit" className={classes.savebtn}>
-                Update Ticket
-              </button>
-            )}
+            <div>
+              <Form.Label>Issue Description</Form.Label>
+
+              <Controller
+                name="issueDescription"
+                control={control}
+                render={({ field }) => (
+                  <CKEditor
+                    editor={ClassicEditor}
+                    {...field}
+                    data={uniqueTicketData[0].issueDescription}
+                    id="issueDescription"
+                    disabled
+                    config={editorConfiguration}
+                  />
+                )}
+              />
+              {errors.issueDescription && (
+                <span className={classes.error}>
+                  {errors.issueDescription.message}
+                </span>
+              )}
+            </div>
+            <div>
+              <Form.Group className="pt-2">
+                <Form.Label htmlFor="mailList" className="formlabel">
+                  Mail To
+                </Form.Label>
+                <Controller
+                  name="mailList"
+                  control={control}
+                  render={({ field }) => (
+                    <Form.Control
+                      type="text"
+                      {...field}
+                      id="mailList"
+                      disabled
+                      placeholder="Enter Mail To"
+                    />
+                  )}
+                />
+                {errors.mailTo && (
+                  <span className={classes.error}>{errors.mailTo.message}</span>
+                )}
+              </Form.Group>
+
+              <Form.Group className="pt-2">
+                {uploadFile && uploadFile.length > 0 && (
+                  <Form.Label htmlFor="mailList" className="formlabel">
+                    Uploaded File
+                  </Form.Label>
+                )}
+              </Form.Group>
+
+              {uploadFile.map((e, i) => {
+                return (
+                  <div className={classes.filecontainer} key={i}>
+                    {e.fileData ? (
+                      <p
+                        title={e.fileName}
+                        onClick={() => openFileNewWindow(e.fileData)}
+                        className={classes.filename}
+                      >
+                        {e.fileName}
+                      </p>
+                    ) : (
+                      <a
+                        target="_blank"
+                        rel="noreferrer"
+                        style={{ textDecoration: "none" }}
+                        href={`${URL}${e.filePath}`}
+                      >
+                        {e.fileName}
+                      </a>
+                    )}
+                    <div>
+                      {/* <DeleteIcon
+                        sx={{
+                          cursor: "pointer",
+                          color: "red",
+                        }}
+                        onClick={() => removeFileHandler(uploadFile, i)}
+                      /> */}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            <button
+              type="button"
+              onClick={() => navigate("/user/mytickets")}
+              className={classes.savebtn}
+            >
+              Back
+            </button>
           </div>
         </form>
       </div>

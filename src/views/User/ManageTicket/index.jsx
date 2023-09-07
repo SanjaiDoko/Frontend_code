@@ -2,11 +2,14 @@ import styles from "./index.module.css";
 import { useGetManageTicketById } from "../../../hooks/ticketHooks";
 import { DataGrid } from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Index() {
   const id = localStorage.getItem("allMasterId");
 
-  const { data, isloading } = useGetManageTicketById(id);
+  const role = useSelector((state) => state.profile.role);
+
+  const { data, isloading } = useGetManageTicketById(id, role);
 
   const navigate = useNavigate();
 
@@ -26,8 +29,14 @@ function Index() {
     }
     return ticketStatus;
   };
-
+  console.log(data);
   const columns = [
+    {
+      field: "ticketId",
+      flex: 1,
+      headerName: "Ticket ID",
+      width: 150,
+    },
     {
       field: "issueName",
       flex: 1,
@@ -35,19 +44,19 @@ function Index() {
       width: 150,
     },
     {
+      field: "assignedName",
+      flex: 1,
+      headerName: "Issue Group",
+      width: 150,
+      renderCell: (params) => {
+        return params.row.issueGroupName;
+      },
+    },
+    {
       field: "managerName",
       flex: 1,
       headerName: "Managed By",
       width: 150,
-    },
-    {
-      field: "assignedName",
-      flex: 1,
-      headerName: "Assigned To",
-      width: 150,
-      renderCell: (params) => {
-        return params.row.assignedName ? params.row.assignedName : "NA";
-      },
     },
     {
       field: "type",
@@ -67,8 +76,10 @@ function Index() {
       field: "Options",
       sortable: false,
       width: 100,
-      renderCell: () => (
-        <button className={styles.editBtn}>Update Ticket</button>
+      renderCell: (params) => (
+        <button className={styles.editBtn}>
+          {params.row.status === 0 ? "Update Ticket" : "View Ticket"}
+        </button>
       ),
     },
   ];
@@ -85,29 +96,32 @@ function Index() {
 
   if (data !== undefined) {
     return (
-      <div className={styles.mainDiv}>
-        <div className={styles.subDiv}>
-          <h3 style={{ marginTop: "1em" }}>Manage Ticket </h3>
-        </div>
-        {data && data.length > 0 ? (
-          <DataGrid
-            sx={{ textTransform: "capitalize" }}
-            rows={data}
-            columns={columns}
-            getRowId={(data) => data._id}
-            hideFooterSelectedRowCount={true}
-            onCellClick={(row) => rowClickFunction(row)}
-            initialState={{
-              pagination: {
-                paginationModel: {
-                  pageSize: 10,
+      <div className="container">
+        <div className={styles.mainDiv}>
+          <h3>Manage Ticket </h3>
+          {data && data.length > 0 ? (
+            <DataGrid
+              sx={{ textTransform: "capitalize" }}
+              rows={data}
+              columns={columns}
+              getRowId={(data) => data._id}
+              hideFooterSelectedRowCount={true}
+              onCellClick={(row) => rowClickFunction(row)}
+              initialState={{
+                pagination: {
+                  paginationModel: {
+                    pageSize: 10,
+                  },
                 },
-              },
-            }}
-          />
-        ) : (
-          <p>No Data Found</p>
-        )}
+              }}
+            />
+          ) : (
+            <div className={styles.nogroup}>
+              <h4>Until now, You have not received any tickets to solve.</h4>
+              <h4>Please wait for one to be created</h4>
+            </div>
+          )}
+        </div>
       </div>
     );
   }

@@ -1,5 +1,5 @@
 import styles from "./index.module.css";
-import Logo from "../../../assets/Images/AllMasterslogo.jpg";
+import Logo from "../../../assets/Images/blacklogo.png";
 import { AiFillEye } from "react-icons/ai";
 import { BsFillEyeSlashFill } from "react-icons/bs";
 import { Form, Button } from "react-bootstrap";
@@ -74,13 +74,15 @@ function Register() {
         </div>
         <Form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
           <div className={styles.Logodiv}>
+            <div>
           <img
 							src={Logo}
 							alt="AllMasters Logo"
 							className="masterlogo"
 						/>
+            </div>
             <h5 className="pt-2">Get Started</h5>
-            <p>Freight Logistics Simplified</p>
+            <p>Solution For Your Issues</p>
           </div>
           <div className={styles.forminputs}>
             <Form.Group className="pt-2">

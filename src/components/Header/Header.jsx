@@ -1,37 +1,32 @@
 import "./index.css";
 import Container from "react-bootstrap/Container";
-import { Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Nav, Navbar } from "react-bootstrap";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { RiShutDownLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
-// import { useLogoutUser, useProfileData } from "../../hooks/userAuthManagement";
-// import { convertFirstLettersAsUpperCase } from "../../helper";
-import logo from "../../assets/Images/AllMastersHeaderLogo.png";
-// import { CircularProgress } from "@mui/material";
+import Mainlogo from "../../assets/Images/mainlogo.png";
 import { useSelector } from "react-redux";
 import { useLogoutUser } from "../../hooks/logout";
+import { useGetUserDetailsById } from "../../hooks/userManagement";
+import Loader from "../Loader/Loader";
 
 function Header() {
-  const { mutate } = useLogoutUser();
+  const type = useSelector((state) => state.profile.type);
+  const { mutate } = useLogoutUser(type);
   const role = useSelector((state) => state.profile.role);
+  const userId = localStorage.getItem("allMasterId");
 
-  // const { data: userData, isLoading } = useProfileData(id, role);
+  const { data, isLoading } = useGetUserDetailsById(userId, type);
 
-  // function checkArrayAndReturnName(userData) {
-  // 	if (userData != null) {
-  // 		return Array.isArray(userData)
-  // 			? convertFirstLettersAsUpperCase(userData[0].fullName)
-  // 			: convertFirstLettersAsUpperCase(userData.fullName);
-  // 	} else {
-  // 		return "";
-  // 	}
-  // }
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <Navbar collapseOnSelect expand="lg">
       <Container className="container">
         <Link to="/home" className="brandlogo">
-          <img src={logo} className="headerlogo" alt="" />
-          AllMasters
+          <img src={Mainlogo} className="headerlogo" alt="" />
         </Link>
         <Navbar.Toggle aria-controls="responsive-navbar-nav">
           <GiHamburgerMenu />
@@ -76,11 +71,19 @@ function Header() {
                 Manage Group
               </Link>
             )}
+
             <Nav.Item className="d-flex gap-2">
-              <NavDropdown.Item className="linktag" onClick={() => mutate()}>
-                Logout
-              </NavDropdown.Item>
+              <div className="hellotextdiv">
+                <span className="linktag">Hello</span>
+                <span className="linktag">{data && data.fullName}</span>
+              </div>
             </Nav.Item>
+
+            <button className="logoutbtn" onClick={() => mutate()}>
+              <RiShutDownLine
+                style={{ color: "#ffff", fontSize: "20px", fontWeight: "bold" }}
+              />
+            </button>
           </Nav>
         </Navbar.Collapse>
       </Container>
