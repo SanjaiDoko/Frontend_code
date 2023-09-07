@@ -3,9 +3,9 @@
     font-weight: bold !important;
     font-family: "Rubik" !important;
     font-size: 18px !important;
-    color: #f4da47 !important;
     display: flex !important;
     justify-content: space-between !important;
+    padding: 10px !important;
 }
 .contenttxt {
 	word-wrap: break-word;
@@ -19,7 +19,8 @@
 }
 
 .title{
-    margin-left: 5px !important;
+    margin-bottom: 0 !important;
+    color: #00a1ff;
 }
 
 .contentText{
@@ -27,21 +28,21 @@
 }
 
 .yesbtn {
-    background: #f4da47 !important;
-    color: #272727 !important;
+    background: #00a1ff !important;
+    color: #fff !important;
     padding: 3px 20px !important;
     font-family: "Rubik" !important;
 	font-size: 15px !important;
-    border: 1.5px solid #f4da47 !important;
+    border: 1.5px solid #00a1ff !important;
     border-radius: 4px !important;
 }
 .nobtn {
     background: #fff !important;
-    color: #f4da47 !important;
+    color: #00a1ff !important;
     padding: 3px 20px !important;
     font-family: "Rubik" !important;
 	font-size: 15px !important;
-    border: 1.5px solid #f4da47 !important;
+    border: 1.5px solid #00a1ff !important;
     border-radius: 4px !important;
 }
 .closebtns{

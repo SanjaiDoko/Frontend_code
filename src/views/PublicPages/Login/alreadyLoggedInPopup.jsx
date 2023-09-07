@@ -20,16 +20,16 @@ export default function AlreadyLoggedInPopup({
     <Dialog open={modalOpen} onClose={handleClose}>
       <DialogTitle className={styles.title}>User Already Logged In</DialogTitle>
       <DialogContent>
-        <DialogContentText>
+        <DialogContentText className={styles.txtcontent}>
           The user is already logged in, do you want to log out all users?
         </DialogContentText>
       </DialogContent>
       <DialogActions>
         <Button className={styles.yesbtn} onClick={handleAgree}>
-          {isLogOutLoading ? <CircularProgress /> : "Yes"}
+          {isLogOutLoading ? <CircularProgress size={22} /> : "Yes"}
         </Button>
         <Button className={styles.nobtn} onClick={handleClose}>
-          {isLogOutLoading ? <CircularProgress /> : "No"}
+          {isLogOutLoading ? <CircularProgress size={22}/> : "No"}
         </Button>
       </DialogActions>
     </Dialog>

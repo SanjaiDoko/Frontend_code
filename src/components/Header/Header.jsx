@@ -1,12 +1,10 @@
 import "./index.css";
 import Container from "react-bootstrap/Container";
-import { Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Nav, Navbar } from "react-bootstrap";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { RiShutDownLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
-// import { useLogoutUser, useProfileData } from "../../hooks/userAuthManagement";
-// import { convertFirstLettersAsUpperCase } from "../../helper";
 import Mainlogo from "../../assets/Images/mainlogo.png";
-// import { CircularProgress } from "@mui/material";
 import { useSelector } from "react-redux";
 import { useLogoutUser } from "../../hooks/logout";
 import { useGetUserDetailsById } from "../../hooks/userManagement";
@@ -20,22 +18,9 @@ function Header() {
 
   const { data, isLoading } = useGetUserDetailsById(userId, type);
 
-  // const { data: userData, isLoading } = useProfileData(id, role);
-
-  // function checkArrayAndReturnName(userData) {
-  // 	if (userData != null) {
-  // 		return Array.isArray(userData)
-  // 			? convertFirstLettersAsUpperCase(userData[0].fullName)
-  // 			: convertFirstLettersAsUpperCase(userData.fullName);
-  // 	} else {
-  // 		return "";
-  // 	}
-  // }
-
   if (isLoading) {
     return <Loader />;
   }
-
 
   return (
     <Navbar collapseOnSelect expand="lg">
@@ -86,20 +71,19 @@ function Header() {
                 Manage Group
               </Link>
             )}
+
             <Nav.Item className="d-flex gap-2">
               <div className="hellotextdiv">
                 <span className="linktag">Hello</span>
-                <span className="linktag" style={{textTransform:"capitalize"}}>{data && data.fullName}</span>
-                <NavDropdown>
-                  <NavDropdown.Item
-                    className="dropdownlink"
-                    onClick={() => mutate()}
-                  >
-                    Logout
-                  </NavDropdown.Item>
-                </NavDropdown>
+                <span className="linktag">{data && data.fullName}</span>
               </div>
             </Nav.Item>
+
+            <button className="logoutbtn" onClick={() => mutate()}>
+              <RiShutDownLine
+                style={{ color: "#ffff", fontSize: "20px", fontWeight: "bold" }}
+              />
+            </button>
           </Nav>
         </Navbar.Collapse>
       </Container>
