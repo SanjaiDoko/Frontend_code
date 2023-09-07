@@ -111,7 +111,10 @@ function Dashboard() {
               }}
             />
           ) : (
-            <p>No Data Found</p>
+            <div className={styles.nogroup}>
+              <h4>Do you face any Issue ?</h4>
+              <h4>Create a Ticket for the Solution.</h4>
+            </div>
           )}
         </div>
       </div>
