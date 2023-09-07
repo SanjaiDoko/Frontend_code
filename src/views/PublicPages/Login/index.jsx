@@ -142,8 +142,8 @@ const Loginpage = () => {
                     className="formcontrol"
                   >
                     <option hidden>Select Type</option>
-                    <option value="1">I am a User</option>
-                    <option value="2">I am an Administrator</option>
+                    <option value="1">User</option>
+                    <option value="2">Administrator</option>
                   </Form.Select>
                 )}
               />
