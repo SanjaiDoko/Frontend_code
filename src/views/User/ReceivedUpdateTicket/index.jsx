@@ -38,8 +38,8 @@ const EditTicket = () => {
 
   const { data: allGroupData, isLoading: groupLoading } = useGetAllGroups();
 
-  const titleText = "Update Status ";
-  const contentText = "Are you sure that you want to update Status";
+  const titleText = "Ticket Resolved !";
+  const contentText = "Are you sure that you resolved the Ticket";
 
   const {
     handleSubmit,
@@ -494,7 +494,7 @@ const EditTicket = () => {
                   {uniqueTicketData[0].status !== 1 &&
                   uniqueTicketData[0].status !== 3 ? (
                     <button type="submit" className={classes.savebtn}>
-                      Complete Ticket
+                      Resolve Ticket
                     </button>
                   ) : (
                     <button

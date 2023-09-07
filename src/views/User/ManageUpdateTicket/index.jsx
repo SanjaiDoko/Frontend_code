@@ -435,7 +435,7 @@ const Index = () => {
                                       value={e._id}
                                       style={{ textTransform: "capitalize" }}
                                     >
-                                      {e.fullName}
+                                      {e.fullName} {e._id === userId && "(Assign Myself)"}
                                     </option>
                                   );
                                 })}

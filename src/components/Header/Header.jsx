@@ -74,8 +74,8 @@ function Header() {
 
             <Nav.Item className="d-flex gap-2">
               <div className="hellotextdiv">
-                <span className="linktag">Hello</span>
-                <span className="linktag">{data && data.fullName}</span>
+                <span className="linktags">Hello</span>
+                <span className="linktags" style={{textTransform:"capitalize"}}>{data && data.fullName}</span>
               </div>
             </Nav.Item>
 

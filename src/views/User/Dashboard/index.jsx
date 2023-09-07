@@ -82,7 +82,7 @@ function Dashboard() {
       field: "Options",
       sortable: false,
       width: 100,
-      renderCell: () => <button className={styles.editBtn}>Update</button>,
+      renderCell: (params) => <button className={styles.editBtn}> {params.row.status === 1 ? "View" : "Update"}</button>,
     },
   ];
 
