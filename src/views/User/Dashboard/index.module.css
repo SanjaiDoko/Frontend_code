@@ -390,3 +390,18 @@
   margin: auto;
   height: 200px;
 }
+@media (max-width: 500px) {
+  .mainDiv {
+    padding-top: 40px;
+  }
+  .nogroup {
+    align-items: baseline;
+    height: auto;
+  }
+  .dataGrid {
+    width: 700px !important;
+  }
+  .girdoverflow {
+    overflow-x: scroll;
+  }
+}

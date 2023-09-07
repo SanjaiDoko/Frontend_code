@@ -370,3 +370,20 @@
 .uploadicon path {
   fill: #00a1ff;
 }
+@media (max-width: 500px) {
+  .addDiv {
+    width: 300px !important;
+  }
+  .ck.ck-editor {
+    width: 300px;
+  }
+  .inputDiv {
+    flex-direction: column;
+  }
+  .inputDiv > div {
+    width: 100%;
+  }
+  .uploaddiv{
+    margin-top: 10px !important;
+  }
+}

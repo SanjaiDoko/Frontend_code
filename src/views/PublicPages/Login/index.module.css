@@ -164,3 +164,14 @@
 .txtcontent {
   padding: 10px !important;
 }
+@media (max-width: 500px) {
+  .form {
+    padding-top: 40px;
+  }
+}
+@media (max-width: 400px) {
+  .form {
+    width: 300px;
+    padding-top: 50px;
+  }
+}

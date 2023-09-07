@@ -135,20 +135,23 @@ function IndividualStatusUserList() {
             borderRadius: "5px",
           }}
         >
-          <DataGrid
-            rows={filterArray(data)}
-            columns={columns}
-            initialState={{
-              pagination: {
-                paginationModel: {
-                  pageSize: 10,
+          <div className={styles.girdoverflow}>
+            <DataGrid
+              className={styles.dataGrid}
+              rows={filterArray(data)}
+              columns={columns}
+              initialState={{
+                pagination: {
+                  paginationModel: {
+                    pageSize: 10,
+                  },
                 },
-              },
-            }}
-            pageSizeOptions={[10]}
-            loading={isLoading}
-            getRowId={(row) => row._id}
-          />
+              }}
+              pageSizeOptions={[10]}
+              loading={isLoading}
+              getRowId={(row) => row._id}
+            />
+          </div>
         </div>
       </div>
     </div>

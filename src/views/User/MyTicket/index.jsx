@@ -92,7 +92,6 @@ function Dashboard() {
     }
   };
 
-
   if (data !== undefined) {
     return (
       <div className="container">
@@ -116,29 +115,32 @@ function Dashboard() {
             />
           </div>
           {data && data.length > 0 ? (
-            <DataGrid
-              sx={{ textTransform: "capitalize", minHeight: "400px" }}
-              rows={
-                data && searchValue !== ""
-                  ? data.filter((e) =>
-                      e.ticketId
-                        .toLowerCase()
-                        .includes(searchValue.toLowerCase())
-                    )
-                  : data
-              }
-              columns={columns}
-              getRowId={(data) => data._id}
-              hideFooterSelectedRowCount={true}
-              onCellClick={(row) => rowClickFunction(row)}
-              initialState={{
-                pagination: {
-                  paginationModel: {
-                    pageSize: 10,
+            <div className={styles.girdoverflow}>
+              <DataGrid
+                className={styles.dataGrid}
+                sx={{ textTransform: "capitalize", minHeight: "400px" }}
+                rows={
+                  data && searchValue !== ""
+                    ? data.filter((e) =>
+                        e.ticketId
+                          .toLowerCase()
+                          .includes(searchValue.toLowerCase())
+                      )
+                    : data
+                }
+                columns={columns}
+                getRowId={(data) => data._id}
+                hideFooterSelectedRowCount={true}
+                onCellClick={(row) => rowClickFunction(row)}
+                initialState={{
+                  pagination: {
+                    paginationModel: {
+                      pageSize: 10,
+                    },
                   },
-                },
-              }}
-            />
+                }}
+              />
+            </div>
           ) : (
             <div className={styles.nogroup}>
               <h4>Do you face any Issue ?</h4>

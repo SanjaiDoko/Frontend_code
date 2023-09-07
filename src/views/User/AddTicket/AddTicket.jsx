@@ -305,7 +305,7 @@ const AddTicket = () => {
                     style={{ marginTop: "0px", marginLeft: "7px" }}
                   >
                     <Uploadicon className={classes.uploadicon} />{" "}
-                    <span style={{ marginLeft: "10px" }}>Upload</span>
+                    <span style={{ marginLeft: "10px" , color:'#00a1ff' }}>Upload</span>
                   </Form.Label>
                 </div>
                 <input
@@ -329,6 +329,7 @@ const AddTicket = () => {
                         <DeleteIcon
                           sx={{
                             cursor: "pointer",
+                            color: "#b2b2b2",
                           }}
                           onClick={() => removeFileHandler(uploadFile, i)}
                         />

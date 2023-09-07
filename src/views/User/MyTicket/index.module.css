@@ -344,3 +344,11 @@
   margin: auto;
   height: 200px;
 }
+@media (max-width: 500px) {
+  .dataGrid {
+    width: 700px !important;
+  }
+  .girdoverflow {
+    overflow-x: scroll;
+  }
+}

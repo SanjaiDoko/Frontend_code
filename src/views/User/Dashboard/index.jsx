@@ -173,7 +173,9 @@ function Dashboard() {
             />
           </div>
           {data && data.length > 0 ? (
+             <div className={styles.girdoverflow}>
             <DataGrid
+            className={styles.dataGrid}
               sx={{ textTransform: "capitalize", minHeight: "100px" }}
               rows={
                 data && searchValue !== ""
@@ -196,6 +198,7 @@ function Dashboard() {
                 },
               }}
             />
+            </div>
           ) : (
             <div className={styles.nogroup}>
               <h4>Until now, You have not received any tickets to solve.</h4>
