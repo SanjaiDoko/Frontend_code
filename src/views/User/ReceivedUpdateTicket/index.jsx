@@ -99,7 +99,6 @@ const EditTicket = () => {
     return <p>Loading...</p>;
   }
 
-
   const handleAgree = () => {
     let payload = uniqueTicketData[0];
     payload.id = uniqueTicketData[0]._id;
@@ -131,7 +130,6 @@ const EditTicket = () => {
                   <button
                     type="button"
                     className={classes.rejectBtn}
-                    
                     onClick={() => {
                       dispatch(openPopup());
                     }}
@@ -153,6 +151,9 @@ const EditTicket = () => {
               <div className={classes.inputdiv}>
                 <div className={classes.flexdiv}>
                   <div className={classes.infodiv}>
+                  <p style={{ fontWeight: "bold", marginBottom: "0" , textTransform:'uppercase' }}>
+                    {uniqueTicketData[0].ticketId}
+                  </p>
                     <div className={classes.flexeddiv}>
                       <Form.Group className="pt-2">
                         <Form.Label htmlFor="issueName" className="formlabel">
@@ -276,7 +277,7 @@ const EditTicket = () => {
                         )}
                       </Form.Group>
                     </div>
-                    <div className={classes.flexeddiv}>
+                    <div className={classes.mailflexed}>
                       <Form.Group className="pt-2">
                         <Form.Label htmlFor="mailList" className="formlabel">
                           Mail To :
@@ -326,38 +327,40 @@ const EditTicket = () => {
                         </span>
                       )}
                     </div>
-                    {uniqueTicketData[0]?.problem && (
-                      <div className={classes.disablediv}>
-                        <Form.Group className="pt-2">
-                          <Form.Label htmlFor="type" className="formlabel">
-                            Problem :
-                          </Form.Label>
-                          <Form.Control
-                            type="text"
-                            value={uniqueTicketData[0]?.problem}
-                            id="type"
-                            disabled
-                            placeholder="Enter Type"
-                          />
-                        </Form.Group>
-                      </div>
-                    )}
-                    {uniqueTicketData[0]?.resolution && (
-                      <div className={classes.disablediv}>
-                        <Form.Group className="pt-2">
-                          <Form.Label htmlFor="type" className="formlabel">
-                            Resolution :
-                          </Form.Label>
-                          <Form.Control
-                            type="text"
-                            value={uniqueTicketData[0]?.resolution}
-                            id="type"
-                            disabled
-                            placeholder="Enter Type"
-                          />
-                        </Form.Group>
-                      </div>
-                    )}
+                    <div className={classes.disablediv}>
+                      {uniqueTicketData[0]?.problem && (
+                        <div className={classes.disablediv}>
+                          <Form.Group className="pt-2">
+                            <Form.Label htmlFor="type" className="formlabel">
+                              Problem :
+                            </Form.Label>
+                            <Form.Control
+                              type="text"
+                              value={uniqueTicketData[0]?.problem}
+                              id="type"
+                              disabled
+                              placeholder="Enter Type"
+                            />
+                          </Form.Group>
+                        </div>
+                      )}
+                      {uniqueTicketData[0]?.resolution && (
+                        <div className={classes.disablediv}>
+                          <Form.Group className="pt-2">
+                            <Form.Label htmlFor="type" className="formlabel">
+                              Resolution :
+                            </Form.Label>
+                            <Form.Control
+                              type="text"
+                              value={uniqueTicketData[0]?.resolution}
+                              id="type"
+                              disabled
+                              placeholder="Enter Type"
+                            />
+                          </Form.Group>
+                        </div>
+                      )}
+                    </div>
                   </div>
                   <div className={classes.chatdiv}>Chat</div>
                 </div>

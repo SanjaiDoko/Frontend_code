@@ -389,11 +389,11 @@
   padding: 20px;
   box-sizing: border-box;
   transition: transform 0.2s;
-    -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
-    box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
-    border: none;
-    margin-bottom: 30px;
-    -webkit-transition: all 0.3s ease-in-out;
+  -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
+  box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
+  border: none;
+  margin-bottom: 30px;
+  -webkit-transition: all 0.3s ease-in-out;
   width: 35%;
 }
 .inputdiv > div {
@@ -433,7 +433,7 @@
   background-color: transparent !important;
   border: none;
 }
-.inputdiv{
+.inputdiv {
   margin-top: 15px;
   padding-bottom: 20px;
   border-bottom: 2px solid #d8d9da;
@@ -443,10 +443,10 @@
   padding: 20px;
   box-sizing: border-box;
   transition: transform 0.2s;
-    -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
-    box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
-    border: none;
-    margin-bottom: 30px;
+  -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
+  box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
+  border: none;
+  margin-bottom: 30px;
 }
 
 .infodiv > h3 {
@@ -455,7 +455,7 @@
   line-height: 28px;
   color: #333333;
 }
-.chat{
+.chat {
   margin-top: 15px;
   padding-bottom: 20px;
   border-bottom: 2px solid #d8d9da;
@@ -465,9 +465,20 @@
   padding: 20px;
   box-sizing: border-box;
   transition: transform 0.2s;
-    -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
-    box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
-    border: none;
-    margin-bottom: 30px;
-    height: 100px;
+  -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
+  box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
+  border: none;
+  margin-bottom: 30px;
+  height: 100px;
+}
+.disableflexdiv {
+  display: flex;
+  flex-direction: column;
+}
+.disableflexdiv > div {
+  width: 100%;
+}
+.disablediv > div {
+  display: flex;
+  align-items: center;
 }

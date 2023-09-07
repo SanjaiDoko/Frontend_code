@@ -165,6 +165,7 @@ const AddTicket = () => {
                   render={({ field }) => (
                     <Form.Select
                       className={`formcontrol`}
+                      style={{ textTransform: "capitalize" }}
                       {...field}
                       id="issueGroup"
                       onChange={(e) => {

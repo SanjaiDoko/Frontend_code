@@ -140,9 +140,7 @@ const Index = () => {
                 )}
 
                 {uniqueTicketData[0].status === 3 && (
-                  <h4  className={classes.reject}>
-                    Task is Rejected
-                  </h4>
+                  <h4 className={classes.reject}>Task is Rejected</h4>
                 )}
                 {uniqueTicketData[0].status === 1 && (
                   <h4 type="button" className={classes.completed}>
@@ -153,6 +151,15 @@ const Index = () => {
               <div className={classes.flexdiv}>
                 <div className={classes.infodiv}>
                   <div className={classes.inputdiv}>
+                    <p
+                      style={{
+                        fontWeight: "bold",
+                        marginBottom: "0",
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      {uniqueTicketData[0].ticketId}
+                    </p>
                     <div className={classes.flexeddiv}>
                       <Form.Group className="pt-2">
                         <Form.Label htmlFor="issueName" className="formlabel">
@@ -306,38 +313,40 @@ const Index = () => {
                         {errors.issueDescription.message}
                       </span>
                     )}
-                    {uniqueTicketData[0]?.problem && (
-                      <div className={classes.disablediv}>
-                        <Form.Group className="pt-2">
-                          <Form.Label htmlFor="type" className="formlabel">
-                            Problem :
-                          </Form.Label>
-                          <Form.Control
-                            type="text"
-                            value={uniqueTicketData[0]?.problem}
-                            id="type"
-                            disabled
-                            placeholder="Enter Type"
-                          />
-                        </Form.Group>
-                      </div>
-                    )}
-                    {uniqueTicketData[0]?.resolution && (
-                      <div className={classes.disablediv}>
-                        <Form.Group className="pt-2">
-                          <Form.Label htmlFor="type" className="formlabel">
-                            Resolution :
-                          </Form.Label>
-                          <Form.Control
-                            type="text"
-                            value={uniqueTicketData[0]?.resolution}
-                            id="type"
-                            disabled
-                            placeholder="Enter Type"
-                          />
-                        </Form.Group>
-                      </div>
-                    )}
+                    <div className={classes.disableflexdiv}>
+                      {uniqueTicketData[0]?.problem && (
+                        <div className={classes.disablediv}>
+                          <Form.Group className="pt-2">
+                            <Form.Label htmlFor="type" className="formlabel">
+                              Problem
+                            </Form.Label>
+                            <Form.Control
+                              type="text"
+                              value={uniqueTicketData[0]?.problem}
+                              id="type"
+                              disabled
+                              placeholder="Enter Type"
+                            />
+                          </Form.Group>
+                        </div>
+                      )}
+                      {uniqueTicketData[0]?.resolution && (
+                        <div className={classes.disablediv}>
+                          <Form.Group className="pt-2">
+                            <Form.Label htmlFor="type" className="formlabel">
+                              Resolution
+                            </Form.Label>
+                            <Form.Control
+                              type="text"
+                              value={uniqueTicketData[0]?.resolution}
+                              id="type"
+                              disabled
+                              placeholder="Enter Type"
+                            />
+                          </Form.Group>
+                        </div>
+                      )}
+                    </div>
                     {/* <Form.Group className="pt-2">
                         <Form.Label htmlFor="mailList" className="formlabel">
                           Mail To
@@ -363,7 +372,7 @@ const Index = () => {
                       </Form.Group> */}
                     {/* </div> */}
                   </div>
-                  <h3>Chats</h3>
+                  <h3 style={{fontWeight:'bold'}}>Chats</h3>
                   <div className={classes.chat}></div>
                 </div>
                 <div className={classes.inputdivs}>

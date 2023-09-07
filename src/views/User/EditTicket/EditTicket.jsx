@@ -88,6 +88,7 @@ const EditTicket = () => {
                 </button>
               )}
             </div>
+            <p style={{fontWeight:'bold',marginBottom:'0', textTransform:'uppercase'}}>{uniqueTicketData[0].ticketId}</p>
             <div className={classes.inputDiv}>
               <div>
                 <Form.Group className="pt-2">

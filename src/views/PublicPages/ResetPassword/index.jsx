@@ -23,12 +23,11 @@ function ResetPassword() {
     },
   });
   const navigate = useNavigate();
-  const { mutate , isLoading } = useResetpasswordData();
+  const { mutate, isLoading } = useResetpasswordData();
 
   const onSubmit = (data) => {
     mutate(data);
-
-   };
+  };
 
   return (
     <div className={styles.maindiv}>
@@ -47,44 +46,35 @@ function ResetPassword() {
         </div>
         <Form className={`${styles.form}`} onSubmit={handleSubmit(onSubmit)}>
           <div className={styles.Logodiv}>
-            <img
-							src={Logo}
-							alt="AllMasters Logo"
-							className="masterlogo"
-						/>
+            <img src={Logo} alt="AllMasters Logo" className="masterlogo" />
             <h5 className="pt-2">Reset Password</h5>
             <p>& take back control now</p>
           </div>
           <div className="form-group pt-2 pb-3">
             <Form.Group className="pt-2">
-							<Form.Label htmlFor="type" className="formlabel">
-								Type <span style={{ color: "red" }}>*</span>
-							</Form.Label>
-							<Controller
-								name="type"
-								control={control}
-								render={({ field }) => (
-									<Form.Select
-										{...field}
-										type="number"
-										id="type"
-										className="formcontrol">
-										<option hidden>Select Type</option>
-										<option value="1">
-											I am a User
-										</option>
-										<option value="2">
-											I am a Administrator
-										</option>
-									</Form.Select>
-								)}
-							/>
-							{errors.type && (
-								<span className="errormsg">
-									{errors.type.message}
-								</span>
-							)}
-						</Form.Group>
+              <Form.Label htmlFor="type" className="formlabel">
+                Type <span style={{ color: "red" }}>*</span>
+              </Form.Label>
+              <Controller
+                name="type"
+                control={control}
+                render={({ field }) => (
+                  <Form.Select
+                    {...field}
+                    type="number"
+                    id="type"
+                    className="formcontrol"
+                  >
+                    <option hidden>Select Type</option>
+                    <option value="1">User</option>
+                    <option value="2">Administrator</option>
+                  </Form.Select>
+                )}
+              />
+              {errors.type && (
+                <span className="errormsg">{errors.type.message}</span>
+              )}
+            </Form.Group>
             <Form.Label htmlFor="InputEmail" className="pt-2">
               Email Address <span style={{ color: "red" }}>*</span>
             </Form.Label>
@@ -110,13 +100,9 @@ function ResetPassword() {
             className={styles.loginbtn}
             id="Resetbtn"
           >
-            {isLoading ? (
-							<CircularProgress size={20} />
-						) : 
-           ' Reset Password'
-            }
+            {isLoading ? <CircularProgress size={20} /> : " Reset Password"}
           </Button>
-          <Link to="/login"className={styles.gobacklink}>
+          <Link to="/login" className={styles.gobacklink}>
             <div className={styles.goback}>Go back</div>
           </Link>
         </Form>
