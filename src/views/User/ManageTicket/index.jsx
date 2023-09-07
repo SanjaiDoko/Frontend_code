@@ -29,8 +29,14 @@ function Index() {
     }
     return ticketStatus;
   };
-console.log(data)
+  console.log(data);
   const columns = [
+    {
+      field: "ticketId",
+      flex: 1,
+      headerName: "Ticket ID",
+      width: 150,
+    },
     {
       field: "issueName",
       flex: 1,
@@ -43,7 +49,7 @@ console.log(data)
       headerName: "Issue Group",
       width: 150,
       renderCell: (params) => {
-        return params.row.issueGroupName 
+        return params.row.issueGroupName;
       },
     },
     {
@@ -71,7 +77,9 @@ console.log(data)
       sortable: false,
       width: 100,
       renderCell: (params) => (
-        <button className={styles.editBtn}>{params.row.status === 0 ?"Update Ticket" : "View Ticket"}</button> 
+        <button className={styles.editBtn}>
+          {params.row.status === 0 ? "Update Ticket" : "View Ticket"}
+        </button>
       ),
     },
   ];
@@ -109,9 +117,9 @@ console.log(data)
             />
           ) : (
             <div className={styles.nogroup}>
-            <h4>Until now, You have not received any tickets to solve.</h4>
-            <h4>Please wait for one to be created</h4>
-          </div>
+              <h4>Until now, You have not received any tickets to solve.</h4>
+              <h4>Please wait for one to be created</h4>
+            </div>
           )}
         </div>
       </div>

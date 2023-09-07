@@ -29,6 +29,12 @@ function Dashboard() {
 
   const columns = [
     {
+      field: "ticketId",
+      flex: 1,
+      headerName: "Ticket ID",
+      width: 150,
+    },
+    {
       field: "issueName",
       flex: 1,
       headerName: "Issue Name",

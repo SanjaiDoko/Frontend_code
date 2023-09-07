@@ -58,7 +58,10 @@ const AddTicket = () => {
     delete data.managerName;
     const values = getValues();
     data.managedBy = values["managedId"];
-    data.mailList = data.mailList ? data.mailList.split(",") : [];
+    data.mailList =
+      data.mailList && data.mailList.includes(",")
+        ? data.mailList.split(",")
+        : data.mailList;
     data.files = uploadFile;
     mutate(data);
   };
@@ -227,7 +230,7 @@ const AddTicket = () => {
             <div className={classes.inputDiv}>
               <Form.Group className="pt-2">
                 <Form.Label htmlFor="type" className="formlabel">
-                Issue Type
+                  Issue Type
                 </Form.Label>
                 <Controller
                   name="type"
@@ -272,7 +275,7 @@ const AddTicket = () => {
             <div>
               <Form.Group className="pt-2">
                 <Form.Label htmlFor="mailList" className="formlabel">
-                 CC Mail
+                  CC Mail
                 </Form.Label>
                 <Controller
                   name="mailList"

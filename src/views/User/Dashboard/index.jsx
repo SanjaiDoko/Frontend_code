@@ -41,6 +41,12 @@ function Dashboard() {
 
   const columns = [
     {
+      field: "ticketId",
+      flex: 1,
+      headerName: "Ticket ID",
+      width: 150,
+    },
+    {
       field: "issueName",
       flex: 1,
       headerName: "Issue Name",
@@ -165,9 +171,9 @@ function Dashboard() {
             />
           ) : (
             <div className={styles.nogroup}>
-            <h4>Until now, You have not received any tickets to solve.</h4>
-            <h4>Please wait for one to be created</h4>
-          </div>
+              <h4>Until now, You have not received any tickets to solve.</h4>
+              <h4>Please wait for one to be created</h4>
+            </div>
           )}
         </div>
       </div>
