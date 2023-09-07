@@ -6,10 +6,7 @@ import classes from "./index.module.css";
 import { addTicketValidation } from "../../../validationSchema/addTicketValidation";
 import { openFileNewWindow } from "../../../helper";
 import { useEffect, useState } from "react";
-import {
-  useGetSpecificTicketById,
-  useUpdateTicket,
-} from "../../../hooks/ticketHooks";
+import { useGetSpecificTicketById } from "../../../hooks/ticketHooks";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetAllGroups } from "../../../hooks/groupManagement";
 import { URL } from "../../../config";
@@ -31,18 +28,11 @@ const EditTicket = () => {
 
   const { data: allGroupData, isLoading: groupLoading } = useGetAllGroups();
 
-  const onSuccess = () => {
-    navigate("/user/mytickets/");
-  };
-
-  const { mutate } = useUpdateTicket(onSuccess);
   const {
-    handleSubmit,
     control,
     reset,
     watch,
     setValue,
-    getValues,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(addTicketValidation),
@@ -80,20 +70,10 @@ const EditTicket = () => {
     },
   };
 
-  const onSubmit = (data) => {
-    console.log(data,"data")
-    const values = getValues();
-    data.managedBy = values["managedId"];
-    data.mailList = [data.mailList];
-    data.id = uniqueTicketData[0]._id;
-    data.files = uploadFile;
-    mutate(data);
-  };
-
   return (
     <div className={classes.mainDiv}>
       <div className={classes.AddTicketDiv}>
-        <form onSubmit={handleSubmit(onSubmit)} className={classes.addDiv}>
+        <form className={classes.addDiv}>
           <div>
             <div className={classes.addDivHeading}>
               <h3>View Ticket</h3>
@@ -244,6 +224,7 @@ const EditTicket = () => {
                     {...field}
                     data={uniqueTicketData[0].issueDescription}
                     id="issueDescription"
+                    disabled
                     config={editorConfiguration}
                   />
                 )}
