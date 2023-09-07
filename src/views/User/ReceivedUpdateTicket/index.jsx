@@ -17,6 +17,7 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { openPopup } from "../../../redux/slices/popupSlice";
 import CommanPopup from "../../../components/popup";
+import Loader from "../../../components/Loader/Loader";
 
 const EditTicket = () => {
   const [uploadFile, setUploadFile] = useState([]);
@@ -92,7 +93,7 @@ const EditTicket = () => {
   }, [ticketSuccess]);
 
   if (groupLoading || ticketLoading) {
-    return <p>Loading...</p>;
+    return <Loader />;
   }
 
   const onSubmit = (data) => {

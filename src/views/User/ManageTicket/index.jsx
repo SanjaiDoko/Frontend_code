@@ -3,6 +3,7 @@ import { useGetManageTicketById } from "../../../hooks/ticketHooks";
 import { DataGrid } from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Loader from "../../../components/Loader/Loader";
 
 function Index() {
   const id = localStorage.getItem("allMasterId");
@@ -85,7 +86,7 @@ function Index() {
   ];
 
   if (isloading) {
-    return <p>Loading....</p>;
+    return <Loader/>;
   }
 
   const rowClickFunction = (data) => {
