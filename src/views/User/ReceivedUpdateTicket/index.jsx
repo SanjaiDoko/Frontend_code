@@ -25,8 +25,11 @@ const EditTicket = () => {
 
   const { id } = useParams();
 
-  const { data: uniqueTicketData, isLoading: ticketLoading } =
-    useGetSpecificTicketById(id);
+  const {
+    data: uniqueTicketData,
+    isLoading: ticketLoading,
+    isSuccess: ticketSuccess,
+  } = useGetSpecificTicketById(id);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -73,8 +76,7 @@ const EditTicket = () => {
   };
 
   useEffect(() => {
-    if (uniqueTicketData) {
-      console.log(uniqueTicketData[0], "data");
+    if (ticketSuccess) {
       if (uniqueTicketData[0].actualEndTime) {
         uniqueTicketData[0].actualEndTime = moment(
           uniqueTicketData[0].actualEndTime
@@ -87,7 +89,7 @@ const EditTicket = () => {
       reset(uniqueTicketData[0]);
       setUploadFile(uniqueTicketData[0].files);
     }
-  }, [uniqueTicketData]);
+  }, [ticketSuccess]);
 
   if (groupLoading || ticketLoading) {
     return <p>Loading...</p>;
@@ -126,9 +128,15 @@ const EditTicket = () => {
               <div className={classes.inputdiv}>
                 <div className={classes.flexdiv}>
                   <div className={classes.infodiv}>
-                  <p style={{ fontWeight: "bold", marginBottom: "0" , textTransform:'uppercase' }}>
-                    {uniqueTicketData[0].ticketId}
-                  </p>
+                    <p
+                      style={{
+                        fontWeight: "bold",
+                        marginBottom: "0",
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      {uniqueTicketData[0].ticketId}
+                    </p>
                     <div className={classes.flexeddiv}>
                       <Form.Group className="pt-2">
                         <Form.Label htmlFor="issueName" className="formlabel">
