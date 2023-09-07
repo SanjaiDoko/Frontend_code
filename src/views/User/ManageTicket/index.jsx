@@ -3,6 +3,7 @@ import { useGetManageTicketById } from "../../../hooks/ticketHooks";
 import { DataGrid } from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Loader from "../../../components/Loader/Loader";
 
 function Index() {
   const id = localStorage.getItem("allMasterId");
@@ -78,14 +79,14 @@ function Index() {
       width: 100,
       renderCell: (params) => (
         <button className={styles.editBtn}>
-          {params.row.status === 0 ? "Update Ticket" : "View Ticket"}
+          {params.row.status === 0 ? "Assign Ticket" : "View Ticket"}
         </button>
       ),
     },
   ];
 
   if (isloading) {
-    return <p>Loading....</p>;
+    return <Loader/>;
   }
 
   const rowClickFunction = (data) => {

@@ -6,6 +6,7 @@ import {
 import styles from "./index.module.css";
 import { DataGrid } from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
+import Loader from "../../../components/Loader/Loader";
 
 function Dashboard() {
   let openTickets = 0,
@@ -84,15 +85,16 @@ function Dashboard() {
       width: 100,
       renderCell: (params) => (
         <button className={styles.editBtn}>
-          {" "}
-          {params.row.status === 1 ? "View" : "Update"}
+          {params.row.status === 1 || params.row.status === 3
+            ? "View Ticket"
+            : "Update Ticket"}
         </button>
       ),
     },
   ];
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <Loader />;
   }
 
   if (receivedTickets) {

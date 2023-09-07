@@ -12,6 +12,7 @@ import { useGetAllGroups } from "../../../hooks/groupManagement";
 import { URL } from "../../../config";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import Loader from "../../../components/Loader/Loader";
 // import moment from "moment";
 
 const EditTicket = () => {
@@ -60,11 +61,7 @@ const EditTicket = () => {
   }, [ticketSuccess]);
 
   if (groupLoading || ticketLoading) {
-    return <p>Loading...</p>;
-  }
-
-  if (ticketLoading) {
-    return <p>Loading...</p>;
+    return <Loader/>;
   }
 
   const editorConfiguration = {

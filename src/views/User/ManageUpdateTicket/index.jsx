@@ -20,6 +20,7 @@ import { useSelector } from "react-redux";
 import { URL } from "../../../config";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import Loader from "../../../components/Loader/Loader";
 
 const Index = () => {
   const [uploadFile, setUploadFile] = useState([]);
@@ -110,7 +111,7 @@ const Index = () => {
   }, [reset, ticketSuccess]);
 
   if (groupLoading || ticketLoading || userLoading) {
-    return <p>Loading...</p>;
+    return <Loader />;
   }
 
   const onSubmit = (data) => {
@@ -350,30 +351,6 @@ const Index = () => {
                         </div>
                       )}
                     </div>
-                    {/* <Form.Group className="pt-2">
-                        <Form.Label htmlFor="mailList" className="formlabel">
-                          Mail To
-                        </Form.Label>
-                        <Controller
-                          name="mailList"
-                          control={control}
-                          render={({ field }) => (
-                            <Form.Control
-                              type="text"
-                              {...field}
-                              id="mailList"
-                              disabled
-                              placeholder="Enter Mail To"
-                            />
-                          )}
-                        />
-                        {errors.mailTo && (
-                          <span className={classes.error}>
-                            {errors.mailTo.message}
-                          </span>
-                        )}
-                      </Form.Group> */}
-                    {/* </div> */}
                   </div>
                   <h3 style={{ fontWeight: "bold" }}>Chats</h3>
                   <div className={classes.chat}></div>
@@ -435,7 +412,8 @@ const Index = () => {
                                       value={e._id}
                                       style={{ textTransform: "capitalize" }}
                                     >
-                                      {e.fullName} {e._id === userId && "(Assign Myself)"}
+                                      {e.fullName}{" "}
+                                      {e._id === userId && "(Assign Myself)"}
                                     </option>
                                   );
                                 })}
@@ -460,8 +438,7 @@ const Index = () => {
                           <MobileDateTimePicker
                             sx={{ width: "100%" }}
                             disabled={
-                              uniqueTicketData[0].status === 3 ||
-                              uniqueTicketData[0].status === 1
+                              uniqueTicketData[0].status !== 0 
                             }
                             {...field}
                             ampm={false}
