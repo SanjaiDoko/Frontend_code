@@ -9,6 +9,21 @@
   padding: 5px 10px !important;
   font-weight: bold;
 }
+.searchDiv{
+  display: flex;
+  align-items: center;
+  border: 1px solid #bebebe;
+  border-radius: 5px;
+  padding: 0px 10px;
+  margin-bottom: 10px;
+}
+
+.searchInput{
+  margin: 10px;
+  width: 100%;
+  border: none !important;
+  outline: none;
+}
 .subDiv {
   display: flex;
   justify-content: space-between;
@@ -165,6 +180,7 @@
   width: 100%;
   display: flex;
   padding-top: 20px;
+
 }
 
 .formcontrol option {
@@ -204,13 +220,6 @@
   color: #000000;
   width: 15%;
   margin-bottom: 0 !important;
-}
-
-.searchbox > input {
-  border: none !important;
-  width: 85%;
-  outline: none;
-  background-color: transparent !important;
 }
 
 .selectcontrol {

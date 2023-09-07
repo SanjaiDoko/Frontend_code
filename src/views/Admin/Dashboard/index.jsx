@@ -12,7 +12,6 @@ function AdminDashboard() {
   if (userLoading || groupLoading) {
     return <Loader />;
   }
-  console.log(groupList, "list");
   return (
     <div className={styles.maindiv}>
       <div>

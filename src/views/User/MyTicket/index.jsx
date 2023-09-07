@@ -3,11 +3,15 @@ import { useGetAllTicketById } from "../../../hooks/ticketHooks";
 import { DataGrid } from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
 import Loader from "../../../components/Loader/Loader";
+import { useState } from "react";
+import searchLogo from "../../../assets/Images/searchLogo.png";
 
 function Dashboard() {
   const id = localStorage.getItem("allMasterId");
 
   const { data, isloading } = useGetAllTicketById(id);
+
+  const [searchValue, setSearchValue] = useState("");
 
   const navigate = useNavigate();
 
@@ -79,7 +83,7 @@ function Dashboard() {
   ];
 
   if (isloading) {
-    return <Loader/>;
+    return <Loader />;
   }
 
   const rowClickFunction = (data) => {
@@ -101,12 +105,29 @@ function Dashboard() {
               Create Ticket
             </button>
           </div>
+          <div className={styles.searchDiv}>
+            <img src={searchLogo} alt="searchlogo" />
+            <input
+              type="text"
+              className={styles.searchInput}
+              onChange={(e) => setSearchValue(e.target.value)}
+              placeholder="Search by Ticket ID"
+            />
+          </div>
           {data && data.length > 0 ? (
             <div className={styles.girdoverflow}>
               <DataGrid
                 className={styles.dataGrid}
-                sx={{ textTransform: "capitalize" }}
-                rows={data}
+                sx={{ textTransform: "capitalize", minHeight: "400px" }}
+                rows={
+                  data && searchValue !== ""
+                    ? data.filter((e) =>
+                        e.ticketId
+                          .toLowerCase()
+                          .includes(searchValue.toLowerCase())
+                      )
+                    : data
+                }
                 columns={columns}
                 getRowId={(data) => data._id}
                 hideFooterSelectedRowCount={true}
