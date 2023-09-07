@@ -144,7 +144,7 @@ function Dashboard() {
           </div>
         </div>
         <div className={styles.subDiv}>
-          <h3 style={{ marginTop: "1em" }}>Received Ticket </h3>
+          <h3 style={{ marginTop: "1em" }}>Received Tickets </h3>
         </div>
         <div>
           {data && data.length > 0 ? (
