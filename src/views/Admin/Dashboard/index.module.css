@@ -88,7 +88,13 @@
 
 /* Individual Card */
 .groupcard {
-  background-color: #fff;
+  /* background-color: rgb(222 247 255); */
+  background:linear-gradient(
+    65.11deg,
+    rgb(222 250 255 / 30%) 15.78%,
+    rgba(217, 217, 217, 0) 77.9%
+  );
+  border: 1px solid rgb(222 247 255);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   padding: 20px;
@@ -97,7 +103,6 @@
   transition: transform 0.2s;
   -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
   box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
-  border: none;
   margin-bottom: 30px;
   -webkit-transition: all 0.3s ease-in-out;
   width: 32%;
@@ -132,12 +137,18 @@
 }
 
 .tickets {
+  background:linear-gradient(
+    65.11deg,
+    rgba(120, 234, 254, 0.3) 15.78%,
+    rgba(217, 217, 217, 0) 77.9%
+  );
+  border: 1px solid rgb(222 247 255);
   background-color: #fff;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
   padding: 2px 10px;
   box-sizing: border-box;
   box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
-  border: 1px solid #00a1ff;
+  /* border: 1px solid #adcadb; */
   margin-bottom: 7px;
   border-radius: 5px;
 }
