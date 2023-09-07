@@ -6,10 +6,7 @@ import classes from "./index.module.css";
 import { updateReceivedTicketValidation } from "../../../validationSchema/updateReceivedTicketValidation";
 import { openFileNewWindow } from "../../../helper";
 import { useEffect, useState } from "react";
-import {
-  useGetSpecificTicketById,
-  useUpdateTicket,
-} from "../../../hooks/ticketHooks";
+import { useGetSpecificTicketById } from "../../../hooks/ticketHooks";
 import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetAllGroups } from "../../../hooks/groupManagement";
@@ -18,12 +15,13 @@ import { URL } from "../../../config";
 import moment from "moment";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import { closePopup, openPopup } from "../../../redux/slices/popupSlice";
+import { openPopup } from "../../../redux/slices/popupSlice";
 import CommanPopup from "../../../components/popup";
 
 const EditTicket = () => {
   const [uploadFile, setUploadFile] = useState([]);
   const role = useSelector((state) => state.profile.role);
+  const [payload, setPayload] = useState(null);
 
   const { id } = useParams();
 
@@ -37,14 +35,9 @@ const EditTicket = () => {
 
   const { data: allGroupData, isLoading: groupLoading } = useGetAllGroups();
 
-  const onSuccess = () => {
-    navigate("/user/dashboard/");
-  };
-
   const titleText = "Update Status ";
   const contentText = "Are you sure that you want to update Status";
 
-  const { mutate } = useUpdateTicket(onSuccess);
   const {
     handleSubmit,
     control,
@@ -81,6 +74,7 @@ const EditTicket = () => {
 
   useEffect(() => {
     if (uniqueTicketData) {
+      console.log(uniqueTicketData[0], "data");
       if (uniqueTicketData[0].actualEndTime) {
         uniqueTicketData[0].actualEndTime = moment(
           uniqueTicketData[0].actualEndTime
@@ -99,23 +93,15 @@ const EditTicket = () => {
     return <p>Loading...</p>;
   }
 
-  const handleAgree = () => {
-    let payload = uniqueTicketData[0];
-    payload.id = uniqueTicketData[0]._id;
-    delete payload._id;
-    payload.status = 1;
-    mutate(payload);
-  };
-
   const onSubmit = (data) => {
-    dispatch(closePopup());
+    dispatch(openPopup());
     const values = getValues();
     data.managedBy = values["managedId"];
     data.actualEndTime = moment(data.actualEndTime);
     data.id = uniqueTicketData[0]._id;
     data.files = uploadFile;
     delete data.status;
-    mutate(data);
+    setPayload(data);
   };
 
   return (
@@ -126,17 +112,6 @@ const EditTicket = () => {
             <div>
               <div className={classes.addDivHeading}>
                 <h3>Edit Ticket</h3>
-                {uniqueTicketData[0].status === 2 && (
-                  <button
-                    type="button"
-                    className={classes.rejectBtn}
-                    onClick={() => {
-                      dispatch(openPopup());
-                    }}
-                  >
-                    Complete Task
-                  </button>
-                )}
                 {uniqueTicketData[0].status === 1 && (
                   <button type="button" className={classes.completed}>
                     Task is Completed
@@ -511,7 +486,7 @@ const EditTicket = () => {
                   {uniqueTicketData[0].status !== 1 &&
                   uniqueTicketData[0].status !== 3 ? (
                     <button type="submit" className={classes.savebtn}>
-                      Update Ticket
+                      Complete Ticket
                     </button>
                   ) : (
                     <button
@@ -530,8 +505,7 @@ const EditTicket = () => {
       </div>
       <div>
         <CommanPopup
-          uniqueTicketData={uniqueTicketData[0]}
-          handleAgree={handleAgree}
+          uniqueTicketData={payload}
           titleText={titleText}
           contentText={contentText}
         />
