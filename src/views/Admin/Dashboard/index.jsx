@@ -68,7 +68,7 @@ function AdminDashboard() {
                     </div>
                     <div className={styles.groupcontent}>
                       <div className={styles.manager} style={{marginBottom:"10px"}}>
-                        <h5>Manager By</h5>
+                        <h5>Group Manager</h5>
                         <h5>{e.managedBy.name}</h5>
                       </div>
                       <div className={styles.tickets}>

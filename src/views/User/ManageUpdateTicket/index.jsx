@@ -130,14 +130,14 @@ const Index = () => {
                 )}
 
                 {uniqueTicketData[0].status === 3 && (
-                  <button type="button" className={classes.reject}>
+                  <h4  className={classes.reject}>
                     Task is Rejected
-                  </button>
+                  </h4>
                 )}
                 {uniqueTicketData[0].status === 1 && (
-                  <button type="button" className={classes.completed}>
+                  <h4 type="button" className={classes.completed}>
                     Task is Completed
-                  </button>
+                  </h4>
                 )}
               </div>
               <div className={classes.flexdiv}>
