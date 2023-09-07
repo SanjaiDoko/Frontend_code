@@ -30,8 +30,11 @@ const Index = () => {
 
   const { id } = useParams();
 
-  const { data: uniqueTicketData, isLoading: ticketLoading } =
-    useGetSpecificTicketById(id);
+  const {
+    data: uniqueTicketData,
+    isLoading: ticketLoading,
+    isSuccess: ticketSuccess,
+  } = useGetSpecificTicketById(id);
 
   const { data: allUser, isLoading: userLoading } =
     useGetAllUserByGroupId(groupId);
@@ -82,7 +85,7 @@ const Index = () => {
   });
 
   useEffect(() => {
-    if (uniqueTicketData) {
+    if (ticketSuccess) {
       setUploadFile(uniqueTicketData[0].files);
       if (uniqueTicketData[0].endTime) {
         uniqueTicketData[0].endTime = moment(uniqueTicketData[0].endTime);
@@ -104,7 +107,7 @@ const Index = () => {
       };
       reset(data);
     }
-  }, [reset, uniqueTicketData]);
+  }, [reset, ticketSuccess]);
 
   if (groupLoading || ticketLoading || userLoading) {
     return <p>Loading...</p>;
@@ -372,7 +375,7 @@ const Index = () => {
                       </Form.Group> */}
                     {/* </div> */}
                   </div>
-                  <h3 style={{fontWeight:'bold'}}>Chats</h3>
+                  <h3 style={{ fontWeight: "bold" }}>Chats</h3>
                   <div className={classes.chat}></div>
                 </div>
                 <div className={classes.inputdivs}>
