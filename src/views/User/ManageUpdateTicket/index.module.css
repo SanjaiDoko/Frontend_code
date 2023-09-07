@@ -35,15 +35,12 @@
   font-weight: 500 !important;
   font-size: 17px !important;
   color: #01c442 !important;
-  padding: 2px 20px !important;
 }
 
 .reject {
   font-weight: 500 !important;
   font-size: 17px !important;
   color: #f24c4c !important;
-  padding: 20px !important;
-  margin: 5px !important;
 }
 
 .hidden {
