@@ -199,7 +199,7 @@ const EditTicket = () => {
                               className={`formcontrol`}
                               {...field}
                               id="issueGroup"
-                              disabled={role === 3}
+                              disabled={role === 3 || uniqueTicketData[0].status !== 0}
                               onChange={(e) => {
                                 field.onChange(e);
                                 let managedBy =
