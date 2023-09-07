@@ -24,13 +24,18 @@
 .rejectBtn {
   font-weight: 500 !important;
   font-size: 17px !important;
-  color: #fff !important;
+  color: #00a1ff !important;
   padding: 20px !important;
   margin: 5px !important;
   width: 150px !important;
-  border: 0.5px solid rgb(191, 240, 191) !important;
+  border: 2px solid #00a1ff !important;
   border-radius: 4px !important;
-  background-color: #01c442 !important;
+  background-color: transparent !important;
+}
+.rejectBtn:hover {
+  background-color: #00a1ff !important;
+  border: 2px solid #00a1ff !important;
+  color: #fff !important;
 }
 .reject {
   font-weight: 500 !important;
@@ -418,6 +423,15 @@
 .flexeddiv > div > input:disabled {
   background-color: transparent !important;
   border: none;
+}
+.disablediv > div > input {
+  background-color: transparent !important;
+  border: none;
+}
+.disablediv > div > label {
+  white-space: pre;
+  font-weight: bold;
+  margin-bottom: 0;
 }
 .flexeddiv > div > select:disabled {
   background-color: transparent !important;

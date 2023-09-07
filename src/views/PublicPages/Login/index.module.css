@@ -137,21 +137,22 @@
   background: #fff !important;
 }
 .title {
-  color: #f3cf00 !important;
+  color: #00a1ff !important;
+  padding: 10px !important;
 }
 .yesbtn {
-  background: #f4da47 !important;
-  color: #272727 !important;
+  background: #00a1ff !important;
+  color: #fff !important;
   padding: 3px 20px !important;
   font-size: 15px !important;
-  border: 1.5px solid #f4da47 !important;
+  border: 1.5px solid #00a1ff !important;
 }
 .nobtn {
   background: #fff !important;
-  color: #f4da47 !important;
+  color: #00a1ff !important;
   padding: 3px 20px !important;
   font-size: 15px !important;
-  border: 1.5px solid #f4da47 !important;
+  border: 1.5px solid #00a1ff !important;
 }
 
 .logo path {
@@ -159,4 +160,7 @@
 }
 .logo {
   width: 120px;
+}
+.txtcontent {
+  padding: 10px !important;
 }

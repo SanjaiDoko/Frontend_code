@@ -3,6 +3,16 @@
   width: 100%;
 }
 
+.disablediv > div > input {
+  background-color: transparent !important;
+  border: none;
+}
+.disablediv > div > label {
+  white-space: pre;
+  font-weight: bold;
+  margin-bottom: 0;
+}
+
 .filecontainer {
   display: flex;
   gap: 3px;

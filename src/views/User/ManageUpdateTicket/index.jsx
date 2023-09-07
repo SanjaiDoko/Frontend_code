@@ -5,7 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 // import { ReactComponent as CloseIcon } from "../../../assets/Icons/closeIcon.svg";
 import classes from "./index.module.css";
 import { updateManageTicketValidation } from "../../../validationSchema/updateManageTicketValidation";
-import {openFileNewWindow } from "../../../helper";
+import { openFileNewWindow } from "../../../helper";
 import { useEffect, useState } from "react";
 import {
   useGetAllUserByGroupId,
@@ -74,7 +74,7 @@ const Index = () => {
       issueDescription: "",
       assignedTo: "",
       endTime: null,
-      mailList: "",
+      // mailList: "",
       managerName: "",
       managedId: "",
       createdBy: createdBy,
@@ -89,7 +89,20 @@ const Index = () => {
       } else {
         uniqueTicketData[0].endTime = null;
       }
-      reset(uniqueTicketData[0]);
+
+      let data = {
+        issueName: uniqueTicketData[0].issueName,
+        issueDescription: uniqueTicketData[0].issueDescription,
+        issueGroup: uniqueTicketData[0].issueGroup,
+        type: uniqueTicketData[0].type,
+        assignedTo: uniqueTicketData[0].assignedTo,
+        endTime: uniqueTicketData[0].endTime,
+        // mailList: uniqueTicketData[0].mailList.join(','),
+        managerName: uniqueTicketData[0].managerName,
+        managedId: uniqueTicketData[0].managedId,
+        createdBy: uniqueTicketData[0].createdBy,
+      };
+      reset(data);
     }
   }, [reset, uniqueTicketData]);
 
@@ -105,9 +118,6 @@ const Index = () => {
     data.files = uploadFile;
     mutate(data);
   };
-
-
-  console.log(uniqueTicketData[0], "ffff");
 
   return (
     <div className="container">
@@ -154,7 +164,7 @@ const Index = () => {
                           render={({ field }) => (
                             <Form.Control
                               {...field}
-                              style={{textTransform:"capitalize"}}
+                              style={{ textTransform: "capitalize" }}
                               type="text"
                               id="issueName"
                               disabled
@@ -178,7 +188,7 @@ const Index = () => {
                           render={({ field }) => (
                             <Form.Control
                               type="text"
-                              style={{textTransform:"capitalize"}}
+                              style={{ textTransform: "capitalize" }}
                               {...field}
                               id="type"
                               disabled
@@ -205,9 +215,9 @@ const Index = () => {
                             <Form.Select
                               className={`formcontrol`}
                               {...field}
-                              style={{textTransform:"capitalize"}}
+                              style={{ textTransform: "capitalize" }}
                               id="issueGroup"
-                              disabled={role === 3 }
+                              disabled={role === 3}
                               onChange={(e) => {
                                 field.onChange(e);
                                 let managedBy =
@@ -257,7 +267,7 @@ const Index = () => {
                           render={({ field }) => (
                             <Form.Control
                               type="text"
-                              style={{textTransform:"capitalize"}}
+                              style={{ textTransform: "capitalize" }}
                               disabled
                               {...field}
                               id="managerName"
@@ -296,6 +306,38 @@ const Index = () => {
                         {errors.issueDescription.message}
                       </span>
                     )}
+                    {uniqueTicketData[0]?.problem && (
+                      <div className={classes.disablediv}>
+                        <Form.Group className="pt-2">
+                          <Form.Label htmlFor="type" className="formlabel">
+                            Problem :
+                          </Form.Label>
+                          <Form.Control
+                            type="text"
+                            value={uniqueTicketData[0]?.problem}
+                            id="type"
+                            disabled
+                            placeholder="Enter Type"
+                          />
+                        </Form.Group>
+                      </div>
+                    )}
+                    {uniqueTicketData[0]?.resolution && (
+                      <div className={classes.disablediv}>
+                        <Form.Group className="pt-2">
+                          <Form.Label htmlFor="type" className="formlabel">
+                            Resolution :
+                          </Form.Label>
+                          <Form.Control
+                            type="text"
+                            value={uniqueTicketData[0]?.resolution}
+                            id="type"
+                            disabled
+                            placeholder="Enter Type"
+                          />
+                        </Form.Group>
+                      </div>
+                    )}
                     {/* <Form.Group className="pt-2">
                         <Form.Label htmlFor="mailList" className="formlabel">
                           Mail To
@@ -322,9 +364,7 @@ const Index = () => {
                     {/* </div> */}
                   </div>
                   <h3>Chats</h3>
-                  <div className={classes.chat}>
-                    
-                  </div>
+                  <div className={classes.chat}></div>
                 </div>
                 <div className={classes.inputdivs}>
                   <div>
@@ -352,22 +392,15 @@ const Index = () => {
                                 {e.fileName}
                               </a>
                             )}
-                            {/* <div>
-                              <DeleteIcon
-                                sx={{
-                                  cursor: "pointer",
-                                  color: "red",
-                                }}
-                                onClick={() => removeFileHandler(uploadFile, i)}
-                              />
-                            </div> */}
                           </div>
                         );
                       })}
                     {role === 3 && (
                       <Form.Group className="pt-2">
                         <Form.Label htmlFor="assignedTo" className="formlabel">
-                         {uniqueTicketData[0].status ===0 ? "Assign To": "Assigned To"} 
+                          {uniqueTicketData[0].status === 0
+                            ? "Assign To"
+                            : "Assigned To"}
                         </Form.Label>
                         <Controller
                           name="assignedTo"
@@ -375,7 +408,7 @@ const Index = () => {
                           render={({ field }) => (
                             <Form.Select
                               className={`formcontrol`}
-                              disabled={ uniqueTicketData[0].status === 3}
+                              disabled={uniqueTicketData[0].status !== 0}
                               {...field}
                               id="assignedTo"
                             >
@@ -385,7 +418,11 @@ const Index = () => {
                               {allUser &&
                                 allUser.map((e, i) => {
                                   return (
-                                    <option key={i} value={e._id} style={{textTransform:"capitalize"}}                                    >
+                                    <option
+                                      key={i}
+                                      value={e._id}
+                                      style={{ textTransform: "capitalize" }}
+                                    >
                                       {e.fullName}
                                     </option>
                                   );
@@ -410,7 +447,10 @@ const Index = () => {
                         render={({ field }) => (
                           <MobileDateTimePicker
                             sx={{ width: "100%" }}
-                            disabled={ uniqueTicketData[0].status === 3}
+                            disabled={
+                              uniqueTicketData[0].status === 3 ||
+                              uniqueTicketData[0].status === 1
+                            }
                             {...field}
                             ampm={false}
                             slotProps={{
@@ -418,7 +458,7 @@ const Index = () => {
                                 readOnly: true,
                               },
                             }}
-                            format="DD-MM-YYYY HH:MM"
+                            format="DD-MM-YYYY HH:mm"
                             onChange={(e) => field.onChange(e)}
                           />
                         )}
@@ -429,9 +469,28 @@ const Index = () => {
                         </span>
                       )}
                     </Form.Group>
+                    {uniqueTicketData[0].status === 1 && (
+                      <Form.Group className="pt-2">
+                        <Form.Label htmlFor="endTime" className="formlabel">
+                          Actual End Time
+                        </Form.Label>
+                        <MobileDateTimePicker
+                          sx={{ width: "100%" }}
+                          disabled
+                          value={moment(uniqueTicketData[0].actualEndTime)}
+                          ampm={false}
+                          slotProps={{
+                            textField: {
+                              readOnly: true,
+                            },
+                          }}
+                          format="DD-MM-YYYY HH:mm"
+                        />
+                      </Form.Group>
+                    )}
                   </div>
                   {uniqueTicketData[0].status !== 3 &&
-                  uniqueTicketData[0].status !== 1 ? (
+                  uniqueTicketData[0].status === 0 ? (
                     <button type="submit" className={classes.savebtn}>
                       Assign Ticket
                     </button>

@@ -81,6 +81,7 @@ const EditTicket = () => {
   };
 
   const onSubmit = (data) => {
+    console.log(data,"data")
     const values = getValues();
     data.managedBy = values["managedId"];
     data.mailList = [data.mailList];

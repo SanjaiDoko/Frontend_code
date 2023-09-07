@@ -41,12 +41,8 @@ const AddTicket = () => {
     defaultValues: {
       issueName: "",
       issueGroup: "",
-      // endTime: null,
-      // startTime: null,
-      // actualEndTime: null,
       type: "",
       issueDescription: "",
-      // assignedTo: "",
       managerName: "",
       managedId: "",
       mailList: "",
@@ -59,6 +55,7 @@ const AddTicket = () => {
   }
 
   const onSubmit = (data) => {
+    delete data.managerName;
     const values = getValues();
     data.managedBy = values["managedId"];
     data.mailList = data.mailList ? data.mailList.split(",") : [];
