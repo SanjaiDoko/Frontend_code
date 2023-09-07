@@ -6,6 +6,7 @@ import {
 import styles from "./index.module.css";
 import { DataGrid } from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
+import Loader from "../../../components/Loader/Loader";
 
 function Dashboard() {
   let openTickets = 0,
@@ -82,12 +83,18 @@ function Dashboard() {
       field: "Options",
       sortable: false,
       width: 100,
-      renderCell: () => <button className={styles.editBtn}>Update</button>,
+      renderCell: (params) => (
+        <button className={styles.editBtn}>
+          {params.row.status === 1 || params.row.status === 3
+            ? "View Ticket"
+            : "Update Ticket"}
+        </button>
+      ),
     },
   ];
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <Loader />;
   }
 
   if (receivedTickets) {
@@ -154,21 +161,24 @@ function Dashboard() {
         </div>
         <div>
           {data && data.length > 0 ? (
-            <DataGrid
-              sx={{ textTransform: "capitalize" }}
-              rows={data}
-              columns={columns}
-              getRowId={(data) => data._id}
-              hideFooterSelectedRowCount={true}
-              onCellClick={(row) => rowClickFunction(row)}
-              initialState={{
-                pagination: {
-                  paginationModel: {
-                    pageSize: 10,
+            <div className={styles.girdoverflow}>
+              <DataGrid
+                className={styles.dataGrid}
+                sx={{ textTransform: "capitalize" }}
+                rows={data}
+                columns={columns}
+                getRowId={(data) => data._id}
+                hideFooterSelectedRowCount={true}
+                onCellClick={(row) => rowClickFunction(row)}
+                initialState={{
+                  pagination: {
+                    paginationModel: {
+                      pageSize: 10,
+                    },
                   },
-                },
-              }}
-            />
+                }}
+              />
+            </div>
           ) : (
             <div className={styles.nogroup}>
               <h4>Until now, You have not received any tickets to solve.</h4>

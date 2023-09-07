@@ -21,7 +21,7 @@
   gap: 3px;
   background: #e9f7ff80;
   width: 100%;
-  /* margin-top: 10px; */
+  margin-top: 10px;
   border-radius: 5px;
   padding: 10px;
   justify-content: space-between;
@@ -56,7 +56,10 @@
   margin: 2em;
   color: red;
 }
-
+.reject {
+  color: red !important;
+  font-size: 17px !important;
+}
 .countrydiv {
   background: rgba(30, 106, 255, 0.1);
   width: 100%;
@@ -371,4 +374,25 @@
 }
 .uploadicon path {
   fill: #00a1ff;
+}
+.completed {
+  color: #01c442 !important;
+  font-size: 17px !important;
+}
+@media (max-width: 500px) {
+  .addDiv {
+    width: 300px !important;
+  }
+  .ck.ck-editor {
+    width: 300px;
+  }
+  .inputDiv {
+    flex-direction: column;
+  }
+  .inputDiv > div {
+    width: 100%;
+  }
+  .uploaddiv{
+    margin-top: 10px !important;
+  }
 }

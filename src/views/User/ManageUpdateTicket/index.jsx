@@ -20,6 +20,7 @@ import { useSelector } from "react-redux";
 import { URL } from "../../../config";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import Loader from "../../../components/Loader/Loader";
 
 const Index = () => {
   const [uploadFile, setUploadFile] = useState([]);
@@ -30,8 +31,11 @@ const Index = () => {
 
   const { id } = useParams();
 
-  const { data: uniqueTicketData, isLoading: ticketLoading } =
-    useGetSpecificTicketById(id);
+  const {
+    data: uniqueTicketData,
+    isLoading: ticketLoading,
+    isSuccess: ticketSuccess,
+  } = useGetSpecificTicketById(id);
 
   const { data: allUser, isLoading: userLoading } =
     useGetAllUserByGroupId(groupId);
@@ -82,7 +86,7 @@ const Index = () => {
   });
 
   useEffect(() => {
-    if (uniqueTicketData) {
+    if (ticketSuccess) {
       setUploadFile(uniqueTicketData[0].files);
       if (uniqueTicketData[0].endTime) {
         uniqueTicketData[0].endTime = moment(uniqueTicketData[0].endTime);
@@ -104,10 +108,10 @@ const Index = () => {
       };
       reset(data);
     }
-  }, [reset, uniqueTicketData]);
+  }, [reset, ticketSuccess]);
 
   if (groupLoading || ticketLoading || userLoading) {
-    return <p>Loading...</p>;
+    return <Loader />;
   }
 
   const onSubmit = (data) => {
@@ -140,9 +144,7 @@ const Index = () => {
                 )}
 
                 {uniqueTicketData[0].status === 3 && (
-                  <h4  className={classes.reject}>
-                    Task is Rejected
-                  </h4>
+                  <h4 className={classes.reject}>Task is Rejected</h4>
                 )}
                 {uniqueTicketData[0].status === 1 && (
                   <h4 type="button" className={classes.completed}>
@@ -153,6 +155,15 @@ const Index = () => {
               <div className={classes.flexdiv}>
                 <div className={classes.infodiv}>
                   <div className={classes.inputdiv}>
+                    <p
+                      style={{
+                        fontWeight: "bold",
+                        marginBottom: "0",
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      {uniqueTicketData[0].ticketId}
+                    </p>
                     <div className={classes.flexeddiv}>
                       <Form.Group className="pt-2">
                         <Form.Label htmlFor="issueName" className="formlabel">
@@ -306,64 +317,42 @@ const Index = () => {
                         {errors.issueDescription.message}
                       </span>
                     )}
-                    {uniqueTicketData[0]?.problem && (
-                      <div className={classes.disablediv}>
-                        <Form.Group className="pt-2">
-                          <Form.Label htmlFor="type" className="formlabel">
-                            Problem :
-                          </Form.Label>
-                          <Form.Control
-                            type="text"
-                            value={uniqueTicketData[0]?.problem}
-                            id="type"
-                            disabled
-                            placeholder="Enter Type"
-                          />
-                        </Form.Group>
-                      </div>
-                    )}
-                    {uniqueTicketData[0]?.resolution && (
-                      <div className={classes.disablediv}>
-                        <Form.Group className="pt-2">
-                          <Form.Label htmlFor="type" className="formlabel">
-                            Resolution :
-                          </Form.Label>
-                          <Form.Control
-                            type="text"
-                            value={uniqueTicketData[0]?.resolution}
-                            id="type"
-                            disabled
-                            placeholder="Enter Type"
-                          />
-                        </Form.Group>
-                      </div>
-                    )}
-                    {/* <Form.Group className="pt-2">
-                        <Form.Label htmlFor="mailList" className="formlabel">
-                          Mail To
-                        </Form.Label>
-                        <Controller
-                          name="mailList"
-                          control={control}
-                          render={({ field }) => (
+                    <div className={classes.disableflexdiv}>
+                      {uniqueTicketData[0]?.problem && (
+                        <div className={classes.disablediv}>
+                          <Form.Group className="pt-2">
+                            <Form.Label htmlFor="type" className="formlabel">
+                              Problem
+                            </Form.Label>
                             <Form.Control
                               type="text"
-                              {...field}
-                              id="mailList"
+                              value={uniqueTicketData[0]?.problem}
+                              id="type"
                               disabled
-                              placeholder="Enter Mail To"
+                              placeholder="Enter Type"
                             />
-                          )}
-                        />
-                        {errors.mailTo && (
-                          <span className={classes.error}>
-                            {errors.mailTo.message}
-                          </span>
-                        )}
-                      </Form.Group> */}
-                    {/* </div> */}
+                          </Form.Group>
+                        </div>
+                      )}
+                      {uniqueTicketData[0]?.resolution && (
+                        <div className={classes.disablediv}>
+                          <Form.Group className="pt-2">
+                            <Form.Label htmlFor="type" className="formlabel">
+                              Resolution
+                            </Form.Label>
+                            <Form.Control
+                              type="text"
+                              value={uniqueTicketData[0]?.resolution}
+                              id="type"
+                              disabled
+                              placeholder="Enter Type"
+                            />
+                          </Form.Group>
+                        </div>
+                      )}
+                    </div>
                   </div>
-                  <h3>Chats</h3>
+                  <h3 style={{ fontWeight: "bold" }}>Chats</h3>
                   <div className={classes.chat}></div>
                 </div>
                 <div className={classes.inputdivs}>
@@ -423,7 +412,8 @@ const Index = () => {
                                       value={e._id}
                                       style={{ textTransform: "capitalize" }}
                                     >
-                                      {e.fullName}
+                                      {e.fullName}{" "}
+                                      {e._id === userId && "(Assign Myself)"}
                                     </option>
                                   );
                                 })}
@@ -448,8 +438,7 @@ const Index = () => {
                           <MobileDateTimePicker
                             sx={{ width: "100%" }}
                             disabled={
-                              uniqueTicketData[0].status === 3 ||
-                              uniqueTicketData[0].status === 1
+                              uniqueTicketData[0].status !== 0 
                             }
                             {...field}
                             ampm={false}

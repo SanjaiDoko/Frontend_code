@@ -315,9 +315,12 @@
   outline: none !important;
 }
 .editbtn {
-  border: none !important;
   background-color: transparent;
   font-weight: bold;
+  color: #00a1ff;
+  border: 2px solid #00a1ff;
+  border-radius: 5px;
+  padding: 2px 15px;
 }
 .assignedUserdiv {
   display: flex;
@@ -342,4 +345,12 @@
   background: transparent;
   border: none;
   outline: none;
+}
+@media (max-width: 500px) {
+  .dataGrid {
+    width: 700px !important;
+  }
+  .girdoverflow {
+    overflow-x: scroll;
+  }
 }

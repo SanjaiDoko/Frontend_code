@@ -6,10 +6,7 @@ import classes from "./index.module.css";
 import { updateReceivedTicketValidation } from "../../../validationSchema/updateReceivedTicketValidation";
 import { openFileNewWindow } from "../../../helper";
 import { useEffect, useState } from "react";
-import {
-  useGetSpecificTicketById,
-  useUpdateTicket,
-} from "../../../hooks/ticketHooks";
+import { useGetSpecificTicketById } from "../../../hooks/ticketHooks";
 import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetAllGroups } from "../../../hooks/groupManagement";
@@ -18,17 +15,22 @@ import { URL } from "../../../config";
 import moment from "moment";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import { closePopup, openPopup } from "../../../redux/slices/popupSlice";
+import { openPopup } from "../../../redux/slices/popupSlice";
 import CommanPopup from "../../../components/popup";
+import Loader from "../../../components/Loader/Loader";
 
 const EditTicket = () => {
   const [uploadFile, setUploadFile] = useState([]);
   const role = useSelector((state) => state.profile.role);
+  const [payload, setPayload] = useState(null);
 
   const { id } = useParams();
 
-  const { data: uniqueTicketData, isLoading: ticketLoading } =
-    useGetSpecificTicketById(id);
+  const {
+    data: uniqueTicketData,
+    isLoading: ticketLoading,
+    isSuccess: ticketSuccess,
+  } = useGetSpecificTicketById(id);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -37,14 +39,9 @@ const EditTicket = () => {
 
   const { data: allGroupData, isLoading: groupLoading } = useGetAllGroups();
 
-  const onSuccess = () => {
-    navigate("/user/dashboard/");
-  };
+  const titleText = "Ticket Resolved !";
+  const contentText = "Are you sure that you resolved the Ticket";
 
-  const titleText = "Update Status ";
-  const contentText = "Are you sure that you want to update Status";
-
-  const { mutate } = useUpdateTicket(onSuccess);
   const {
     handleSubmit,
     control,
@@ -80,7 +77,7 @@ const EditTicket = () => {
   };
 
   useEffect(() => {
-    if (uniqueTicketData) {
+    if (ticketSuccess) {
       if (uniqueTicketData[0].actualEndTime) {
         uniqueTicketData[0].actualEndTime = moment(
           uniqueTicketData[0].actualEndTime
@@ -93,30 +90,21 @@ const EditTicket = () => {
       reset(uniqueTicketData[0]);
       setUploadFile(uniqueTicketData[0].files);
     }
-  }, [uniqueTicketData]);
+  }, [ticketSuccess]);
 
   if (groupLoading || ticketLoading) {
-    return <p>Loading...</p>;
+    return <Loader />;
   }
 
-
-  const handleAgree = () => {
-    let payload = uniqueTicketData[0];
-    payload.id = uniqueTicketData[0]._id;
-    delete payload._id;
-    payload.status = 1;
-    mutate(payload);
-  };
-
   const onSubmit = (data) => {
-    dispatch(closePopup());
+    dispatch(openPopup());
     const values = getValues();
     data.managedBy = values["managedId"];
     data.actualEndTime = moment(data.actualEndTime);
     data.id = uniqueTicketData[0]._id;
     data.files = uploadFile;
     delete data.status;
-    mutate(data);
+    setPayload(data);
   };
 
   return (
@@ -127,18 +115,6 @@ const EditTicket = () => {
             <div>
               <div className={classes.addDivHeading}>
                 <h3>Edit Ticket</h3>
-                {uniqueTicketData[0].status === 2 && (
-                  <button
-                    type="button"
-                    className={classes.rejectBtn}
-                    
-                    onClick={() => {
-                      dispatch(openPopup());
-                    }}
-                  >
-                    Complete Task
-                  </button>
-                )}
                 {uniqueTicketData[0].status === 1 && (
                   <button type="button" className={classes.completed}>
                     Task is Completed
@@ -153,6 +129,15 @@ const EditTicket = () => {
               <div className={classes.inputdiv}>
                 <div className={classes.flexdiv}>
                   <div className={classes.infodiv}>
+                    <p
+                      style={{
+                        fontWeight: "bold",
+                        marginBottom: "0",
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      {uniqueTicketData[0].ticketId}
+                    </p>
                     <div className={classes.flexeddiv}>
                       <Form.Group className="pt-2">
                         <Form.Label htmlFor="issueName" className="formlabel">
@@ -214,7 +199,7 @@ const EditTicket = () => {
                               className={`formcontrol`}
                               {...field}
                               id="issueGroup"
-                              disabled={role === 3}
+                              disabled={role === 3 || uniqueTicketData[0].status !== 0}
                               onChange={(e) => {
                                 field.onChange(e);
                                 let managedBy =
@@ -276,7 +261,7 @@ const EditTicket = () => {
                         )}
                       </Form.Group>
                     </div>
-                    <div className={classes.flexeddiv}>
+                    <div className={classes.mailflexed}>
                       <Form.Group className="pt-2">
                         <Form.Label htmlFor="mailList" className="formlabel">
                           Mail To :
@@ -326,38 +311,40 @@ const EditTicket = () => {
                         </span>
                       )}
                     </div>
-                    {uniqueTicketData[0]?.problem && (
-                      <div className={classes.disablediv}>
-                        <Form.Group className="pt-2">
-                          <Form.Label htmlFor="type" className="formlabel">
-                            Problem :
-                          </Form.Label>
-                          <Form.Control
-                            type="text"
-                            value={uniqueTicketData[0]?.problem}
-                            id="type"
-                            disabled
-                            placeholder="Enter Type"
-                          />
-                        </Form.Group>
-                      </div>
-                    )}
-                    {uniqueTicketData[0]?.resolution && (
-                      <div className={classes.disablediv}>
-                        <Form.Group className="pt-2">
-                          <Form.Label htmlFor="type" className="formlabel">
-                            Resolution :
-                          </Form.Label>
-                          <Form.Control
-                            type="text"
-                            value={uniqueTicketData[0]?.resolution}
-                            id="type"
-                            disabled
-                            placeholder="Enter Type"
-                          />
-                        </Form.Group>
-                      </div>
-                    )}
+                    <div className={classes.disablediv}>
+                      {uniqueTicketData[0]?.problem && (
+                        <div className={classes.disablediv}>
+                          <Form.Group className="pt-2">
+                            <Form.Label htmlFor="type" className="formlabel">
+                              Problem :
+                            </Form.Label>
+                            <Form.Control
+                              type="text"
+                              value={uniqueTicketData[0]?.problem}
+                              id="type"
+                              disabled
+                              placeholder="Enter Type"
+                            />
+                          </Form.Group>
+                        </div>
+                      )}
+                      {uniqueTicketData[0]?.resolution && (
+                        <div className={classes.disablediv}>
+                          <Form.Group className="pt-2">
+                            <Form.Label htmlFor="type" className="formlabel">
+                              Resolution :
+                            </Form.Label>
+                            <Form.Control
+                              type="text"
+                              value={uniqueTicketData[0]?.resolution}
+                              id="type"
+                              disabled
+                              placeholder="Enter Type"
+                            />
+                          </Form.Group>
+                        </div>
+                      )}
+                    </div>
                   </div>
                   <div className={classes.chatdiv}>Chat</div>
                 </div>
@@ -508,7 +495,7 @@ const EditTicket = () => {
                   {uniqueTicketData[0].status !== 1 &&
                   uniqueTicketData[0].status !== 3 ? (
                     <button type="submit" className={classes.savebtn}>
-                      Update Ticket
+                      Resolve Ticket
                     </button>
                   ) : (
                     <button
@@ -527,8 +514,7 @@ const EditTicket = () => {
       </div>
       <div>
         <CommanPopup
-          uniqueTicketData={uniqueTicketData[0]}
-          handleAgree={handleAgree}
+          uniqueTicketData={payload}
           titleText={titleText}
           contentText={contentText}
         />

@@ -188,3 +188,8 @@
   margin: auto;
   height: 200px;
 }
+@media (max-width: 500px) {
+  .groupcard{
+    width: 100%;
+  }
+}

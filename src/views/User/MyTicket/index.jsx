@@ -2,6 +2,7 @@ import styles from "./index.module.css";
 import { useGetAllTicketById } from "../../../hooks/ticketHooks";
 import { DataGrid } from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
+import Loader from "../../../components/Loader/Loader";
 
 function Dashboard() {
   const id = localStorage.getItem("allMasterId");
@@ -78,7 +79,7 @@ function Dashboard() {
   ];
 
   if (isloading) {
-    return <p>Loading....</p>;
+    return <Loader/>;
   }
 
   const rowClickFunction = (data) => {
@@ -101,21 +102,24 @@ function Dashboard() {
             </button>
           </div>
           {data && data.length > 0 ? (
-            <DataGrid
-              sx={{ textTransform: "capitalize" }}
-              rows={data}
-              columns={columns}
-              getRowId={(data) => data._id}
-              hideFooterSelectedRowCount={true}
-              onCellClick={(row) => rowClickFunction(row)}
-              initialState={{
-                pagination: {
-                  paginationModel: {
-                    pageSize: 10,
+            <div className={styles.girdoverflow}>
+              <DataGrid
+                className={styles.dataGrid}
+                sx={{ textTransform: "capitalize" }}
+                rows={data}
+                columns={columns}
+                getRowId={(data) => data._id}
+                hideFooterSelectedRowCount={true}
+                onCellClick={(row) => rowClickFunction(row)}
+                initialState={{
+                  pagination: {
+                    paginationModel: {
+                      pageSize: 10,
+                    },
                   },
-                },
-              }}
-            />
+                }}
+              />
+            </div>
           ) : (
             <div className={styles.nogroup}>
               <h4>Do you face any Issue ?</h4>
