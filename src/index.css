@@ -19,11 +19,11 @@ h4,
 h5,
 h6,
 label,
-span,
 ::placeholder,
 div {
   cursor: context-menu;
   font-family: "Rubik" !important;
+  color: #000;
 }
 .MuiIconButton-sizeSmall,
 .MuiDataGrid-iconSeparator {
@@ -60,6 +60,11 @@ div {
 .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
   height: 2.5px !important;
 }
-.MuiDataGrid-columnHeaderTitle{
+.MuiDataGrid-columnHeaderTitle {
   font-weight: bold !important;
+}
+@media (max-width: 500px) {
+  .MuiDrawer-paper {
+    width: 350px;
+  }
 }

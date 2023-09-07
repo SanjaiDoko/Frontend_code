@@ -482,3 +482,29 @@
   display: flex;
   align-items: center;
 }
+@media (max-width: 500px) {
+  .inputdiv {
+    flex-direction: column;
+  }
+  .infodiv,
+  .inputdivs {
+    width: 100%;
+  }
+  .inputdetailsdiv {
+    width: 100%;
+  }
+  .flexeddiv {
+    flex-direction: column;
+  }
+  .flexeddiv > div {
+    width: 100%;
+  }
+  .flexdiv {
+    flex-direction: column;
+  }
+  .addDivHeading{
+    flex-direction: column;
+    justify-content: baseline !important;
+    align-items:baseline !important;
+  }
+}

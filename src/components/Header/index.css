@@ -119,10 +119,21 @@
   align-items: center;
   gap: 7px;
 }
-.logoutbtn{
+.logoutbtn {
   border: none !important;
   background: transparent !important;
 }
-.logoutbtn :hover{
+.logoutbtn :hover {
   scale: 1.1;
+}
+@media (max-width: 500px) {
+  .navbar-nav {
+    align-items: baseline !important;
+    flex-direction: column !important;
+    padding-top: 20px !important;
+  }
+  .logoutbtn {
+    justify-content: left;
+    text-align: left;
+  }
 }
