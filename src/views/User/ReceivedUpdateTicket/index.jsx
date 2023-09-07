@@ -99,9 +99,6 @@ const EditTicket = () => {
     return <p>Loading...</p>;
   }
 
-  const removeFileHandler = (array, index) => {
-    setUploadFile(array.filter((file, i) => i !== index));
-  };
 
   const handleAgree = () => {
     let payload = uniqueTicketData[0];
