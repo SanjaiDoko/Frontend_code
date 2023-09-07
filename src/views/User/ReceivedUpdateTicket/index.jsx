@@ -467,6 +467,7 @@ const EditTicket = () => {
                         <MobileDateTimePicker
                           sx={{ width: "100%" }}
                           {...field}
+                          disabled={uniqueTicketData[0].status === 1}
                           ampm={false}
                           slotProps={{
                             textField: {
@@ -495,6 +496,7 @@ const EditTicket = () => {
                         <Form.Control
                           type="text"
                           {...field}
+                          disabled={uniqueTicketData[0].status === 1}
                           id="timeLog"
                           placeholder="Enter timelog"
                         />

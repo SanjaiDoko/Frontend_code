@@ -14,6 +14,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { resolutionValidation } from "../../validationSchema/resolutaionValidation";
 import { useUpdateTicket } from "../../hooks/ticketHooks";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function CommanPopup({ uniqueTicketData, contentText, titleText }) {
   const popupStatus = useSelector((state) => state.popup.popupStatus);
@@ -40,13 +41,22 @@ function CommanPopup({ uniqueTicketData, contentText, titleText }) {
 
   const onSubmit = (data) => {
     let payload = uniqueTicketData;
-    payload.id = uniqueTicketData._id;
+    payload.id = uniqueTicketData._id
+      ? uniqueTicketData._id
+      : uniqueTicketData.id;
     delete payload._id;
     payload.problem = data.problem;
     payload.resolution = data.resolution;
-    payload.status = 1 ;
-    mutate(payload);
-    dispatch(closePopup());
+    payload.status = 1;
+    console.log(uniqueTicketData, "uniuu");
+    console.log(payload, "ffff");
+    if (payload.actualEndTime && payload.timeLog) {
+      mutate(payload);
+      dispatch(closePopup());
+    } else {
+      toast.error("Actual End time and Time log can not be empty");
+      dispatch(closePopup());
+    }
   };
 
   return (
@@ -66,10 +76,7 @@ function CommanPopup({ uniqueTicketData, contentText, titleText }) {
       </DialogTitle>
       <DialogContent>
         <DialogContentText className="contenttxt" id="alert-dialog-description">
-          <p className="contentText">
-          {contentText}
-
-          </p>
+          <p className="contentText">{contentText}</p>
         </DialogContentText>
         <DialogContentText className="contenttxt" id="alert-dialog-description">
           <form onSubmit={handleSubmit(onSubmit)}>
