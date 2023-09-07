@@ -112,7 +112,7 @@ const AddAndEditGroup = ({ onCloseButtonClick, editData, isEdit, type }) => {
       insertMutate(payload);
     }
   }
-  if (userLoading) {
+  if (userLoading || getUserByGroupIdLoading) {
     return <Loader />;
   }
 

@@ -17,6 +17,7 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { openPopup } from "../../../redux/slices/popupSlice";
 import CommanPopup from "../../../components/popup";
+import Loader from "../../../components/Loader/Loader";
 
 const EditTicket = () => {
   const [uploadFile, setUploadFile] = useState([]);
@@ -25,8 +26,11 @@ const EditTicket = () => {
 
   const { id } = useParams();
 
-  const { data: uniqueTicketData, isLoading: ticketLoading } =
-    useGetSpecificTicketById(id);
+  const {
+    data: uniqueTicketData,
+    isLoading: ticketLoading,
+    isSuccess: ticketSuccess,
+  } = useGetSpecificTicketById(id);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -35,8 +39,8 @@ const EditTicket = () => {
 
   const { data: allGroupData, isLoading: groupLoading } = useGetAllGroups();
 
-  const titleText = "Update Status ";
-  const contentText = "Are you sure that you want to update Status";
+  const titleText = "Ticket Resolved !";
+  const contentText = "Are you sure that you resolved the Ticket";
 
   const {
     handleSubmit,
@@ -73,8 +77,7 @@ const EditTicket = () => {
   };
 
   useEffect(() => {
-    if (uniqueTicketData) {
-      console.log(uniqueTicketData[0], "data");
+    if (ticketSuccess) {
       if (uniqueTicketData[0].actualEndTime) {
         uniqueTicketData[0].actualEndTime = moment(
           uniqueTicketData[0].actualEndTime
@@ -87,10 +90,10 @@ const EditTicket = () => {
       reset(uniqueTicketData[0]);
       setUploadFile(uniqueTicketData[0].files);
     }
-  }, [uniqueTicketData]);
+  }, [ticketSuccess]);
 
   if (groupLoading || ticketLoading) {
-    return <p>Loading...</p>;
+    return <Loader />;
   }
 
   const onSubmit = (data) => {
@@ -126,9 +129,15 @@ const EditTicket = () => {
               <div className={classes.inputdiv}>
                 <div className={classes.flexdiv}>
                   <div className={classes.infodiv}>
-                  <p style={{ fontWeight: "bold", marginBottom: "0" , textTransform:'uppercase' }}>
-                    {uniqueTicketData[0].ticketId}
-                  </p>
+                    <p
+                      style={{
+                        fontWeight: "bold",
+                        marginBottom: "0",
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      {uniqueTicketData[0].ticketId}
+                    </p>
                     <div className={classes.flexeddiv}>
                       <Form.Group className="pt-2">
                         <Form.Label htmlFor="issueName" className="formlabel">
@@ -486,7 +495,7 @@ const EditTicket = () => {
                   {uniqueTicketData[0].status !== 1 &&
                   uniqueTicketData[0].status !== 3 ? (
                     <button type="submit" className={classes.savebtn}>
-                      Complete Ticket
+                      Resolve Ticket
                     </button>
                   ) : (
                     <button

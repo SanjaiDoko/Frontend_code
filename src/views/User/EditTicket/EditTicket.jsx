@@ -12,6 +12,7 @@ import { useGetAllGroups } from "../../../hooks/groupManagement";
 import { URL } from "../../../config";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import Loader from "../../../components/Loader/Loader";
 // import moment from "moment";
 
 const EditTicket = () => {
@@ -21,8 +22,11 @@ const EditTicket = () => {
 
   const navigate = useNavigate();
 
-  const { data: uniqueTicketData, isLoading: ticketLoading } =
-    useGetSpecificTicketById(id);
+  const {
+    data: uniqueTicketData,
+    isLoading: ticketLoading,
+    isSuccess: ticketSuccess,
+  } = useGetSpecificTicketById(id);
 
   const createdBy = localStorage.getItem("allMasterId");
 
@@ -50,18 +54,14 @@ const EditTicket = () => {
   });
 
   useEffect(() => {
-    if (uniqueTicketData) {
+    if (ticketSuccess) {
       reset(uniqueTicketData[0]);
       setUploadFile(uniqueTicketData[0].files);
     }
-  }, [uniqueTicketData]);
+  }, [ticketSuccess]);
 
   if (groupLoading || ticketLoading) {
-    return <p>Loading...</p>;
-  }
-
-  if (ticketLoading) {
-    return <p>Loading...</p>;
+    return <Loader/>;
   }
 
   const editorConfiguration = {
@@ -88,7 +88,15 @@ const EditTicket = () => {
                 </button>
               )}
             </div>
-            <p style={{fontWeight:'bold',marginBottom:'0', textTransform:'uppercase'}}>{uniqueTicketData[0].ticketId}</p>
+            <p
+              style={{
+                fontWeight: "bold",
+                marginBottom: "0",
+                textTransform: "uppercase",
+              }}
+            >
+              {uniqueTicketData[0].ticketId}
+            </p>
             <div className={classes.inputDiv}>
               <div>
                 <Form.Group className="pt-2">

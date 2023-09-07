@@ -2,6 +2,7 @@ import styles from "./index.module.css";
 import { useGetAllTicketById } from "../../../hooks/ticketHooks";
 import { DataGrid } from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
+import Loader from "../../../components/Loader/Loader";
 
 function Dashboard() {
   const id = localStorage.getItem("allMasterId");
@@ -78,7 +79,7 @@ function Dashboard() {
   ];
 
   if (isloading) {
-    return <p>Loading....</p>;
+    return <Loader/>;
   }
 
   const rowClickFunction = (data) => {

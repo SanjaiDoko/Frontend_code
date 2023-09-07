@@ -60,3 +60,6 @@ div {
 .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
   height: 2.5px !important;
 }
+.MuiDataGrid-columnHeaderTitle{
+  font-weight: bold !important;
+}
