@@ -452,3 +452,27 @@
   border: none;
   -webkit-transition: all 0.3s ease-in-out;
 }
+.mailflexed>div{
+  display: flex;
+  align-items: center;
+}
+.mailflexed>div>label{
+  white-space: pre;
+  font-weight: bold;
+  margin-bottom: 0;
+}
+.mailflexed > div > input {
+  background-color: transparent !important;
+  border: none;
+}
+.disableflexdiv {
+  display: flex;
+  flex-direction: column;
+}
+.disableflexdiv > div {
+  width: 100%;
+}
+.disablediv > div {
+  display: flex;
+  align-items: center;
+}

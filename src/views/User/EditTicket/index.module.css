@@ -21,7 +21,7 @@
   gap: 3px;
   background: #e9f7ff80;
   width: 100%;
-  /* margin-top: 10px; */
+  margin-top: 10px;
   border-radius: 5px;
   padding: 10px;
   justify-content: space-between;
@@ -371,4 +371,8 @@
 }
 .uploadicon path {
   fill: #00a1ff;
+}
+.completed{
+  color: #01c442 !important;
+  font-size: 17px !important;
 }
