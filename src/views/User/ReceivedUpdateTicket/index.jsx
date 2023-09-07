@@ -135,6 +135,7 @@ const EditTicket = () => {
                   <button
                     type="button"
                     className={classes.rejectBtn}
+                    
                     onClick={() => {
                       dispatch(openPopup());
                     }}
