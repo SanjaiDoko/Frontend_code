@@ -1,5 +1,5 @@
 import styles from "./index.module.css";
-import Logo from "../../../assets/Images/AllMasterslogo.jpg";
+import Logo from "../../../assets/Images/blacklogo.png";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { Link, useNavigate } from "react-router-dom";
@@ -111,7 +111,7 @@ function ResetPassword() {
             id="Resetbtn"
           >
             {isLoading ? (
-							<CircularProgress />
+							<CircularProgress size={20} />
 						) : 
            ' Reset Password'
             }

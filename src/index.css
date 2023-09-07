@@ -29,7 +29,7 @@ div {
   display: none !important;
 }
 .masterlogo {
-  width: 100px !important;
+  width: 200px !important;
 }
 .MuiDataGrid-cell {
   white-space: nowrap;
@@ -42,9 +42,7 @@ div {
 .MuiDialogContent-root {
   padding: 0 !important;
 }
-.masterlogo {
-  width: 100px !important;
-}
+
 .MuiDataGrid-columnHeaderTitleContainer,
 .MuiDataGrid-cell--textLeft {
   justify-content: center !important;
@@ -61,4 +59,3 @@ div {
 .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
   height: 2.5px !important;
 }
-

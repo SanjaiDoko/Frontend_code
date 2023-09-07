@@ -247,9 +247,7 @@ const AddAndEditGroup = ({ onCloseButtonClick, editData, isEdit, type }) => {
                           type="button"
                           onClick={() => removeUserMuate(e._id)}
                         >
-                          <MdDeleteForever
-                            style={{ color: "#898989", fontSize: "20px" }}
-                          />
+                          <MdDeleteForever style={{color:'#898989' , fontSize:'20px'}} />
                         </button>
                       )}
                     </div>
