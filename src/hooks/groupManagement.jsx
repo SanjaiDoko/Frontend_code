@@ -83,13 +83,13 @@ const useRemoveUserById = () => {
     },
     onSuccess: async () => {
       toast.success("User removed Successfully");
-      queryClient.invalidateQueries({
+      await queryClient.invalidateQueries({
         queryKey: ["allGroups"],
       });
-      queryClient.invalidateQueries({
+      await queryClient.invalidateQueries({
         queryKey: ["allUsers"],
       });
-      queryClient.invalidateQueries({
+      await queryClient.invalidateQueries({
         queryKey: ["getUserByGroupId"],
       });
     },
