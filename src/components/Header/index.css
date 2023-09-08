@@ -26,8 +26,8 @@
 }
 .hellotxt {
   font-weight: 400;
-  font-size: 16px;
-  line-height: 14px;
+  font-size: 12px;
+  line-height: 16px;
   color: #f2f2f2;
 }
 .navbar {
@@ -98,13 +98,13 @@
 .linktag {
   text-decoration: none;
   font-weight: 500;
-  font-size: 15px;
+  font-size: 16px;
   color: #f2f2f2;
 }
 .linktags {
   text-decoration: none;
   font-weight: 500;
-  font-size: 15px;
+  font-size: 16px;
   color: #f2f2f2;
 }
 .linktag:hover {

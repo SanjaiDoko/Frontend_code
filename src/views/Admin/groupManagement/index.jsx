@@ -108,7 +108,7 @@ function IndividualStatusUserList() {
           <div className={styles.headingdiv}>
             <div className={styles.titlediv}>
               <h3 className={styles.title}>Group Management</h3>
-              {userList.filter((e) => e.groupId === null).length !== 0 && (
+              {userList.filter((e) => e.groupId === null).length > 1 && (
                 <button
                   className={styles.grpbtn}
                   onClick={() => setPopup(true)}

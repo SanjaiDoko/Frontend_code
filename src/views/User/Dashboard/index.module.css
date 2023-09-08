@@ -12,7 +12,23 @@
 }
 
 .overviewcontainer {
-  padding: 20px 0 !important;
+  padding: 20px 0px 0px 0px !important;
+}
+
+.searchDiv {
+  display: flex;
+  align-items: center;
+  border: 1px solid #bebebe;
+  border-radius: 5px;
+  padding: 0px 10px;
+  margin-bottom: 10px;
+}
+
+.searchInput {
+  margin: 10px;
+  width: 100%;
+  border: none !important;
+  outline: none;
 }
 
 .overviewtxt {
