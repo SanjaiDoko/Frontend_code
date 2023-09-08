@@ -17,7 +17,6 @@ import moment from "moment";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetAllGroups } from "../../../hooks/groupManagement";
 import { useSelector } from "react-redux";
-import { URL } from "../../../config";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import Loader from "../../../components/Loader/Loader";
@@ -119,7 +118,7 @@ const Index = () => {
     data.managedBy = values["managedId"];
     data.endTime = moment(data.endTime);
     data.id = uniqueTicketData[0]._id;
-    data.files = uploadFile;
+    delete data.files;
     mutate(data);
   };
 
@@ -370,16 +369,13 @@ const Index = () => {
                                 {e.fileName}
                               </p>
                             ) : (
-                              <a
-                                target="_blank"
-                                rel="noreferrer"
-                                href={`${URL}${e.filePath}`}
-                                style={{
-                                  textDecoration: "none",
-                                }}
+                              <p
+                                title={e.fileName}
+                                onClick={() => openFileNewWindow(e.filePath)}
+                                className={classes.filename}
                               >
                                 {e.fileName}
-                              </a>
+                              </p>
                             )}
                           </div>
                         );
@@ -437,9 +433,7 @@ const Index = () => {
                         render={({ field }) => (
                           <MobileDateTimePicker
                             sx={{ width: "100%" }}
-                            disabled={
-                              uniqueTicketData[0].status !== 0 
-                            }
+                            disabled={uniqueTicketData[0].status !== 0}
                             {...field}
                             ampm={false}
                             slotProps={{
