@@ -84,7 +84,7 @@ const useGetManageTicketById = (id, role) =>
         }
       );
     },
-    enabled: role === 3
+    enabled: role === 3,
   });
 
 const useGetAllReceivedTicketById = (id, role) =>
@@ -140,12 +140,12 @@ const useUpdateTicket = (onSuccessFunctions) => {
         },
         { data: [data] }
       ),
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       onSuccessFunctions(data);
-      queryClient.invalidateQueries({ queryKey: ["allTickets"] });
-      queryClient.invalidateQueries({ queryKey: ["ReceivedTickets"] });
-      queryClient.invalidateQueries({ queryKey: ["ManageTickets"] });
-      queryClient.invalidateQueries({ queryKey: ["specifiTickets"] });
+      await queryClient.invalidateQueries({ queryKey: ["allTickets"] });
+      await queryClient.invalidateQueries({ queryKey: ["ReceivedTickets"] });
+      await queryClient.invalidateQueries({ queryKey: ["ManageTickets"] });
+      await queryClient.invalidateQueries({ queryKey: ["specifiTickets"] });
     },
   });
 };

@@ -141,7 +141,7 @@ const AddAndEditGroup = ({ onCloseButtonClick, editData, isEdit, type }) => {
             render={({ field }) => (
               <Form.Control
                 {...field}
-                style ={{textTransform:"capitalize"}}
+                style={{ textTransform: "capitalize" }}
                 type="text"
                 id="grpname"
                 placeholder="Enter Group Name"
@@ -154,7 +154,7 @@ const AddAndEditGroup = ({ onCloseButtonClick, editData, isEdit, type }) => {
         </Form.Group>
         <Form.Group className="pt-2">
           <Form.Label htmlFor="type" className="formlabel">
-          Manager
+            Manager
           </Form.Label>
           <Controller
             name="managedBy"
@@ -174,7 +174,12 @@ const AddAndEditGroup = ({ onCloseButtonClick, editData, isEdit, type }) => {
                       UserByGroupIdData?.filter((e) => e.role === 3)?.map(
                         (e) => (
                           <>
-                            <option value={e._id} style ={{textTransform:"capitalize"}}>{e.fullName}</option>
+                            <option
+                              value={e._id}
+                              style={{ textTransform: "capitalize" }}
+                            >
+                              {e.fullName}
+                            </option>
                           </>
                         )
                       )}
@@ -186,7 +191,12 @@ const AddAndEditGroup = ({ onCloseButtonClick, editData, isEdit, type }) => {
                       .filter((e) => e.groupId === null)
                       .map((e) => (
                         <>
-                          <option value={e._id} style ={{textTransform:"capitalize"}}>{e.fullName}</option>
+                          <option
+                            value={e._id}
+                            style={{ textTransform: "capitalize" }}
+                          >
+                            {e.fullName}
+                          </option>
                         </>
                       ))}
                   </>
@@ -247,7 +257,9 @@ const AddAndEditGroup = ({ onCloseButtonClick, editData, isEdit, type }) => {
                           type="button"
                           onClick={() => removeUserMuate(e._id)}
                         >
-                          <MdDeleteForever style={{color:'#898989' , fontSize:'20px'}} />
+                          <MdDeleteForever
+                            style={{ color: "#898989", fontSize: "20px" }}
+                          />
                         </button>
                       )}
                     </div>
