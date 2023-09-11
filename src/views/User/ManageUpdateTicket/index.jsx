@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import {
   useGetAllUserByGroupId,
   useGetSpecificTicketById,
-  useUpdateTicket,
+  useMangerUpdateTicket
 } from "../../../hooks/ticketHooks";
 import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
 import moment from "moment";
@@ -58,7 +58,7 @@ const Index = () => {
     },
   };
 
-  const { mutate } = useUpdateTicket(onSuccess);
+  const { mutate } = useMangerUpdateTicket(onSuccess);
   const {
     handleSubmit,
     control,
