@@ -37,8 +37,18 @@ function Header() {
         >
           <Nav>
             {role === 1 && (
+              <Link className="linktag" to="/user/eodlist">
+                EOD
+              </Link>
+            )}
+            {role === 1 && (
               <Link className="linktag" to="/user/dashboard">
                 Received Ticket
+              </Link>
+            )}
+            {role === 3 && (
+              <Link className="linktag" to={"/user/managereodview"}>
+                EOD
               </Link>
             )}
             {role === 3 && (
@@ -75,7 +85,12 @@ function Header() {
             <Nav.Item className="d-flex gap-2">
               <div className="hellotextdiv">
                 <span className="linktags">Hello</span>
-                <span className="linktags" style={{textTransform:"capitalize"}}>{data && data.fullName}</span>
+                <span
+                  className="linktags"
+                  style={{ textTransform: "capitalize" }}
+                >
+                  {data && data.fullName}
+                </span>
               </div>
             </Nav.Item>
 

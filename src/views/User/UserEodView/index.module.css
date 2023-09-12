@@ -2,3 +2,55 @@
   width: 100%;
   padding-top: 80px;
 }
+.table > tr > th {
+  border: 1px solid #00a1ff;
+  text-align: center;
+  padding: 8px;
+}
+.table > tr > td {
+  border: 1px solid #00a1ff;
+  text-align: center;
+  padding: 8px;
+}
+.table {
+  /* border-collapse: collapse; */
+  width: 100%;
+}
+.eodMainDiv > h4 {
+  font-weight: bold;
+  margin-bottom: 0;
+  padding-top: 20px;
+}
+.eodMainDiv {
+  padding-bottom: 30px;
+}
+.col1,
+.col3 {
+  width: 25%;
+}
+.col2 {
+  width: 50%;
+}
+.nodatafound{
+  text-align: center;
+  padding-top: 200px;
+}
+.eoddatdiv{
+  padding-bottom: 20px;
+}
+.eodList {
+  margin-top: 20px;
+  background-color: #00a1ff08;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 20px 10px;
+  box-sizing: border-box;
+  transition: transform 0.2s;
+  -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
+  box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
+  /* border: 1px solid #00a1ff; */
+  -webkit-transition: all 0.3s ease-in-out;
+}
+.mainDiv>h3{
+  font-weight: bold;
+}
