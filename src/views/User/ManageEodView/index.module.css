@@ -2,20 +2,18 @@
   width: 100%;
   padding-top: 80px;
 }
-.filterDiv {
-  min-height: 400px;
-  max-width: 500px;
-  margin: 10px;
-}
 .getDataBtn {
   margin: 10px;
   background: transparent;
   border-radius: 5px;
   border: none;
   font-weight: bold;
-  padding: 5px 20px;
+  padding: 4px 20px;
+  height: 37px;
   color: #00a1ff;
+  width: 25%;
   border: 2px solid #00a1ff;
+  margin-top: 40px;
 }
 .getDataBtn:hover {
   background: #00a1ff;
@@ -25,17 +23,67 @@
 }
 
 .eodList {
-  border: 1px solid black;
-  border-radius: 5px;
-  min-width: 80%;
-  padding: 5px;
+  margin-top: 20px;
+  background-color: #00a1ff08;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 10px;
+  box-sizing: border-box;
+  transition: transform 0.2s;
+  -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
+  box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
+  /* border: 1px solid #00a1ff; */
+  -webkit-transition: all 0.3s ease-in-out;
 }
-
-.eodMainDiv {
+.eoddatdiv {
+  padding-bottom: 20px;
+}
+.formdiv > form {
   display: flex;
-  gap: 10px;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: -80px;
+  width: 100%;
+  gap: 20px;
+}
+.formdiv > form > div {
+  width: 25%;
+}
+.mainDiv > h3 {
+  font-weight: bold;
+}
+.nodata {
+  text-align: center;
+  width: 100%;
+  padding-top: 150px;
+}
+.table > tr > th {
+  border: 1px solid #00a1ff;
+  text-align: center;
+  padding: 8px;
+}
+.table > tr > td {
+  border: 1px solid #00a1ff;
+  text-align: center;
+  padding: 8px;
+}
+.table {
+  /* border-collapse: collapse; */
+  width: 100%;
+}
+.eodMainDiv > h4 {
+  font-weight: bold;
+  margin-bottom: 0;
+  padding-top: 20px;
+}
+.eodMainDiv {
+  padding-bottom: 30px;
+}
+.col1,
+.col3 {
+  width: 25%;
+}
+.col2 {
+  width: 50%;
+}
+.nodatafound{
+  text-align: center;
+  padding-top: 200px;
 }

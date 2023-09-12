@@ -80,7 +80,7 @@ const userPaths = [
         element: EodMailListComponent,
       },
       {
-        path: "manager/eodview",
+        path: "managereodview",
         element: ManageEodMailComponent,
       },
     ],

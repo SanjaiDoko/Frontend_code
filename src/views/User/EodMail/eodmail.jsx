@@ -50,9 +50,7 @@ function EodMail() {
   return (
     <div className={styles.mainDiv}>
       <div className={styles.subDiv}>
-        <div>
-          <h4>EOD Status</h4>
-        </div>
+        <h4>EOD Status</h4>
         <form action="">
           <div>
             <Form.Group className="pt-2">
@@ -107,7 +105,7 @@ function EodMail() {
                         <DeleteIcon
                           sx={{
                             cursor: "pointer",
-                            color: "red",
+                            color: "#bababa",
                             marginTop: "20px",
                           }}
                           onClick={() => {

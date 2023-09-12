@@ -46,7 +46,14 @@ function EodList() {
       field: "Options",
       sortable: false,
       width: 100,
-      renderCell: () => <button className={styles.editBtn}>View EOD</button>,
+      renderCell: (params) => (
+        <button
+          className={styles.editBtn}
+          onClick={() => navigate("eodstatus/" + params.row._id)}
+        >
+          View EOD
+        </button>
+      ),
     },
   ];
 
@@ -73,7 +80,9 @@ function EodList() {
       <div className="container">
         <div className={styles.mainDiv}>
           <div className={styles.subDiv}>
-            <h3>My EOD<sup>'</sup>s </h3>
+            <h3>
+              My EOD<sup>'</sup>s{" "}
+            </h3>
             <button
               onClick={() => navigate("/user/eodstatus")}
               className={styles.addTicketBtn}
@@ -85,7 +94,7 @@ function EodList() {
             <div className={styles.girdoverflow}>
               <DataGrid
                 className={styles.dataGrid}
-                sx={{ textTransform: "capitalize", minHeight: "400px" }}
+                sx={{ textTransform: "capitalize", minHeight: "450px" }}
                 rows={rowsWithIndex}
                 columns={columns}
                 getRowId={(data) => data._id}
