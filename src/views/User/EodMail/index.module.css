@@ -1,0 +1,58 @@
+.mainDiv {
+  width: 100%;
+  padding-top: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.subDiv {
+  min-width: 500px;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 1px 1px 10px 2px #00a1ff;
+}
+
+.package {
+  margin-top: 20px;
+}
+
+.buttonDiv {
+  display: flex;
+  justify-content: space-around;
+  margin: 10px;
+}
+
+.addanother {
+  margin-bottom: 10px;
+  background: transparent;
+  border-radius: 5px;
+  border: none;
+  font-weight: bold;
+  padding: 5px 20px;
+  color: #fff;
+  border: 2px solid #00a1ff;
+  background: #00a1ff;
+}
+.addanother:hover {
+  color: #00a1ff;
+  border: none;
+  background: transparent;
+  border: 2px solid #00a1ff;
+}
+.addTicketBtn {
+  margin-bottom: 10px;
+  background: transparent;
+  border-radius: 5px;
+  border: none;
+  font-weight: bold;
+  padding: 5px 20px;
+  color: #00a1ff;
+  border: 2px solid #00a1ff;
+}
+.addTicketBtn:hover {
+  background: #00a1ff;
+  color: #fff;
+  border: none;
+  border: 2px solid #fff;
+}

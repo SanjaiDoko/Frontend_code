@@ -12,7 +12,7 @@ import { Controller, useForm } from "react-hook-form";
 import { Form } from "react-bootstrap";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { resolutionValidation } from "../../validationSchema/resolutaionValidation";
-import { useUpdateTicket } from "../../hooks/ticketHooks";
+import { useAssignedUpdateTicket } from "../../hooks/ticketHooks";
 import { useNavigate } from "react-router-dom";
 
 function CommanPopup({ uniqueTicketData, contentText, titleText }) {
@@ -22,7 +22,7 @@ function CommanPopup({ uniqueTicketData, contentText, titleText }) {
   const onSuccess = () => {
     navigate("/user/dashboard/");
   };
-  const { mutate } = useUpdateTicket(onSuccess);
+  const { mutate } = useAssignedUpdateTicket(onSuccess);
   const dispatch = useDispatch();
 
   const {

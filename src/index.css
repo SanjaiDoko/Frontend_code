@@ -57,6 +57,10 @@ div {
 .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input.Mui-disabled {
   height: 2.5px !important;
 }
+
+.css-nxo287-MuiInputBase-input-MuiOutlinedInput-input {
+  height: 2.5px !important;
+}
 .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
   height: 2.5px !important;
 }
@@ -68,6 +72,6 @@ div {
     width: 350px;
   }
 }
-.MuiDataGrid-virtualScroller{
+.MuiDataGrid-virtualScroller {
   overflow: unset;
 }
