@@ -23,6 +23,16 @@ const UpdateDashboardComponent = lazy(() =>
 const MainUserLayoutComponent = lazy(() =>
   import("../components/MainUserLayout/MainUserLayout")
 );
+const EodMailComponent = lazy(() => import("../views/User/EodMail/eodmail"));
+const EodMailListComponent = lazy(() =>
+  import("../views/User/UserEodList/eodList")
+);
+const UserEodMailViewComponent = lazy(() =>
+  import("../views/User/UserEodView/UserEodView")
+);
+const ManageEodMailComponent = lazy(() =>
+  import("../views/User/ManageEodView/ManagerEodView")
+);
 
 const userPaths = [
   {
@@ -56,6 +66,22 @@ const userPaths = [
       {
         path: "dashboard/:id",
         element: UpdateDashboardComponent,
+      },
+      {
+        path: "eodstatus/:id",
+        element: UserEodMailViewComponent,
+      },
+      {
+        path: "eodstatus",
+        element: EodMailComponent,
+      },
+      {
+        path: "eodList",
+        element: EodMailListComponent,
+      },
+      {
+        path: "manager/eodview",
+        element: ManageEodMailComponent,
       },
     ],
     status: [1],
