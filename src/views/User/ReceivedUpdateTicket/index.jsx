@@ -11,7 +11,6 @@ import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetAllGroups } from "../../../hooks/groupManagement";
 import { useDispatch, useSelector } from "react-redux";
-import { URL } from "../../../config";
 import moment from "moment";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
@@ -160,7 +159,7 @@ const EditTicket = () => {
     data.managedBy = values["managedId"];
     data.actualEndTime = moment(data.actualEndTime);
     data.id = uniqueTicketData[0]._id;
-    data.files = uploadFile;
+    delete data.files;
     delete data.status;
     setPayload(data);
   };
@@ -283,7 +282,9 @@ const EditTicket = () => {
                               className={`formcontrol`}
                               {...field}
                               id="issueGroup"
-                              disabled={role === 3 || uniqueTicketData[0].status !== 0}
+                              disabled={
+                                role === 3 || uniqueTicketData[0].status !== 0
+                              }
                               onChange={(e) => {
                                 field.onChange(e);
                                 let managedBy =
@@ -462,14 +463,13 @@ const EditTicket = () => {
                             {e.fileName}
                           </p>
                         ) : (
-                          <a
-                            target="_blank"
-                            rel="noreferrer"
-                            style={{ textDecoration: "none" }}
-                            href={`${URL}${e.filePath}`}
+                          <p
+                            title={e.fileName}
+                            onClick={() => openFileNewWindow(e.filePath)}
+                            className={classes.filename}
                           >
                             {e.fileName}
-                          </a>
+                          </p>
                         )}
                         {/* <div>
                           <DeleteIcon

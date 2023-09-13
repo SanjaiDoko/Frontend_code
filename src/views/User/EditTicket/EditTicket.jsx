@@ -9,7 +9,6 @@ import { useEffect, useState } from "react";
 import { useGetSpecificTicketById } from "../../../hooks/ticketHooks";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetAllGroups } from "../../../hooks/groupManagement";
-import { URL } from "../../../config";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import Loader from "../../../components/Loader/Loader";
@@ -287,14 +286,13 @@ const EditTicket = () => {
                         {e.fileName}
                       </p>
                     ) : (
-                      <a
-                        target="_blank"
-                        rel="noreferrer"
-                        style={{ textDecoration: "none" }}
-                        href={`${URL}${e.filePath}`}
-                      >
-                        {e.fileName}
-                      </a>
+                      <p
+                      title={e.fileName}
+                      onClick={() => openFileNewWindow(e.filePath)}
+                      className={classes.filename}
+                    >
+                      {e.fileName}
+                    </p>
                     )}
                     <div>
                       {/* <DeleteIcon

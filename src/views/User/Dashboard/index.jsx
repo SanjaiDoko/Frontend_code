@@ -7,6 +7,8 @@ import styles from "./index.module.css";
 import { DataGrid } from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
 import Loader from "../../../components/Loader/Loader";
+import { useState } from "react";
+import searchLogo from "../../../assets/Images/searchLogo.png";
 
 function Dashboard() {
   let openTickets = 0,
@@ -14,6 +16,7 @@ function Dashboard() {
     managerTickets = 0;
   const id = localStorage.getItem("allMasterId");
   const role = useSelector((state) => state.profile.role);
+  const [searchValue, setSearchValue] = useState("");
   const {
     data,
     isLoading,
@@ -160,24 +163,41 @@ function Dashboard() {
           <h3 style={{ marginTop: "1em" }}>Received Tickets </h3>
         </div>
         <div>
+          <div className={styles.searchDiv}>
+            <img src={searchLogo} alt="searchlogo" />
+            <input
+              type="text"
+              className={styles.searchInput}
+              onChange={(e) => setSearchValue(e.target.value)}
+              placeholder="Search by Ticket ID"
+            />
+          </div>
           {data && data.length > 0 ? (
-            <div className={styles.girdoverflow}>
-              <DataGrid
-                className={styles.dataGrid}
-                sx={{ textTransform: "capitalize" }}
-                rows={data}
-                columns={columns}
-                getRowId={(data) => data._id}
-                hideFooterSelectedRowCount={true}
-                onCellClick={(row) => rowClickFunction(row)}
-                initialState={{
-                  pagination: {
-                    paginationModel: {
-                      pageSize: 10,
-                    },
+             <div className={styles.girdoverflow}>
+            <DataGrid
+            className={styles.dataGrid}
+              sx={{ textTransform: "capitalize", minHeight: "100px" }}
+              rows={
+                data && searchValue !== ""
+                  ? data.filter((e) =>
+                      e.ticketId
+                        .toLowerCase()
+                        .includes(searchValue.toLowerCase())
+                    )
+                  : data
+              }
+              columns={columns}
+              getRowId={(data) => data._id}
+              hideFooterSelectedRowCount={true}
+              onCellClick={(row) => rowClickFunction(row)}
+              initialState={{
+                pagination: {
+                  paginationModel: {
+                    pageSize: 10,
                   },
-                }}
-              />
+                },
+              }}
+            />
             </div>
           ) : (
             <div className={styles.nogroup}>

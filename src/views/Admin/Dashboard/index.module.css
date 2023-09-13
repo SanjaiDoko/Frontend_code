@@ -89,7 +89,7 @@
 /* Individual Card */
 .groupcard {
   /* background-color: rgb(222 247 255); */
-  background:linear-gradient(
+  background: linear-gradient(
     65.11deg,
     rgb(222 250 255 / 30%) 15.78%,
     rgba(217, 217, 217, 0) 77.9%
@@ -137,7 +137,7 @@
 }
 
 .tickets {
-  background:linear-gradient(
+  background: linear-gradient(
     65.11deg,
     rgba(120, 234, 254, 0.3) 15.78%,
     rgba(217, 217, 217, 0) 77.9%
@@ -189,7 +189,11 @@
   height: 200px;
 }
 @media (max-width: 500px) {
-  .groupcard{
+  .groupcard {
     width: 100%;
+  }
+  .nogroup {
+    align-items: baseline;
+    height: auto;
   }
 }

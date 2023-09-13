@@ -10,14 +10,13 @@ import { useEffect, useState } from "react";
 import {
   useGetAllUserByGroupId,
   useGetSpecificTicketById,
-  useUpdateTicket,
+  useMangerUpdateTicket
 } from "../../../hooks/ticketHooks";
 import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
 import moment from "moment";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetAllGroups } from "../../../hooks/groupManagement";
 import { useSelector } from "react-redux";
-import { URL } from "../../../config";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import Loader from "../../../components/Loader/Loader";
@@ -110,7 +109,7 @@ const Index = () => {
     },
   };
 
-  const { mutate } = useUpdateTicket(onSuccess);
+  const { mutate } = useMangerUpdateTicket(onSuccess);
   const {
     handleSubmit,
     control,
@@ -170,7 +169,7 @@ const Index = () => {
     data.managedBy = values["managedId"];
     data.endTime = moment(data.endTime);
     data.id = uniqueTicketData[0]._id;
-    data.files = uploadFile;
+    delete data.files;
     mutate(data);
   };
   const sendChatMessage = (e) => {
@@ -469,16 +468,13 @@ const Index = () => {
                                 {e.fileName}
                               </p>
                             ) : (
-                              <a
-                                target="_blank"
-                                rel="noreferrer"
-                                href={`${URL}${e.filePath}`}
-                                style={{
-                                  textDecoration: "none",
-                                }}
+                              <p
+                                title={e.fileName}
+                                onClick={() => openFileNewWindow(e.filePath)}
+                                className={classes.filename}
                               >
                                 {e.fileName}
-                              </a>
+                              </p>
                             )}
                           </div>
                         );

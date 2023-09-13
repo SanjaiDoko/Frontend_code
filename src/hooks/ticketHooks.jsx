@@ -146,6 +146,50 @@ const useUpdateTicket = (onSuccessFunctions) => {
         },
         { data: [data] }
       ),
+    onSuccess: async (data) => {
+      onSuccessFunctions(data);
+      await queryClient.invalidateQueries({ queryKey: ["allTickets"] });
+      await queryClient.invalidateQueries({ queryKey: ["ReceivedTickets"] });
+      await queryClient.invalidateQueries({ queryKey: ["ManageTickets"] });
+      await queryClient.invalidateQueries({ queryKey: ["specifiTickets"] });
+    },
+  });
+};
+
+const useMangerUpdateTicket = (onSuccessFunctions) => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (data) =>
+      fetchData(
+        {
+          url: URL + "ticket/managerUpdateTicket",
+          method: "POST",
+          isAuthRequired: true,
+        },
+        { data: [data] }
+      ),
+    onSuccess: (data) => {
+      onSuccessFunctions(data);
+      queryClient.invalidateQueries({ queryKey: ["allTickets"] });
+      queryClient.invalidateQueries({ queryKey: ["ReceivedTickets"] });
+      queryClient.invalidateQueries({ queryKey: ["ManageTickets"] });
+      queryClient.invalidateQueries({ queryKey: ["specifiTickets"] });
+    },
+  });
+};
+
+const useAssignedUpdateTicket = (onSuccessFunctions) => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (data) =>
+      fetchData(
+        {
+          url: URL + "ticket/assignedUpdateTicket",
+          method: "POST",
+          isAuthRequired: true,
+        },
+        { data: [data] }
+      ),
     onSuccess: (data) => {
       onSuccessFunctions(data);
       queryClient.invalidateQueries({ queryKey: ["allTickets"] });
@@ -164,4 +208,6 @@ export {
   useGetManageTicketById,
   useGetAllUserByGroupId,
   useGetSpecificTicketById,
+  useAssignedUpdateTicket,
+  useMangerUpdateTicket
 };
