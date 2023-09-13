@@ -1,29 +1,43 @@
-.roomCard{
-    display: flex;
-    flex-direction: column;
-    min-width: 300px;
+.roomCard {
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  transition: transform 0.2s;
+  -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
+  box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
+  border: none;
+  -webkit-transition: all 0.3s ease-in-out;
 }
 
-.roomBootonContainer{
-    display: flex;
+.roomContentItem {
+  display: flex;
 }
 
-.roomCard{
-    border-radius: 10px;
-    border: 1px solid gray;
-    padding: 20px;
-    color: #fff;
+.label {
+  min-width: 120px;
+  font-weight: bold;
+  color: #585858;
 }
-
-.roomBootonContainer{
-    display: flex;
-    justify-content: space-between;
+.value {
+  font-weight: bold;
 }
-
-.roomContentItem{
-    display: flex;
+.roomCardtitle {
+  background-color: #00bbff24;
+  padding: 5px;
+  border-radius: 5px 5px 0px 0px;
 }
-
-.label{
-    min-width: 120px;
+.roomCardtitle > h4 {
+  text-align: center;
+  margin-bottom: 0;
+  font-weight: bold;
+}
+.roomContentContainer {
+  padding: 10px;
+}
+.roomBootonContainer {
+  padding: 10px !important;
+  display: flex;
+  justify-content: space-between;
 }

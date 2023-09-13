@@ -27,10 +27,16 @@ const Room = () => {
           <h3 className={classes.title}>Room Management</h3>
         </div>
       </div>
+      {roomData ? 
       <div className={classes.roomsContainer}>
         {roomData.length > 0 &&
           roomData.map((room) => <RoomCard roomDetails={room} setRoomId={setRoomId} />)}
       </div>
+      :
+      <div className={classes.nodata}>
+        <h3>No Rooms found</h3>
+      </div>
+      }
       <RoomPopup open={popup} roomId={roomId} titleText="Room Book" />
       </div>
     </div>
