@@ -28,7 +28,7 @@ const Room = () => {
         </div>
       </div>
       <div className={classes.roomsContainer}>
-        {roomData.length > 0 &&
+        { roomData && roomData.length > 0 &&
           roomData.map((room) => <RoomCard roomDetails={room} setRoomId={setRoomId} />)}
       </div>
       <RoomPopup open={popup} roomId={roomId} titleText="Room Book" />
