@@ -9,8 +9,16 @@
     color: #fff;
     background-color: #00a1ff;
     border: none;
-    padding: 5px 10px !important;
+    padding: 5px 20px !important;
     font-weight: bold;
+  }
+  .cancelBtn{
+    background-color: transparent;
+    font-weight: bold;
+    color: #00a1ff;
+    border: 2px solid #00a1ff;
+    border-radius: 5px;
+    padding: 5px 10px !important;
   }
   .subDiv {
     display: flex;

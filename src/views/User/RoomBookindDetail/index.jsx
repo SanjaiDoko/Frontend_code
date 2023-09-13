@@ -19,23 +19,6 @@ function RoomBookingDetail() {
 
   const navigate = useNavigate();
 
-  const returnStatus = (status) => {
-    let ticketStatus = "";
-    if (status == 0) {
-      ticketStatus = "Not Assigned";
-    }
-    if (status == 1) {
-      ticketStatus = "Completed";
-    }
-    if (status == 2) {
-      ticketStatus = "Progress";
-    }
-    if (status == 3) {
-      ticketStatus = "Rejected";
-    }
-    return ticketStatus;
-  };
-
   const columns = [
     {
       field: "userBooked",
@@ -58,7 +41,7 @@ function RoomBookingDetail() {
       headerName: "Start Time",
       width: 200,
       renderCell: (params) => {
-        return moment(params.row.startsAt).format("HH:MM");
+        return moment(params.row.startsAt).format("HH:mm");
       },
     },
     {
@@ -67,7 +50,7 @@ function RoomBookingDetail() {
       headerName: "End Time",
       width: 200,
       renderCell: (params) => {
-        return moment(params.row.endsAt).format("HH:MM");
+        return moment(params.row.endsAt).format("HH:mm");
       },
     },
     {
@@ -84,19 +67,8 @@ function RoomBookingDetail() {
       flex: 1,
       headerName: "Status",
       width: 200,
-      renderCell: (params) => "Yet to start",
-    },
-    // {
-    //   flex: 1,
-    //   field: "Options",
-    //   sortable: false,
-    //   width: 100,
-    //   renderCell: (params) => (
-    //     <button className={styles.editBtn}>
-    //       Cancel
-    //     </button>
-    //   ),
-    // },
+      renderCell: (value) =>  "Not start yet",
+    }
   ];
 
   if (isloading) {

@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import Loader from "../../../components/Loader/Loader";
 import { useState } from "react";
 import searchLogo from "../../../assets/Images/searchLogo.png";
-import { useGetRoomBookingsByUserId } from "../../../hooks/room";
+import { useCancelRoomBooking, useGetRoomBookingsByUserId } from "../../../hooks/room";
 import moment from "moment";
 
 
@@ -16,21 +16,23 @@ function RoomBookings() {
 
   const { data, isloading } = useGetRoomBookingsByUserId(id);
 
+  const {mutate} = useCancelRoomBooking()
+
   const navigate = useNavigate();
 
   const returnStatus = (status) => {
     let ticketStatus = "";
     if (status == 0) {
-      ticketStatus = "Not Assigned";
+      ticketStatus = "Canceled";
     }
     if (status == 1) {
-      ticketStatus = "Completed";
+      ticketStatus = "Upcoming";
     }
     if (status == 2) {
-      ticketStatus = "Progress";
+      ticketStatus = "InProgress";
     }
     if (status == 3) {
-      ticketStatus = "Rejected";
+      ticketStatus = "Completed";
     }
     return ticketStatus;
   };
@@ -63,7 +65,7 @@ function RoomBookings() {
       headerName: "Start Time",
       width: 200,
       renderCell: (params) => {
-        return moment(params.row.startsAt).format("HH:MM");
+        return moment(params.row.startsAt).format("HH:mm");
       },
     },
     {
@@ -72,7 +74,7 @@ function RoomBookings() {
       headerName: "End Time",
       width: 200,
       renderCell: (params) => {
-        return moment(params.row.endsAt).format("HH:MM");
+        return moment(params.row.endsAt).format("HH:mm");
       },
     },
     {
@@ -87,11 +89,17 @@ function RoomBookings() {
       field: "Options",
       sortable: false,
       width: 100,
-      renderCell: (params) => (
-        <button className={styles.editBtn}>
+      renderCell: (params) => {
+       let status = params.row.status
+       console.log(params.row)
+       let data = {
+        id: params.row.bookingId
+       }
+       return <>{status ? <button onClick={(e,params) =>  mutate(data)} className={styles.editBtn}>
           Cancel
-        </button>
-      ),
+        </button> : <button className={styles.cancelBtn}>Canceled</button>}</>
+      }
+      
     },
   ];
 
@@ -99,11 +107,11 @@ function RoomBookings() {
     return <Loader />;
   }
 
-  const rowClickFunction = (data) => {
-    if (data.field === "Options") {
-      navigate("/user/updatemanageticket/" + data.row._id);
-    }
-  };
+  // const rowClickFunction = (data) => {
+  //   if (data.field === "Options") {
+  //     navigate("/user/updatemanageticket/" + data.row._id);
+  //   }
+  // };
 
   console.log(data,"data")
 
@@ -138,7 +146,7 @@ function RoomBookings() {
                 columns={columns}
                 getRowId={(data) => data.bookingId}
                 hideFooterSelectedRowCount={true}
-                onCellClick={(row) => rowClickFunction(row)}
+                // onCellClick={(row) => rowClickFunction(row)}
                 initialState={{
                   pagination: {
                     paginationModel: {

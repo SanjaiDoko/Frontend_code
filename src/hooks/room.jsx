@@ -143,6 +143,32 @@ const useGetRoomBookingsDetails = (id) => {
   });
 };
 
+const useCancelRoomBooking = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (data) =>
+      fetchData(
+        {
+          url: URL + "room/cancelMeeting",
+          method: "POST",
+          isAuthRequired: false,
+        },
+        { data: [data] }
+      ),
+    onSuccess: async () => {
+      // onSuccessFunctions();
+      toast.success("Room Booking canceled Successfully");
+      queryClient.invalidateQueries({
+        queryKey: ["getBookingRoomsByUserId"],
+      });
+    },
+    onError: (error) => {
+      toast.error(error.message.split(":")[1]);
+    },
+  });
+};
+
+
 export {
   useGetAllRooms,
   useInsertRoom,
@@ -150,4 +176,5 @@ export {
   useInsertRoomBooking,
   useGetRoomBookingsByUserId,
   useGetRoomBookingsDetails,
+  useCancelRoomBooking
 };
