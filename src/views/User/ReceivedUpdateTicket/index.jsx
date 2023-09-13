@@ -18,13 +18,46 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { openPopup } from "../../../redux/slices/popupSlice";
 import CommanPopup from "../../../components/popup";
 import Loader from "../../../components/Loader/Loader";
+import { io } from "socket.io-client";
+import Chat from "../../../components/chat/Chat";
+import { useGetChatById, useInsertChat } from "../../../hooks/chat";
+import { useGetUserDetailsById } from "../../../hooks/userManagement";
 
 const EditTicket = () => {
+  const type = useSelector((state) => state.profile.type);
+
+  const userId = localStorage.getItem("allMasterId");
+
+  const [chatMessage, setChatMessage] = useState([]);
+
+  const [sendMessage, setSendMessage] = useState("");
+
   const [uploadFile, setUploadFile] = useState([]);
+
+  const[socket,setSocket]=useState(null)
+
+  const [liveUser, setLiveUser] = useState(null);
+
   const role = useSelector((state) => state.profile.role);
+
   const [payload, setPayload] = useState(null);
 
   const { id } = useParams();
+
+  const onChatSuccessFunction = (data) => {
+    setChatMessage(data)
+    console.log(data);
+  };
+
+  const { isLoading: chatLoading } = useGetChatById(
+    id,
+    onChatSuccessFunction
+  );
+
+  const { data:userData } = useGetUserDetailsById(userId, type);
+
+
+  const { mutate: mutateChat } = useInsertChat();
 
   const {
     data: uniqueTicketData,
@@ -76,6 +109,31 @@ const EditTicket = () => {
     },
   };
 
+  useEffect(()=>{
+    setSocket(io("ws://localhost:3008"))
+
+  },[])
+
+  useEffect(()=>{
+
+      socket?.emit("users",id,createdBy,role)
+      socket?.on("getUsers",users=>{
+        setLiveUser(users)
+      })
+
+      socket?.on("getMessage", (data) => {
+        
+      const newChat = {
+        message: { message: data.text, createdAt: data.createdAt },
+        senderId: data.senderId,
+        senderName: data.senderName
+      };
+      
+      setChatMessage((prev)=>([...prev,newChat]))
+    });
+      
+  },[socket,id,createdBy])
+
   useEffect(() => {
     if (ticketSuccess) {
       if (uniqueTicketData[0].actualEndTime) {
@@ -92,7 +150,7 @@ const EditTicket = () => {
     }
   }, [ticketSuccess]);
 
-  if (groupLoading || ticketLoading) {
+  if (groupLoading || ticketLoading || chatLoading) {
     return <Loader />;
   }
 
@@ -105,6 +163,32 @@ const EditTicket = () => {
     data.files = uploadFile;
     delete data.status;
     setPayload(data);
+  };
+
+  const sendChatMessage = (e) => {
+    e.preventDefault()
+    const newChat = {
+      message: { message: sendMessage, createdAt: moment().toISOString() },
+      senderId: createdBy,
+    };
+
+    setChatMessage((prev)=>([...prev,newChat]))
+
+    socket.emit("sendMessage", {
+      senderId: createdBy,
+      senderName:userData.fullName,
+      receiverId: [uniqueTicketData[0].managerBy,uniqueTicketData[0].createdBy],
+      text: sendMessage,
+      createdAt: moment().toISOString()
+    });
+    
+    mutateChat({
+      ticketId: id,
+      messageFrom: createdBy,
+      content: sendMessage,
+    });
+
+    setSendMessage("");
   };
 
   return (
@@ -346,7 +430,24 @@ const EditTicket = () => {
                       )}
                     </div>
                   </div>
-                  <div className={classes.chatdiv}>Chat</div>
+                  <h3 style={{ fontWeight: "bold" }}>Chats</h3>
+                  <div className={classes.chat}>
+                    
+                    {chatMessage.map((chat, i) => (
+                      <Chat key={i} message={chat.message} senderName = {chat.senderName} senderId={chat.senderId === createdBy} />
+                    ))}
+                    <input
+                      type="text"
+                      value={sendMessage}
+                      placeholder="chat"
+                      onChange={(e) => setSendMessage(e.target.value)}
+                    />
+                    {sendMessage && (
+                      <button type="button" onClick={sendChatMessage}>
+                        Send
+                      </button>
+                    )}
+                  </div>
                 </div>
                 <div className={classes.inputdetailsdiv}>
                   {uploadFile.map((e, i) => {

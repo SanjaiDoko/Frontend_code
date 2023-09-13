@@ -23,7 +23,7 @@ const useGetAllTicketById = (id) =>
     },
   });
 
-const useGetSpecificTicketById = (id) =>
+const useGetSpecificTicketById = (id, onSuccessFunctions) =>
   useQuery({
     queryKey: ["specifiTickets", id],
     queryFn: () => {
@@ -41,6 +41,9 @@ const useGetSpecificTicketById = (id) =>
           ],
         }
       );
+    },
+    onSucess: (data) => {
+      onSuccessFunctions(data);
     },
   });
 
@@ -65,7 +68,7 @@ const useGetAllUserByGroupId = (id) =>
     },
   });
 
-const useGetManageTicketById = (id, role) =>
+const useGetManageTicketById = (id, role, onSuccessFunctions) =>
   useQuery({
     queryKey: ["ManageTickets", id],
     queryFn: () => {
@@ -84,7 +87,10 @@ const useGetManageTicketById = (id, role) =>
         }
       );
     },
-    enabled: role === 3
+    onSuccess: (data) => {
+      onSuccessFunctions(data);
+    },
+    enabled: role === 3,
   });
 
 const useGetAllReceivedTicketById = (id, role) =>
