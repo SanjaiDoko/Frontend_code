@@ -10,20 +10,23 @@ export const RoomCard = ({ roomDetails, setRoomId }) => {
     const navigate = useNavigate()
   return (
     <div className={classes.roomCard}>
-      <div className="roomContentContainer">
+      <div className={classes.roomCardtitle}>
+        <h4>Room</h4>
+      </div>
+      <div className={classes.roomContentContainer}>
         <div className={classes.roomContentItem}>
           <p className={classes.label}>Room Number</p>
-          <p>: {roomDetails.roomNo}</p>
+          <p className={classes.value}>: {roomDetails?.roomNo}</p>
         </div>
         <div className={classes.roomContentItem}>
           <p className={classes.label}>Room Name</p>
-          <p>: {roomDetails.roomName}</p>
+          <p className={classes.value}>: {roomDetails?.roomName}</p>
         </div>
       </div>
 
       <div className={classes.roomBootonContainer}>
-        <button className="primaryBtn" onClick={() => { setRoomId(roomDetails.roomId); dispatch(openPopup())}}>Book Now</button>
         <button className="secondaryBtn" onClick={() => { navigate("/user/roombookingdetails/" + roomDetails.roomId)}}>Booking Details</button>
+        <button className="primaryBtn" onClick={() => { setRoomId(roomDetails?.roomId); dispatch(openPopup())}}>Book Now</button>
       </div>
     </div>
   );

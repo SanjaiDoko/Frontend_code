@@ -75,3 +75,6 @@ div {
 .MuiDataGrid-virtualScroller {
   overflow: unset;
 }
+.MuiDialogContent-root{
+  /* overflow-y: clip !important; */
+}

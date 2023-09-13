@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./index.module.css";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -6,7 +5,6 @@ import { bookRoomValidation } from "../../validationSchema/roomValidation";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { AiOutlineClose } from "react-icons/ai";
 import { Form } from "react-bootstrap";
@@ -46,15 +44,12 @@ export const RoomPopup = ({ open, titleText, roomId }) => {
     },
   });
 
-  console.log(errors,"err")
-
   const onSubmit = (data) => {
     
     data.roomId = roomId;
     data.bookedBy = userId;
     data.emailcc = [data.emailcc];
     data.email = "balreddy@gmail.com";
-    console.log(data, "data");
     mutate(data);
   };
 
@@ -69,7 +64,7 @@ export const RoomPopup = ({ open, titleText, roomId }) => {
       className={styles.maindiv}
       PaperProps={{
         style: {
-          padding: "25px 30px",
+          // padding: "25px 30px",
         },
       }}
     >
@@ -121,6 +116,7 @@ export const RoomPopup = ({ open, titleText, roomId }) => {
                 )}
               />
             </Form.Group>
+            <div className={styles.inputdiv}>
             <Form.Group className="pt-2">
               <Form.Label htmlFor="startsAt" className="formlabel">
                 Start Date
@@ -169,6 +165,7 @@ export const RoomPopup = ({ open, titleText, roomId }) => {
                 <span className="error">{errors.endsAt.message}</span>
               )}
             </Form.Group>
+            </div>
 
             <Form.Group className="pt-2">
               <Form.Label htmlFor="emailcc" className="formlabel">
