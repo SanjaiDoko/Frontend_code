@@ -97,6 +97,7 @@ const userPaths = [
       },
       {
         path: "manager/eodview",
+        path: "managereodview",
         element: ManageEodMailComponent,
       },
     ],

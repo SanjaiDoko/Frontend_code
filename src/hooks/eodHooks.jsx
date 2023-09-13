@@ -13,7 +13,7 @@ const useMutateEod = () => {
         {
           url: URL + "eod/insertEod",
           method: "POST",
-          isAuthRequired: false,
+          isAuthRequired: true,
         },
         { data: [data] }
       ),
@@ -77,9 +77,9 @@ const useGetEodsByMangerId = () => {
     mutationFn: (data) =>
       fetchData(
         {
-          url: URL + "eod/getEodDetailsById",
+          url: URL + "eod/getEodsByMangerId",
           method: "POST",
-          isAuthRequired: false,
+          isAuthRequired: true,
         },
         { data: [data] }
       ),

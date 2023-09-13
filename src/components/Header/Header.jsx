@@ -38,8 +38,18 @@ function Header() {
         >
           <Nav>
             {role === 1 && (
+              <Link className="linktag" to="/user/eodlist">
+                EOD
+              </Link>
+            )}
+            {role === 1 && (
               <Link className="linktag" to="/user/dashboard">
                 Received Ticket
+              </Link>
+            )}
+            {role === 3 && (
+              <Link className="linktag" to={"/user/managereodview"}>
+                EOD
               </Link>
             )}
             {role === 3 && (

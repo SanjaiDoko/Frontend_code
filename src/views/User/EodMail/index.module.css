@@ -7,10 +7,12 @@
 }
 
 .subDiv {
-  min-width: 500px;
+  min-width: 700px;
   padding: 10px;
   border-radius: 5px;
-  box-shadow: 1px 1px 10px 2px #00a1ff;
+}
+.subDiv>h4{
+  font-weight: bold;
 }
 
 .package {
@@ -19,8 +21,8 @@
 
 .buttonDiv {
   display: flex;
-  justify-content: space-around;
-  margin: 10px;
+  justify-content: space-between;
+  margin: 20px 0px;
 }
 
 .addanother {

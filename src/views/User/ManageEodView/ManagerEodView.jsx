@@ -6,6 +6,7 @@ import { useGetUserByGroupId } from "../../../hooks/groupManagement";
 import { useEffect } from "react";
 import { useGetEodsByMangerId } from "../../../hooks/eodHooks";
 import moment from "moment/moment";
+import Loader from "../../../components/Loader/Loader";
 
 const ManagerEodView = () => {
   const {
@@ -20,10 +21,16 @@ const ManagerEodView = () => {
   const groupId = localStorage.getItem("groupId");
   const userId = localStorage.getItem("allMasterId");
 
-  const { mutate: UserByGroupIdDataMutate, data: UserByGroupIdData } =
-    useGetUserByGroupId();
-  const { mutate: mutateUserEodList, data: userListEodData } =
-    useGetEodsByMangerId();
+  const {
+    mutate: UserByGroupIdDataMutate,
+    data: UserByGroupIdData,
+    isLoading,
+  } = useGetUserByGroupId();
+  const {
+    mutate: mutateUserEodList,
+    data: userListEodData,
+    isLoading: getEodLoading,
+  } = useGetEodsByMangerId();
 
   useEffect(() => {
     UserByGroupIdDataMutate(groupId);
@@ -31,136 +38,157 @@ const ManagerEodView = () => {
 
   const onSubmit = (data) => {
     data.managedBy = userId;
+    data.managedBy = userId;
+    data.startDate = moment(data.startDate).format("YYYY-MM-DD");
+    data.endDate = moment(data.endDate).format("YYYY-MM-DD");
     mutateUserEodList(data);
   };
 
+  if (getEodLoading || isLoading) {
+    return <Loader />;
+  }
 
   if (UserByGroupIdData !== undefined) {
     return (
-      <div className={styles.mainDiv}>
-        <div className={styles.filterDiv}>
-          <form action="" onSubmit={handleSubmit(onSubmit)}>
-            <Form.Group className="pt-2">
-              <Form.Label htmlFor="createdBy" className="formlabel">
-                Username
-              </Form.Label>
-              <Controller
-                name="createdBy"
-                control={control}
-                rules={{
-                  required: "username is required",
-                }}
-                render={({ field }) => (
-                  <Form.Select
-                    {...field}
-                    type="number"
-                    id="createdBy"
-                    className="formcontrol"
-                  >
-                    <option hidden>Select User</option>
-                    {UserByGroupIdData &&
-                      UserByGroupIdData.filter((e) => e.role == 1).map(
-                        (e, i) => {
-                          return (
-                            <option key={i} value={e._id}>
-                              {e.fullName}
-                            </option>
-                          );
-                        }
-                      )}
-                  </Form.Select>
-                )}
-              />
-              {errors?.createdBy && (
-                <p className="error">{errors.createdBy.message}</p>
-              )}
-            </Form.Group>
-            <Form.Group className="pt-2">
-              <Form.Label htmlFor="startDate" className="formlabel">
-                Start Date
-              </Form.Label>
-              <Controller
-                name="startDate"
-                control={control}
-                rules={{
-                  required: "Start Date is required",
-                }}
-                render={({ field }) => (
-                  <DatePicker
-                    sx={{ width: "100%" }}
-                    {...field}
-                    format="DD-MM-YYYY"
+      <div className="container">
+        <div className={styles.mainDiv}>
+          <h3>EOD Status</h3>
+          <div className={styles.filterDiv}>
+            <div className={styles.formdiv}>
+              <form action="" onSubmit={handleSubmit(onSubmit)}>
+                <Form.Group className="pt-2">
+                  <Form.Label htmlFor="createdBy" className="formlabel">
+                    Username
+                  </Form.Label>
+                  <Controller
+                    name="createdBy"
+                    control={control}
+                    rules={{
+                      required: "Username is required",
+                    }}
+                    render={({ field }) => (
+                      <Form.Select
+                        {...field}
+                        type="number"
+                        id="createdBy"
+                        className="formcontrol"
+                      >
+                        <option hidden>Select User</option>
+                        {UserByGroupIdData &&
+                          UserByGroupIdData.filter((e) => e.role == 1).map(
+                            (e, i) => {
+                              return (
+                                <option key={i} value={e._id}>
+                                  {e.fullName}
+                                </option>
+                              );
+                            }
+                          )}
+                      </Form.Select>
+                    )}
                   />
-                )}
-              />
-              {errors?.startDate && (
-                <p className="error">{errors?.startDate.message}</p>
-              )}
-            </Form.Group>
-            <Form.Group className="pt-2">
-              <Form.Label htmlFor="endDate" className="formlabel">
-                End Date
-              </Form.Label>
-              <Controller
-                name="endDate"
-                control={control}
-                rules={{
-                  required: "EOD Date is required",
-                }}
-                render={({ field }) => (
-                  <DatePicker
-                    sx={{ width: "100%" }}
-                    {...field}
-                    format="DD-MM-YYYY"
+                  {errors?.createdBy && (
+                    <p className="error">{errors.createdBy.message}</p>
+                  )}
+                </Form.Group>
+                <Form.Group className="pt-2">
+                  <Form.Label htmlFor="startDate" className="formlabel">
+                    Start Date
+                  </Form.Label>
+                  <Controller
+                    name="startDate"
+                    control={control}
+                    rules={{
+                      required: "Start Date is required",
+                    }}
+                    render={({ field }) => (
+                      <DatePicker
+                        sx={{ width: "100%" }}
+                        {...field}
+                        format="DD-MM-YYYY"
+                      />
+                    )}
                   />
-                )}
-              />
-              {errors?.endDate && (
-                <p className="error">{errors?.endDate.message}</p>
-              )}
-            </Form.Group>
-            <button type="submit" className={styles.getDataBtn}>
-              Get data
-            </button>
-          </form>
-        </div>
-
-        <div className={styles.eodMainDiv}>
-          {userListEodData ? (
-            userListEodData.map((e, i) => {
-              return (
-                <div key={i} className={styles.eodList}>
-                  <div>
-                    <span style={{ fontWeight: "bold" }}>Date :{"  "}</span>
-                    <span>{moment(e.eodDate).format("DD-MM-YYYY")}</span>
+                  {errors?.startDate && (
+                    <p className="error">{errors?.startDate.message}</p>
+                  )}
+                </Form.Group>
+                <Form.Group className="pt-2">
+                  <Form.Label htmlFor="endDate" className="formlabel">
+                    End Date
+                  </Form.Label>
+                  <Controller
+                    name="endDate"
+                    control={control}
+                    rules={{
+                      required: "End Date is required",
+                    }}
+                    render={({ field }) => (
+                      <DatePicker
+                        sx={{ width: "100%" }}
+                        {...field}
+                        format="DD-MM-YYYY"
+                      />
+                    )}
+                  />
+                  {errors?.endDate && (
+                    <p className="error">{errors?.endDate.message}</p>
+                  )}
+                </Form.Group>
+                <button type="submit" className={styles.getDataBtn}>
+                  Get data
+                </button>
+              </form>
+            </div>
+          </div>
+          <div className={styles.eodMainDiv}>
+            {userListEodData && userListEodData?.length !== 0 ? (
+              <h4>EOD List</h4>
+            ) : (
+              <div className={styles.nodatafound}>
+                <h4>Data Not Found</h4>
+              </div>
+            )}
+            {userListEodData ? (
+              userListEodData.map((e, i) => {
+                return (
+                  <div key={i} className={styles.eodList}>
+                    <div className={styles.eoddatdiv}>
+                      <span style={{ fontWeight: "bold" }}>Date :{"  "}</span>
+                      <span>{moment(e.eodDate).format("DD-MM-YYYY")}</span>
+                    </div>
+                    <div>
+                      <div key={i}>
+                        <table className={styles.table}>
+                          <tr>
+                            <th className={styles.col1}>S.No</th>
+                            <th className={styles.col2}>Task Description</th>
+                            <th className={styles.col3}>Hours</th>
+                          </tr>
+                          {e.eodSummary &&
+                            e.eodSummary.map((data, index) => {
+                              return (
+                                <tr key={index}>
+                                  <td className={styles.col1}>{index + 1}</td>
+                                  <td className={styles.col2}>
+                                    {data.taskDescription}
+                                  </td>
+                                  <td className={styles.col3}>{data.hours} Hrs</td>
+                                </tr>
+                              );
+                            })}
+                        </table>
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    {e.eodSummary &&
-                      e.eodSummary.map((data, index) => {
-                        return (
-                          <div key={i}>
-                            <table className="table">
-                              <tr>
-                                <th>S.No</th>
-                                <th>Task Description</th>
-                                <th>Hours</th>
-                              </tr>
-                              <tr>
-                                <td>{index + 1}</td>
-                                <td>{data.taskDescription}</td>
-                                <td>{data.hours}</td>
-                              </tr>
-                            </table>
-                          </div>
-                        );
-                      })}
-                  </div>
-                </div>
-              );
-            })
-          ) : (
-            <span>empty view</span>
-          )}
+                );
+              })
+            ) : (
+              <div className={styles.nodata}>
+                <h3>Please Enter the User Details</h3>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     );
