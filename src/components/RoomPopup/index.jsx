@@ -57,6 +57,7 @@ export const RoomPopup = ({ open, titleText, roomId }) => {
     console.log(data, "data");
     mutate(data);
   };
+
   return (
     <Dialog
       open={open}
@@ -153,9 +154,10 @@ export const RoomPopup = ({ open, titleText, roomId }) => {
                 render={({ field }) => (
                   <MobileDateTimePicker
                     sx={{display:"block"}}
+                    disabled={!Boolean(watch('startsAt'))}
                     // views={["year", "month", "day"]}
                     // format="DD-MM-YYYY"
-                    minDate={moment(watch('startsAt'))}
+                    minDate={moment(watch('startsAt')) ?? null}
                     {...field}
                     type="date"
                     disablePast
