@@ -1,0 +1,29 @@
+.roomCard{
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
+}
+
+.roomBootonContainer{
+    display: flex;
+}
+
+.roomCard{
+    border-radius: 10px;
+    border: 1px solid gray;
+    padding: 20px;
+    color: #fff;
+}
+
+.roomBootonContainer{
+    display: flex;
+    justify-content: space-between;
+}
+
+.roomContentItem{
+    display: flex;
+}
+
+.label{
+    min-width: 120px;
+}

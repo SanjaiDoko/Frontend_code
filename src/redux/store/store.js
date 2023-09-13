@@ -23,6 +23,7 @@ const persistConfig = {
 		"myBookingsCard",
 		"notification",
 		"milestoneFilter",
+		"roomPopup"
 	],
 };
 

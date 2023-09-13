@@ -1,1 +1,38 @@
 
+.primaryBtn {
+    background: transparent;
+    font-weight: 500;
+    font-size: 16px;
+    color: #00a1ff;
+    /* width: 100%; */
+    text-align: center;
+    border: 2px solid #00a1ff;
+    outline: none;
+    font-weight: bold;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    padding: 10px !important;
+    border-radius: 5px;
+  }
+  .primaryBtn:hover {
+    background: #00a1ff;
+    color: #fff;
+    border: none;
+    border: 2px solid #fff;
+  }
+
+.secondaryBtn{
+    background: transparent;
+    font-weight: 500;
+    font-size: 16px;
+    color: red;
+    /* width: 100%; */
+    text-align: center;
+    border: 2px solid red;
+    outline: none;
+    font-weight: bold;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    padding: 10px !important;
+    border-radius: 5px;
+}

@@ -1,6 +1,6 @@
 import "./index.css";
 import Container from "react-bootstrap/Container";
-import { Nav, Navbar } from "react-bootstrap";
+import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { RiShutDownLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
@@ -9,13 +9,14 @@ import { useSelector } from "react-redux";
 import { useLogoutUser } from "../../hooks/logout";
 import { useGetUserDetailsById } from "../../hooks/userManagement";
 import Loader from "../Loader/Loader";
+import { useNavigate } from "react-router-dom";
 
 function Header() {
   const type = useSelector((state) => state.profile.type);
   const { mutate } = useLogoutUser(type);
   const role = useSelector((state) => state.profile.role);
   const userId = localStorage.getItem("allMasterId");
-
+  const navigate = useNavigate()
   const { data, isLoading } = useGetUserDetailsById(userId, type);
 
   if (isLoading) {
@@ -71,11 +72,45 @@ function Header() {
                 Manage Group
               </Link>
             )}
+            {role === 2 && (
+              <Link className="linktag" to={"/admin/room"}>
+                Room
+              </Link>
+            )}
+            <Nav.Item className="linktag">
+
+            { (role === 1 || role === 3) && <NavDropdown
+              title="Room"
+              id="basic-nav-dropdown"
+            >
+              <NavDropdown.Item
+                className="dropdownlink"
+                onClick={() => {
+                  navigate("/user/rooms");
+                }}
+              >
+                Room Book
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                className="dropdownlink"
+                onClick={() => {
+                  navigate("/user/myroombookings");
+                }}
+              >
+                My Bookings
+              </NavDropdown.Item>
+            </NavDropdown>}
+            </Nav.Item>
 
             <Nav.Item className="d-flex gap-2">
               <div className="hellotextdiv">
                 <span className="linktags">Hello</span>
-                <span className="linktags" style={{textTransform:"capitalize"}}>{data && data.fullName}</span>
+                <span
+                  className="linktags"
+                  style={{ textTransform: "capitalize" }}
+                >
+                  {data && data.fullName}
+                </span>
               </div>
             </Nav.Item>
 

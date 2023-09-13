@@ -34,6 +34,10 @@ const ManageEodMailComponent = lazy(() =>
   import("../views/User/ManageEodView/ManagerEodView")
 );
 
+const Room = lazy(() => import("../views/User/Room/index"))
+
+const RoomBookings = lazy(() => import("../views/User/MyRoomBookings/index"))
+
 const userPaths = [
   {
     path: "user",
@@ -78,6 +82,18 @@ const userPaths = [
       {
         path: "eodList",
         element: EodMailListComponent,
+      },
+      {
+        path: "rooms",
+        element: Room,
+      },
+      {
+        path: "myroombookings",
+        element: RoomBookings,
+      },
+      {
+        path: "roombookingdetails",
+        element: RoomBookings,
       },
       {
         path: "manager/eodview",

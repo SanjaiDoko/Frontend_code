@@ -12,6 +12,8 @@ const InternalUserLayoutComponent = lazy(() =>
   import("../components/InternalUserLayout/InternalUserLayout")
 );
 
+const RoomManagement = lazy(() => import("../views/Admin/RoomManagement/index"))
+
 const adminPaths = [
   {
     path: "/admin",
@@ -28,6 +30,10 @@ const adminPaths = [
       {
         path: "group",
         element: groupComponent,
+      },
+      {
+        path: "room",
+        element: RoomManagement,
       },
     ],
   },
