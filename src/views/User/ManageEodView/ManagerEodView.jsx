@@ -142,9 +142,7 @@ const ManagerEodView = () => {
             </div>
           </div>
           <div className={styles.eodMainDiv}>
-            {userListEodData && userListEodData?.length !== 0 ? (
-              <h4>EOD List</h4>
-            ) : (
+            {userListEodData?.length === 0 && (
               <div className={styles.nodatafound}>
                 <h4>Data Not Found</h4>
               </div>
@@ -173,7 +171,9 @@ const ManagerEodView = () => {
                                   <td className={styles.col2}>
                                     {data.taskDescription}
                                   </td>
-                                  <td className={styles.col3}>{data.hours} Hrs</td>
+                                  <td className={styles.col3}>
+                                    {data.hours} Hrs
+                                  </td>
                                 </tr>
                               );
                             })}
