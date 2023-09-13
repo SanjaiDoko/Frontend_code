@@ -6,7 +6,7 @@
     display: flex !important;
     justify-content: space-between !important;
     align-items: center;
-    padding: 10px !important;
+    padding: 10px 0 !important;
 }
 .contenttxt {
 	word-wrap: break-word;
@@ -20,8 +20,11 @@
 }
 
 .title{
+    font-size: 18px;
     margin-bottom: 0 !important;
     color: #00a1ff;
+    margin: 0;
+    padding: 0;
 }
 
 .contentText{
@@ -57,6 +60,7 @@
 }
 .addDiv{
     width: 90%;
+    margin: auto;
 }
 .formlabel{
     display: block;

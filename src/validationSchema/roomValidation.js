@@ -7,16 +7,15 @@ export const createRoomValidation = yup.object({
 });
 
 export const bookRoomValidation = yup.object({
-  bookingFor: yup.string().trim().required("Reason is required"),
-  description: yup.string().trim().required("Boooking Descripiton is required"),
-  startDate: yup
+  bookedReason: yup.string().trim().required("Reason is required"),
+  startsAt: yup
     .string()
     .required("Start Date is required")
     // .validateDate("Invalid date")
     .transform((value) =>
       value !== null ? moment(value).format("YYYY-MM-DDTHH:mm:ss.sssZ") : value
     ),
-  endDate: yup
+    endsAt: yup
     .string()
     .required("End Date is required")
     // .validateDate("Invalid date")

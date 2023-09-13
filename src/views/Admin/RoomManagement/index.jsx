@@ -89,7 +89,7 @@ const RoomManagement = () => {
               <img src={searchlogo} alt="searchlogo" />
               <input
                 type="text"
-                placeholder="Search by Group Name"
+                placeholder="Search by Room Name"
                 onChange={(e) => setSearchValue(e.target.value)}
               />
             </div>
@@ -106,7 +106,13 @@ const RoomManagement = () => {
               <DataGrid
                 className={styles.dataGrid}
                 sx={{ textTransform: "capitalize" }}
-                rows={roomData}
+                rows={roomData && searchValue !== ""
+                ? roomData.filter((e) =>
+                    e.roomName
+                      .toLowerCase()
+                      .includes(searchValue.toLowerCase())
+                  )
+                : roomData}
                 columns={columns}
                 initialState={{
                   pagination: {

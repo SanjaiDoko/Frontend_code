@@ -6,10 +6,10 @@ import Loader from "../../../components/Loader/Loader";
 import { useState } from "react";
 import searchLogo from "../../../assets/Images/searchLogo.png";
 import { useGetRoomBookingsByUserId } from "../../../hooks/room";
+import moment from "moment";
 
 
 function RoomBookings() {
-  console.log("rendered")
   const id = localStorage.getItem("allMasterId");
 
   const [searchValue, setSearchValue] = useState("");
@@ -37,37 +37,43 @@ function RoomBookings() {
 
   const columns = [
     {
-      field: "Room No",
+      field: "roomNo",
       flex: 1,
-      headerName: "roomId",
+      headerName: "Room No",
       width: 150,
     },
     {
-      field: "issueName",
+      field: "roomName",
       flex: 1,
-      headerName: "Issue Name",
+      headerName: "Room Name",
       width: 150,
     },
     {
-      field: "assignedName",
+      field: "date",
       flex: 1,
-      headerName: "Issue Group",
+      headerName: "Date",
       width: 150,
       renderCell: (params) => {
-        return params.row.issueGroupName;
+        return moment(params.row.startsAt).format("DD-MM-YYYY");
       },
     },
     {
-      field: "managerName",
+      field: "startsAt",
       flex: 1,
-      headerName: "Managed By",
-      width: 150,
+      headerName: "Start Time",
+      width: 200,
+      renderCell: (params) => {
+        return moment(params.row.startsAt).format("HH:MM");
+      },
     },
     {
-      field: "type",
+      field: "endsAt",
       flex: 1,
-      headerName: "Type",
+      headerName: "End Time",
       width: 200,
+      renderCell: (params) => {
+        return moment(params.row.endsAt).format("HH:MM");
+      },
     },
     {
       field: "status",
@@ -83,7 +89,7 @@ function RoomBookings() {
       width: 100,
       renderCell: (params) => (
         <button className={styles.editBtn}>
-          {params.row.status === 0 ? "Assign Ticket" : "View Ticket"}
+          Cancel
         </button>
       ),
     },
@@ -99,18 +105,20 @@ function RoomBookings() {
     }
   };
 
+  console.log(data,"data")
+
   if (data !== undefined) {
     return (
       <div className="container">
         <div className={styles.mainDiv}>
-          <h3>Manage Ticket </h3>
+          <h3>My Room Bookings</h3>
           <div className={styles.searchDiv}>
             <img src={searchLogo} alt="searchlogo" />
             <input
               type="text"
               className={styles.searchInput}
               onChange={(e) => setSearchValue(e.target.value)}
-              placeholder="Search by Ticket ID"
+              placeholder="Search by Room Name"
             />
           </div>
           {data && data.length > 0 ? (
@@ -121,14 +129,14 @@ function RoomBookings() {
                 rows={
                   data && searchValue !== ""
                     ? data.filter((e) =>
-                        e.ticketId
+                        e.roomName
                           .toLowerCase()
                           .includes(searchValue.toLowerCase())
                       )
                     : data
                 }
                 columns={columns}
-                getRowId={(data) => data._id}
+                getRowId={(data) => data.bookingId}
                 hideFooterSelectedRowCount={true}
                 onCellClick={(row) => rowClickFunction(row)}
                 initialState={{

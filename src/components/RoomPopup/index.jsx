@@ -17,13 +17,16 @@ import { useDispatch } from "react-redux";
 import { useInsertRoomBooking } from "../../hooks/room";
 import moment from "moment";
 
+
 export const RoomPopup = ({ open, titleText, roomId }) => {
-  console.log(roomId, "roomId");
+
   const userId = localStorage.getItem("allMasterId");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const onSuccessFunctions = () => {
-    console.log("succres");
+    dispatch(closePopup())
+    navigate("/user/myroombookings")
   };
   const { mutate } = useInsertRoomBooking(onSuccessFunctions);
   const {
@@ -35,16 +38,18 @@ export const RoomPopup = ({ open, titleText, roomId }) => {
     resolver: yupResolver(bookRoomValidation),
     mode: "onTouched",
     defaultValues: {
-      bookingFor: "",
-      description: "",
-      startDate: null,
-      endDate: null,
+      bookedReason: "",
+      startsAt: null,
+      endsAt: null,
       emailcc: "",
       headCount: 0,
     },
   });
 
+  console.log(errors,"err")
+
   const onSubmit = (data) => {
+    
     data.roomId = roomId;
     data.bookedBy = userId;
     data.emailcc = [data.emailcc];
@@ -77,45 +82,24 @@ export const RoomPopup = ({ open, titleText, roomId }) => {
         <form onSubmit={handleSubmit(onSubmit)} className={styles.addDiv}>
           <div>
             <Form.Group className="pt-2">
-              <Form.Label htmlFor="bookingFor" className="formlabel">
+              <Form.Label htmlFor="bookedReason" className="formlabel">
                 Booking Reason
               </Form.Label>
               <Controller
-                name="bookingFor"
+                name="bookedReason"
                 control={control}
                 render={({ field }) => (
                   <Form.Control
                     {...field}
                     style={{ textTransform: "capitalize" }}
                     type="text"
-                    id="bookingFor"
+                    id="bookedReason"
                     placeholder="Enter Booking Reason"
                   />
                 )}
               />
-              {errors.bookingFor && (
-                <span className="error">{errors.bookingFor.message}</span>
-              )}
-            </Form.Group>
-            <Form.Group className="pt-2">
-              <Form.Label htmlFor="description" className="formlabel">
-                Booking Description
-              </Form.Label>
-              <Controller
-                name="description"
-                control={control}
-                render={({ field }) => (
-                  <Form.Control
-                    {...field}
-                    style={{ textTransform: "capitalize" }}
-                    type="text"
-                    id="description"
-                    placeholder="Enter Booking Description"
-                  />
-                )}
-              />
-              {errors.description && (
-                <span className="error">{errors.description.message}</span>
+              {errors.bookedReason && (
+                <span className="error">{errors.bookedReason.message}</span>
               )}
             </Form.Group>
             <Form.Group className="pt-2">
@@ -137,11 +121,11 @@ export const RoomPopup = ({ open, titleText, roomId }) => {
               />
             </Form.Group>
             <Form.Group className="pt-2">
-              <Form.Label htmlFor="startDate" className="formlabel">
+              <Form.Label htmlFor="startsAt" className="formlabel">
                 Start Date
               </Form.Label>
               <Controller
-                name="startDate"
+                name="startsAt"
                 control={control}
                 render={({ field }) => (
                   <MobileDateTimePicker
@@ -155,23 +139,23 @@ export const RoomPopup = ({ open, titleText, roomId }) => {
                   />
                 )}
               />
-              {errors.startDate && (
-                <span className="error">{errors.startDate.message}</span>
+              {errors.startsAt && (
+                <span className="error">{errors.startsAt.message}</span>
               )}
             </Form.Group>
             <Form.Group className="pt-2">
-              <Form.Label htmlFor="endDate" className="formlabel">
+              <Form.Label htmlFor="endsAt" className="formlabel">
                 End Date
               </Form.Label>
               <Controller
-                name="endDate"
+                name="endsAt"
                 control={control}
                 render={({ field }) => (
                   <MobileDateTimePicker
                     sx={{display:"block"}}
                     // views={["year", "month", "day"]}
                     // format="DD-MM-YYYY"
-                    minDate={moment(watch('startDate'))}
+                    minDate={moment(watch('startsAt'))}
                     {...field}
                     type="date"
                     disablePast
@@ -179,8 +163,8 @@ export const RoomPopup = ({ open, titleText, roomId }) => {
                   />
                 )}
               />
-              {errors.endDate && (
-                <span className="error">{errors.endDate.message}</span>
+              {errors.endsAt && (
+                <span className="error">{errors.endsAt.message}</span>
               )}
             </Form.Group>
 

@@ -22,8 +22,8 @@ export const RoomCard = ({ roomDetails, setRoomId }) => {
       </div>
 
       <div className={classes.roomBootonContainer}>
-        <button className="primaryBtn" onClick={() => { setRoomId(roomDetails._id); dispatch(openPopup())}}>Book Now</button>
-        <button className="secondaryBtn" onClick={() => { navigate("/user/roombookingdetails")}}>Booking Details</button>
+        <button className="primaryBtn" onClick={() => { setRoomId(roomDetails.roomId); dispatch(openPopup())}}>Book Now</button>
+        <button className="secondaryBtn" onClick={() => { navigate("/user/roombookingdetails/" + roomDetails.roomId)}}>Booking Details</button>
       </div>
     </div>
   );

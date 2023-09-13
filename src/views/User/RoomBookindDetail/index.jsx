@@ -5,17 +5,17 @@ import { useSelector } from "react-redux";
 import Loader from "../../../components/Loader/Loader";
 import { useState } from "react";
 import searchLogo from "../../../assets/Images/searchLogo.png";
-import { useGetRoomBookingsByUserId } from "../../../hooks/room";
+import { useGetRoomBookingsDetails } from "../../../hooks/room";
+import { useParams } from "react-router-dom";
+import moment from "moment";
 
 
 function RoomBookingDetail() {
   const id = localStorage.getItem("allMasterId");
-
-  // const role = useSelector((state) => state.profile.role);
-
+  const {id: roomId} = useParams()
   const [searchValue, setSearchValue] = useState("");
 
-  const { data, isloading } = useGetRoomBookingsByUserId(id);
+  const { data, isloading } = useGetRoomBookingsDetails(roomId);
 
   const navigate = useNavigate();
 
@@ -38,56 +38,65 @@ function RoomBookingDetail() {
 
   const columns = [
     {
-      field: "ticketId",
+      field: "userBooked",
       flex: 1,
-      headerName: "Ticket ID",
+      headerName: "Booked Person",
       width: 150,
     },
     {
-      field: "issueName",
+      field: "date",
       flex: 1,
-      headerName: "Issue Name",
-      width: 150,
-    },
-    {
-      field: "assignedName",
-      flex: 1,
-      headerName: "Issue Group",
+      headerName: "Date",
       width: 150,
       renderCell: (params) => {
-        return params.row.issueGroupName;
+        return moment(params.row.startsAt).format("DD-MM-YYYY");
       },
     },
     {
-      field: "managerName",
+      field: "startsAt",
       flex: 1,
-      headerName: "Managed By",
-      width: 150,
+      headerName: "Start Time",
+      width: 200,
+      renderCell: (params) => {
+        return moment(params.row.startsAt).format("HH:MM");
+      },
     },
     {
-      field: "type",
+      field: "endsAt",
       flex: 1,
-      headerName: "Type",
+      headerName: "End Time",
       width: 200,
+      renderCell: (params) => {
+        return moment(params.row.endsAt).format("HH:MM");
+      },
+    },
+    {
+      field: "bookingReason",
+      flex: 1,
+      headerName: "Booking Reason",
+      width: 200,
+      renderCell: (params) => {
+        return "Reason";
+      },
     },
     {
       field: "status",
       flex: 1,
       headerName: "Status",
       width: 200,
-      renderCell: (params) => returnStatus(params.row.status),
+      renderCell: (params) => "Yet to start",
     },
-    {
-      flex: 1,
-      field: "Options",
-      sortable: false,
-      width: 100,
-      renderCell: (params) => (
-        <button className={styles.editBtn}>
-          {params.row.status === 0 ? "Assign Ticket" : "View Ticket"}
-        </button>
-      ),
-    },
+    // {
+    //   flex: 1,
+    //   field: "Options",
+    //   sortable: false,
+    //   width: 100,
+    //   renderCell: (params) => (
+    //     <button className={styles.editBtn}>
+    //       Cancel
+    //     </button>
+    //   ),
+    // },
   ];
 
   if (isloading) {
@@ -100,20 +109,21 @@ function RoomBookingDetail() {
     }
   };
 
+
   if (data !== undefined) {
     return (
       <div className="container">
         <div className={styles.mainDiv}>
-          <h3>Manage Ticket </h3>
-          <div className={styles.searchDiv}>
+          <h3>Room Booking Details</h3>
+          {/* <div className={styles.searchDiv}>
             <img src={searchLogo} alt="searchlogo" />
             <input
               type="text"
               className={styles.searchInput}
               onChange={(e) => setSearchValue(e.target.value)}
-              placeholder="Search by Ticket ID"
+              placeholder="Search by Room Name"
             />
-          </div>
+          </div> */}
           {data && data.length > 0 ? (
             <div className={styles.girdoverflow}>
               <DataGrid
@@ -122,14 +132,14 @@ function RoomBookingDetail() {
                 rows={
                   data && searchValue !== ""
                     ? data.filter((e) =>
-                        e.ticketId
+                        e.roomName
                           .toLowerCase()
                           .includes(searchValue.toLowerCase())
                       )
                     : data
                 }
                 columns={columns}
-                getRowId={(data) => data._id}
+                getRowId={(data) => data.bookingId}
                 hideFooterSelectedRowCount={true}
                 onCellClick={(row) => rowClickFunction(row)}
                 initialState={{

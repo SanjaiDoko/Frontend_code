@@ -38,6 +38,8 @@ const Room = lazy(() => import("../views/User/Room/index"))
 
 const RoomBookings = lazy(() => import("../views/User/MyRoomBookings/index"))
 
+const RoomBookingDetail = lazy(() => import("../views/User/RoomBookindDetail/index"))
+
 const userPaths = [
   {
     path: "user",
@@ -92,8 +94,8 @@ const userPaths = [
         element: RoomBookings,
       },
       {
-        path: "roombookingdetails",
-        element: RoomBookings,
+        path: "roombookingdetails/:id",
+        element: RoomBookingDetail,
       },
       {
         path: "manager/eodview",

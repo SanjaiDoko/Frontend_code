@@ -34,7 +34,7 @@ const useInsertRoom = (onSuccessFunctions) => {
       onSuccessFunctions();
       toast.success("Room Added Successfully");
       queryClient.invalidateQueries({
-        queryKey: ["allGroups"],
+        queryKey: ["allRooms"],
       });
     },
     onError: (error) => {
@@ -100,9 +100,7 @@ const useGetRoomBookingsByUserId = (id) => {
       fetchData(
         {
           url: URL + "room/getMyBookings",
-          isAuthRequired: false,
-          method: "POST",
-          isAuthRequired: true,
+          method: "POST"
         },
         {
           data: [
@@ -119,13 +117,13 @@ const useGetRoomBookingsByUserId = (id) => {
   });
 };
 
-const useGetRoomBookingsDetails = () => {
+const useGetRoomBookingsDetails = (id) => {
   return useQuery({
-    queryKey: ["getBookingRoomsByUserId"],
+    queryKey: ["getRoomBookingDetails",id],
     queryFn: () =>
       fetchData(
         {
-          url: URL + "room/getMyBookings",
+          url: URL + "room/getRoomById",
           isAuthRequired: false,
           method: "POST",
           isAuthRequired: true,
