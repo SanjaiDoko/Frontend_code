@@ -74,6 +74,8 @@ export const RoomPopup = ({ open, titleText, roomId }) => {
     return <Loader />
   }
 
+  console.log(watch('headCount'),"head count")
+
   return (
     <Dialog
       open={open}
@@ -136,7 +138,7 @@ export const RoomPopup = ({ open, titleText, roomId }) => {
                     type="number"
                     id="headCount"
                     placeholder="Enter Meeting Strength"
-                    onWheel={() => document.activeElement.blur()}
+                    // onWheel={() => document.activeElement.blur()}
                   />
                 )}
               />
