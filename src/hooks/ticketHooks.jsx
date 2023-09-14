@@ -68,7 +68,7 @@ const useGetAllUserByGroupId = (id) =>
     },
   });
 
-const useGetManageTicketById = (id, role, onSuccessFunctions) =>
+const useGetManageTicketById = (id, role) =>
   useQuery({
     queryKey: ["ManageTickets", id],
     queryFn: () => {
@@ -87,9 +87,9 @@ const useGetManageTicketById = (id, role, onSuccessFunctions) =>
         }
       );
     },
-    onSuccess: (data) => {
-      onSuccessFunctions(data);
-    },
+    // onSuccess: (data) => {
+    //   onSuccessFunctions(data);
+    // },
     enabled: role === 3,
   });
 
