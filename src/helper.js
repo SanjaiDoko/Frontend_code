@@ -236,6 +236,7 @@ const fetchData = async (
   try {
     const response = await fetch(url, fetchObject);
     const status = response.status;
+    
     if (status === 200) {
       const responseData = await response.json();
       if (responseData.status === 1) {

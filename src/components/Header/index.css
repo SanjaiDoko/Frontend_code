@@ -24,6 +24,12 @@
 .navbar-expand-lg .navbar-nav .nav-link {
   color: #f2f2f2;
 }
+.nav-link{
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 16px !important;
+  color: #f2f2f2;
+}
 .hellotxt {
   font-weight: 400;
   font-size: 12px;
