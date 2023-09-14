@@ -10,11 +10,7 @@ export const createRoomValidation = yup.object({
 export const bookRoomValidation = yup.object({
   bookedReason: yup.string().trim().required("Reason is required"),
   headCount: yup
-  .number()
-  .typeError('Count is required')
-  .min(0, 'Negative numbers are not allowed')
-  .nullable()
-  .required('Count is required'),
+  .number().min(0, "Invalid Count number").typeError("Invalid Count number").required().nullable(),
   startsAt: yup
     .string()
     .required("Start Date is required")
@@ -32,6 +28,5 @@ export const bookRoomValidation = yup.object({
       const endTime = moment(value)
 
       return endTime.isAfter(field1Value)
-    }),
-    headCount: yup.number().required("Meeting strength is required")
+    })
 });

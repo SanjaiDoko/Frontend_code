@@ -74,6 +74,8 @@ export const RoomPopup = ({ open, titleText, roomId }) => {
     return <Loader />
   }
 
+  console.log(watch('headCount'),"head count")
+
   return (
     <Dialog
       open={open}
