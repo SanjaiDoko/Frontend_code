@@ -29,8 +29,8 @@ const Room = () => {
       </div>
       {roomData ? 
       <div className={classes.roomsContainer}>
-        {roomData.length > 0 &&
-          roomData.map((room) => <RoomCard roomDetails={room} setRoomId={setRoomId} />)}
+        { roomData && roomData.length > 0 &&
+          roomData.map((room) => <RoomCard key={room.roomId} roomDetails={room} setRoomId={setRoomId} />)}
       </div>
       :
       <div className={classes.nodata}>

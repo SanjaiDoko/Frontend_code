@@ -95,7 +95,7 @@ function RoomBookings() {
        let data = {
         id: params.row.bookingId
        }
-       return <>{status ? <button onClick={(e,params) =>  mutate(data)} className={styles.editBtn}>
+       return <>{status ? <button disabled={status === 2} onClick={(e,params) =>  mutate(data)} className={styles.editBtn}>
           Cancel
         </button> : <button className={styles.cancelBtn}>Canceled</button>}</>
       }
@@ -107,13 +107,6 @@ function RoomBookings() {
     return <Loader />;
   }
 
-  // const rowClickFunction = (data) => {
-  //   if (data.field === "Options") {
-  //     navigate("/user/updatemanageticket/" + data.row._id);
-  //   }
-  // };
-
-  console.log(data,"data")
 
   if (data !== undefined) {
     return (
@@ -146,7 +139,6 @@ function RoomBookings() {
                 columns={columns}
                 getRowId={(data) => data.bookingId}
                 hideFooterSelectedRowCount={true}
-                // onCellClick={(row) => rowClickFunction(row)}
                 initialState={{
                   pagination: {
                     paginationModel: {
@@ -158,8 +150,8 @@ function RoomBookings() {
             </div>
           ) : (
             <div className={styles.nogroup}>
-              <h4>Until now, You have not received any tickets to solve.</h4>
-              <h4>Please wait for one to be created</h4>
+              <h4>Until now, You don't have any Room Bookings.</h4>
+              <h4>You need Room, Book Now !</h4>
             </div>
           )}
         </div>

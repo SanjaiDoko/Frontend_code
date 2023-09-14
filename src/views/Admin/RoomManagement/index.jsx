@@ -106,7 +106,7 @@ const RoomManagement = () => {
               <DataGrid
                 className={styles.dataGrid}
                 sx={{ textTransform: "capitalize" }}
-                rows={roomData && searchValue !== ""
+                rows={ roomData && roomData.length > 0 && searchValue !== ""
                 ? roomData.filter((e) =>
                     e.roomName
                       .toLowerCase()

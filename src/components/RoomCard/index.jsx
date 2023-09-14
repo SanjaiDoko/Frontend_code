@@ -5,7 +5,6 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 export const RoomCard = ({ roomDetails, setRoomId }) => {
-  console.log(roomDetails,"roomDe")
     const dispatch = useDispatch()
     const navigate = useNavigate()
   return (

@@ -12,6 +12,9 @@
     padding: 5px 20px !important;
     font-weight: bold;
   }
+  .editBtn:disabled{
+    cursor:not-allowed;
+  }
   .cancelBtn{
     background-color: transparent;
     font-weight: bold;
