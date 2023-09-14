@@ -508,3 +508,25 @@
     align-items:baseline !important;
   }
 }
+
+.chatInput{
+  display: flex;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.chatInputBox{
+  width: 100%;
+  border: 1px solid grey;
+  border-radius: 15px;
+  padding: 7px 9px;
+}
+
+.sendMessage{
+  color:#00a1ff;
+  border: 2px solid;
+  border-radius: 17px;
+  width: 100px !important;
+  height: 39px !important;
+
+}

@@ -3,7 +3,6 @@ import "./index.css";
 
 const Chat = ({ message, senderId = true, senderName }) => {
   let name =[]
-  console.log(senderName)
   if(senderName){
     const nameArray = senderName.split(" ")
     for(let i=0; i<nameArray.length; i++){
@@ -15,7 +14,7 @@ const Chat = ({ message, senderId = true, senderName }) => {
   return (
     <div className={senderId ? "message own" : "message"}>
       <div className="messageTop">
-        {!senderId && <p className="messageBy">vi</p>}
+        {!senderId && <p className="messageBy">{name}</p>}
         <p className="messageText">{message.message}</p>
       </div>
       <div className="messageBottom">{(moment(message.createdAt).fromNow())}</div>

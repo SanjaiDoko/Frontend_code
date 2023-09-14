@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import {
   useGetAllUserByGroupId,
   useGetSpecificTicketById,
-  useMangerUpdateTicket
+  useMangerUpdateTicket,
 } from "../../../hooks/ticketHooks";
 import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
 import moment from "moment";
@@ -24,12 +24,10 @@ import { io } from "socket.io-client";
 import Chat from "../../../components/chat/Chat";
 import { useGetChatById, useInsertChat } from "../../../hooks/chat";
 import { useGetUserDetailsById } from "../../../hooks/userManagement";
-
+import CancelScheduleSendIcon from "@mui/icons-material/CancelScheduleSend";
+import SendIcon from "@mui/icons-material/Send";
 const Index = () => {
-
-  const chat = [];
-
-  const [chatMessage, setChatMessage] = useState(chat);
+  const [chatMessage, setChatMessage] = useState([]);
 
   const [sendMessage, setSendMessage] = useState("");
 
@@ -52,17 +50,14 @@ const Index = () => {
   const createdBy = localStorage.getItem("allMasterId");
 
   const onChatSuccessFunction = (data) => {
-    setChatMessage(data)
+    setChatMessage(data);
   };
 
   const type = useSelector((state) => state.profile.type);
 
-  const { data:userData } = useGetUserDetailsById(userId, type);
+  const { data: userData } = useGetUserDetailsById(userId, type);
 
-  const {  isLoading: chatLoading } = useGetChatById(
-    id,
-    onChatSuccessFunction
-  );
+  const { isLoading: chatLoading } = useGetChatById(id, onChatSuccessFunction);
 
   const { mutate: mutateChat } = useInsertChat();
 
@@ -83,11 +78,11 @@ const Index = () => {
     });
 
     socket?.on("getMessage", (data) => {
-      console.log(data,"emit")
+      console.log(data, "emit");
       const newChat = {
         message: { message: data.text, createdAt: data.createdAt },
         senderId: data.senderId,
-        senderName: data.senderName
+        senderName: data.senderName,
       };
       setChatMessage((prev) => [...prev, newChat]);
     });
@@ -183,11 +178,14 @@ const Index = () => {
     };
 
     setChatMessage((prev) => [...prev, newChat]);
-    
+
     socket.emit("sendMessage", {
       senderId: createdBy,
-      senderName:userData.fullName,
-      receiverId: [uniqueTicketData[0].assignedTo, uniqueTicketData[0].createdBy],
+      senderName: userData.fullName,
+      receiverId: [
+        uniqueTicketData[0].assignedTo,
+        uniqueTicketData[0].createdBy,
+      ],
       text: sendMessage,
       createdAt: moment().toISOString(),
     });
@@ -436,21 +434,31 @@ const Index = () => {
                       <Chat
                         key={i}
                         message={chat.message}
-                        senderName = {chat.senderName}
+                        senderName={chat.senderName}
                         senderId={chat.senderId === createdBy}
                       />
                     ))}
-                    <input
-                      type="text"
-                      value={sendMessage}
-                      placeholder="chat"
-                      onChange={(e) => setSendMessage(e.target.value)}
-                    />
-                    {sendMessage && (
-                      <button type="button" onClick={sendChatMessage}>
-                        Send
-                      </button>
-                    )}
+                    <div className={classes.chatInput}>
+                      <input
+                        type="text"
+                        className={classes.chatInputBox}
+                        value={sendMessage}
+                        placeholder="Message"
+                        onChange={(e) => setSendMessage(e.target.value)}
+                      />
+                      {sendMessage ? (
+                        <SendIcon
+                          className={classes.sendMessage}
+                          width={10}
+                          onClick={sendChatMessage}
+                        />
+                      ) : (
+                        <CancelScheduleSendIcon
+                          className={classes.sendMessage}
+                          width={10}
+                        />
+                      )}
+                    </div>
                   </div>
                 </div>
                 <div className={classes.inputdivs}>
