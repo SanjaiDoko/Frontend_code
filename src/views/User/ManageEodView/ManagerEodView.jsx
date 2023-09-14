@@ -106,6 +106,7 @@ const ManagerEodView = () => {
                         sx={{ width: "100%" }}
                         {...field}
                         format="DD-MM-YYYY"
+                        disableFuture
                       />
                     )}
                   />
@@ -128,6 +129,7 @@ const ManagerEodView = () => {
                         sx={{ width: "100%" }}
                         {...field}
                         format="DD-MM-YYYY"
+                        disableFuture
                       />
                     )}
                   />
