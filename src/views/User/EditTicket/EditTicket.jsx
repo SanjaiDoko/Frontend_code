@@ -45,6 +45,8 @@ const EditTicket = () => {
 
   const navigate = useNavigate();
 
+  const tokenId = localStorage.getItem("allMasterToken")
+
   const onChatSuccessFunction = (data) => {
     setChatMessage(data);
   };
@@ -85,7 +87,11 @@ const EditTicket = () => {
   });
 
   useEffect(() => {
-    setSocket(io(SOCKETPORT));
+    setSocket(io(SOCKETPORT,{
+      query: {
+        token:tokenId, 
+      },
+    }));
   }, []);
 
   useEffect(() => {
@@ -164,7 +170,7 @@ const EditTicket = () => {
   return (
     <div className="container">
       <div className={classes.mainDiv}>
-        <div className={classes.AddTicketDiv}>
+        <div className={uniqueTicketData[0].assignedTo ? `${classes.AddTicketDiv}`: `${classes.AddTicketDivCenter}`}>
           <form className={classes.addDiv}>
             <div className={classes.leftviewTicket}>
               <div className={classes.addDivHeading}>
@@ -414,45 +420,50 @@ const EditTicket = () => {
               </button>
             </div>
           </form>
+          {uniqueTicketData[0].assignedTo &&
           <div className={classes.rightchat}>
-            <div className={classes.chattitle}>
-              <h4>Chat</h4>
-            </div>
-            <div className={classes.chat} ref={messagesDivRef}>
-              <div className={classes.chatdiv}>
-                {chatMessage.map((chat, i) => (
-                  <Chat
-                    key={i}
-                    message={chat.message}
-                    beforeDate = {chatMessage[i-1]?.message.createdAt}
-                    senderName={chat.senderName}
-                    senderId={chat.senderId === createdBy}
+          <div className={classes.chattitle}>
+            <h4>Chat</h4>
+          </div>
+          <div className={classes.chat} ref={messagesDivRef}>
+            <div className={classes.chatdiv}>
+            <div className={chatMessage.length <2 ? `${classes.msgdiv}` : ""}>
+              {chatMessage.map((chat, i) => (
+                <Chat
+                  key={i}
+                  message={chat.message}
+                  beforeDate = {chatMessage[i-1]?.message.createdAt}
+                  senderName={chat.senderName}
+                  senderId={chat.senderId === createdBy}
+                />
+              ))}
+              </div>
+              <div className={classes.chatInput}>
+                <input
+                  type="text"
+                  className={classes.chatInputBox}
+                  value={sendMessage}
+                  placeholder="Message"
+                  onChange={(e) => setSendMessage(e.target.value)}
+                />
+                {sendMessage ? (
+                  <SendIcon
+                    className={classes.sendMessage}
+                    width={10}
+                    onClick={sendChatMessage}
                   />
-                ))}
-                <div className={classes.chatInput}>
-                  <input
-                    type="text"
-                    className={classes.chatInputBox}
-                    value={sendMessage}
-                    placeholder="Message"
-                    onChange={(e) => setSendMessage(e.target.value)}
+                ) : (
+                  <CancelScheduleSendIcon
+                    className={classes.sendMessage}
+                    width={10}
                   />
-                  {sendMessage ? (
-                    <SendIcon
-                      className={classes.sendMessage}
-                      width={10}
-                      onClick={sendChatMessage}
-                    />
-                  ) : (
-                    <CancelScheduleSendIcon
-                      className={classes.sendMessage}
-                      width={10}
-                    />
-                  )}
-                </div>
+                )}
               </div>
             </div>
           </div>
+        </div>
+          }
+          
         </div>
       </div>
     </div>

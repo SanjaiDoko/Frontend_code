@@ -39,8 +39,8 @@ const ManagerEodView = () => {
   const onSubmit = (data) => {
     data.managedBy = userId;
     data.managedBy = userId;
-    data.startDate = moment(data.startDate).format("YYYY-MM-DD");
-    data.endDate = moment(data.endDate).format("YYYY-MM-DD");
+    data.startDate = moment(data.startDate).toISOString();
+    data.endDate = moment(data.endDate).toString();
     mutateUserEodList(data);
   };
 

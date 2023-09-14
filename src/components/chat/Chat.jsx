@@ -43,7 +43,7 @@ const Chat = ({ message, beforeDate, senderId = true, senderName }) => {
           <p className="messageText">{message.message}</p>
         </div>
         <div className="messageTime">
-          {moment(message.createdAt).format("HH:mm a")}
+          {moment(message.createdAt).format('hh:mm A')}
         </div>
       </div>
     </>

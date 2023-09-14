@@ -49,6 +49,8 @@ const EditTicket = () => {
 
   const { id } = useParams();
 
+  const tokenId = localStorage.getItem("allMasterToken")
+
   const onChatSuccessFunction = (data) => {
     setChatMessage(data)
     console.log(data);
@@ -113,10 +115,14 @@ const EditTicket = () => {
       items: [],
     },
   };
-console.log(SOCKETPORT)
-  useEffect(()=>{
-    setSocket(io(SOCKETPORT))
-  },[])
+  
+  useEffect(() => {
+    setSocket(io(SOCKETPORT,{
+      query: {
+        token:tokenId, 
+      },
+    }));
+  }, []);
 
   useEffect(() => {
     if (messagesDivRef.current) {
@@ -447,7 +453,7 @@ console.log(SOCKETPORT)
                     </div>
                   <div className={classes.chat} ref={messagesDivRef}>
                     <div className={classes.chatdiv}>
-                      
+                    <div className={chatMessage.length <2 ? `${classes.msgdiv}` : ""}>
                     {chatMessage.map((chat, i) => (
                       <Chat
                         key={i}
@@ -457,6 +463,7 @@ console.log(SOCKETPORT)
                         senderId={chat.senderId === createdBy}
                       />
                     ))}
+                    </div>
                     <div className={classes.chatInput}>
                       <input
                         type="text"

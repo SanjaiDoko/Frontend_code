@@ -547,3 +547,6 @@
   height: 39px !important;
 
 }
+.msgdiv{
+  min-height: 400px !important;
+}
