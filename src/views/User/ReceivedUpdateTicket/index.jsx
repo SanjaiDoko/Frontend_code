@@ -5,7 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import classes from "./index.module.css";
 import { updateReceivedTicketValidation } from "../../../validationSchema/updateReceivedTicketValidation";
 import { openFileNewWindow } from "../../../helper";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useGetSpecificTicketById } from "../../../hooks/ticketHooks";
 import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
 import { useNavigate, useParams } from "react-router-dom";
@@ -21,8 +21,14 @@ import { io } from "socket.io-client";
 import Chat from "../../../components/chat/Chat";
 import { useGetChatById, useInsertChat } from "../../../hooks/chat";
 import { useGetUserDetailsById } from "../../../hooks/userManagement";
+import CancelScheduleSendIcon from "@mui/icons-material/CancelScheduleSend";
+import SendIcon from "@mui/icons-material/Send";
+import { SOCKETPORT } from "../../../config";
 
 const EditTicket = () => {
+
+  const messagesDivRef = useRef(null);
+
   const type = useSelector((state) => state.profile.type);
 
   const userId = localStorage.getItem("allMasterId");
@@ -107,11 +113,16 @@ const EditTicket = () => {
       items: [],
     },
   };
-
+console.log(SOCKETPORT)
   useEffect(()=>{
-    setSocket(io("ws://192.168.0.113:3008"))
-
+    setSocket(io(SOCKETPORT))
   },[])
+
+  useEffect(() => {
+    if (messagesDivRef.current) {
+      messagesDivRef.current.scrollTop = messagesDivRef.current.scrollHeight;
+    }
+  }, [socket,messagesDivRef.current,chatMessage]);
 
   useEffect(()=>{
 
@@ -431,23 +442,44 @@ const EditTicket = () => {
                       )}
                     </div>
                   </div>
-                  <h3 style={{ fontWeight: "bold" }}>Chats</h3>
-                  <div className={classes.chat}>
-                    
+                  <div className={classes.chattitle}>
+                     <h4>Chat</h4>
+                    </div>
+                  <div className={classes.chat} ref={messagesDivRef}>
+                    <div className={classes.chatdiv}>
+                      
                     {chatMessage.map((chat, i) => (
-                      <Chat key={i} message={chat.message} senderName = {chat.senderName} senderId={chat.senderId === createdBy} />
+                      <Chat
+                        key={i}
+                        message={chat.message}
+                        beforeDate = {chatMessage[i-1]?.message.createdAt}
+                        senderName={chat.senderName}
+                        senderId={chat.senderId === createdBy}
+                      />
                     ))}
-                    <input
-                      type="text"
-                      value={sendMessage}
-                      placeholder="chat"
-                      onChange={(e) => setSendMessage(e.target.value)}
-                    />
-                    {sendMessage && (
-                      <button type="button" onClick={sendChatMessage}>
-                        Send
-                      </button>
-                    )}
+                    <div className={classes.chatInput}>
+                      <input
+                        type="text"
+                        className={classes.chatInputBox}
+                        value={sendMessage}
+                        placeholder="Message"
+                        onChange={(e) => setSendMessage(e.target.value)}
+                      />
+                      {sendMessage ? (
+                        <SendIcon
+                          className={classes.sendMessage}
+                          width={10}
+                          onClick={sendChatMessage}
+                        />
+                      ) : (
+                        <CancelScheduleSendIcon
+                          className={classes.sendMessage}
+                          width={10}
+                        />
+                      )}
+                    </div>
+                    </div>
+                  
                   </div>
                 </div>
                 <div className={classes.inputdetailsdiv}>

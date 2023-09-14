@@ -5,7 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import classes from "./index.module.css";
 import { addTicketValidation } from "../../../validationSchema/addTicketValidation";
 import { openFileNewWindow } from "../../../helper";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useGetSpecificTicketById } from "../../../hooks/ticketHooks";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetAllGroups } from "../../../hooks/groupManagement";
@@ -18,8 +18,13 @@ import { useGetChatById, useInsertChat } from "../../../hooks/chat";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import { useGetUserDetailsById } from "../../../hooks/userManagement";
+import CancelScheduleSendIcon from "@mui/icons-material/CancelScheduleSend";
+import SendIcon from "@mui/icons-material/Send";
+import { SOCKETPORT } from "../../../config";
 
 const EditTicket = () => {
+  const messagesDivRef = useRef(null);
+
   const createdBy = localStorage.getItem("allMasterId");
 
   const type = useSelector((state) => state.profile.type);
@@ -39,7 +44,6 @@ const EditTicket = () => {
   const role = useSelector((state) => state.profile.role);
 
   const navigate = useNavigate();
-
 
   const onChatSuccessFunction = (data) => {
     setChatMessage(data);
@@ -81,9 +85,15 @@ const EditTicket = () => {
   });
 
   useEffect(() => {
-    setSocket(io("ws://192.168.0.113:3008"));
+    setSocket(io(SOCKETPORT));
   }, []);
-console.log(liveUser,"live")
+
+  useEffect(() => {
+    if (messagesDivRef.current) {
+      messagesDivRef.current.scrollTop = messagesDivRef.current.scrollHeight;
+    }
+  }, [socket, messagesDivRef.current, chatMessage]);
+
   useEffect(() => {
     socket?.emit("users", id, createdBy, role);
     socket?.on("getUsers", (users) => {
@@ -99,9 +109,7 @@ console.log(liveUser,"live")
       };
       setChatMessage((prev) => [...prev, newChat]);
     });
-
   }, [socket, id, createdBy]);
-
 
   useEffect(() => {
     if (ticketSuccess) {
@@ -120,7 +128,7 @@ console.log(liveUser,"live")
     },
   };
 
-  console.log(uniqueTicketData[0])
+  console.log(uniqueTicketData[0]);
   const sendChatMessage = (e) => {
     e.preventDefault();
     const newChat = {
@@ -132,7 +140,6 @@ console.log(liveUser,"live")
     };
 
     setChatMessage((prev) => [...prev, newChat]);
-
 
     socket.emit("sendMessage", {
       senderId: createdBy,
@@ -158,32 +165,8 @@ console.log(liveUser,"live")
     <div className="container">
       <div className={classes.mainDiv}>
         <div className={classes.AddTicketDiv}>
-          <div className={classes.chatsDiv}>
-            <h1>Chats</h1>
-            <div className={classes.chat}>
-              {chatMessage.map((chat, i) => (
-                <Chat
-                  key={i}
-                  message={chat.message}
-                  senderName={chat.senderName}
-                  senderId={chat.senderId === createdBy}
-                />
-              ))}
-              <input
-                type="text"
-                value={sendMessage}
-                placeholder="chat"
-                onChange={(e) => setSendMessage(e.target.value)}
-              />
-              {sendMessage && (
-                <button type="button" onClick={sendChatMessage}>
-                  Send
-                </button>
-              )}
-            </div>
-          </div>
           <form className={classes.addDiv}>
-            <div>
+            <div className={classes.leftviewTicket}>
               <div className={classes.addDivHeading}>
                 <h3>View Ticket</h3>
                 {uniqueTicketData[0].status === 3 && (
@@ -431,6 +414,45 @@ console.log(liveUser,"live")
               </button>
             </div>
           </form>
+          <div className={classes.rightchat}>
+            <div className={classes.chattitle}>
+              <h4>Chat</h4>
+            </div>
+            <div className={classes.chat} ref={messagesDivRef}>
+              <div className={classes.chatdiv}>
+                {chatMessage.map((chat, i) => (
+                  <Chat
+                    key={i}
+                    message={chat.message}
+                    beforeDate = {chatMessage[i-1]?.message.createdAt}
+                    senderName={chat.senderName}
+                    senderId={chat.senderId === createdBy}
+                  />
+                ))}
+                <div className={classes.chatInput}>
+                  <input
+                    type="text"
+                    className={classes.chatInputBox}
+                    value={sendMessage}
+                    placeholder="Message"
+                    onChange={(e) => setSendMessage(e.target.value)}
+                  />
+                  {sendMessage ? (
+                    <SendIcon
+                      className={classes.sendMessage}
+                      width={10}
+                      onClick={sendChatMessage}
+                    />
+                  ) : (
+                    <CancelScheduleSendIcon
+                      className={classes.sendMessage}
+                      width={10}
+                    />
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

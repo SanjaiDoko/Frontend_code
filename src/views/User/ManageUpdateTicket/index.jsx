@@ -6,7 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import classes from "./index.module.css";
 import { updateManageTicketValidation } from "../../../validationSchema/updateManageTicketValidation";
 import { openFileNewWindow } from "../../../helper";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   useGetAllUserByGroupId,
   useGetSpecificTicketById,
@@ -26,7 +26,12 @@ import { useGetChatById, useInsertChat } from "../../../hooks/chat";
 import { useGetUserDetailsById } from "../../../hooks/userManagement";
 import CancelScheduleSendIcon from "@mui/icons-material/CancelScheduleSend";
 import SendIcon from "@mui/icons-material/Send";
+import { SOCKETPORT } from "../../../config";
+
 const Index = () => {
+
+  const messagesDivRef = useRef(null);
+
   const [chatMessage, setChatMessage] = useState([]);
 
   const [sendMessage, setSendMessage] = useState("");
@@ -68,8 +73,15 @@ const Index = () => {
   } = useGetSpecificTicketById(id);
 
   useEffect(() => {
-    setSocket(io("ws://192.168.0.113:3008"));
+    setSocket(io(SOCKETPORT));
   }, []);
+
+  useEffect(() => {
+    if (messagesDivRef.current) {
+      messagesDivRef.current.scrollTop = messagesDivRef.current.scrollHeight;
+    }
+  }, [socket,messagesDivRef.current,chatMessage]);
+  
 
   useEffect(() => {
     socket?.emit("users", id, createdBy, role);
@@ -78,6 +90,7 @@ const Index = () => {
     });
 
     socket?.on("getMessage", (data) => {
+      
       console.log(data, "emit");
       const newChat = {
         message: { message: data.text, createdAt: data.createdAt },
@@ -198,7 +211,7 @@ const Index = () => {
 
     setSendMessage("");
   };
-
+// console.log(liveUser,"liveUser")
   return (
     <div className="container">
       <div className={classes.mainDiv}>
@@ -428,15 +441,17 @@ const Index = () => {
                       )}
                     </div>
                   </div>
-                  <div className={classes.chat}>
                     <div className={classes.chattitle}>
-                     <h4>Live Chat</h4>
+                     <h4>Chat</h4>
                     </div>
+                  <div className={classes.chat} ref={messagesDivRef}>
                     <div className={classes.chatdiv}>
+                      
                     {chatMessage.map((chat, i) => (
                       <Chat
                         key={i}
                         message={chat.message}
+                        beforeDate = {chatMessage[i-1]?.message.createdAt}
                         senderName={chat.senderName}
                         senderId={chat.senderId === createdBy}
                       />
