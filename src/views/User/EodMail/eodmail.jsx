@@ -4,6 +4,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { Form } from "react-bootstrap";
 import { DatePicker } from "@mui/x-date-pickers";
 import { useMutateEod } from "../../../hooks/eodHooks";
+import moment from "moment";
 
 function EodMail() {
   const initialTaskData = {
@@ -44,6 +45,7 @@ function EodMail() {
       ? data.ccMail.split(",")
       : [data.ccMail];
     console.log(data, "datat");
+    // data.eodDate = moment(data.eodDate).utc()
     mutate(data);
   };
 
@@ -124,6 +126,7 @@ function EodMail() {
                           control={control}
                           rules={{
                             required: "Number of Hours is required",
+                            pattern:""
                           }}
                           render={({ field }) => (
                             <Form.Control
@@ -132,6 +135,7 @@ function EodMail() {
                               type="number"
                               id="hours"
                               placeholder="Enter Hours"
+                              onWheel={() => document.activeElement.blur()}
                             />
                           )}
                         />
