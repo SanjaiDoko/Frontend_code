@@ -447,7 +447,7 @@ console.log(SOCKETPORT)
                     </div>
                   <div className={classes.chat} ref={messagesDivRef}>
                     <div className={classes.chatdiv}>
-                      
+                    <div className={chatMessage.length <2 ? `${classes.msgdiv}` : ""}>
                     {chatMessage.map((chat, i) => (
                       <Chat
                         key={i}
@@ -457,6 +457,7 @@ console.log(SOCKETPORT)
                         senderId={chat.senderId === createdBy}
                       />
                     ))}
+                    </div>
                     <div className={classes.chatInput}>
                       <input
                         type="text"

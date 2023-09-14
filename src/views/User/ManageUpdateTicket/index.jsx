@@ -29,7 +29,6 @@ import SendIcon from "@mui/icons-material/Send";
 import { SOCKETPORT } from "../../../config";
 
 const Index = () => {
-
   const messagesDivRef = useRef(null);
 
   const [chatMessage, setChatMessage] = useState([]);
@@ -80,8 +79,7 @@ const Index = () => {
     if (messagesDivRef.current) {
       messagesDivRef.current.scrollTop = messagesDivRef.current.scrollHeight;
     }
-  }, [socket,messagesDivRef.current,chatMessage]);
-  
+  }, [socket, messagesDivRef.current, chatMessage]);
 
   useEffect(() => {
     socket?.emit("users", id, createdBy, role);
@@ -90,7 +88,6 @@ const Index = () => {
     });
 
     socket?.on("getMessage", (data) => {
-      
       console.log(data, "emit");
       const newChat = {
         message: { message: data.text, createdAt: data.createdAt },
@@ -211,7 +208,7 @@ const Index = () => {
 
     setSendMessage("");
   };
-// console.log(liveUser,"liveUser")
+  // console.log(liveUser,"liveUser")
   return (
     <div className="container">
       <div className={classes.mainDiv}>
@@ -441,21 +438,25 @@ const Index = () => {
                       )}
                     </div>
                   </div>
-                    <div className={classes.chattitle}>
-                     <h4>Chat</h4>
-                    </div>
-                  <div className={classes.chat} ref={messagesDivRef}>
-                    <div className={classes.chatdiv}>
-                      
+                  {uniqueTicketData[0].assignedTo &&
+                  <>
+                  
+                  <div className={classes.chattitle}>
+                  <h4>Chat</h4>
+                </div>
+                <div className={classes.chat} ref={messagesDivRef}>
+                  <div className={classes.chatdiv}>
+                    <div className={chatMessage.length <2 ? `${classes.msgdiv}` : ""}>
                     {chatMessage.map((chat, i) => (
                       <Chat
                         key={i}
                         message={chat.message}
-                        beforeDate = {chatMessage[i-1]?.message.createdAt}
+                        beforeDate={chatMessage[i - 1]?.message.createdAt}
                         senderName={chat.senderName}
                         senderId={chat.senderId === createdBy}
                       />
                     ))}
+                    </div>
                     <div className={classes.chatInput}>
                       <input
                         type="text"
@@ -477,9 +478,11 @@ const Index = () => {
                         />
                       )}
                     </div>
-                    </div>
-                  
                   </div>
+                </div>
+                </>
+                  }
+                  
                 </div>
                 <div className={classes.inputdivs}>
                   <div>
