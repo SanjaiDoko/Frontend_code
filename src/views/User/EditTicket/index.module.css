@@ -43,13 +43,15 @@
   gap: 5px;
 }
 .addDiv {
-  width: 600px !important;
+  flex:1
 }
 
 .AddTicketDiv {
   display: flex;
-
-  max-width: 700px;
+  width: 100%;
+}
+.chatsDiv{
+  flex:1
 }
 
 .attachement {
