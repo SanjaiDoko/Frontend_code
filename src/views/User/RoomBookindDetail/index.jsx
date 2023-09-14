@@ -1,23 +1,17 @@
 import styles from "./index.module.css";
 import { DataGrid } from "@mui/x-data-grid";
-import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 import Loader from "../../../components/Loader/Loader";
 import { useState } from "react";
-import searchLogo from "../../../assets/Images/searchLogo.png";
 import { useGetRoomBookingsDetails } from "../../../hooks/room";
 import { useParams } from "react-router-dom";
 import moment from "moment";
 
 
 function RoomBookingDetail() {
-  const id = localStorage.getItem("allMasterId");
   const {id: roomId} = useParams()
   const [searchValue, setSearchValue] = useState("");
 
   const { data, isloading } = useGetRoomBookingsDetails(roomId);
-
-  const navigate = useNavigate();
 
   const columns = [
     {
@@ -75,27 +69,11 @@ function RoomBookingDetail() {
     return <Loader />;
   }
 
-  const rowClickFunction = (data) => {
-    if (data.field === "Options") {
-      navigate("/user/updatemanageticket/" + data.row._id);
-    }
-  };
-
-
   if (data !== undefined) {
     return (
       <div className="container">
         <div className={styles.mainDiv}>
           <h3>Room Booking Details</h3>
-          {/* <div className={styles.searchDiv}>
-            <img src={searchLogo} alt="searchlogo" />
-            <input
-              type="text"
-              className={styles.searchInput}
-              onChange={(e) => setSearchValue(e.target.value)}
-              placeholder="Search by Room Name"
-            />
-          </div> */}
           {data && data.length > 0 ? (
             <div className={styles.girdoverflow}>
               <DataGrid
@@ -125,8 +103,8 @@ function RoomBookingDetail() {
             </div>
           ) : (
             <div className={styles.nogroup}>
-              <h4>Until now, You have not received any tickets to solve.</h4>
-              <h4>Please wait for one to be created</h4>
+              <h4>Until now, These room don't have any future meetings.</h4>
+              <h4>You need Room, Book Now !</h4>
             </div>
           )}
         </div>
