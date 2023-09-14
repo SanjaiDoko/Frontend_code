@@ -10,7 +10,7 @@ export const createRoomValidation = yup.object({
 export const bookRoomValidation = yup.object({
   bookedReason: yup.string().trim().required("Reason is required"),
   headCount: yup
-  .number().positive().typeError("Invalid Count number").required().nullable(),
+  .number().min(0, "Invalid Count number").typeError("Invalid Count number").required().nullable(),
   startsAt: yup
     .string()
     .required("Start Date is required")

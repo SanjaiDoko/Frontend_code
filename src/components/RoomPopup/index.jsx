@@ -138,7 +138,7 @@ export const RoomPopup = ({ open, titleText, roomId }) => {
                     type="number"
                     id="headCount"
                     placeholder="Enter Meeting Strength"
-                    // onWheel={() => document.activeElement.blur()}
+                    onWheel={() => document.activeElement.blur()}
                   />
                 )}
               />
