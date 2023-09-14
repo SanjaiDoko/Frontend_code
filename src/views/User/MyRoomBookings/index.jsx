@@ -51,21 +51,12 @@ function RoomBookings() {
       width: 150,
     },
     {
-      field: "date",
-      flex: 1,
-      headerName: "Date",
-      width: 150,
-      renderCell: (params) => {
-        return moment(params.row.startsAt).format("DD-MM-YYYY");
-      },
-    },
-    {
       field: "startsAt",
       flex: 1,
       headerName: "Start Time",
       width: 200,
       renderCell: (params) => {
-        return moment(params.row.startsAt).format("HH:mm");
+        return moment(params.row.startsAt).format('DD-MM-YYYY HH:mm');
       },
     },
     {
@@ -74,7 +65,7 @@ function RoomBookings() {
       headerName: "End Time",
       width: 200,
       renderCell: (params) => {
-        return moment(params.row.endsAt).format("HH:mm");
+        return moment(params.row.endsAt).format('DD-MM-YYYY HH:mm');
       },
     },
     {
