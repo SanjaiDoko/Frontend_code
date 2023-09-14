@@ -65,14 +65,18 @@ const Index = () => {
 
   const { mutate: mutateChat } = useInsertChat();
 
+  const tokenId = localStorage.getItem("allMasterToken")
   const {
     data: uniqueTicketData,
     isLoading: ticketLoading,
     isSuccess: ticketSuccess,
   } = useGetSpecificTicketById(id);
-
   useEffect(() => {
-    setSocket(io(SOCKETPORT));
+    setSocket(io(SOCKETPORT,{
+      query: {
+        token:tokenId, 
+      },
+    }));
   }, []);
 
   useEffect(() => {

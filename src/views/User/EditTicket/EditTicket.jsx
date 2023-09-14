@@ -45,6 +45,8 @@ const EditTicket = () => {
 
   const navigate = useNavigate();
 
+  const tokenId = localStorage.getItem("allMasterToken")
+
   const onChatSuccessFunction = (data) => {
     setChatMessage(data);
   };
@@ -85,7 +87,11 @@ const EditTicket = () => {
   });
 
   useEffect(() => {
-    setSocket(io(SOCKETPORT));
+    setSocket(io(SOCKETPORT,{
+      query: {
+        token:tokenId, 
+      },
+    }));
   }, []);
 
   useEffect(() => {
