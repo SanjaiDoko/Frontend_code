@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import {
   useGetAllUserByGroupId,
   useGetSpecificTicketById,
-  useMangerUpdateTicket
+  useMangerUpdateTicket,
 } from "../../../hooks/ticketHooks";
 import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
 import moment from "moment";
@@ -20,9 +20,22 @@ import { useSelector } from "react-redux";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import Loader from "../../../components/Loader/Loader";
-
+import { io } from "socket.io-client";
+import Chat from "../../../components/chat/Chat";
+import { useGetChatById, useInsertChat } from "../../../hooks/chat";
+import { useGetUserDetailsById } from "../../../hooks/userManagement";
+import CancelScheduleSendIcon from "@mui/icons-material/CancelScheduleSend";
+import SendIcon from "@mui/icons-material/Send";
 const Index = () => {
+  const [chatMessage, setChatMessage] = useState([]);
+
+  const [sendMessage, setSendMessage] = useState("");
+
   const [uploadFile, setUploadFile] = useState([]);
+
+  const [socket, setSocket] = useState(null);
+
+  const [liveUser, setLiveUser] = useState(null);
 
   const role = useSelector((state) => state.profile.role);
 
@@ -30,20 +43,53 @@ const Index = () => {
 
   const { id } = useParams();
 
+  const userId = localStorage.getItem("allMasterId");
+
+  const navigate = useNavigate();
+
+  const createdBy = localStorage.getItem("allMasterId");
+
+  const onChatSuccessFunction = (data) => {
+    setChatMessage(data);
+  };
+
+  const type = useSelector((state) => state.profile.type);
+
+  const { data: userData } = useGetUserDetailsById(userId, type);
+
+  const { isLoading: chatLoading } = useGetChatById(id, onChatSuccessFunction);
+
+  const { mutate: mutateChat } = useInsertChat();
+
   const {
     data: uniqueTicketData,
     isLoading: ticketLoading,
     isSuccess: ticketSuccess,
   } = useGetSpecificTicketById(id);
 
+  useEffect(() => {
+    setSocket(io("ws://localhost:3008"));
+  }, []);
+
+  useEffect(() => {
+    socket?.emit("users", id, createdBy, role);
+    socket?.on("getUsers", (users) => {
+      setLiveUser(users);
+    });
+
+    socket?.on("getMessage", (data) => {
+      console.log(data, "emit");
+      const newChat = {
+        message: { message: data.text, createdAt: data.createdAt },
+        senderId: data.senderId,
+        senderName: data.senderName,
+      };
+      setChatMessage((prev) => [...prev, newChat]);
+    });
+  }, [socket, id, createdBy]);
+
   const { data: allUser, isLoading: userLoading } =
     useGetAllUserByGroupId(groupId);
-
-  const userId = localStorage.getItem("allMasterId");
-
-  const navigate = useNavigate();
-
-  const createdBy = localStorage.getItem("allMasterId");
 
   const { data: allGroupData, isLoading: groupLoading } =
     useGetAllGroups(userId);
@@ -109,7 +155,7 @@ const Index = () => {
     }
   }, [reset, ticketSuccess]);
 
-  if (groupLoading || ticketLoading || userLoading) {
+  if (groupLoading || ticketLoading || userLoading || chatLoading) {
     return <Loader />;
   }
 
@@ -120,6 +166,37 @@ const Index = () => {
     data.id = uniqueTicketData[0]._id;
     delete data.files;
     mutate(data);
+  };
+  const sendChatMessage = (e) => {
+    e.preventDefault();
+    const newChat = {
+      message: {
+        message: sendMessage,
+        createdAt: moment().toISOString(),
+      },
+      senderId: userId,
+    };
+
+    setChatMessage((prev) => [...prev, newChat]);
+
+    socket.emit("sendMessage", {
+      senderId: createdBy,
+      senderName: userData.fullName,
+      receiverId: [
+        uniqueTicketData[0].assignedTo,
+        uniqueTicketData[0].createdBy,
+      ],
+      text: sendMessage,
+      createdAt: moment().toISOString(),
+    });
+
+    mutateChat({
+      ticketId: id,
+      messageFrom: userId,
+      content: sendMessage,
+    });
+
+    setSendMessage("");
   };
 
   return (
@@ -352,7 +429,37 @@ const Index = () => {
                     </div>
                   </div>
                   <h3 style={{ fontWeight: "bold" }}>Chats</h3>
-                  <div className={classes.chat}></div>
+                  <div className={classes.chat}>
+                    {chatMessage.map((chat, i) => (
+                      <Chat
+                        key={i}
+                        message={chat.message}
+                        senderName={chat.senderName}
+                        senderId={chat.senderId === createdBy}
+                      />
+                    ))}
+                    <div className={classes.chatInput}>
+                      <input
+                        type="text"
+                        className={classes.chatInputBox}
+                        value={sendMessage}
+                        placeholder="Message"
+                        onChange={(e) => setSendMessage(e.target.value)}
+                      />
+                      {sendMessage ? (
+                        <SendIcon
+                          className={classes.sendMessage}
+                          width={10}
+                          onClick={sendChatMessage}
+                        />
+                      ) : (
+                        <CancelScheduleSendIcon
+                          className={classes.sendMessage}
+                          width={10}
+                        />
+                      )}
+                    </div>
+                  </div>
                 </div>
                 <div className={classes.inputdivs}>
                   <div>
