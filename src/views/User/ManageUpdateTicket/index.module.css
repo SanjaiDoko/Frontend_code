@@ -462,7 +462,6 @@
   background-color: #fff;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
-  padding: 20px;
   box-sizing: border-box;
   transition: transform 0.2s;
   -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
@@ -518,15 +517,30 @@
 .chatInputBox{
   width: 100%;
   border: 1px solid grey;
-  border-radius: 15px;
+  border-radius: 5px 0px 0px 5px;
   padding: 7px 9px;
+  outline: none;
 }
 
 .sendMessage{
   color:#00a1ff;
   border: 2px solid;
-  border-radius: 17px;
+  border-radius: 0px 5px 5px 0px;
   width: 100px !important;
   height: 39px !important;
 
+}
+.chattitle{
+  background-color: #00a1ff2b !important;
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  border-radius: 5px 5px 0px 0px;
+}
+.chattitle>h4{
+  margin-bottom: 0;
+  font-weight: bold;
+}
+.chatdiv{
+  padding: 20px;
 }

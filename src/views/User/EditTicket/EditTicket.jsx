@@ -81,9 +81,9 @@ const EditTicket = () => {
   });
 
   useEffect(() => {
-    setSocket(io("ws://localhost:3008"));
+    setSocket(io("ws://192.168.0.113:3008"));
   }, []);
-
+console.log(liveUser,"live")
   useEffect(() => {
     socket?.emit("users", id, createdBy, role);
     socket?.on("getUsers", (users) => {

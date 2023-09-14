@@ -68,7 +68,7 @@ const Index = () => {
   } = useGetSpecificTicketById(id);
 
   useEffect(() => {
-    setSocket(io("ws://localhost:3008"));
+    setSocket(io("ws://192.168.0.113:3008"));
   }, []);
 
   useEffect(() => {
@@ -428,8 +428,11 @@ const Index = () => {
                       )}
                     </div>
                   </div>
-                  <h3 style={{ fontWeight: "bold" }}>Chats</h3>
                   <div className={classes.chat}>
+                    <div className={classes.chattitle}>
+                     <h4>Live Chat</h4>
+                    </div>
+                    <div className={classes.chatdiv}>
                     {chatMessage.map((chat, i) => (
                       <Chat
                         key={i}
@@ -459,6 +462,8 @@ const Index = () => {
                         />
                       )}
                     </div>
+                    </div>
+                  
                   </div>
                 </div>
                 <div className={classes.inputdivs}>
