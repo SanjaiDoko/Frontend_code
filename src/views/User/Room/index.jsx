@@ -13,8 +13,6 @@ const Room = () => {
   const popup = useSelector((state) => state.roomPopup.popupStatus);
   const [roomId,setRoomId] = useState("")
   
-
-
   if (roomLoading) {
     return <Loader />;
   }
