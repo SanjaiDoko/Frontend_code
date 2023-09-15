@@ -126,7 +126,7 @@ function EodMail() {
                           rules={{
                             required: "Hours is required",
                             pattern: {
-                              value: /^[1-9]\d*$/,
+                              value: /^[1-9]\d*(\.\d{0,1})?$/,
                               message: "Invalid hours",
                             },
                             validate: {
