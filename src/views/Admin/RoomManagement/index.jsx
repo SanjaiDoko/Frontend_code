@@ -121,6 +121,7 @@ const RoomManagement = () => {
                     },
                   },
                 }}
+                hideFooterSelectedRowCount={true}
                 pageSizeOptions={[10]}
                 loading={roomLoading}
                 getRowId={(row) => row.roomId}

@@ -43,15 +43,25 @@
   gap: 5px;
 }
 .addDiv {
-  flex:1
+  flex-grow: 1;
 }
 
 .AddTicketDiv {
   display: flex;
   width: 100%;
+  gap: 20px;
 }
+.AddTicketDivCenter{
+  display: flex;
+  width: 65%;
+  gap: 20px;
+}
+
 .chatsDiv{
   flex:1
+}
+.chatdiv>h1{
+  font-weight: bold;
 }
 
 .attachement {
@@ -123,6 +133,10 @@
   justify-content: space-between;
   min-height: 100vh;
   width: 100%;
+  border-bottom: 2px solid #d8d9da;
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 0px 0px 8px 8px;
 }
 
 .addDivHeading {
@@ -397,4 +411,80 @@
   .uploaddiv{
     margin-top: 10px !important;
   }
+}
+
+.chat {
+  overflow: scroll;
+/* max-height: 100vh; */
+  /* margin-top: 15px; */
+  /* padding-bottom: 20px; */
+  border-bottom: 2px solid #d8d9da;
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 0px 0px 8px 8px;
+  box-sizing: border-box;
+  transition: transform 0.2s;
+  -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
+  box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
+  border: none;
+  margin-bottom: 30px;
+  height: 450px;
+}
+
+.chatdiv{
+  padding: 20px 20px 0px 20px;
+}
+
+.chatInput{
+  display: flex;
+  width: 100%;
+  margin-top: 10px;
+  position: sticky;
+  bottom: 0;
+  background-color: #fff;
+  padding: 20px 0px;
+    box-shadow: 0 -5px 5px -5px #ababab;
+  
+}
+
+.chatInputBox{
+  width: 100%;
+  border: 1px solid grey;
+  border-radius: 5px 0px 0px 5px;
+  padding: 7px 9px;
+  outline: none;
+}
+
+.sendMessage{
+  color:#00a1ff;
+  border: 2px solid;
+  border-radius: 0px 5px 5px 0px;
+  width: 100px !important;
+  height: 39px !important;
+
+}
+.rightchat{
+  width:90%;
+  height: 100vh;
+}
+.leftviewTicket{
+  padding: 12px;
+}
+.chattitle{
+  background-color: #00a1ff2b !important;
+  border-bottom: 2px solid #d8d9da;
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  border-radius: 8px 8px 0px 0px;
+}
+.chattitle>h4{
+  margin-bottom: 0;
+  font-weight: bold;
+}
+.msgdiv{
+  min-height: 400px !important;
 }

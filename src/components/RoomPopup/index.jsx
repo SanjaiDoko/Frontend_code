@@ -52,6 +52,7 @@ export const RoomPopup = ({ open, titleText, roomId }) => {
     formState: { errors },
     control,
     watch,
+    reset
   } = useForm({
     resolver: yupResolver(bookRoomValidation),
     mode: "onTouched",
@@ -79,7 +80,6 @@ export const RoomPopup = ({ open, titleText, roomId }) => {
       open={open}
       fullWidth
       maxWidth="sm"
-      onClose={() => dispatch(closePopup())}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
       className={styles.maindiv}
@@ -92,7 +92,7 @@ export const RoomPopup = ({ open, titleText, roomId }) => {
       <DialogTitle id="alert-dialog-title" className={styles.titletext}>
         <p className={styles.title}>{titleText}</p>
         <Button
-          onClick={() => dispatch(closePopup())}
+          onClick={() => {reset();dispatch(closePopup())}}
           className={styles.closebtns}
         >
           <AiOutlineClose />
@@ -244,7 +244,7 @@ export const RoomPopup = ({ open, titleText, roomId }) => {
             <button
               type="button"
               className={styles.nobtn}
-              onClick={() => dispatch(closePopup())}
+              onClick={() => {reset(); dispatch(closePopup())}}
             >
               No
             </button>

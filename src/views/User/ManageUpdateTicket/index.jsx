@@ -6,7 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import classes from "./index.module.css";
 import { updateManageTicketValidation } from "../../../validationSchema/updateManageTicketValidation";
 import { openFileNewWindow } from "../../../helper";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   useGetAllUserByGroupId,
   useGetSpecificTicketById,
@@ -26,7 +26,11 @@ import { useGetChatById, useInsertChat } from "../../../hooks/chat";
 import { useGetUserDetailsById } from "../../../hooks/userManagement";
 import CancelScheduleSendIcon from "@mui/icons-material/CancelScheduleSend";
 import SendIcon from "@mui/icons-material/Send";
+import { SOCKETPORT } from "../../../config";
+
 const Index = () => {
+  const messagesDivRef = useRef(null);
+
   const [chatMessage, setChatMessage] = useState([]);
 
   const [sendMessage, setSendMessage] = useState("");
@@ -61,15 +65,25 @@ const Index = () => {
 
   const { mutate: mutateChat } = useInsertChat();
 
+  const tokenId = localStorage.getItem("allMasterToken")
   const {
     data: uniqueTicketData,
     isLoading: ticketLoading,
     isSuccess: ticketSuccess,
   } = useGetSpecificTicketById(id);
+  useEffect(() => {
+    setSocket(io(SOCKETPORT,{
+      query: {
+        token:tokenId, 
+      },
+    }));
+  }, []);
 
   useEffect(() => {
-    setSocket(io("ws://localhost:3008"));
-  }, []);
+    if (messagesDivRef.current) {
+      messagesDivRef.current.scrollTop = messagesDivRef.current.scrollHeight;
+    }
+  }, [socket, messagesDivRef.current, chatMessage]);
 
   useEffect(() => {
     socket?.emit("users", id, createdBy, role);
@@ -198,7 +212,7 @@ const Index = () => {
 
     setSendMessage("");
   };
-
+  // console.log(liveUser,"liveUser")
   return (
     <div className="container">
       <div className={classes.mainDiv}>
@@ -428,19 +442,25 @@ const Index = () => {
                       )}
                     </div>
                   </div>
-                  <div className={classes.chat}>
-                    <div className={classes.chattitle}>
-                     <h4>Live Chat</h4>
-                    </div>
-                    <div className={classes.chatdiv}>
+                  {uniqueTicketData[0].assignedTo &&
+                  <>
+                  
+                  <div className={classes.chattitle}>
+                  <h4>Chat</h4>
+                </div>
+                <div className={classes.chat} ref={messagesDivRef}>
+                  <div className={classes.chatdiv}>
+                    <div className={chatMessage.length <2 ? `${classes.msgdiv}` : ""}>
                     {chatMessage.map((chat, i) => (
                       <Chat
                         key={i}
                         message={chat.message}
+                        beforeDate={chatMessage[i - 1]?.message.createdAt}
                         senderName={chat.senderName}
                         senderId={chat.senderId === createdBy}
                       />
                     ))}
+                    </div>
                     <div className={classes.chatInput}>
                       <input
                         type="text"
@@ -462,9 +482,11 @@ const Index = () => {
                         />
                       )}
                     </div>
-                    </div>
-                  
                   </div>
+                </div>
+                </>
+                  }
+                  
                 </div>
                 <div className={classes.inputdivs}>
                   <div>

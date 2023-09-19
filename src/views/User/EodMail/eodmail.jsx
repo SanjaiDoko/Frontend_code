@@ -23,6 +23,7 @@ function EodMail() {
     formState: { errors },
   } = useForm({
     defaultValues: {
+      eodDate: null,
       eodSummary: [
         {
           hours: "",
@@ -41,9 +42,9 @@ function EodMail() {
   const onSubmit = (data) => {
     data.groupId = groupId;
     data.createdBy = createdBy;
-    data.ccMail = data.ccMail.includes(",")
+    data.ccMail =  data.ccMail ? data.ccMail.includes(",")
       ? data.ccMail.split(",")
-      : [data.ccMail];
+      : [data.ccMail] : [];
     mutate(data);
   };
 
@@ -72,6 +73,7 @@ function EodMail() {
                     sx={{ width: "100%" }}
                     {...field}
                     format="DD-MM-YYYY"
+                    disableFuture
                   />
                 )}
               />
@@ -127,7 +129,16 @@ function EodMail() {
                           name={`eodSummary.${index}.hours`}
                           control={control}
                           rules={{
-                            required: "Number of Hours is required",
+                            required: "Hours is required",
+                            pattern: {
+                              value: /^[1-9]\d*$/,
+                              message: "Invalid hours",
+                            },
+                            validate: {
+                              checkLength: (value) =>
+                                value < 18 || "Enter Less than 18 hours",
+                            
+                            },
                           }}
                           render={({ field }) => (
                             <Form.Control
@@ -137,6 +148,7 @@ function EodMail() {
                               min="0"
                               id="hours"
                               placeholder="Enter Hours"
+                              onWheel={() => document.activeElement.blur()}
                             />
                           )}
                         />
@@ -187,9 +199,9 @@ function EodMail() {
             <Controller
               name="ccMail"
               control={control}
-              rules={{
-                required: "CC Mail is required",
-              }}
+              // rules={{
+              //   required: "CC Mail is required",
+              // }}
               render={({ field }) => (
                 <Form.Control
                   {...field}
@@ -199,9 +211,9 @@ function EodMail() {
                 />
               )}
             />
-            {errors?.ccMail && (
+            {/* {errors?.ccMail && (
               <p className="error">{errors?.ccMail.message}</p>
-            )}
+            )} */}
           </Form.Group>
           <div className={styles.buttonDiv}>
             <button
