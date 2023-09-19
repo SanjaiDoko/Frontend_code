@@ -68,7 +68,7 @@ const Index = () => {
   } = useGetSpecificTicketById(id);
 
   useEffect(() => {
-    setSocket(io("ws://192.168.0.113:3008"));
+    setSocket(io("ws://localhost:3008"));
   }, []);
 
   useEffect(() => {

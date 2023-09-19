@@ -4,9 +4,7 @@ import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ReactComponent as CloseIcon } from "../../../assets/Icons/closeIcon.svg";
 import styles from "./index.module.css";
-import {
-  createRoomValidation
-} from "../../../validationSchema/roomValidation";
+import { createRoomValidation } from "../../../validationSchema/roomValidation";
 import { MdDeleteForever } from "react-icons/md";
 import { useEffect, useState } from "react";
 import Loader from "../../../components/Loader/Loader";
@@ -14,12 +12,10 @@ import { CircularProgress } from "@mui/material";
 import { useInsertRoom, useUpdateRoom } from "../../../hooks/room";
 
 const AddAndEditRoom = ({ onCloseButtonClick, editData, isEdit, type }) => {
-
-    console.log(editData,"edit Data")
+  console.log(editData, "edit Data");
 
   const { mutate: insertMutate, isLoading: insertLoading } =
     useInsertRoom(onCloseButtonClick);
-
 
   const { mutate: updateMutate, isLoading: updateLoading } =
     useUpdateRoom(onCloseButtonClick);
@@ -33,22 +29,22 @@ const AddAndEditRoom = ({ onCloseButtonClick, editData, isEdit, type }) => {
     mode: "onTouched",
     defaultValues: {
       roomNo: isEdit ? editData.roomNo : "",
-      roomName: isEdit
-        ? editData.roomName
-        : "",
+      roomName: isEdit ? editData.roomName : "",
       status: isEdit ? `${editData.status}` : "1",
     },
   });
 
-
   function onSubmit(data) {
-    data.status = parseInt(data.status)
+    data.status = parseInt(data.status);
     if (isEdit) {
-        data.id = editData.roomId
+      data.id = editData.roomId;
       updateMutate(data);
     } else {
       insertMutate(data);
     }
+  }
+  if (insertLoading || updateLoading) {
+    return <Loader />;
   }
 
   return (

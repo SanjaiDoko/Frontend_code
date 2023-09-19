@@ -4,6 +4,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { Form } from "react-bootstrap";
 import { DatePicker } from "@mui/x-date-pickers";
 import { useMutateEod } from "../../../hooks/eodHooks";
+import Loader from "../../../components/Loader/Loader";
 
 function EodMail() {
   const initialTaskData = {
@@ -14,7 +15,7 @@ function EodMail() {
   const groupId = localStorage.getItem("groupId");
   const createdBy = localStorage.getItem("allMasterId");
 
-  const { mutate } = useMutateEod();
+  const { mutate, isLoading } = useMutateEod();
 
   const {
     control,
@@ -43,9 +44,12 @@ function EodMail() {
     data.ccMail = data.ccMail.includes(",")
       ? data.ccMail.split(",")
       : [data.ccMail];
-    console.log(data, "datat");
     mutate(data);
   };
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <div className={styles.mainDiv}>
@@ -130,6 +134,7 @@ function EodMail() {
                               {...field}
                               style={{ textTransform: "capitalize" }}
                               type="number"
+                              min="0"
                               id="hours"
                               placeholder="Enter Hours"
                             />
