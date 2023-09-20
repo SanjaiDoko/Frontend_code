@@ -6,9 +6,8 @@ import { useGetRoomBookingsDetails } from "../../../hooks/room";
 import { useParams } from "react-router-dom";
 import moment from "moment";
 
-
 function RoomBookingDetail() {
-  const {id: roomId} = useParams()
+  const { id: roomId } = useParams();
   const [searchValue, setSearchValue] = useState("");
 
   const { data, isloading } = useGetRoomBookingsDetails(roomId);
@@ -35,7 +34,7 @@ function RoomBookingDetail() {
       headerName: "Start Time",
       width: 200,
       renderCell: (params) => {
-        return moment(params.row.startsAt).format('DD-MM-YYYY HH:mm');
+        return moment(params.row.startsAt).format("DD-MM-YYYY /HH:mm");
       },
     },
     {
@@ -44,7 +43,7 @@ function RoomBookingDetail() {
       headerName: "End Time",
       width: 200,
       renderCell: (params) => {
-        return moment(params.row.endsAt).format('DD-MM-YYYY HH:mm');
+        return moment(params.row.endsAt).format("DD-MM-YYYY /HH:mm");
       },
     },
     {
@@ -53,7 +52,7 @@ function RoomBookingDetail() {
       headerName: "Booking Reason",
       width: 200,
       renderCell: (params) => {
-        return "Reason";
+        return params.row.bookedReason;
       },
     },
     {
@@ -61,8 +60,8 @@ function RoomBookingDetail() {
       flex: 1,
       headerName: "Status",
       width: 200,
-      renderCell: (value) =>  "Not start yet",
-    }
+      renderCell: (value) => "Not start yet",
+    },
   ];
 
   if (isloading) {

@@ -19,7 +19,7 @@ import moment from "moment";
 import { useGetUserDetailsById } from "../../../hooks/userManagement";
 import CancelScheduleSendIcon from "@mui/icons-material/CancelScheduleSend";
 import SendIcon from "@mui/icons-material/Send";
-import {useSocket} from "../../../hooks/socket";
+import { useSocket } from "../../../hooks/socket";
 
 const EditTicket = () => {
   const messagesDivRef = useRef(null);
@@ -43,7 +43,6 @@ const EditTicket = () => {
   const role = useSelector((state) => state.profile.role);
 
   const navigate = useNavigate();
-
 
   const onChatSuccessFunction = (data) => {
     setChatMessage(data);
@@ -160,7 +159,13 @@ const EditTicket = () => {
   return (
     <div className="container">
       <div className={classes.mainDiv}>
-        <div className={uniqueTicketData[0].assignedTo ? `${classes.AddTicketDiv}`: `${classes.AddTicketDivCenter}`}>
+        <div
+          className={
+            uniqueTicketData[0].assignedTo
+              ? `${classes.AddTicketDiv}`
+              : `${classes.AddTicketDivCenter}`
+          }
+        >
           <form className={classes.addDiv}>
             <div className={classes.leftviewTicket}>
               <div className={classes.addDivHeading}>
@@ -334,73 +339,74 @@ const EditTicket = () => {
                   </span>
                 )}
               </div>
-              <div>
-                <Form.Group className="pt-2">
-                  <Form.Label htmlFor="mailList" className="formlabel">
-                    Mail To
-                  </Form.Label>
-                  <Controller
-                    name="mailList"
-                    control={control}
-                    render={({ field }) => (
-                      <Form.Control
-                        type="text"
-                        {...field}
-                        id="mailList"
-                        disabled
-                        placeholder="Enter Mail To"
-                      />
-                    )}
-                  />
-                  {errors.mailTo && (
-                    <span className={classes.error}>
-                      {errors.mailTo.message}
-                    </span>
-                  )}
-                </Form.Group>
-
-                <Form.Group className="pt-2">
-                  {uploadFile && uploadFile.length > 0 && (
+              {uniqueTicketData[0].mailList[0] !== "" && (
+                <div>
+                  <Form.Group className="pt-2">
                     <Form.Label htmlFor="mailList" className="formlabel">
-                      Uploaded File
+                      Mail To
                     </Form.Label>
-                  )}
-                </Form.Group>
-
-                {uploadFile.map((e, i) => {
-                  return (
-                    <div className={classes.filecontainer} key={i}>
-                      {e.fileData ? (
-                        <p
-                          title={e.fileName}
-                          onClick={() => openFileNewWindow(e.fileData)}
-                          className={classes.filename}
-                        >
-                          {e.fileName}
-                        </p>
-                      ) : (
-                        <p
-                          title={e.fileName}
-                          onClick={() => openFileNewWindow(e.filePath)}
-                          className={classes.filename}
-                        >
-                          {e.fileName}
-                        </p>
+                    <Controller
+                      name="mailList"
+                      control={control}
+                      render={({ field }) => (
+                        <Form.Control
+                          type="text"
+                          {...field}
+                          id="mailList"
+                          disabled
+                          placeholder="Enter Mail To"
+                        />
                       )}
-                      <div>
-                        {/* <DeleteIcon
+                    />
+                    {errors.mailTo && (
+                      <span className={classes.error}>
+                        {errors.mailTo.message}
+                      </span>
+                    )}
+                  </Form.Group>
+
+                  <Form.Group className="pt-2">
+                    {uploadFile && uploadFile.length > 0 && (
+                      <Form.Label htmlFor="mailList" className="formlabel">
+                        Uploaded File
+                      </Form.Label>
+                    )}
+                  </Form.Group>
+
+                  {uploadFile.map((e, i) => {
+                    return (
+                      <div className={classes.filecontainer} key={i}>
+                        {e.fileData ? (
+                          <p
+                            title={e.fileName}
+                            onClick={() => openFileNewWindow(e.fileData)}
+                            className={classes.filename}
+                          >
+                            {e.fileName}
+                          </p>
+                        ) : (
+                          <p
+                            title={e.fileName}
+                            onClick={() => openFileNewWindow(e.filePath)}
+                            className={classes.filename}
+                          >
+                            {e.fileName}
+                          </p>
+                        )}
+                        <div>
+                          {/* <DeleteIcon
                         sx={{
                           cursor: "pointer",
                           color: "red",
                         }}
                         onClick={() => removeFileHandler(uploadFile, i)}
                       /> */}
+                        </div>
                       </div>
-                    </div>
-                  );
-                })}
-              </div>
-
+                    );
+                  })}
+                </div>
+              )}
               <button
                 type="button"
                 onClick={() => navigate("/user/mytickets")}
@@ -410,50 +416,53 @@ const EditTicket = () => {
               </button>
             </div>
           </form>
-          {uniqueTicketData[0].assignedTo &&
-          <div className={classes.rightchat}>
-          <div className={classes.chattitle}>
-            <h4>Chat</h4>
-          </div>
-          <div className={classes.chat} ref={messagesDivRef}>
-            <div className={classes.chatdiv}>
-            <div className={chatMessage.length <2 ? `${classes.msgdiv}` : ""}>
-              {chatMessage.map((chat, i) => (
-                <Chat
-                  key={i}
-                  message={chat.message}
-                  beforeDate = {chatMessage[i-1]?.message.createdAt}
-                  senderName={chat.senderName}
-                  senderId={chat.senderId === createdBy}
-                />
-              ))}
+          {uniqueTicketData[0].assignedTo && (
+            <div className={classes.rightchat}>
+              <div className={classes.chattitle}>
+                <h4>Chat</h4>
               </div>
-              <div className={classes.chatInput}>
-                <input
-                  type="text"
-                  className={classes.chatInputBox}
-                  value={sendMessage}
-                  placeholder="Message"
-                  onChange={(e) => setSendMessage(e.target.value)}
-                />
-                {sendMessage ? (
-                  <SendIcon
-                    className={classes.sendMessage}
-                    width={10}
-                    onClick={sendChatMessage}
-                  />
-                ) : (
-                  <CancelScheduleSendIcon
-                    className={classes.sendMessage}
-                    width={10}
-                  />
-                )}
+              <div className={classes.chat} ref={messagesDivRef}>
+                <div className={classes.chatdiv}>
+                  <div
+                    className={
+                      chatMessage.length < 2 ? `${classes.msgdiv}` : ""
+                    }
+                  >
+                    {chatMessage.map((chat, i) => (
+                      <Chat
+                        key={i}
+                        message={chat.message}
+                        beforeDate={chatMessage[i - 1]?.message.createdAt}
+                        senderName={chat.senderName}
+                        senderId={chat.senderId === createdBy}
+                      />
+                    ))}
+                  </div>
+                  <div className={classes.chatInput}>
+                    <input
+                      type="text"
+                      className={classes.chatInputBox}
+                      value={sendMessage}
+                      placeholder="Message"
+                      onChange={(e) => setSendMessage(e.target.value)}
+                    />
+                    {sendMessage ? (
+                      <SendIcon
+                        className={classes.sendMessage}
+                        width={10}
+                        onClick={sendChatMessage}
+                      />
+                    ) : (
+                      <CancelScheduleSendIcon
+                        className={classes.sendMessage}
+                        width={10}
+                      />
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-          }
-          
+          )}
         </div>
       </div>
     </div>

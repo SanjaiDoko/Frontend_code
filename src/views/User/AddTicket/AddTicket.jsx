@@ -273,7 +273,7 @@ const AddTicket = () => {
             <div>
               <Form.Group className="pt-2">
                 <Form.Label htmlFor="mailList" className="formlabel">
-                  CC Mail
+                  CC Mail <span className={classes.optionaltxt}>(Optional)</span>
                 </Form.Label>
                 <Controller
                   name="mailList"

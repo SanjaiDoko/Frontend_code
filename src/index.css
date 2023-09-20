@@ -87,3 +87,6 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+.ck-editor__main{
+  width: 100% !important;
+}

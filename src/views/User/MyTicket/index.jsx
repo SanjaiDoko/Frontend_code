@@ -105,42 +105,44 @@ function Dashboard() {
               Create Ticket
             </button>
           </div>
-          <div className={styles.searchDiv}>
-            <img src={searchLogo} alt="searchlogo" />
-            <input
-              type="text"
-              className={styles.searchInput}
-              onChange={(e) => setSearchValue(e.target.value)}
-              placeholder="Search by Ticket ID"
-            />
-          </div>
           {data && data.length > 0 ? (
-            <div className={styles.girdoverflow}>
-              <DataGrid
-                className={styles.dataGrid}
-                sx={{ textTransform: "capitalize", minHeight: "400px" }}
-                rows={
-                  data && searchValue !== ""
-                    ? data.filter((e) =>
-                        e.ticketId
-                          .toLowerCase()
-                          .includes(searchValue.toLowerCase())
-                      )
-                    : data
-                }
-                columns={columns}
-                getRowId={(data) => data._id}
-                hideFooterSelectedRowCount={true}
-                onCellClick={(row) => rowClickFunction(row)}
-                initialState={{
-                  pagination: {
-                    paginationModel: {
-                      pageSize: 10,
+            <>
+              <div className={styles.searchDiv}>
+                <img src={searchLogo} alt="searchlogo" />
+                <input
+                  type="text"
+                  className={styles.searchInput}
+                  onChange={(e) => setSearchValue(e.target.value)}
+                  placeholder="Search by Ticket ID"
+                />
+              </div>
+              <div className={styles.girdoverflow}>
+                <DataGrid
+                  className={styles.dataGrid}
+                  sx={{ textTransform: "capitalize", minHeight: "400px" }}
+                  rows={
+                    data && searchValue !== ""
+                      ? data.filter((e) =>
+                          e.ticketId
+                            .toLowerCase()
+                            .includes(searchValue.toLowerCase())
+                        )
+                      : data
+                  }
+                  columns={columns}
+                  getRowId={(data) => data._id}
+                  hideFooterSelectedRowCount={true}
+                  onCellClick={(row) => rowClickFunction(row)}
+                  initialState={{
+                    pagination: {
+                      paginationModel: {
+                        pageSize: 10,
+                      },
                     },
-                  },
-                }}
-              />
-            </div>
+                  }}
+                />
+              </div>
+            </>
           ) : (
             <div className={styles.nogroup}>
               <h4>Do you face any Issue ?</h4>

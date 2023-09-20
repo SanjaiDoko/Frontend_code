@@ -516,7 +516,7 @@
 }
 
 .chatdiv{
-  padding: 20px;
+  padding: 20px 20px 0px 20px;
 }
 
 .chatInput{
@@ -527,8 +527,6 @@
   bottom: 0;
   background-color: #fff;
   padding: 20px 0px;
-    box-shadow: 0 -5px 5px -5px #ababab;
-  
 }
 
 .chatInputBox{

@@ -25,7 +25,6 @@ import SendIcon from "@mui/icons-material/Send";
 import { useSocket } from "../../../hooks/socket";
 
 const EditTicket = () => {
-
   const messagesDivRef = useRef(null);
 
   const type = useSelector((state) => state.profile.type);
@@ -49,17 +48,13 @@ const EditTicket = () => {
   const { id } = useParams();
 
   const onChatSuccessFunction = (data) => {
-    setChatMessage(data)
+    setChatMessage(data);
     console.log(data);
   };
 
-  const { isLoading: chatLoading } = useGetChatById(
-    id,
-    onChatSuccessFunction
-  );
+  const { isLoading: chatLoading } = useGetChatById(id, onChatSuccessFunction);
 
-  const { data:userData } = useGetUserDetailsById(userId, type);
-
+  const { data: userData } = useGetUserDetailsById(userId, type);
 
   const { mutate: mutateChat } = useInsertChat();
 
@@ -117,27 +112,24 @@ const EditTicket = () => {
     if (messagesDivRef.current) {
       messagesDivRef.current.scrollTop = messagesDivRef.current.scrollHeight;
     }
-  }, [socket,messagesDivRef.current,chatMessage]);
+  }, [socket, messagesDivRef.current, chatMessage]);
 
-  useEffect(()=>{
+  useEffect(() => {
+    socket?.emit("users", id, createdBy, role);
+    socket?.on("getUsers", (users) => {
+      setLiveUser(users);
+    });
 
-      socket?.emit("users",id,createdBy,role)
-      socket?.on("getUsers",users=>{
-        setLiveUser(users)
-      })
-
-      socket?.on("getMessage", (data) => {
-        
+    socket?.on("getMessage", (data) => {
       const newChat = {
         message: { message: data.text, createdAt: data.createdAt },
         senderId: data.senderId,
-        senderName: data.senderName
+        senderName: data.senderName,
       };
-      
-      setChatMessage((prev)=>([...prev,newChat]))
+
+      setChatMessage((prev) => [...prev, newChat]);
     });
-      
-  },[socket,id,createdBy])
+  }, [socket, id, createdBy]);
 
   useEffect(() => {
     if (ticketSuccess) {
@@ -171,22 +163,25 @@ const EditTicket = () => {
   };
 
   const sendChatMessage = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const newChat = {
       message: { message: sendMessage, createdAt: moment().toISOString() },
       senderId: createdBy,
     };
 
-    setChatMessage((prev)=>([...prev,newChat]))
+    setChatMessage((prev) => [...prev, newChat]);
 
     socket.emit("sendMessage", {
       senderId: createdBy,
-      senderName:userData.fullName,
-      receiverId: [uniqueTicketData[0].managerBy,uniqueTicketData[0].createdBy],
+      senderName: userData.fullName,
+      receiverId: [
+        uniqueTicketData[0].managerBy,
+        uniqueTicketData[0].createdBy,
+      ],
       text: sendMessage,
-      createdAt: moment().toISOString()
+      createdAt: moment().toISOString(),
     });
-    
+
     mutateChat({
       ticketId: id,
       messageFrom: createdBy,
@@ -352,31 +347,33 @@ const EditTicket = () => {
                         )}
                       </Form.Group>
                     </div>
-                    <div className={classes.mailflexed}>
-                      <Form.Group className="pt-2">
-                        <Form.Label htmlFor="mailList" className="formlabel">
-                          Mail To :
-                        </Form.Label>
-                        <Controller
-                          name="mailList"
-                          control={control}
-                          render={({ field }) => (
-                            <Form.Control
-                              type="text"
-                              {...field}
-                              id="mailList"
-                              disabled
-                              placeholder="Enter Mail To"
-                            />
+                    {uniqueTicketData[0].mailList[0] !== "" && (
+                      <div className={classes.mailflexed}>
+                        <Form.Group className="pt-2">
+                          <Form.Label htmlFor="mailList" className="formlabel">
+                            Mail To :
+                          </Form.Label>
+                          <Controller
+                            name="mailList"
+                            control={control}
+                            render={({ field }) => (
+                              <Form.Control
+                                type="text"
+                                {...field}
+                                id="mailList"
+                                disabled
+                                placeholder="Enter Mail To"
+                              />
+                            )}
+                          />
+                          {errors.mailTo && (
+                            <span className={classes.error}>
+                              {errors.mailTo.message}
+                            </span>
                           )}
-                        />
-                        {errors.mailTo && (
-                          <span className={classes.error}>
-                            {errors.mailTo.message}
-                          </span>
-                        )}
-                      </Form.Group>
-                    </div>
+                        </Form.Group>
+                      </div>
+                    )}
                     <div>
                       <Form.Label style={{ fontWeight: "bold" }}>
                         Issue Description :
@@ -438,44 +435,47 @@ const EditTicket = () => {
                     </div>
                   </div>
                   <div className={classes.chattitle}>
-                     <h4>Chat</h4>
-                    </div>
+                    <h4>Chat</h4>
+                  </div>
                   <div className={classes.chat} ref={messagesDivRef}>
                     <div className={classes.chatdiv}>
-                    <div className={chatMessage.length <2 ? `${classes.msgdiv}` : ""}>
-                    {chatMessage.map((chat, i) => (
-                      <Chat
-                        key={i}
-                        message={chat.message}
-                        beforeDate = {chatMessage[i-1]?.message.createdAt}
-                        senderName={chat.senderName}
-                        senderId={chat.senderId === createdBy}
-                      />
-                    ))}
-                    </div>
-                    <div className={classes.chatInput}>
-                      <input
-                        type="text"
-                        className={classes.chatInputBox}
-                        value={sendMessage}
-                        placeholder="Message"
-                        onChange={(e) => setSendMessage(e.target.value)}
-                      />
-                      {sendMessage ? (
-                        <SendIcon
-                          className={classes.sendMessage}
-                          width={10}
-                          onClick={sendChatMessage}
+                      <div
+                        className={
+                          chatMessage.length < 2 ? `${classes.msgdiv}` : ""
+                        }
+                      >
+                        {chatMessage.map((chat, i) => (
+                          <Chat
+                            key={i}
+                            message={chat.message}
+                            beforeDate={chatMessage[i - 1]?.message.createdAt}
+                            senderName={chat.senderName}
+                            senderId={chat.senderId === createdBy}
+                          />
+                        ))}
+                      </div>
+                      <div className={classes.chatInput}>
+                        <input
+                          type="text"
+                          className={classes.chatInputBox}
+                          value={sendMessage}
+                          placeholder="Message"
+                          onChange={(e) => setSendMessage(e.target.value)}
                         />
-                      ) : (
-                        <CancelScheduleSendIcon
-                          className={classes.sendMessage}
-                          width={10}
-                        />
-                      )}
+                        {sendMessage ? (
+                          <SendIcon
+                            className={classes.sendMessage}
+                            width={10}
+                            onClick={sendChatMessage}
+                          />
+                        ) : (
+                          <CancelScheduleSendIcon
+                            className={classes.sendMessage}
+                            width={10}
+                          />
+                        )}
+                      </div>
                     </div>
-                    </div>
-                  
                   </div>
                 </div>
                 <div className={classes.inputdetailsdiv}>
