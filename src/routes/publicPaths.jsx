@@ -18,6 +18,8 @@ const ResetPasswordComponent = lazy(() =>
   import("../views/PublicPages/ResetPassword/index")
 );
 
+
+
 const publicPaths = [
   {
     path: "change-password/:id/:type",

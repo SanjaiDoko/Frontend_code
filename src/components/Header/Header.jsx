@@ -16,8 +16,9 @@ function Header() {
   const { mutate } = useLogoutUser(type);
   const role = useSelector((state) => state.profile.role);
   const userId = localStorage.getItem("allMasterId");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { data, isLoading } = useGetUserDetailsById(userId, type);
+
 
   if (isLoading) {
     return <Loader />;
@@ -26,7 +27,7 @@ function Header() {
   return (
     <Navbar collapseOnSelect expand="lg">
       <Container className="container">
-        <Link to="/home" className="brandlogo">
+        <Link to="/user/dashboard" className="brandlogo">
           <img src={Mainlogo} className="headerlogo" alt="" />
         </Link>
         <Navbar.Toggle aria-controls="responsive-navbar-nav">
@@ -37,6 +38,11 @@ function Header() {
           className="justify-content-end"
         >
           <Nav>
+            {(role === 1 || role === 3) && (
+              <Link className="linktag" to="/menu">
+                Menu
+              </Link>
+            )}
             {role === 1 && (
               <Link className="linktag" to="/user/eodlist">
                 EOD
@@ -88,28 +94,26 @@ function Header() {
               </Link>
             )}
             <Nav.Item className="linktag">
-
-            { (role === 1 || role === 3) && <NavDropdown
-              title="Room"
-              id="basic-nav-dropdown"
-            >
-              <NavDropdown.Item
-                className="dropdownlink"
-                onClick={() => {
-                  navigate("/user/rooms");
-                }}
-              >
-                Room Book
-              </NavDropdown.Item>
-              <NavDropdown.Item
-                className="dropdownlink"
-                onClick={() => {
-                  navigate("/user/myroombookings");
-                }}
-              >
-                My Bookings
-              </NavDropdown.Item>
-            </NavDropdown>}
+              {(role === 1 || role === 3) && (
+                <NavDropdown title="Room" id="basic-nav-dropdown">
+                  <NavDropdown.Item
+                    className="dropdownlink"
+                    onClick={() => {
+                      navigate("/user/rooms");
+                    }}
+                  >
+                    Room Book
+                  </NavDropdown.Item>
+                  <NavDropdown.Item
+                    className="dropdownlink"
+                    onClick={() => {
+                      navigate("/user/myroombookings");
+                    }}
+                  >
+                    My Bookings
+                  </NavDropdown.Item>
+                </NavDropdown>
+              )}
             </Nav.Item>
 
             <Nav.Item className="d-flex gap-2">

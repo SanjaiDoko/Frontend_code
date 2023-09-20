@@ -1,0 +1,173 @@
+:root {
+  --color-text: #616161;
+  --color-text-btn: #ffffff;
+  --card1-gradient-color1: #0051ff;
+  --card1-gradient-color2: #a0dcff;
+  --card2-gradient-color1: #7f00ff;
+  --card2-gradient-color2: #e100ff;
+  --card3-gradient-color1: #3f2b96;
+  --card3-gradient-color2: #a8c0ff;
+  --card4-gradient-color1: #11998e;
+  --card4-gradient-color2: #38ef7d;
+  --card5-gradient-color1: #ef3838;
+  --card5-gradient-color2: #ffc000;
+}
+.maindiv {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 50px;
+  padding-top: 100px;
+  padding-bottom: 50px !important;
+}
+.cardwrap {
+  width: 300px;
+  background: #fff;
+  border-radius: 20px;
+  border: 5px solid #fff;
+  overflow: hidden;
+  color: var(--color-text);
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+.cardwrap:hover {
+  transform: scale(1.05);
+}
+.cardheader {
+  height: 200px;
+  width: 100%;
+  background: #00a1ff;
+  border-radius: 100% 0% 100% 0% / 0% 50% 50% 100%;
+  display: grid;
+  place-items: center;
+}
+
+.cardheader i {
+  color: #fff;
+  font-size: 72px;
+}
+.cardcontent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  margin: 0 auto;
+}
+.cardtitle {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 16px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+.cardtext {
+  text-align: center;
+  font-size: 12px;
+  margin-bottom: 20px;
+  min-height: 90px;
+}
+.cardbtn {
+  border: none;
+  border-radius: 100px;
+  padding: 5px 30px;
+  color: #fff;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}
+.cardheader.one {
+  background: linear-gradient(
+    to bottom left,
+    var(--card1-gradient-color1),
+    var(--card1-gradient-color2)
+  );
+}
+.cardheader.two {
+  background: linear-gradient(
+    to bottom left,
+    var(--card2-gradient-color1),
+    var(--card2-gradient-color2)
+  );
+}
+.cardheader.three {
+  background: linear-gradient(
+    to bottom left,
+    var(--card3-gradient-color1),
+    var(--card3-gradient-color2)
+  );
+}
+.cardheader.four {
+  background: linear-gradient(
+    to bottom left,
+    var(--card4-gradient-color1),
+    var(--card4-gradient-color2)
+  );
+}
+.cardheader.five {
+  background: linear-gradient(
+    to bottom left,
+    var(--card5-gradient-color1),
+    var(--card5-gradient-color2)
+  );
+}
+
+.cardbtn.one {
+  background: linear-gradient(
+    to left,
+    var(--card1-gradient-color1),
+    var(--card1-gradient-color2)
+  );
+}
+.cardbtn.two {
+  background: linear-gradient(
+    to left,
+    var(--card2-gradient-color1),
+    var(--card2-gradient-color2)
+  );
+}
+.cardbtn.three {
+  background: linear-gradient(
+    to left,
+    var(--card3-gradient-color1),
+    var(--card3-gradient-color2)
+  );
+}
+.cardbtn.four {
+  background: linear-gradient(
+    to left,
+    var(--card4-gradient-color1),
+    var(--card4-gradient-color2)
+  );
+}
+.cardbtn.five {
+  background: linear-gradient(
+    to left,
+    var(--card5-gradient-color1),
+    var(--card5-gradient-color2)
+  );
+}
+.heading {
+  font-weight: bold;
+  color: #fff;
+}
+
+.icons {
+  font-size: 100px !important;
+  color: #fff !important;
+}
+.footerdiv {
+  width: 100%;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  background-color: #e5e5e5;
+}
+.footertxt {
+  text-align: center;
+  margin-bottom: 0;
+  padding: 15px 0px;
+  font-size: 15px;
+  font-weight: bold;
+  color: #000;
+}
