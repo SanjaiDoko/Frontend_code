@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Loader from "../../../components/Loader/Loader";
 import { useGetEodById } from "../../../hooks/eodHooks";
 import moment from "moment/moment";
+import {TbMoodEmpty} from 'react-icons/tb';
 
 function EodList() {
   const id = localStorage.getItem("allMasterId");
@@ -110,9 +111,9 @@ function EodList() {
               />
             </div>
           ) : (
-            <div className={styles.nogroup}>
-              <h4>Do you face any Issue ?</h4>
-              <h4>Create a Ticket for the Solution.</h4>
+            <div className={styles.nodatafound}>
+              <h4>Looks Empty</h4>
+              <TbMoodEmpty style={{fontSize:'30px'}}/>
             </div>
           )}
         </div>

@@ -33,14 +33,10 @@
 }
 
 .griditem {
-  background: linear-gradient(
-    65.11deg,
-    rgb(222 250 255 / 30%) 15.78%,
-    rgba(217, 217, 217, 0) 77.9%
-  );
-  border: 1px solid rgb(222 247 255);
-  border-radius: 5px;
+  border-top: 3px solid #00a1ff;
   padding: 5px 10px 5px 20px;
+  border-radius: 0px 0px 10px 10px;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 }
 
 .item1 {
@@ -88,25 +84,14 @@
 
 /* Individual Card */
 .groupcard {
-  /* background-color: rgb(222 247 255); */
-  background: linear-gradient(
-    65.11deg,
-    rgb(222 250 255 / 30%) 15.78%,
-    rgba(217, 217, 217, 0) 77.9%
-  );
-  border: 1px solid rgb(222 247 255);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  padding: 20px;
-  width: calc(33.33% - 20px);
-  box-sizing: border-box;
-  transition: transform 0.2s;
-  -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
-  box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
-  margin-bottom: 30px;
-  -webkit-transition: all 0.3s ease-in-out;
   width: 32%;
-  /* height: 290px; */
+  background: #fff;
+  border-radius: 20px;
+  border: 5px solid #fff;
+  overflow: hidden;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
 }
 
 .groupcard:hover {
@@ -117,13 +102,20 @@
 .headergroup {
   text-align: center;
   margin-bottom: 10px;
+  height: 100px;
+  width: 100%;
+  background: linear-gradient(to bottom left, #3a657d, #00a1ff);
+  border-radius: 100% 0% 100% 0% / 0% 50% 50% 100%;
+  display: grid;
+  place-items: center;
 }
 
 .headergroup h5 {
   font-size: 1.2rem;
   text-transform: capitalize;
-  color: #333;
+  color: #fff;
   font-weight: bold;
+  margin-bottom: 0;
 }
 
 .manager {
@@ -137,30 +129,21 @@
 }
 
 .tickets {
-  background: linear-gradient(
-    65.11deg,
-    rgba(120, 234, 254, 0.3) 15.78%,
-    rgba(217, 217, 217, 0) 77.9%
-  );
-  border: 1px solid rgb(222 247 255);
-  background-color: #fff;
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
   padding: 2px 10px;
-  box-sizing: border-box;
-  box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
-  /* border: 1px solid #adcadb; */
-  margin-bottom: 7px;
-  border-radius: 5px;
+  border-radius: 20px;
+  border: 5px solid #fff;
+  overflow: hidden;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  margin: 10px 5px;
 }
 .tickets > h5 {
   font-weight: bold;
 }
-
-/* Card Content */
 .groupcontent h5 {
-  margin: 10px 0;
   font-size: 1rem;
-  color: #555;
+  color: #000;
 }
 
 .userNamediv {
@@ -174,7 +157,6 @@
   color: #555;
 }
 
-/* Users List */
 .userNamediv p {
   margin: 5px 0;
   font-size: 0.9rem;

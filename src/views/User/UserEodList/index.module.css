@@ -351,3 +351,15 @@
     overflow-x: scroll;
   }
 }
+
+.nodatafound{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding-top: 100px;
+  gap: 10px;
+}
+.nodatafound>h4{
+  margin-bottom: 0;
+}

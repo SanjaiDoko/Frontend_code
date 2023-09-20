@@ -42,9 +42,11 @@ function EodMail() {
   const onSubmit = (data) => {
     data.groupId = groupId;
     data.createdBy = createdBy;
-    data.ccMail =  data.ccMail ? data.ccMail.includes(",")
-      ? data.ccMail.split(",")
-      : [data.ccMail] : [];
+    data.ccMail = data.ccMail
+      ? data.ccMail.includes(",")
+        ? data.ccMail.split(",")
+        : [data.ccMail]
+      : [];
     mutate(data);
   };
 
@@ -137,7 +139,6 @@ function EodMail() {
                             validate: {
                               checkLength: (value) =>
                                 value < 18 || "Enter Less than 18 hours",
-                            
                             },
                           }}
                           render={({ field }) => (
@@ -170,6 +171,10 @@ function EodMail() {
                           control={control}
                           rules={{
                             required: "Task Description is required",
+                            pattern: {
+                              value: /^\S/,
+                              message: "Task Description is required",
+                            },
                           }}
                           render={({ field }) => (
                             <Form.Control
@@ -199,9 +204,12 @@ function EodMail() {
             <Controller
               name="ccMail"
               control={control}
-              // rules={{
-              //   required: "CC Mail is required",
-              // }}
+              rules={{
+                pattern: {
+                  value: /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/,
+                  message: "Enter Valid Email Id",
+                },
+              }}
               render={({ field }) => (
                 <Form.Control
                   {...field}
@@ -211,9 +219,9 @@ function EodMail() {
                 />
               )}
             />
-            {/* {errors?.ccMail && (
+            {errors?.ccMail && (
               <p className="error">{errors?.ccMail.message}</p>
-            )} */}
+            )}
           </Form.Group>
           <div className={styles.buttonDiv}>
             <button

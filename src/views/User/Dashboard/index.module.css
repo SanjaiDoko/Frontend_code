@@ -52,14 +52,10 @@
 }
 
 .griditem {
-  background: linear-gradient(
-    65.11deg,
-    rgb(222 250 255 / 30%) 15.78%,
-    rgba(217, 217, 217, 0) 77.9%
-  );
-  border: 1px solid rgb(222 247 255);
-  border-radius: 5px;
+  border-top: 3px solid #00a1ff;
   padding: 5px 10px 5px 20px;
+  border-radius: 0px 0px 10px 10px;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 }
 
 .editBtn {
