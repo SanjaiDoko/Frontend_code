@@ -22,7 +22,7 @@ const Room = () => {
         <div className={classes.maindiv}>
       <div className={classes.headingdiv}>
         <div className={classes.titlediv}>
-          <h3 className={classes.title}>Room Management</h3>
+          <h3 className={classes.title}>Room Booking</h3>
         </div>
       </div>
       {roomData ? 

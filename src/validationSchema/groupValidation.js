@@ -7,7 +7,7 @@ export const addGroupValidation = yup.object({
     .trim()
     .required("Group Name is required"),
   managedBy: yup.string().lowercase().trim().required("Manager is required"),
-  users: yup.array().required("Users is required"),
+  users: yup.array(),
 });
 export const editGroupValidation = yup.object({
   grpName: yup
