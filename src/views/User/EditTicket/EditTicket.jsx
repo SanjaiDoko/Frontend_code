@@ -13,14 +13,13 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import Loader from "../../../components/Loader/Loader";
 import Chat from "../../../components/chat/Chat";
-import { io } from "socket.io-client";
 import { useGetChatById, useInsertChat } from "../../../hooks/chat";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import { useGetUserDetailsById } from "../../../hooks/userManagement";
 import CancelScheduleSendIcon from "@mui/icons-material/CancelScheduleSend";
 import SendIcon from "@mui/icons-material/Send";
-import { SOCKETPORT } from "../../../config";
+import {useSocket} from "../../../hooks/socket";
 
 const EditTicket = () => {
   const messagesDivRef = useRef(null);
@@ -35,7 +34,7 @@ const EditTicket = () => {
 
   const [uploadFile, setUploadFile] = useState([]);
 
-  const [socket, setSocket] = useState(null);
+  const socket = useSocket();
 
   const [liveUser, setLiveUser] = useState(null);
 
@@ -45,7 +44,6 @@ const EditTicket = () => {
 
   const navigate = useNavigate();
 
-  const tokenId = localStorage.getItem("allMasterToken")
 
   const onChatSuccessFunction = (data) => {
     setChatMessage(data);
@@ -85,14 +83,6 @@ const EditTicket = () => {
       createdBy: createdBy,
     },
   });
-
-  useEffect(() => {
-    setSocket(io(SOCKETPORT,{
-      query: {
-        token:tokenId, 
-      },
-    }));
-  }, []);
 
   useEffect(() => {
     if (messagesDivRef.current) {
