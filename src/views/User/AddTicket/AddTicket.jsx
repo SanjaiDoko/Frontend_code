@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { Form } from "react-bootstrap";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -15,9 +14,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import Loader from "../../../components/Loader/Loader";
-// import StylesMap from "@ckeditor/ckeditor5-engine/src/view/stylesmap";
-// import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
-// import moment from "moment";
 
 const AddTicket = () => {
   const [uploadFile, setUploadFile] = useState([]);

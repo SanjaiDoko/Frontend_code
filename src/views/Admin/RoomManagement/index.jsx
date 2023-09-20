@@ -96,7 +96,6 @@ const RoomManagement = () => {
           </div>
           <div
             style={{
-              height: 430,
               width: "100%",
               marginTop: "10px",
               borderRadius: "5px",
@@ -105,7 +104,7 @@ const RoomManagement = () => {
             <div className={styles.girdoverflow}>
               <DataGrid
                 className={styles.dataGrid}
-                sx={{ textTransform: "capitalize" }}
+                sx={{ textTransform: "capitalize" , minHeight:'350px' }}
                 rows={ roomData && roomData.length > 0 && searchValue !== ""
                 ? roomData.filter((e) =>
                     e.roomName

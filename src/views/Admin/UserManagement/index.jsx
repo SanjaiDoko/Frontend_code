@@ -129,7 +129,6 @@ function IndividualStatusUserList() {
         </div>
         <div
           style={{
-            height: 430,
             width: "100%",
             marginTop: "10px",
             borderRadius: "5px",
@@ -137,6 +136,7 @@ function IndividualStatusUserList() {
         >
           <div className={styles.girdoverflow}>
             <DataGrid
+              sx={{ minHeight: "350px" }}
               className={styles.dataGrid}
               rows={filterArray(data)}
               columns={columns}

@@ -34,11 +34,17 @@ const ManageEodMailComponent = lazy(() =>
   import("../views/User/ManageEodView/ManagerEodView")
 );
 
-const Room = lazy(() => import("../views/User/Room/index"))
+const Room = lazy(() => import("../views/User/Room/index"));
 
-const RoomBookings = lazy(() => import("../views/User/MyRoomBookings/index"))
+const RoomBookings = lazy(() => import("../views/User/MyRoomBookings/index"));
 
-const RoomBookingDetail = lazy(() => import("../views/User/RoomBookindDetail/index"))
+const RoomBookingDetail = lazy(() =>
+  import("../views/User/RoomBookindDetail/index")
+);
+
+const LandingPageComponent = lazy(() =>
+  import("../views/User/LandingPage/index")
+);
 
 const userPaths = [
   {
@@ -105,6 +111,10 @@ const userPaths = [
     ],
     status: [1],
   },
+  {
+    path: "menu",
+    element: LandingPageComponent,
+  },
 ];
 
 function UserApp() {
@@ -135,7 +145,7 @@ function UserApp() {
           ))}
         </Route>
       ))}
-      <Route path="*" element={<Navigate to="/user/dashboard" replace />} />S
+      <Route path="*" element={<Navigate to="/menu" replace />} />
     </Routes>
   );
 }
