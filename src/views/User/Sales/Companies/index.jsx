@@ -56,9 +56,11 @@ function Dashboard() {
       sortable: false,
       width: 100,
       renderCell: (params) => {
+        console.log(params,"parms")
         return <button
           className={styles.editBtn}
-          onClick={() => mutate({data:{id:params.row._id}})}
+          disabled={params.row.status === 2}
+          onClick={() => mutate({id:params.row._id})}
         >
           Delete
         </button>
@@ -107,12 +109,12 @@ function Dashboard() {
                 sx={{ textTransform: "capitalize", minHeight: "400px" }}
                 rows={
                   rowsWithIndex && searchValue !== ""
-                    ? rowsWithIndex.filter((e) =>
+                    ? rowsWithIndex.filter(item => item.status != 0).filter((e) =>
                         e.companyName
                           .toLowerCase()
                           .includes(searchValue.toLowerCase())
                       )
-                    : rowsWithIndex
+                    : rowsWithIndex.filter(item => item.status != 0)
                 }
                 columns={columns}
                 getRowId={(rowsWithIndex) => rowsWithIndex._id}

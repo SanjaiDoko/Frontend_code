@@ -12,6 +12,9 @@
   padding: 5px 10px !important;
   font-weight: bold;
 }
+.editBtn:disabled{
+  cursor: not-allowed;
+}
 .subDiv {
   display: flex;
   justify-content: space-between;
