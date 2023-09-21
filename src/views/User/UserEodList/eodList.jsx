@@ -36,10 +36,14 @@ function EodList() {
       renderCell: (params) => {
         let eodSummary = params.row.eodSummary;
         let totalHours = 0;
+        let totalMinutes = 0
         for (let i = 0; i < eodSummary.length; i++) {
-          totalHours += eodSummary[i].hours;
+          totalHours += Number(eodSummary[i].hours);
+          totalMinutes += Number(eodSummary[i]?.minutes)
         }
-        return `${totalHours} hr`;
+        let reminingMinutes = totalMinutes % 60
+        totalHours = totalHours + (Math.round(totalMinutes / 60))
+        return `${totalHours}:${reminingMinutes} hr`;
       },
     },
     {
