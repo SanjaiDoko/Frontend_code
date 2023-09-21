@@ -57,7 +57,6 @@ const Index = () => {
   const navigate = useNavigate();
 
   const onSuccess = () => {
-    navigate("/user/assginedsalescall");
   };
   
   const { mutate } = useInsertRemarks(onSuccess);
@@ -231,7 +230,7 @@ const Index = () => {
                                 return (
                                   <div key={remark._id}>
                                     <p>
-                                      {"Date"}:{" "}
+                                     
                                       {moment(remark.enteredDate).format(
                                         "DD-MM-YYYY"
                                       )}{" "}
@@ -387,6 +386,7 @@ const Index = () => {
                                 className={classes.addTicketBtn}
                               >
                                 Create Note
+                                {console.log(watch().assignedTo,"sadasdasd")}
                               </button>
                               <button
                                 type="button"
@@ -407,6 +407,8 @@ const Index = () => {
                   }
                   {console.log(data[0].status)}
                   {!showReport && data[0].status !== 1 && data[0].status !== 3 && data[0].status !== 4 && (
+                                    <div style={{display:"flex", justifyContent:"flex-end"}}>
+
                     <button
                       type="button"
                       onClick={() => setShowReport(true)}
@@ -414,6 +416,7 @@ const Index = () => {
                     >
                       Update Note
                     </button>
+                    </div>
                   )}
                 </div>
                 {/* <div className={classes.inputdivs}> */}

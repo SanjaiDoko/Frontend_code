@@ -134,7 +134,7 @@ function Index() {
             </div>
           ) : (
             <div className={styles.nogroup}>
-              <h4>Until now, You have not received any tickets to solve.</h4>
+              <h4>Until now, You have not received any Demo Calls.</h4>
               <h4>Please wait for one to be created</h4>
             </div>
           )}
