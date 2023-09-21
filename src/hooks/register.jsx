@@ -16,7 +16,6 @@ const usePostRegistrationData = () => {
       }
     },
     onError: (error) => {
-        // console.log(error,"asdasdasdasd")
       toast.error(error.message.split(":"));
     },
   });

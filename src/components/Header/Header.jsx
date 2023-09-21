@@ -18,7 +18,7 @@ function Header() {
   const userId = localStorage.getItem("allMasterId");
   const navigate = useNavigate();
   const { data, isLoading } = useGetUserDetailsById(userId, type);
-
+  
 
   if (isLoading) {
     return <Loader />;

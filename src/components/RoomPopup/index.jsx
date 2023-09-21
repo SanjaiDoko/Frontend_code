@@ -36,7 +36,6 @@ const MenuProps = {
 
 
 export const RoomPopup = ({ open, titleText, roomId }) => {
-    console.log(roomId,"roomId")
   const userId = localStorage.getItem("allMasterId");
   const dispatch = useDispatch();
   const navigate = useNavigate();

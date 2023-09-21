@@ -5,10 +5,12 @@ import { Form } from "react-bootstrap";
 import { DatePicker } from "@mui/x-date-pickers";
 import { useMutateEod } from "../../../hooks/eodHooks";
 import Loader from "../../../components/Loader/Loader";
+import { toast } from "react-toastify";
 
 function EodMail() {
   const initialTaskData = {
     hours: "",
+    minutes: "",
     taskDescription: "",
   };
 
@@ -19,6 +21,7 @@ function EodMail() {
 
   const {
     control,
+    watch,
     handleSubmit,
     formState: { errors },
   } = useForm({
@@ -27,6 +30,7 @@ function EodMail() {
       eodSummary: [
         {
           hours: "",
+          minutes: "",
           taskDescription: "",
         },
       ],
@@ -40,6 +44,11 @@ function EodMail() {
   });
 
   const onSubmit = (data) => {
+    watch("eodSummary").map((eod) => {
+      if (eod.hours === "0" && eod.minutes === "0") {
+        return toast.error("Invalid task time");
+      }
+    });
     data.groupId = groupId;
     data.createdBy = createdBy;
     data.ccMail = data.ccMail
@@ -123,42 +132,70 @@ function EodMail() {
                       )}
                     </div>
                     <div>
-                      <Form.Group className="pt-2">
-                        <Form.Label htmlFor="hours" className="formlabel">
-                          Hours
-                        </Form.Label>
-                        <Controller
-                          name={`eodSummary.${index}.hours`}
-                          control={control}
-                          rules={{
-                            required: "Hours is required",
-                            pattern: {
-                              value: /^[1-9]\d*(\.\d{0,1})?$/,
-                              message: "Invalid hours",
-                            },
-                            validate: {
-                              checkLength: (value) =>
-                                value < 18 || "Enter Less than 18 hours",
-                            },
-                          }}
-                          render={({ field }) => (
-                            <Form.Control
-                              {...field}
-                              style={{ textTransform: "capitalize" }}
-                              type="number"
-                              min="0"
-                              id="hours"
-                              placeholder="Enter Hours"
-                              onWheel={() => document.activeElement.blur()}
-                            />
+                      <div className={styles.timediv}>
+                        <Form.Group className="pt-2">
+                          <Form.Label htmlFor="hours" className="formlabel">
+                            Hours
+                          </Form.Label>
+                          <Controller
+                            name={`eodSummary.${index}.hours`}
+                            control={control}
+                            rules={{
+                              required: "Hours is required",
+                              validate: {
+                                checkLength: (value) =>
+                                  value < 18 || "Enter Less than 18 hours",
+                              },
+                            }}
+                            render={({ field }) => (
+                              <Form.Control
+                                {...field}
+                                style={{ textTransform: "capitalize" }}
+                                type="number"
+                                id="hours"
+                                placeholder="Enter Hours"
+                                onWheel={() => document.activeElement.blur()}
+                              />
+                            )}
+                          />
+                          {errors?.eodSummary?.[index]?.hours && (
+                            <p className="error">
+                              {errors.eodSummary[index].hours.message}
+                            </p>
                           )}
-                        />
-                        {errors?.eodSummary?.[index]?.hours && (
-                          <p className="error">
-                            {errors.eodSummary[index].hours.message}
-                          </p>
-                        )}
-                      </Form.Group>
+                        </Form.Group>
+                        <Form.Group className="pt-2">
+                          <Form.Label htmlFor="minutes" className="formlabel">
+                            Minutes
+                          </Form.Label>
+                          <Controller
+                            name={`eodSummary.${index}.minutes`}
+                            control={control}
+                            rules={{
+                              required: "Minutes is required",
+                              validate: {
+                                checkLength: (value) =>
+                                  value < 59 || "Enter Less than 59 Minutes",
+                              },
+                            }}
+                            render={({ field }) => (
+                              <Form.Control
+                                {...field}
+                                style={{ textTransform: "capitalize" }}
+                                type="number"
+                                id="minutes"
+                                placeholder="Enter Minutes"
+                                onWheel={() => document.activeElement.blur()}
+                              />
+                            )}
+                          />
+                          {errors?.eodSummary?.[index]?.minutes && (
+                            <p className="error">
+                              {errors.eodSummary[index].minutes.message}
+                            </p>
+                          )}
+                        </Form.Group>
+                      </div>
                       <Form.Group className="pt-2">
                         <Form.Label
                           htmlFor="taskDescription"

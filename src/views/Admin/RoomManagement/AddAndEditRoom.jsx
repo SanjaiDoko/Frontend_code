@@ -12,7 +12,6 @@ import { CircularProgress } from "@mui/material";
 import { useInsertRoom, useUpdateRoom } from "../../../hooks/room";
 
 const AddAndEditRoom = ({ onCloseButtonClick, editData, isEdit, type }) => {
-  console.log(editData, "edit Data");
 
   const { mutate: insertMutate, isLoading: insertLoading } =
     useInsertRoom(onCloseButtonClick);

@@ -83,8 +83,11 @@ const useInsertRoomBooking = (onSuccessFunctions) => {
     onSuccess: async () => {
       onSuccessFunctions();
       toast.success("Room Booked Successfully");
-      queryClient.invalidateQueries({
+      await queryClient.invalidateQueries({
         queryKey: ["getBookingRoomsByUserId"],
+      });
+      await queryClient.invalidateQueries({
+        queryKey: ["getRoomBookingDetails"],
       });
     },
     onError: (error) => {
@@ -95,12 +98,12 @@ const useInsertRoomBooking = (onSuccessFunctions) => {
 
 const useGetRoomBookingsByUserId = (id) => {
   return useQuery({
-    queryKey: ["getBookingRoomsByUserId",id],
+    queryKey: ["getBookingRoomsByUserId", id],
     queryFn: () =>
       fetchData(
         {
           url: URL + "room/getMyBookings",
-          method: "POST"
+          method: "POST",
         },
         {
           data: [
@@ -119,7 +122,7 @@ const useGetRoomBookingsByUserId = (id) => {
 
 const useGetRoomBookingsDetails = (id) => {
   return useQuery({
-    queryKey: ["getRoomBookingDetails",id],
+    queryKey: ["getRoomBookingDetails", id],
     queryFn: () =>
       fetchData(
         {
@@ -168,7 +171,6 @@ const useCancelRoomBooking = () => {
   });
 };
 
-
 export {
   useGetAllRooms,
   useInsertRoom,
@@ -176,5 +178,5 @@ export {
   useInsertRoomBooking,
   useGetRoomBookingsByUserId,
   useGetRoomBookingsDetails,
-  useCancelRoomBooking
+  useCancelRoomBooking,
 };

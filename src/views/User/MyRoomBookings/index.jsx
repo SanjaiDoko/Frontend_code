@@ -56,7 +56,7 @@ function RoomBookings() {
       headerName: "Start Time",
       width: 200,
       renderCell: (params) => {
-        return moment(params.row.startsAt).format('DD-MM-YYYY HH:mm');
+        return moment(params.row.startsAt).format('DD-MM-YYYY /HH:mm');
       },
     },
     {
@@ -65,7 +65,7 @@ function RoomBookings() {
       headerName: "End Time",
       width: 200,
       renderCell: (params) => {
-        return moment(params.row.endsAt).format('DD-MM-YYYY HH:mm');
+        return moment(params.row.endsAt).format('DD-MM-YYYY /HH:mm');
       },
     },
     {
@@ -82,7 +82,6 @@ function RoomBookings() {
       width: 100,
       renderCell: (params) => {
        let status = params.row.status
-       console.log(params.row)
        let data = {
         id: params.row.bookingId
        }

@@ -135,14 +135,14 @@ function Dashboard() {
           </div>
           <div className={styles.gridcontainer}>
             <div
-              onClick={() => navigate("/admin/group")}
+              // onClick={() => navigate("/admin/group")}
               className={`${styles.griditem} ${styles.item1}`}
             >
               <h1>{openTickets}</h1>
               <h5>Open Tickets</h5>
             </div>
             <div
-              onClick={() => navigate("/admin/user")}
+              // onClick={() => navigate("/admin/user")}
               className={`${styles.griditem} ${styles.item}`}
             >
               <h1>{completedTickets}</h1>
@@ -150,7 +150,7 @@ function Dashboard() {
             </div>
             {role === 3 && (
               <div
-                onClick={() => navigate("/admin/group")}
+                // onClick={() => navigate("/admin/group")}
                 className={`${styles.griditem} ${styles.item}`}
               >
                 <h1>{managerTickets}</h1>
@@ -163,42 +163,44 @@ function Dashboard() {
           <h3 style={{ marginTop: "1em" }}>Received Tickets </h3>
         </div>
         <div>
-          <div className={styles.searchDiv}>
-            <img src={searchLogo} alt="searchlogo" />
-            <input
-              type="text"
-              className={styles.searchInput}
-              onChange={(e) => setSearchValue(e.target.value)}
-              placeholder="Search by Ticket ID"
-            />
-          </div>
           {data && data.length > 0 ? (
-             <div className={styles.girdoverflow}>
-            <DataGrid
-            className={styles.dataGrid}
-              sx={{ textTransform: "capitalize", minHeight: "100px" }}
-              rows={
-                data && searchValue !== ""
-                  ? data.filter((e) =>
-                      e.ticketId
-                        .toLowerCase()
-                        .includes(searchValue.toLowerCase())
-                    )
-                  : data
-              }
-              columns={columns}
-              getRowId={(data) => data._id}
-              hideFooterSelectedRowCount={true}
-              onCellClick={(row) => rowClickFunction(row)}
-              initialState={{
-                pagination: {
-                  paginationModel: {
-                    pageSize: 10,
-                  },
-                },
-              }}
-            />
-            </div>
+            <>
+              <div className={styles.searchDiv}>
+                <img src={searchLogo} alt="searchlogo" />
+                <input
+                  type="text"
+                  className={styles.searchInput}
+                  onChange={(e) => setSearchValue(e.target.value)}
+                  placeholder="Search by Ticket ID"
+                />
+              </div>
+              <div className={styles.girdoverflow}>
+                <DataGrid
+                  className={styles.dataGrid}
+                  sx={{ textTransform: "capitalize", minHeight: "100px" }}
+                  rows={
+                    data && searchValue !== ""
+                      ? data.filter((e) =>
+                          e.ticketId
+                            .toLowerCase()
+                            .includes(searchValue.toLowerCase())
+                        )
+                      : data
+                  }
+                  columns={columns}
+                  getRowId={(data) => data._id}
+                  hideFooterSelectedRowCount={true}
+                  onCellClick={(row) => rowClickFunction(row)}
+                  initialState={{
+                    pagination: {
+                      paginationModel: {
+                        pageSize: 10,
+                      },
+                    },
+                  }}
+                />
+              </div>
+            </>
           ) : (
             <div className={styles.nogroup}>
               <h4>Until now, You have not received any tickets to solve.</h4>
