@@ -259,10 +259,12 @@ const useInsertRemarks = (onSuccessFunctions) => {
         { data: [data] }
       ),
     onSuccess: async () => {
-      toast.success("Company Added Successfully");
       onSuccessFunctions();
       queryClient.invalidateQueries({
         queryKey: ["allAssigneeSalesCall"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["allAssigneeSalesCallById"],
       });
     },
     onError: (error) => {

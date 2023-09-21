@@ -6,6 +6,7 @@ import searchLogo from "../../../../assets/Images/searchLogo.png";
 import Loader from "../../../../components/Loader/Loader";
 import { useGetDemo } from "../../../../hooks/sales";
 import moment from "moment";
+import { getDemoMessage } from "../../../../helper";
 
 function Dashboard() {
   const id = localStorage.getItem("allMasterId");
@@ -43,12 +44,6 @@ console.log(data,"data")
       width: 150,
     },
     {
-      field: "assignedBy",
-      flex: 1,
-      headerName: "Assigne By",
-      width: 150,
-    },
-    {
       field: "employeeName",
       flex: 1,
       headerName: "employeeName",
@@ -66,6 +61,7 @@ console.log(data,"data")
       flex: 1,
       headerName: "status",
       width: 150,
+      renderCell: (params) => getDemoMessage(params.row.status),
       
     },
     {
@@ -96,13 +92,7 @@ console.log(data,"data")
       <div className="container">
         <div className={styles.mainDiv}>
           <div className={styles.subDiv}>
-            <h3>Create Demo Call</h3>
-            <button
-              onClick={() => navigate("/user/createdemocall")}
-              className={styles.addTicketBtn}
-            >
-              Create Demo Call
-            </button>
+            <h3>Assigned Demo Call</h3>
           </div>
           <div className={styles.searchDiv}>
             <img src={searchLogo} alt="searchlogo" />

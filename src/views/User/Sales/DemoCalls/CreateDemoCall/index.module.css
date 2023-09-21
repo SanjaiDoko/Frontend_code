@@ -81,7 +81,7 @@
   justify-content: right;
 }
 .addTicketBtn {
-  margin-top: 1em;
+  float: right;
   background: #f4da47;
   border-radius: 4px;
   border: none;

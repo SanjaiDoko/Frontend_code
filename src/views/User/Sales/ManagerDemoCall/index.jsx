@@ -6,6 +6,7 @@ import searchLogo from "../../../../assets/Images/searchLogo.png";
 import Loader from "../../../../components/Loader/Loader";
 import { useGetMangerDemo } from "../../../../hooks/sales";
 import moment from "moment";
+import { getDemoMessage } from "../../../../helper";
 
 function Dashboard() {
   const id = localStorage.getItem("allMasterId");
@@ -67,6 +68,7 @@ console.log(data,"data")
       flex: 1,
       headerName: "Status",
       width: 200,
+      renderCell: (params) => getDemoMessage(params.row.status),
     },
     {
       flex: 1,
@@ -75,7 +77,7 @@ console.log(data,"data")
       width: 100,
       renderCell: () => (
         <button className={styles.editBtn}>
-          { "View Report"}
+          { "View Call"}
         </button>
       ),
     },

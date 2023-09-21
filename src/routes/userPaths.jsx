@@ -228,7 +228,7 @@ function UserApp() {
           ))}
         </Route>
       ))}
-      <Route path="*" element={<Navigate to="/user/dashboard" replace />} />
+      <Route path="*" element={<Navigate to="/user/mydemocall" replace />} />
     </Routes>
   );
 }

@@ -501,6 +501,29 @@ function formatNumber(input) {
   }
 }
 
+const salesStatus = [
+  { status: 0, message: "Sales Call Assigned" },
+  { status: 1, message: "Sales Success" },
+  { status: 2, message: "Pending from Client Side" },
+  { status: 3, message: "Asked for the Demo Call" },
+  { status: 4, message: "Client Rejected" },
+];
+
+const demoStatus = [
+  { status: 0, message: "Demo Call Assigned" },
+  { status: 1, message: "Demo Success" },
+  { status: 2, message: "Pending from Client Side" },
+  { status: 3, message: "Client Rejected" },
+];
+
+function getSalesMessage(status) {
+  const result = salesStatus.find((item) => item.status === status);
+  return result ? result.message : "Status not found";
+}
+function getDemoMessage(status) {
+  const result = demoStatus.find((item) => item.status === status);
+  return result ? result.message : "Status not found";
+}
 export {
   checkDuplicates,
   removeSpacesInString,
@@ -519,4 +542,8 @@ export {
   convertIntoCm,
   roundToDecimal,
   formatNumber,
+  salesStatus,
+  demoStatus,
+  getSalesMessage,
+  getDemoMessage
 };

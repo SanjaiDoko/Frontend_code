@@ -96,7 +96,7 @@ console.log("open")
                       if (selected.length === 0) {
                         return <span>Choose Users</span>;
                       }
-                      return selected.join(", ");
+                      return allEmployee.filter((emp) => selected.includes(emp._id)).map((emp) => emp.username).join(", ");
                     }}
                     // MenuProps={MenuProps}
                   >

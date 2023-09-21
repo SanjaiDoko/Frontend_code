@@ -19,6 +19,7 @@ import { updateReceivedTicketValidation } from "../../../../../validationSchema/
 import Loader from "../../../../../components/Loader/Loader";
 import { useGetDemoCallByCallId, useInsertRemarks } from "../../../../../hooks/sales";
 import { updateReportValidation } from "../../../../../validationSchema/updateReportValidation";
+import { getDemoMessage } from "../../../../../helper";
 
 const Index = () => {
 
@@ -170,7 +171,7 @@ console.log(data,"asdasd")
                               id="type"
                               disabled
                               placeholder="Enter Type"
-                              value={data[0].status}
+                              value={getDemoMessage(data[0].status)}
                             />
                           )}
                         />

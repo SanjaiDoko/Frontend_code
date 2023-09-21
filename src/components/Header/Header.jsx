@@ -149,12 +149,12 @@ function Header() {
               )}
               {role === 1 && (
                 <Link className="linktag" to="/user/assginedsalescall">
-                  Assigned Sales Calls
+                  My Sales Calls
                 </Link>
               )}
               {role === 1 && (
                 <Link className="linktag" to="/user/democall">
-                  Create Demo Calls
+                  Assigned Demo Calls
                 </Link>
               )}
               {role === 3 && (

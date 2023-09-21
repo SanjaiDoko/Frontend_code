@@ -8,6 +8,7 @@ import searchLogo from "../../../../assets/Images/searchLogo.png";
 import Loader from "../../../../components/Loader/Loader";
 import {  useGetSalesCallByAssignee } from "../../../../hooks/sales";
 import moment from "moment";
+import { getSalesMessage } from "../../../../helper";
 
 function Index() {
   const id = localStorage.getItem("allMasterId");
@@ -64,6 +65,8 @@ function Index() {
       flex: 1,
       headerName: "status",
       width: 150,
+      renderCell: (params) => getSalesMessage(params.row.status),
+
       
     },
     {
@@ -73,7 +76,7 @@ function Index() {
       width: 100,
       renderCell: () => (
         <button className={styles.editBtn}>
-          { "Update Report"}
+          { "Update Call"}
         </button>
       ),
     },

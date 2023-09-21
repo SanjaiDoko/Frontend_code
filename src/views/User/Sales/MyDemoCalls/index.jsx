@@ -8,6 +8,7 @@ import searchLogo from "../../../../assets/Images/searchLogo.png";
 import Loader from "../../../../components/Loader/Loader";
 import {  useGetMyDemo } from "../../../../hooks/sales";
 import moment from "moment";
+import { getDemoMessage } from "../../../../helper";
 
 function Index() {
   const id = localStorage.getItem("allMasterId");
@@ -47,7 +48,7 @@ function Index() {
       width: 150,
     },
     {
-      field: "assignedBy",
+      field: "employeeName",
       flex: 1,
       headerName: "Assigne By",
       width: 150,
@@ -64,6 +65,7 @@ function Index() {
       flex: 1,
       headerName: "status",
       width: 150,
+      renderCell: (params) => getDemoMessage(params.row.status)
       
     },
     {
@@ -73,7 +75,7 @@ function Index() {
       width: 100,
       renderCell: () => (
         <button className={styles.editBtn}>
-          { "Update Report"}
+          { "Update Call"}
         </button>
       ),
     },

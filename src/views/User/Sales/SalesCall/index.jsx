@@ -6,6 +6,7 @@ import searchLogo from "../../../../assets/Images/searchLogo.png";
 import Loader from "../../../../components/Loader/Loader";
 import { useGetAllSales } from "../../../../hooks/sales";
 import moment from "moment";
+import { getSalesMessage } from "../../../../helper";
 
 function Dashboard() {
   const id = localStorage.getItem("allMasterId");
@@ -16,7 +17,7 @@ function Dashboard() {
 
   const [searchValue, setSearchValue] = useState("");
 
-console.log(data,"data")
+
 
   const returnStatus = (status) => {
     let ticketStatus = "";
@@ -60,6 +61,7 @@ console.log(data,"data")
       flex: 1,
       headerName: "Status",
       width: 200,
+      renderCell: (params) => getSalesMessage(params.row.status),
     },
     {
       flex: 1,
@@ -68,7 +70,7 @@ console.log(data,"data")
       width: 100,
       renderCell: () => (
         <button className={styles.editBtn}>
-          { "View Report"}
+          { "View Call"}
         </button>
       ),
     },

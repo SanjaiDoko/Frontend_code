@@ -19,6 +19,7 @@ import { updateReceivedTicketValidation } from "../../../../../validationSchema/
 import Loader from "../../../../../components/Loader/Loader";
 import { useGetDemoCallByCallId, useInsertDemoRemarks } from "../../../../../hooks/sales";
 import { updateReportValidation } from "../../../../../validationSchema/updateReportValidation";
+import { demoStatus, getDemoMessage } from "../../../../../helper";
 
 const Index = () => {
 
@@ -47,7 +48,7 @@ const Index = () => {
     resolver: yupResolver(updateReportValidation),
     mode: "onTouched",
     defaultValues: {
-      status: 1,
+      status: data && data[0].status,
       remark: "",
     },
   });
@@ -181,7 +182,7 @@ console.log(data,"asdasd")
                               id="type"
                               disabled
                               placeholder="Enter Type"
-                              value={data[0].status}
+                              value={getDemoMessage(data[0].status)}
                             />
                           )}
                         />
@@ -222,15 +223,15 @@ console.log(data,"asdasd")
                             <option value={""} hidden>
                               Choose Type
                             </option>
-                            {array &&
-                              array.map((e, i) => {
+                            {demoStatus &&
+                              demoStatus.filter((e) => e.status !== 0).map((e, i) => {
                                 return (
                                   <option
                                     key={i}
-                                    value={e}
+                                    value={e.status}
                                     style={{ textTransform: "capitalize" }}
                                   >
-                                    {e}
+                                    {e.message}
                                   </option>
                                 );
                               })}
@@ -253,6 +254,7 @@ console.log(data,"asdasd")
                           control={control}
                           render={({ field }) => (
                             <Form.Control
+                            as="textarea"
                               type="text"
                               {...field}
                               id="remark"

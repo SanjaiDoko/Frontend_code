@@ -3,4 +3,5 @@ import * as yup from "yup";
 export const updateReportValidation = yup.object({
     status: yup.number().required("Status is required"),
     remark: yup.string().trim().required("Remark is required"),
+    assignedTo: yup.string().trim(),
 });
