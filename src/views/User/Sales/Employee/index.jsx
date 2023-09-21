@@ -41,7 +41,12 @@ function Index() {
   };
 
   const columns = [
-    
+    {
+      field: "index",
+      flex: 1,
+      headerName: "S.No",
+      width: 150,
+    },
     {
       field: "username",
       flex: 1,
@@ -71,7 +76,14 @@ function Index() {
   //   }
   // };
 
+  const generateRowsWithIndex = (data) => {
+    return data.map((row, index) => {
+      return { ...row, index: index + 1 };
+    });
+  };
+
   if (data !== undefined) {
+    const rowsWithIndex = generateRowsWithIndex(data);
     return (
       <div className="container">
         <div className={styles.mainDiv}>
@@ -99,16 +111,16 @@ function Index() {
                 className={styles.dataGrid}
                 sx={{ textTransform: "capitalize", minHeight: "400px" }}
                 rows={
-                  data && searchValue !== ""
-                    ? data.filter((e) =>
+                  rowsWithIndex && searchValue !== ""
+                    ? rowsWithIndex.filter((e) =>
                         e.username
                           .toLowerCase()
                           .includes(searchValue.toLowerCase())
                       )
-                    : data
+                    : rowsWithIndex
                 }
                 columns={columns}
-                getRowId={(data) => data._id}
+                getRowId={(rowsWithIndex) => rowsWithIndex._id}
                 hideFooterSelectedRowCount={true}
                 onCellClick={(row) => mutate(row.id)}
                 initialState={{

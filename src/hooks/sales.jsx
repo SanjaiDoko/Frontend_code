@@ -30,7 +30,7 @@ const useInsertCompany = (onSuccessFunctions) => {
     mutationFn: (data) =>
       fetchData(
         {
-          url: newUrl + "/company/addCompany",
+          url: newUrl + "company/addCompany",
           method: "POST",
           isAuthRequired: true,
         },
@@ -97,7 +97,7 @@ const useRemoveUser = () => {
     mutationFn: (data) =>
       fetchData(
         {
-          url: newUrl + "/user/removeFromNetwork",
+          url: newUrl + "user/removeFromNetwork",
           method: "POST",
           isAuthRequired: true,
         },
