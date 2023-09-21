@@ -1,10 +1,10 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { fetchData } from "../helper";
-import { URL } from "../config";
+import { URL as newUrl } from "../config";
 
 // const newUrl = "http://192.168.0.205:9000"
-const newUrl = "http://localhost:9000"
+// const newUrl = import.meta.VITE_URL
 
 
 //get companies
@@ -13,7 +13,7 @@ const useGetAllCompanies = () => {
     queryKey: ["allCompanies"],
     queryFn: () =>
       fetchData({
-        url: newUrl + "/company/getAllCompany",
+        url: newUrl + "company/getAllCompany",
         isAuthRequired: true,
       }),
     refetchOnMount: true,
@@ -49,13 +49,38 @@ const useInsertCompany = (onSuccessFunctions) => {
   });
 };
 
+const useUpdateCompany = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (data) =>
+      fetchData(
+        {
+          url: newUrl + "company/deleteCompany",
+          method: "POST",
+          isAuthRequired: true,
+        },
+        { data: [data] }
+      ),
+    onSuccess: async () => {
+      toast.success("Company Deleted Successfully");
+      onSuccessFunctions();
+      queryClient.invalidateQueries({
+        queryKey: ["allCompanies"],
+      });
+    },
+    onError: (error) => {
+      toast.error(error.message.split(":")[1]);
+    },
+  });
+};
+
 //get My employee
 const useGetMyEmployee = () => {
   return useQuery({
     queryKey: ["myEmployee"],
     queryFn: () =>
       fetchData({
-        url: newUrl + "/user/getYourEmployees",
+        url: newUrl + "user/getYourEmployees",
         isAuthRequired: true,
       }),
     refetchOnMount: true,
@@ -71,7 +96,7 @@ const useGetAllEmployee = () => {
     queryKey: ["allEmployee"],
     queryFn: () =>
       fetchData({
-        url: newUrl + "/user/getAllEmployees",
+        url: newUrl + "user/getAllEmployees",
         isAuthRequired: true,
       }),
     refetchOnMount: true,
@@ -87,7 +112,7 @@ const useGetUnAssignedEmployee = () => {
     queryKey: ["allUnassignedEmployee"],
     queryFn: () =>
       fetchData({
-        url: newUrl + "/user/unAssignedEmployee",
+        url: newUrl + "user/unAssignedEmployee",
         isAuthRequired: true,
       }),
     refetchOnMount: true,
@@ -103,7 +128,7 @@ const useGetUnAssignedCompany = () => {
     queryKey: ["allUnassignedComapny"],
     queryFn: () =>
       fetchData({
-        url: newUrl + "/company/unAssignedCompanies",
+        url: newUrl + "company/unAssignedCompanies",
         isAuthRequired: true,
       }),
     refetchOnMount: true,
@@ -120,7 +145,7 @@ const useInsertEmployee = (onSuccessFunctions) => {
     mutationFn: (data) =>
       fetchData(
         {
-          url: newUrl + "/user/createNetwork",
+          url: newUrl + "user/createNetwork",
           method: "POST",
           isAuthRequired: true,
         },
@@ -148,7 +173,7 @@ const useGetEmployeeById = () => {
     queryKey: ["getEmployeeById"],
     queryFn: () =>
       fetchData({
-        url: newUrl+"/user/getYourEmployees",
+        url: newUrl+"user/getYourEmployees",
         isAuthRequired: true,
       }),
     refetchOnMount: true,
@@ -164,7 +189,7 @@ const useGetAllSales = () => {
     queryKey: ["allSales"],
     queryFn: () =>
       fetchData({
-        url: newUrl + "/salesCalls/allAssignedCall",
+        url: newUrl + "salesCalls/allAssignedCall",
         isAuthRequired: true,
       }),
     refetchOnMount: true,
@@ -181,7 +206,7 @@ const useInsertSales = (onSuccessFunctions) => {
     mutationFn: (data) =>
       fetchData(
         {
-          url: newUrl+"/salesCalls/assignCall",
+          url: newUrl+"salesCalls/assignCall",
           method: "POST",
           isAuthRequired: true,
         },
@@ -206,7 +231,7 @@ const useGetSalesCallByAssignee = () => {
     queryKey: ["allAssigneeSalesCall"],
     queryFn: () =>
       fetchData({
-        url: newUrl + "/salesCalls/getUserCalls",
+        url: newUrl + "salesCalls/getUserCalls",
         isAuthRequired: true,
       }),
     refetchOnMount: true,
@@ -223,7 +248,7 @@ const useGetSalesCallByCallId = (id, onChatSuccessFunction) => {
     queryFn: () =>
       fetchData(
         {
-          url: newUrl + "/salesCalls/getCallById",
+          url: newUrl + "salesCalls/getCallById",
           isAuthRequired: true,
           method: "POST"
         },
@@ -252,7 +277,7 @@ const useInsertRemarks = (onSuccessFunctions) => {
     mutationFn: (data) =>
       fetchData(
         {
-          url: newUrl + "/salesCalls/updateReport",
+          url: newUrl + "salesCalls/updateReport",
           method: "POST",
           isAuthRequired: true,
         },
@@ -279,7 +304,7 @@ const useGetDemo = () => {
     queryKey: ["allDemo"],
     queryFn: () =>
       fetchData({
-        url: newUrl + "/demoCalls/assignedDemos",
+        url: newUrl + "demoCalls/assignedDemos",
         isAuthRequired: true,
       }),
     refetchOnMount: true,
@@ -295,7 +320,7 @@ const useGetMangerDemo = () => {
     queryKey: ["managerDemo"],
     queryFn: () =>
       fetchData({
-        url: newUrl + "/demoCalls/managerDemo",
+        url: newUrl + "demoCalls/managerDemo",
         isAuthRequired: true,
       }),
     refetchOnMount: true,
@@ -312,7 +337,7 @@ const useInsertDemoCalls = (onSuccessFunctions) => {
     mutationFn: (data) =>
       fetchData(
         {
-          url: newUrl+"/demoCalls/assignDemo",
+          url: newUrl+"demoCalls/assignDemo",
           method: "POST",
           isAuthRequired: true,
         },
@@ -337,7 +362,7 @@ const useGetMyDemo = () => {
     queryKey: ["myDemo"],
     queryFn: () =>
       fetchData({
-        url: newUrl + "/demoCalls/getMyDemo",
+        url: newUrl + "demoCalls/getMyDemo",
         isAuthRequired: true,
       }),
     refetchOnMount: true,
@@ -355,7 +380,7 @@ const useGetDemoCallByCallId = (id) => {
     queryFn: () =>
       fetchData(
         {
-          url: newUrl + "/demoCalls/getDemoById",
+          url: newUrl + "demoCalls/getDemoById",
           isAuthRequired: true,
           method: "POST"
         },
@@ -382,7 +407,7 @@ const useInsertDemoRemarks = (onSuccessFunctions) => {
     mutationFn: (data) =>
       fetchData(
         {
-          url: newUrl + "/demoCalls/updateReport",
+          url: newUrl + "demoCalls/updateReport",
           method: "POST",
           isAuthRequired: true,
         },
@@ -408,6 +433,7 @@ export {
   useGetMyEmployee,
   useGetAllCompanies,
   useInsertCompany,
+  useUpdateCompany,
   useGetAllSales,
   useInsertSales,
   useGetSalesCallByAssignee,
