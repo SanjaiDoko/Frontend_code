@@ -63,7 +63,6 @@ const useUpdateCompany = () => {
       ),
     onSuccess: async () => {
       toast.success("Company Deleted Successfully");
-      onSuccessFunctions();
       queryClient.invalidateQueries({
         queryKey: ["allCompanies"],
       });

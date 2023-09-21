@@ -57,6 +57,8 @@ const Index = () => {
   const navigate = useNavigate();
 
   const onSuccess = () => {
+    setShowReport(false)
+    reset()
   };
   
   const { mutate } = useInsertRemarks(onSuccess);

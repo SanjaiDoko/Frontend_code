@@ -34,7 +34,9 @@ const Index = () => {
   const navigate = useNavigate();
 
   const onSuccess = () => {
-    navigate("/user/mydemocall");
+    // navigate("/user/mydemocall");
+    setShowReport(false)
+    reset()
   };
 
   const { mutate } = useInsertDemoRemarks(onSuccess);
