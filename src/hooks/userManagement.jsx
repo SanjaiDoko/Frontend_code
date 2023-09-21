@@ -48,7 +48,7 @@ const useGetUserDetailsById = (id, type) =>
     queryFn: () => {
       return fetchData(
         {
-          url: URL + "user/getUserDetails",
+          url:  "http://localhost:3000/user/getUserDetails",
           method: "POST",
           isAuthRequired: true,
         },

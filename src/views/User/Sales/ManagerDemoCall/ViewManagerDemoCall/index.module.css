@@ -1,0 +1,562 @@
+.mainDiv {
+  padding-top: 70px;
+  width: 100%;
+}
+
+.disablediv > div > input {
+  background-color: transparent !important;
+  border: none;
+}
+.disablediv > div > label {
+  white-space: pre;
+  font-weight: bold;
+  margin-bottom: 0;
+}
+
+.filecontainer {
+  display: flex;
+  gap: 3px;
+  background: #e9f7ff80;
+  width: 100%;
+  margin-top: 10px;
+  border-radius: 5px;
+  padding: 10px;
+  justify-content: space-between;
+}
+.filecontainer > p {
+  margin-bottom: 0;
+  color: #00a1ff;
+}
+.filecontainer > a {
+  margin-bottom: 0;
+  color: #00a1ff;
+}
+.completed {
+  font-weight: 500 !important;
+  font-size: 17px !important;
+  color: #01c442 !important;
+}
+
+.reject {
+  font-weight: 500 !important;
+  font-size: 17px !important;
+  color: #f24c4c !important;
+}
+
+.hidden {
+  display: none;
+}
+.subDiv {
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+}
+.AddTicketDiv {
+  display: flex;
+  width: 100%;
+}
+
+.attachement {
+  margin: 2em;
+  color: red;
+}
+
+.countrydiv {
+  background: rgba(30, 106, 255, 0.1);
+  width: 100%;
+  position: relative;
+  padding: 30px;
+  min-height: 100vh;
+}
+
+.headingdiv {
+  display: flex;
+  justify-content: space-between;
+}
+
+.titlediv {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.buttondiv {
+  display: flex;
+  gap: 20px;
+  width: 50%;
+  justify-content: right;
+}
+.addTicketBtn {
+  margin-top: 1em;
+  background: #f4da47;
+  border-radius: 4px;
+  border: none;
+  font-weight: 500;
+  font-size: 17px;
+  color: #272727;
+}
+
+.button {
+  background: #f4da47;
+  border-radius: 4px;
+  border: none;
+  font-weight: 500;
+  font-size: 17px;
+  color: #272727;
+  padding: 2px 20px !important;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 38px;
+  color: #000000;
+  margin-bottom: 0px;
+}
+
+/* -------Add Country ----------- */
+.addDiv {
+  padding: 15px 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+  width: 100%;
+  border-bottom: 2px solid #d8d9da;
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 0px 0px 8px 8px;
+}
+
+.addDivHeading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.addDivHeading > h3 {
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 28px;
+  color: #333333;
+}
+
+.formlabel {
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 17px;
+  color: #000000;
+}
+
+.formcontrol {
+  width: 100%;
+  padding: 10px !important;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.formcontrol:focus {
+  border: 1px solid #ced4da !important;
+  box-shadow: none !important;
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+}
+
+.savebtn {
+  background: transparent;
+  font-weight: 500;
+  font-size: 16px;
+  color: #00a1ff;
+  width: 100%;
+  text-align: center;
+  border: 2px solid #00a1ff;
+  outline: none;
+  font-weight: bold;
+  margin-top: 2em;
+  margin-bottom: 2em;
+  padding: 10px !important;
+  border-radius: 5px;
+}
+.savebtn:hover {
+  background: #00a1ff;
+  color: #fff;
+  border: none;
+  border: 2px solid #fff;
+}
+.rejectBtn {
+  background: transparent;
+  font-weight: 500;
+  font-size: 16px;
+  color: #00a1ff;
+  text-align: center;
+  border: 2px solid #00a1ff;
+  outline: none;
+  font-weight: bold;
+  padding: 5px 10px !important;
+  border-radius: 5px;
+}
+.rejectBtn:hover {
+  background: #00a1ff;
+  color: #fff;
+  border: none;
+  border: 2px solid #fff;
+}
+
+.icon {
+  padding: 0 !important;
+}
+
+.searchdiv {
+  width: 100%;
+  display: flex;
+  padding-top: 20px;
+}
+
+.formcontrol option {
+  text-transform: capitalize;
+}
+
+.searchbox {
+  display: flex;
+  align-items: center;
+  width: 40%;
+  border: 1px solid #d9d9d9 !important;
+  background: #fff;
+  border-radius: 5px 0px 0px 5px;
+  padding-left: 15px !important;
+}
+
+.selectbox {
+  width: 60%;
+  border: 1px solid #d9d9d9 !important;
+  background: #fff;
+  border-radius: 0px 5px 5px 0px;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.selectbox > div {
+  display: flex;
+  justify-content: space-around !important;
+  width: 90%;
+}
+
+.selectbox > h4 {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 17px;
+  color: #000000;
+  width: 15%;
+  margin-bottom: 0 !important;
+}
+
+.searchbox > input {
+  border: none !important;
+  width: 85%;
+  outline: none;
+  background-color: transparent !important;
+}
+
+.selectcontrol {
+  padding: 0 !important;
+  border: none !important;
+  background: transparent !important;
+  outline: none;
+}
+
+.selectcontrol:focus {
+  box-shadow: none;
+}
+
+.togglebtn > .Mui-selected {
+  background: #000 !important;
+  color: #fff !important;
+  border-radius: 5px !important;
+}
+
+.togglechildbtn {
+  padding: 10px !important;
+}
+
+.portalign {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.addtitle {
+  font-weight: bold;
+  font-size: 24px;
+  color: #333333;
+  margin-bottom: 0 !important;
+}
+
+.scheduleid {
+  font-weight: 400;
+  font-size: 15px;
+  color: #000000;
+  margin-bottom: 0 !important;
+}
+
+::placeholder {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #858585;
+}
+
+.editicon {
+  color: #f4da47;
+  font-size: 20px;
+}
+
+.addLaneSelect {
+  text-transform: capitalize !important;
+}
+.laneDropdown {
+  text-transform: capitalize;
+}
+
+.menuitem {
+  text-transform: capitalize !important;
+  width: 200px !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+@media (max-width: 1200px) {
+  .selectbox > h4 {
+    width: 30%;
+  }
+}
+@media (max-width: 400px) {
+  .searchdiv,
+  .headingdiv {
+    flex-direction: column;
+    gap: 5px;
+    padding-top: 10px !important;
+  }
+  .searchbox {
+    width: 100%;
+    border-radius: 5px;
+  }
+  .selectbox {
+    width: 100%;
+    border-radius: 5px;
+    padding: 6px 10px !important;
+  }
+  .buttondiv {
+    gap: 0 !important;
+    width: 100%;
+    justify-content: flex-start;
+  }
+  .button {
+    width: 100%;
+    padding: 5px !important;
+  }
+  .title {
+    font-size: 30px;
+  }
+  .titlediv {
+    width: 100%;
+  }
+  .selectbox {
+    flex-direction: column;
+    width: 100%;
+  }
+  .selectbox > div {
+    width: 100%;
+  }
+  .selectbox > h4 {
+    width: 100%;
+  }
+}
+.flexdiv {
+  display: flex;
+  gap: 20px;
+}
+.infodiv {
+  width: 100%;
+}
+.inputdivs {
+  margin-top: 15px;
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 20px;
+  box-sizing: border-box;
+  transition: transform 0.2s;
+  -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
+  box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
+  border: none;
+  margin-bottom: 30px;
+  -webkit-transition: all 0.3s ease-in-out;
+  width: 35%;
+}
+.inputdiv > div {
+  display: flex;
+}
+.inputdiv > div > label {
+  width: 40%;
+}
+/* .description {
+  display: flex;
+}
+
+.description > label {
+  width: 40% !important;
+} */
+.flexeddiv {
+  display: flex;
+  gap: 10px;
+}
+.flexeddiv > div {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.flexeddiv > div > label {
+  /* width: 50%; */
+  white-space: pre;
+  font-weight: bold;
+  margin-bottom: 0;
+}
+.flexeddiv > div > input:disabled {
+  background-color: transparent !important;
+  border: none;
+}
+.flexeddiv > div > select:disabled {
+  background-color: transparent !important;
+  border: none;
+}
+.inputdiv {
+  margin-top: 15px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #d8d9da;
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 20px;
+  box-sizing: border-box;
+  transition: transform 0.2s;
+  -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
+  box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
+  border: none;
+  margin-bottom: 30px;
+}
+
+.infodiv > h3 {
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 28px;
+  color: #333333;
+}
+.chat {
+  overflow: scroll;
+  border-bottom: 2px solid #d8d9da;
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 0px 0px 8px 8px;
+  box-sizing: border-box;
+  transition: transform 0.2s;
+  -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
+  box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
+  border: none;
+  margin-bottom: 30px;
+  height: 300px;
+}
+.disableflexdiv {
+  display: flex;
+  flex-direction: column;
+}
+.disableflexdiv > div {
+  width: 100%;
+}
+.disablediv > div {
+  display: flex;
+  align-items: center;
+}
+@media (max-width: 500px) {
+  .inputdiv {
+    flex-direction: column;
+  }
+  .infodiv,
+  .inputdivs {
+    width: 100%;
+  }
+  .inputdetailsdiv {
+    width: 100%;
+  }
+  .flexeddiv {
+    flex-direction: column;
+  }
+  .flexeddiv > div {
+    width: 100%;
+  }
+  .flexdiv {
+    flex-direction: column;
+  }
+  .addDivHeading{
+    flex-direction: column;
+    justify-content: baseline !important;
+    align-items:baseline !important;
+  }
+}
+
+.chatInput{
+  display: flex;
+  width: 100%;
+  margin-top: 10px;
+  position: sticky;
+  bottom: 0;
+  background-color: #fff;
+  padding: 20px 0px;
+    box-shadow: 0 -5px 5px -5px #ababab;
+  
+}
+
+.chatInputBox{
+  width: 100%;
+  border: 1px solid grey;
+  border-radius: 5px 0px 0px 5px;
+  padding: 7px 9px;
+  outline: none;
+}
+
+.sendMessage{
+  color:#00a1ff;
+  border: 2px solid;
+  border-radius: 0px 5px 5px 0px;
+  width: 100px !important;
+  height: 39px !important;
+
+}
+.chattitle{
+  background-color: #00a1ff2b !important;
+  border-bottom: 2px solid #d8d9da;
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  border-radius: 8px 8px 0px 0px;
+}
+.chattitle>h4{
+  margin-bottom: 0;
+  font-weight: bold;
+}
+.chatdiv{
+  padding: 20px;
+}
+.msgdiv{
+  min-height: 400px !important;
+}

@@ -17,12 +17,13 @@ function Header() {
   const role = useSelector((state) => state.profile.role);
   const userId = localStorage.getItem("allMasterId");
   const navigate = useNavigate();
-  const { data, isLoading } = useGetUserDetailsById(userId, type);
+  // const { data, isLoading } = useGetUserDetailsById(userId, type);
+  const site = 2;
 
 
-  if (isLoading) {
-    return <Loader />;
-  }
+  // if (isLoading) {
+  //   return <Loader />;
+  // }
 
   return (
     <Navbar collapseOnSelect expand="lg">
@@ -37,103 +38,157 @@ function Header() {
           id="responsive-navbar-nav"
           className="justify-content-end"
         >
-          <Nav>
-            {(role === 1 || role === 3) && (
-              <Link className="linktag" to="/menu">
-                Menu
-              </Link>
-            )}
-            {role === 1 && (
-              <Link className="linktag" to="/user/eodlist">
-                EOD
-              </Link>
-            )}
-            {role === 1 && (
-              <Link className="linktag" to="/user/dashboard">
-                Received Ticket
-              </Link>
-            )}
-            {role === 3 && (
-              <Link className="linktag" to={"/user/managereodview"}>
-                EOD
-              </Link>
-            )}
-            {role === 3 && (
-              <Link className="linktag" to="/user/manageticket">
-                Manage Ticket
-              </Link>
-            )}
-            {(role === 1 || role === 3) && (
-              <Link className="linktag" to="/user/mytickets">
-                My Ticket
-              </Link>
-            )}
-            {role === 3 && (
-              <Link className="linktag" to="/user/dashboard">
-                Received Ticket
-              </Link>
-            )}
-            {role === 2 && (
-              <Link className="linktag" to={"/admin/dashboard"}>
-                Dashboard
-              </Link>
-            )}
-            {role === 2 && (
-              <Link className="linktag" to={"/admin/user"}>
-                User
-              </Link>
-            )}
-            {role === 2 && (
-              <Link className="linktag" to={"/admin/group"}>
-                Manage Group
-              </Link>
-            )}
-            {role === 2 && (
-              <Link className="linktag" to={"/admin/room"}>
-                Room
-              </Link>
-            )}
-            <Nav.Item className="linktag">
-              {(role === 1 || role === 3) && (
-                <NavDropdown title="Room" id="basic-nav-dropdown">
-                  <NavDropdown.Item
-                    className="dropdownlink"
-                    onClick={() => {
-                      navigate("/user/rooms");
-                    }}
-                  >
-                    Room Book
-                  </NavDropdown.Item>
-                  <NavDropdown.Item
-                    className="dropdownlink"
-                    onClick={() => {
-                      navigate("/user/myroombookings");
-                    }}
-                  >
-                    My Bookings
-                  </NavDropdown.Item>
-                </NavDropdown>
+          {site === 1 ? (
+            <Nav>
+                {role !== 2 && (
+                <Link className="linktag" to="/menu">
+                  Menu
+                </Link>
               )}
-            </Nav.Item>
+              {role === 1 && (
+                <Link className="linktag" to="/user/eodlist">
+                  Add
+                </Link>
+              )}
+              {role === 1 && (
+                <Link className="linktag" to="/user/dashboard">
+                  Received Ticket
+                </Link>
+              )}
+              {role === 3 && (
+                <Link className="linktag" to={"/user/managereodview"}>
+                  EOD
+                </Link>
+              )}
+              {role === 3 && (
+                <Link className="linktag" to="/user/manageticket">
+                  Manage Ticket
+                </Link>
+              )}
+              {(role === 1 || role === 3) && (
+                <Link className="linktag" to="/user/mytickets">
+                  My Ticket
+                </Link>
+              )}
+              {role === 3 && (
+                <Link className="linktag" to="/user/dashboard">
+                  Received Ticket
+                </Link>
+              )}
+              {role === 2 && (
+                <Link className="linktag" to={"/admin/dashboard"}>
+                  Dashboard
+                </Link>
+              )}
+              {role === 2 && (
+                <Link className="linktag" to={"/admin/user"}>
+                  User
+                </Link>
+              )}
+              {role === 2 && (
+                <Link className="linktag" to={"/admin/group"}>
+                  Manage Group
+                </Link>
+              )}
+              {role === 2 && (
+                <Link className="linktag" to={"/admin/room"}>
+                  Room
+                </Link>
+              )}
+              <Nav.Item className="linktag">
+                {(role === 1 || role === 3) && (
+                  <NavDropdown title="Room" id="basic-nav-dropdown">
+                    <NavDropdown.Item
+                      className="dropdownlink"
+                      onClick={() => {
+                        navigate("/user/rooms");
+                      }}
+                    >
+                      Room Book
+                    </NavDropdown.Item>
+                    <NavDropdown.Item
+                      className="dropdownlink"
+                      onClick={() => {
+                        navigate("/user/myroombookings");
+                      }}
+                    >
+                      My Bookings
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                )}
+              </Nav.Item>
 
-            <Nav.Item className="d-flex gap-2">
-              <div className="hellotextdiv">
-                <span className="linktags">Hello</span>
-                <span
-                  className="linktags"
-                  style={{ textTransform: "capitalize" }}
-                >
-                  {data && data.fullName}
-                </span>
-              </div>
-            </Nav.Item>
+              {/* <Nav.Item className="d-flex gap-2">
+                <div className="hellotextdiv">
+                  <span className="linktags">Hello</span>
+                  <span
+                    className="linktags"
+                    style={{ textTransform: "capitalize" }}
+                  >
+                    {data && data.fullName}
+                  </span>
+                </div>
+              </Nav.Item> */}
 
-            <button className="logoutbtn" onClick={() => mutate()}>
-              <RiShutDownLine
-                style={{ color: "#ffff", fontSize: "20px", fontWeight: "bold" }}
-              />
-            </button>
-          </Nav>
+              <button className="logoutbtn" onClick={() =>{window.location.replace("/login");localStorage.clear()} }>
+                <RiShutDownLine
+                  style={{
+                    color: "#ffff",
+                    fontSize: "20px",
+                    fontWeight: "bold",
+                  }}
+                />
+              </button>
+            </Nav>
+          ) : (
+            <Nav>
+              {(role === 1 || role === 3) && (
+                <Link className="linktag" to="/user/mydemocall">
+                  My Demo Calls
+                </Link>
+              )}
+              {role === 1 && (
+                <Link className="linktag" to="/user/assginedsalescall">
+                  Assigned Sales Calls
+                </Link>
+              )}
+              {role === 1 && (
+                <Link className="linktag" to="/user/democall">
+                  Create Demo Calls
+                </Link>
+              )}
+              {role === 3 && (
+                <Link className="linktag" to={"/user/company"}>
+                  Add Company
+                </Link>
+              )}
+              {role === 3 && (
+                <Link className="linktag" to="/user/employee">
+                  Add Employee
+                </Link>
+              )}
+              {role === 3 && (
+                <Link className="linktag" to="/user/salescall">
+                  Sales Call
+                </Link>
+              )}
+              {role === 3 && (
+                <Link className="linktag" to="/user/managerdemo">
+                  View Demo Call
+                </Link>
+              )}
+              
+              <button className="logoutbtn" onClick={() =>{window.location.replace("/login") ; localStorage.clear()}}>
+                <RiShutDownLine
+                  style={{
+                    color: "#ffff",
+                    fontSize: "20px",
+                    fontWeight: "bold",
+                  }}
+                />
+              </button>
+            </Nav>
+          )}
         </Navbar.Collapse>
       </Container>
     </Navbar>

@@ -63,13 +63,12 @@ const Loginpage = () => {
     mutationFn: (data) => logInApi(data),
     onSuccess: async (data) => {
       if (data.status === 1) {
-        const parsedData = JSON.parse(data.data);
-        const decodedData = jwtDecode(parsedData.token);
-        localStorage.setItem("allMasterToken", parsedData.token);
-        localStorage.setItem("allMasterId", parsedData.userId);
-        localStorage.setItem("groupId", parsedData.groupId);
+        const decodedData = jwtDecode(data.data);
+        console.log(decodedData,"deco")
+        localStorage.setItem("allMasterToken", data.data);
+        localStorage.setItem("allMasterId", decodedData.userId);
         data.role = decodedData.role;
-        dispatch(setProfileData(decodedData));
+        dispatch(setProfileData(data));
         await queryClient.refetchQueries({ queryKey: ["profileData"] });
       } else {
         if (data.status === 0 && data.data != null) {

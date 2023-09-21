@@ -46,6 +46,34 @@ const LandingPageComponent = lazy(() =>
   import("../views/User/LandingPage/index")
 );
 
+//sales
+const Companies = lazy(() => import("../views/User/Sales/Companies/index"))
+const AddCompanies = lazy(() => import("../views/User/Sales/Companies/AddCompanies/AddCompany"))
+
+const EmployeeComponent = lazy(() => import("../views/User/Sales/Employee/index"))
+//Create Sales Call
+const SalesCallComponent = lazy(() => import("../views/User/Sales/SalesCall/index"))
+const CreateSalesCallComponent = lazy(() => import("../views/User/Sales/SalesCall/CreateSalesCall/CreateSalesCall"))
+const ViewSalesCallComponent = lazy(() => import("../views/User/Sales/SalesCall/ViewSalesCall/index"))
+
+//Assigned Sales call
+const AssignedSalesCallComponent = lazy(() => import("../views/User/Sales/AssignedSalesCall/index"))
+const UpdateAssingedCall = lazy(() => import("../views/User/Sales/AssignedSalesCall/UpdateAssignedCall/index"))
+
+//Assigne Demo Calls
+const DemoCallComponent = lazy(() => import("../views/User/Sales/DemoCalls/index"))
+const CreateDemoCallComponent = lazy(() => import("../views/User/Sales/DemoCalls/CreateDemoCall/CreateDemoCall"))
+const ViewDemoCallComponent = lazy(() => import("../views/User/Sales/DemoCalls/ViewDemoCall/index"))
+
+//My Demo Calls
+const MyDemoCallComponent = lazy(() => import("../views/User/Sales/MyDemoCalls/index"))
+const UpdateDemoCallComponent = lazy(() => import("../views/User/Sales/MyDemoCalls/UpdateDemoCall/index"))
+
+//My Demo Calls
+const ManagerDemoCallComponent = lazy(() => import("../views/User/Sales/ManagerDemoCall/index"))
+const ViewManagerDemoCallComponent = lazy(() => import("../views/User/Sales/ManagerDemoCall/ViewManagerDemoCall/index"))
+
+
 const userPaths = [
   {
     path: "user",
@@ -105,15 +133,70 @@ const userPaths = [
       },
       {
         path: "manager/eodview",
-        path: "managereodview",
         element: ManageEodMailComponent,
+      },
+      {
+        path: "company",
+        element: Companies,
+      },
+      {
+        path: "addCompany",
+        element: AddCompanies,
+      },
+      {
+        path: "employee",
+        element: EmployeeComponent,
+      },
+      {
+        path: "salescall",
+        element: SalesCallComponent,
+      },
+      {
+        path: "createsalescall",
+        element: CreateSalesCallComponent,
+      },
+      {
+        path: "viewsalescall/:id",
+        element: ViewSalesCallComponent,
+      },
+      {
+        path: "viewdemocall/:id",
+        element: ViewDemoCallComponent,
+      },
+      {
+        path: "democall",
+        element: DemoCallComponent,
+      },
+      {
+        path: "createdemocall",
+        element: CreateDemoCallComponent,
+      },
+      {
+        path: "assginedsalescall",
+        element: AssignedSalesCallComponent,
+      },
+      {
+        path: "updateassginedsalescall/:id",
+        element: UpdateAssingedCall,
+      },
+      {
+        path: "mydemocall",
+        element: MyDemoCallComponent,
+      },
+      {
+        path: "updatedemocall/:id",
+        element: UpdateDemoCallComponent,
+      },
+      {
+        path: "managerdemo",
+        element: ManagerDemoCallComponent,
+      },
+      {
+        path: "viewmanagerdemo/:id",
+        element: ViewManagerDemoCallComponent,
       },
     ],
     status: [1],
-  },
-  {
-    path: "menu",
-    element: LandingPageComponent,
   },
 ];
 
@@ -145,7 +228,7 @@ function UserApp() {
           ))}
         </Route>
       ))}
-      <Route path="*" element={<Navigate to="/menu" replace />} />
+      <Route path="*" element={<Navigate to="/user/dashboard" replace />} />
     </Routes>
   );
 }
