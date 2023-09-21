@@ -74,7 +74,7 @@ function Dashboard() {
 
   
   const generateRowsWithIndex = (data) => {
-    return data.map((row, index) => {
+    return data.filter(item => item.status != 0).map((row, index) => {
       return { ...row, index: index + 1 };
     });
   };
@@ -109,12 +109,12 @@ function Dashboard() {
                 sx={{ textTransform: "capitalize", minHeight: "400px" }}
                 rows={
                   rowsWithIndex && searchValue !== ""
-                    ? rowsWithIndex.filter(item => item.status != 0).filter((e) =>
+                    ? rowsWithIndex.filter((e) =>
                         e.companyName
                           .toLowerCase()
                           .includes(searchValue.toLowerCase())
                       )
-                    : rowsWithIndex.filter(item => item.status != 0)
+                    : rowsWithIndex
                 }
                 columns={columns}
                 getRowId={(rowsWithIndex) => rowsWithIndex._id}
@@ -131,8 +131,7 @@ function Dashboard() {
             </div>
           ) : (
             <div className={styles.nogroup}>
-              <h4>Do you face any Issue ?</h4>
-              <h4>Create a Ticket for the Solution.</h4>
+              <h4>Looks empty !</h4>
             </div>
           )}
         </div>
