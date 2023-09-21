@@ -3,19 +3,17 @@ import { DataGrid } from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import searchLogo from "../../../../assets/Images/searchLogo.png";
-import { useGetAllCompanies } from "../../../../hooks/sales";
+import { useGetAllCompanies, useUpdateCompany } from "../../../../hooks/sales";
 import Loader from "../../../../components/Loader/Loader";
 
 function Dashboard() {
   const id = localStorage.getItem("allMasterId");
   const navigate = useNavigate();
-  
-
   const { data, isloading } = useGetAllCompanies();
+  const {mutate} = useUpdateCompany()
 
   const [searchValue, setSearchValue] = useState("");
 
-console.log(data,"data")
   const returnStatus = (status) => {
     let ticketStatus = "";
     if (status == 0) {
@@ -35,6 +33,12 @@ console.log(data,"data")
 
   const columns = [
     {
+      field: "index",
+      flex: 1,
+      headerName: "S.No",
+      width: 150,
+    },
+    {
       field: "companyName",
       flex: 1,
       headerName: "Company Name",
@@ -46,19 +50,35 @@ console.log(data,"data")
       headerName: "Contact",
       width: 200,
     },
+    {
+      flex: 1,
+      field: "Options",
+      sortable: false,
+      width: 100,
+      renderCell: (params) => {
+        return <button
+          className={styles.editBtn}
+          onClick={() => mutate({data:{id:params.row._id}})}
+        >
+          Delete
+        </button>
+      },
+    },
   ];
 
   if (isloading) {
     return <Loader />;
   }
 
-  // const rowClickFunction = (data) => {
-  //   if (data.field === "Options") {
-  //     navigate("/user/editticket/" + data.row._id);
-  //   }
-  // };
+  
+  const generateRowsWithIndex = (data) => {
+    return data.map((row, index) => {
+      return { ...row, index: index + 1 };
+    });
+  };
 
   if (data !== undefined) {
+    const rowsWithIndex = generateRowsWithIndex(data);
     return (
       <div className="container">
         <div className={styles.mainDiv}>
@@ -86,16 +106,16 @@ console.log(data,"data")
                 className={styles.dataGrid}
                 sx={{ textTransform: "capitalize", minHeight: "400px" }}
                 rows={
-                  data && searchValue !== ""
-                    ? data.filter((e) =>
+                  rowsWithIndex && searchValue !== ""
+                    ? rowsWithIndex.filter((e) =>
                         e.companyName
                           .toLowerCase()
                           .includes(searchValue.toLowerCase())
                       )
-                    : data
+                    : rowsWithIndex
                 }
                 columns={columns}
-                getRowId={(data) => data._id}
+                getRowId={(rowsWithIndex) => rowsWithIndex._id}
                 hideFooterSelectedRowCount={true}
                 // onCellClick={(row) => rowClickFunction(row)}
                 initialState={{
