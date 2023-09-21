@@ -98,6 +98,7 @@ const Index = () => {
     return <Loader />;
   }
 
+
   return (
     <div className="container">
       <div className={classes.mainDiv}>
