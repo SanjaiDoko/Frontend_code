@@ -90,6 +90,37 @@ const useGetMyEmployee = () => {
   });
 };
 
+// remove employee
+const useRemoveUser = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (data) =>
+      fetchData(
+        {
+          url: newUrl + "/user/removeFromNetwork",
+          method: "POST",
+          isAuthRequired: true,
+        },
+        { data: [{id:data}] }
+      ),
+    onSuccess: async () => {
+      toast.success("User Removed Successfully")
+      await queryClient.invalidateQueries({
+        queryKey: ["getEmployeeById"],
+      });
+      await queryClient.invalidateQueries({
+        queryKey: ["allUnassignedEmployee"],
+      });
+      await queryClient.invalidateQueries({
+        queryKey: ["myEmployee"],
+      });
+    },
+    onError: (error) => {
+      toast.error(error.message.split(":")[1]);
+    },
+  });
+};
+
 //get employee
 const useGetAllEmployee = () => {
   return useQuery({
@@ -434,6 +465,7 @@ const useInsertDemoRemarks = (onSuccessFunctions) => {
 export {
   useInsertEmployee,
   useGetMyEmployee,
+  useRemoveUser,
   useGetAllCompanies,
   useInsertCompany,
   useUpdateCompany,

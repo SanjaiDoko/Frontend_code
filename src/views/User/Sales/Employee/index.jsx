@@ -3,7 +3,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import searchLogo from "../../../../assets/Images/searchLogo.png";
-import { useGetMyEmployee } from "../../../../hooks/sales";
+import { useGetMyEmployee, useRemoveUser } from "../../../../hooks/sales";
 import Loader from "../../../../components/Loader/Loader";
 import Select from "@mui/material/Select";
 import EmployeePopup from "../../../../components/EmployeePopup";
@@ -21,8 +21,8 @@ function Index() {
   console.log(data)
 
   const [searchValue, setSearchValue] = useState("");
+  const { mutate } = useRemoveUser();
 
-console.log(data,"data")
   const returnStatus = (status) => {
     let ticketStatus = "";
     if (status == 0) {
@@ -47,6 +47,17 @@ console.log(data,"data")
       flex: 1,
       headerName: "username",
       width: 150,
+    },
+    {
+      flex: 1,
+      field: "Options",
+      sortable: false,
+      width: 100,
+      renderCell: () => (
+        <button className={styles.editBtn}>
+          { "Remove User"}
+        </button>
+      ),
     },
   ];
 
@@ -99,7 +110,7 @@ console.log(data,"data")
                 columns={columns}
                 getRowId={(data) => data._id}
                 hideFooterSelectedRowCount={true}
-                // onCellClick={(row) => rowClickFunction(row)}
+                onCellClick={(row) => mutate(row.id)}
                 initialState={{
                   pagination: {
                     paginationModel: {
