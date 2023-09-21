@@ -30,7 +30,7 @@ const useInsertCompany = (onSuccessFunctions) => {
     mutationFn: (data) =>
       fetchData(
         {
-          url: newUrl + "/company/addCompany",
+          url: newUrl + "company/addCompany",
           method: "POST",
           isAuthRequired: true,
         },
