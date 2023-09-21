@@ -381,9 +381,10 @@
 .flexdiv {
   display: flex;
   gap: 20px;
+  flex-direction: column;
 }
 .infodiv {
-  width: 70%;
+  width: 100%;
 }
 .inputdivs {
   margin-top: 15px;
@@ -445,6 +446,22 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   padding: 20px;
+  box-sizing: border-box;
+  transition: transform 0.2s;
+  -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
+  box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
+  border: none;
+}
+.reportDiv {
+  margin-top: 5px;
+  padding-bottom: 10px;
+  margin-left: 10px;
+  border-bottom: 2px solid #d8d9da;
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 5px;
+  padding-left: 10px !important;
   box-sizing: border-box;
   transition: transform 0.2s;
   -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);

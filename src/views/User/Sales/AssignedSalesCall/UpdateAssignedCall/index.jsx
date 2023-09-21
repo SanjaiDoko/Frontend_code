@@ -405,7 +405,8 @@ const Index = () => {
                       </div>
                     </div>
                   }
-                  {!showReport && data[0].status !== 3 && (
+                  {console.log(data[0].status)}
+                  {!showReport && data[0].status !== 1 && data[0].status !== 3 && data[0].status !== 4 && (
                     <button
                       type="button"
                       onClick={() => setShowReport(true)}

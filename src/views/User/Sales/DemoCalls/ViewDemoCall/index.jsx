@@ -188,21 +188,46 @@ console.log(data,"asdasd")
                         />
                       </Form.Group>
                     </div>
-                    <div style={{ display: "flex", flexDirection: "column" }}>
-                      <h5>Reports:</h5>
-                      <div>
-                        {data[0].remarks?.map((remark, i) => {
-                          return (
-                            <div key={remark._id}>
-                              <p>
-                                {i + 1}. { moment(remark.enteredDate).format("DD-MM-YYYY")} - {remark.data}
-                              </p>
+                    
+                  </div>
+                  {
+                    <div>
+                      <div className={classes.addDivHeading}>
+                        <h3>Notes</h3>
+                      </div>
+                      <div
+                        className={classes.inputdiv}
+                        style={{ flexDirection: "column" }}
+                      >
+                        {data[0].remarks?.length === 0 ? (
+                          <p>No data</p>
+                        ) : (
+                          <div
+                            style={{ display: "flex", flexDirection: "column" }}
+                          >
+                            <div>
+                              {data[0].remarks?.map((remark, i) => {
+                                return (
+                                  <div key={remark._id}>
+                                    <p>
+                                      
+                                      {moment(remark.enteredDate).format(
+                                        "DD-MM-YYYY"
+                                      )}{" "}
+                                      <p className={classes.reportDiv}>
+                                        {remark.data}
+                                      </p>
+                                    </p>
+                                  </div>
+                                );
+                              })}
                             </div>
-                          );
-                        })}
+                          </div>
+                        )}
+
                       </div>
                     </div>
-                  </div>
+                  }
                 </div>
                 
               </div>

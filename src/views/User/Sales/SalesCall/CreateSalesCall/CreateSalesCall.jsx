@@ -37,7 +37,7 @@ const AddTicket = () => {
 
 
   const onSubmit = (data) => {
-    
+    data.companyId = [data.companyId]
     mutate(data);
   };
   if(isloading || employeeLoading){

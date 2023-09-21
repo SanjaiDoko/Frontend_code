@@ -23,7 +23,7 @@ import { demoStatus, getDemoMessage } from "../../../../../helper";
 
 const Index = () => {
 
-  const array = [1, 2, 3, 4, 5];
+  const [showReport, setShowReport] = useState(false);
 
   const { id } = useParams();
 
@@ -43,6 +43,7 @@ const Index = () => {
   const {
     handleSubmit,
     control,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(updateReportValidation),
@@ -72,26 +73,7 @@ console.log(data,"asdasd")
             <div>
               <div className={classes.addDivHeading}>
                 <h3>Update Demo Calls</h3>
-                {/* {uniqueTicketData[0].status === 0 && (
-                  <button
-                    type="button"
-                    className={classes.rejectBtn}
-                    onClick={() => {
-                      mutate({ id, status: 3 });
-                    }}
-                  >
-                    Reject Task
-                  </button>
-                )} */}
-
-                {/* {uniqueTicketData[0].status === 3 && (
-                  <h4 className={classes.reject}>Task is Rejected</h4>
-                )} */}
-                {/* {uniqueTicketData[0].status === 1 && (
-                  <h4 type="button" className={classes.completed}>
-                    Task is Completed
-                  </h4>
-                )} */}
+                
               </div>
               <div className={classes.flexdiv}>
                 <div className={classes.infodiv}>
@@ -188,23 +170,177 @@ console.log(data,"asdasd")
                         />
                       </Form.Group>
                     </div>
-                    <div style={{ display: "flex", flexDirection: "column" }}>
-                      <h5>Reports:</h5>
-                      <div>
-                        {data[0].remarks?.map((remark, i) => {
-                          return (
-                            <div key={remark._id}>
-                              <p>
-                                {i + 1}. { moment(remark.enteredDate).format("DD-MM-YYYY")} - {remark.data}
-                              </p>
-                            </div>
-                          );
-                        })}
-                      </div>
-                    </div>
+                    
                   </div>
                 </div>
-                <div className={classes.inputdivs}>
+                    <div>
+                      <div className={classes.addDivHeading}>
+                        <h3>Notes</h3>
+                      </div>
+                      <div
+                        className={classes.inputdiv}
+                        style={{ flexDirection: "column" }}
+                      >
+                        {data[0].remarks?.length === 0 ? (
+                          <p>No data</p>
+                        ) : (
+                          <div
+                            style={{ display: "flex", flexDirection: "column" }}
+                          >
+                            <div>
+                              {data[0].remarks?.map((remark, i) => {
+                                return (
+                                  <div key={remark._id}>
+                                    <p>
+                                      {"Date"}:{" "}
+                                      {moment(remark.enteredDate).format(
+                                        "DD-MM-YYYY"
+                                      )}{" "}
+                                      <p className={classes.reportDiv}>
+                                        {remark.data}
+                                      </p>
+                                    </p>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          </div>
+                        )}
+
+                        {showReport && (
+                          <div
+                            style={{ display: "flex", flexDirection: "column" }}
+                          >
+                            <Form.Group className="pt-2">
+                              <Form.Label
+                                htmlFor="assignedTo"
+                                className="formlabel"
+                              >
+                                Status
+                              </Form.Label>
+                              <Controller
+                                name="status"
+                                control={control}
+                                render={({ field }) => (
+                                  <Form.Select
+                                    className={`formcontrol`}
+                                    // disabled={uniqueTicketData[0].status !== 0}
+                                    {...field}
+                                    id="status"
+                                  >
+                                    <option value={""} hidden>
+                                      Choose Type
+                                    </option>
+                                    {demoStatus &&
+                                      demoStatus
+                                        .filter((e) => e.status !== 0)
+                                        .map((e, i) => {
+                                          return (
+                                            <option
+                                              key={i}
+                                              value={e.status}
+                                              style={{
+                                                textTransform: "capitalize",
+                                              }}
+                                            >
+                                              {e.message}
+                                            </option>
+                                          );
+                                        })}
+                                  </Form.Select>
+                                )}
+                              />
+                              {errors.status && (
+                                <span className={classes.error}>
+                                  {errors.status.message}
+                                </span>
+                              )}
+                            </Form.Group>
+
+                            <Form.Group className="pt-2">
+                              <Form.Label
+                                htmlFor="remark"
+                                className="formlabel"
+                              >
+                                Remark
+                              </Form.Label>
+                              <Controller
+                                name="remark"
+                                control={control}
+                                render={({ field }) => (
+                                  <Form.Control
+                                    as="textarea"
+                                    {...field}
+                                    id="remark"
+                                    placeholder="Enter Remark"
+                                  />
+                                )}
+                              />
+                              {console.log(errors)}
+                              {errors.remark && (
+                                <span className={classes.error}>
+                                  {errors.remark.message}
+                                </span>
+                              )}
+                            </Form.Group>
+                            
+                            <div
+                              style={{
+                                display: "flex",
+                                justifyContent: "flex-end",
+                              }}
+                            >
+                              <button
+                                type="submit"
+                                style={{
+                                  marginRight: "30px",
+                                  backgroundColor: "#8be877",
+                                }}
+                                onClick={() => setShowReport(true)}
+                                className={classes.addTicketBtn}
+                              >
+                                Create Note
+                              </button>
+                              <button
+                                type="button"
+                                style={{ backgroundColor: "#ee9b9b" }}
+                                onClick={() => {
+                                  setShowReport(false);
+                                  reset("");
+                                }}
+                                className={classes.addTicketBtn}
+                              >
+                                Clear Note
+                              </button>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  
+                 
+                
+              </div>
+              {!showReport && data[0].status !== 3 && (
+                    <button
+                      type="button"
+                      onClick={() => setShowReport(true)}
+                      className={classes.addTicketBtn}
+                    >
+                      Update Note
+                    </button>
+                  )}
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Index;
+
+/* <div className={classes.inputdivs}>
                   <div>
                     <Form.Group className="pt-2">
                       <Form.Label htmlFor="assignedTo" className="formlabel">
@@ -279,15 +415,5 @@ console.log(data,"asdasd")
                     onClick={() => navigate(-1)}
                   >
                     Back
-                  </button> */}
-                </div>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default Index;
+                  </button> 
+                </div> */
