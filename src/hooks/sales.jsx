@@ -419,6 +419,9 @@ const useInsertDemoRemarks = (onSuccessFunctions) => {
       queryClient.invalidateQueries({
         queryKey: ["myDemo"],
       });
+      queryClient.invalidateQueries({
+        queryKey: ["demoById"],
+      });
     },
     onError: (error) => {
       toast.error(error.message.split(":")[1]);
