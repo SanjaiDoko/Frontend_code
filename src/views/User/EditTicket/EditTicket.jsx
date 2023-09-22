@@ -96,7 +96,6 @@ const EditTicket = () => {
     });
 
     socket?.on("getMessage", (data) => {
-      console.log(data, "emit");
       const newChat = {
         message: { message: data.text, createdAt: data.createdAt },
         senderId: data.senderId,
@@ -123,7 +122,6 @@ const EditTicket = () => {
     },
   };
 
-  console.log(uniqueTicketData[0]);
   const sendChatMessage = (e) => {
     e.preventDefault();
     const newChat = {

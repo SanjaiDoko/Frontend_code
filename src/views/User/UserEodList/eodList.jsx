@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Loader from "../../../components/Loader/Loader";
 import { useGetEodById } from "../../../hooks/eodHooks";
 import moment from "moment/moment";
-import {TbMoodEmpty} from 'react-icons/tb';
+import { TbMoodEmpty } from "react-icons/tb";
 
 function EodList() {
   const id = localStorage.getItem("allMasterId");
@@ -36,10 +36,14 @@ function EodList() {
       renderCell: (params) => {
         let eodSummary = params.row.eodSummary;
         let totalHours = 0;
+        let totalMinutes = 0;
         for (let i = 0; i < eodSummary.length; i++) {
-          totalHours += eodSummary[i].hours;
+          totalHours += Number(eodSummary[i].hours);
+          totalMinutes += Number(eodSummary[i]?.minutes);
         }
-        return `${totalHours} hr`;
+        let reminingMinutes = totalMinutes % 60;
+        totalHours = totalHours + parseInt(totalMinutes / 60);
+        return `${totalHours}:${reminingMinutes} Hrs`;
       },
     },
     {
@@ -113,7 +117,7 @@ function EodList() {
           ) : (
             <div className={styles.nodatafound}>
               <h4>Looks Empty</h4>
-              <TbMoodEmpty style={{fontSize:'30px'}}/>
+              <TbMoodEmpty style={{ fontSize: "30px" }} />
             </div>
           )}
         </div>

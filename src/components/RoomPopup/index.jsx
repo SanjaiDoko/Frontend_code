@@ -36,7 +36,6 @@ const MenuProps = {
 
 
 export const RoomPopup = ({ open, titleText, roomId }) => {
-    console.log(roomId,"roomId")
   const userId = localStorage.getItem("allMasterId");
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -194,7 +193,7 @@ export const RoomPopup = ({ open, titleText, roomId }) => {
             </div>
             <Form.Group className="pt-2">
               <Form.Label id="emailcc">
-                CC Mails
+              Participating Members
               </Form.Label>
               <Controller
                 control={control}
@@ -209,7 +208,6 @@ export const RoomPopup = ({ open, titleText, roomId }) => {
                     onChange={onChange}
                     className={styles.costheadingSelect}
                     sx={{
-                      textTransform: "capitalize",
                       fontSize: "14px",
                     }}
                     renderValue={(selected) => {

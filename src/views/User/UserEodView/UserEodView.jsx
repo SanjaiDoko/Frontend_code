@@ -35,7 +35,7 @@ const UserEodView = () => {
                     <tr>
                       <td className={styles.col1}>{index + 1}</td>
                       <td className={styles.col2}>{e.taskDescription}</td>
-                      <td className={styles.col3}>{e.hours} Hrs</td>
+                      <td className={styles.col3}>{e.hours}:{e.minutes <= 9 ? `0${e.minutes}`:e.minutes} Hrs</td>
                     </tr>
                   );
                 })}

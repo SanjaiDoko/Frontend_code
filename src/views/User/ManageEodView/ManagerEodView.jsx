@@ -174,7 +174,11 @@ const ManagerEodView = () => {
                                     {data.taskDescription}
                                   </td>
                                   <td className={styles.col3}>
-                                    {data.hours} Hrs
+                                    {data.hours}:
+                                    {data.minutes <= 9
+                                      ? `0${data.minutes}`
+                                      : data.minutes}{" "}
+                                    Hrs
                                   </td>
                                 </tr>
                               );

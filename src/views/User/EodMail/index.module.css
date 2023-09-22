@@ -58,3 +58,15 @@
   border: none;
   border: 2px solid #fff;
 }
+.timediv{
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+}
+.timediv>div{
+  width: 50%;
+}
+.optionaltxt{
+  font-size: 13px;
+  color: #a8a8a8;
+}

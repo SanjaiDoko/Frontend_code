@@ -5,7 +5,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import Loader from "../../../components/Loader/Loader";
 import RightDrawer from "../../../components/RightDrawer/RightDrawer";
 import { useGetAllRooms } from "../../../hooks/room";
-import AddAndEditRoom from './AddAndEditRoom'
+import AddAndEditRoom from "./AddAndEditRoom";
 
 const RoomManagement = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -39,7 +39,9 @@ const RoomManagement = () => {
       field: "status",
       headerName: "STATUS",
       flex: 1,
-      renderCell: (value) => { console.log(value.value,"value"); return value.value === 1 ? "Active" : "Inactive"} ,
+      renderCell: (value) => {
+        return value.value === 1 ? "Active" : "Inactive";
+      },
     },
     {
       flex: 1,
@@ -67,7 +69,6 @@ const RoomManagement = () => {
   if (roomLoading) {
     return <Loader />;
   }
- 
 
   return (
     <>
@@ -76,12 +77,9 @@ const RoomManagement = () => {
           <div className={styles.headingdiv}>
             <div className={styles.titlediv}>
               <h3 className={styles.title}>Room Management</h3>
-                <button
-                  className={styles.grpbtn}
-                  onClick={() => setPopup(true)}
-                >
-                  Add Room
-                </button>
+              <button className={styles.grpbtn} onClick={() => setPopup(true)}>
+                Add Room
+              </button>
             </div>
           </div>
           <div className={styles.searchdiv}>
@@ -104,14 +102,16 @@ const RoomManagement = () => {
             <div className={styles.girdoverflow}>
               <DataGrid
                 className={styles.dataGrid}
-                sx={{ textTransform: "capitalize" , minHeight:'350px' }}
-                rows={ roomData && roomData.length > 0 && searchValue !== ""
-                ? roomData.filter((e) =>
-                    e.roomName
-                      .toLowerCase()
-                      .includes(searchValue.toLowerCase())
-                  )
-                : roomData}
+                sx={{ textTransform: "capitalize", minHeight: "350px" }}
+                rows={
+                  roomData && roomData.length > 0 && searchValue !== ""
+                    ? roomData.filter((e) =>
+                        e.roomName
+                          .toLowerCase()
+                          .includes(searchValue.toLowerCase())
+                      )
+                    : roomData
+                }
                 columns={columns}
                 initialState={{
                   pagination: {
@@ -151,6 +151,6 @@ const RoomManagement = () => {
       </RightDrawer>
     </>
   );
-}
+};
 
 export default RoomManagement;

@@ -12,7 +12,6 @@ const useLoginData = () => {
     onSuccess: async (data) => {
       if (data.status === 1) {
         const parsedData = JSON.parse(data.data);
-        // console.log(parsedData , 'rprprp')
         const decodedData = jwtDecode(parsedData.token);
         localStorage.setItem("allMasterToken", parsedData.token);
         localStorage.setItem("allMasterId", parsedData.userId);

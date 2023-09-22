@@ -83,7 +83,6 @@ const Index = () => {
     });
 
     socket?.on("getMessage", (data) => {
-      console.log(data, "emit");
       const newChat = {
         message: { message: data.text, createdAt: data.createdAt },
         senderId: data.senderId,
@@ -203,7 +202,6 @@ const Index = () => {
 
     setSendMessage("");
   };
-  // console.log(liveUser,"liveUser")
   return (
     <div className="container">
       <div className={classes.mainDiv}>
