@@ -127,7 +127,6 @@ const useGetRoomBookingsDetails = (id) => {
       fetchData(
         {
           url: URL + "room/getRoomById",
-          isAuthRequired: false,
           method: "POST",
           isAuthRequired: true,
         },

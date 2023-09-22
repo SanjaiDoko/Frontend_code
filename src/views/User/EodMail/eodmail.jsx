@@ -236,7 +236,7 @@ function EodMail() {
           })}
           <Form.Group className="pt-2">
             <Form.Label htmlFor="ccMail" className="formlabel">
-              CC Mail
+              CC Mail <span className={styles.optionaltxt}>(Optional)</span>
             </Form.Label>
             <Controller
               name="ccMail"
