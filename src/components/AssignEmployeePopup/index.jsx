@@ -23,8 +23,6 @@ import { createSalesCallValidation } from "../../validationSchema/createSalesCal
 function AssignEmployeePopup({  titleText,content,rowId, rowData }) {
   const popupStatus = useSelector((state) => state.roomPopup.popupStatus);
   const navigate = useNavigate();
-  console.log(rowId,"rowId")
-console.log("open")
   const onSuccess = () => {
     navigate("/user/company")
   };
@@ -50,7 +48,6 @@ console.log("open")
   });
 
   const onSubmit = (data) => {
-    console.log(data)
     data.companyId = rowId
     mutate(data);
     reset()
@@ -76,7 +73,6 @@ console.log("open")
         {/* <DialogContentText className="contenttxt" id="alert-dialog-description">
           <p className="contentText" style={{fontWeight:"bold", marginBottom:"10px"}}>Selected Companies</p>
           {rowData.map((data,i)=>{
-            console.log(data,"row")
             return<p style={{marginLeft:"20px",marginBottom:"5px"}} key={data._id}>{i+1}. {data.companyName}</p>
           })}
         </DialogContentText> */}
@@ -104,7 +100,6 @@ console.log("open")
 
                       {employeeData &&
                         employeeData.map((e, i) => {
-                          console.log(e);
                           return (
                             <option key={i} value={e._id}>
                               {e.username}

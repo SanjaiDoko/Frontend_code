@@ -64,7 +64,6 @@ const Loginpage = () => {
     onSuccess: async (data) => {
       if (data.status === 1) {
         const decodedData = jwtDecode(data.data);
-        console.log(decodedData,"deco")
         localStorage.setItem("allMasterToken", data.data);
         localStorage.setItem("allMasterId", decodedData.userId);
         data.role = decodedData.role;

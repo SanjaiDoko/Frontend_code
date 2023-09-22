@@ -96,7 +96,6 @@ function IndividualStatusUserList() {
     return <div>{error.message}</div>;
   }
 
-  console.log(data, "data");
 
   return (
     <div className={styles.countrydiv}>

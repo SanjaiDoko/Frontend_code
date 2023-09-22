@@ -5,16 +5,16 @@ import Loader from "../../../components/Loader/Loader";
 import { useNavigate } from "react-router";
 
 function AdminDashboard() {
-  // const { data: groupList, isLoading: groupLoading } = useGetAllGroups();
-  // const { data: userList, isLoading: userLoading } = useGetAllUsers();
-  // const navigate = useNavigate();
+  const { data: groupList, isLoading: groupLoading } = useGetAllGroups();
+  const { data: userList, isLoading: userLoading } = useGetAllUsers();
+  const navigate = useNavigate();
 
-  // if (userLoading || groupLoading) {
-  //   return <Loader />;
-  // }
+  if (userLoading || groupLoading) {
+    return <Loader />;
+  }
   return (
     <div className={styles.maindiv}>
-      {/* <div>
+      <div>
         <div className="container">
           <div className={styles.overview}>
             <h1 className={styles.overviewtxt}>Overview</h1>
@@ -113,7 +113,7 @@ function AdminDashboard() {
           </div>
           }
         </div>
-      </div> */}
+      </div>
     </div>
   );
 }

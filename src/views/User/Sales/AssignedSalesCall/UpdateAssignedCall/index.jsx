@@ -41,7 +41,6 @@ const Index = () => {
   const { id } = useParams();
 
   const onChatSuccessFunction = (data) => {
-    console.log(data, ":asasa");
     setAssigneData(data[0], "data");
   };
 
@@ -311,7 +310,6 @@ const Index = () => {
                                   />
                                 )}
                               />
-                              {console.log(errors)}
                               {errors.remark && (
                                 <span className={classes.error}>
                                   {errors.remark.message}
@@ -383,7 +381,6 @@ const Index = () => {
                                 className={classes.addTicketBtn}
                               >
                                 Create Note
-                                {console.log(watch().assignedTo, "sadasdasd")}
                               </button>
                               <button
                                 type="button"
@@ -402,7 +399,6 @@ const Index = () => {
                       </div>
                     </div>
                   }
-                  {console.log(data[0].status)}
                   {!showReport &&
                     data[0].status !== 1 &&
                     data[0].status !== 3 &&

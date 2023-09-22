@@ -19,8 +19,6 @@ function Index() {
 
   const { data, isloading } = useGetSalesCallByAssignee();
 
-  console.log(data)
-
   const navigate = useNavigate();
 
   const returnStatus = (status) => {
@@ -87,7 +85,6 @@ function Index() {
   }
 
   const rowClickFunction = (data) => {
-    console.log(data)
     if (data.field === "Options") {
       navigate("/user/updateassginedsalescall/" + data.row.callId);
     }

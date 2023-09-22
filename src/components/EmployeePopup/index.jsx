@@ -23,7 +23,6 @@ import { addEmployeeValidation } from "../../validationSchema/addEmployeeValidat
 function EmployeePopup({  titleText }) {
   const popupStatus = useSelector((state) => state.roomPopup.popupStatus);
   const navigate = useNavigate();
-console.log("open")
   const onSuccess = () => {
     navigate("/user/employee");
   };
@@ -100,7 +99,6 @@ console.log("open")
                     }}
                     // MenuProps={MenuProps}
                   >
-                    {console.log(allEmployee)}
                     {allEmployee &&
                       allEmployee.map((user) => (
                         <MenuItem key={user._id} value={user._id}>

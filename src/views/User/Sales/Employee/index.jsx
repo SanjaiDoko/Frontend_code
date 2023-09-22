@@ -19,7 +19,6 @@ function Index() {
   const { data, isloading } = useGetMyEmployee();
   const {data:allEmployee, isLoading:employeeLoading} = useGetUnAssignedEmployee()
 
-  console.log(data)
 
   const [searchValue, setSearchValue] = useState("");
   const { mutate } = useRemoveUser();

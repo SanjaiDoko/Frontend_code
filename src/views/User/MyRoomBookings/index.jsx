@@ -82,7 +82,6 @@ function RoomBookings() {
       width: 100,
       renderCell: (params) => {
        let status = params.row.status
-       console.log(params.row)
        let data = {
         id: params.row.bookingId
        }

@@ -49,7 +49,6 @@ const EditTicket = () => {
 
   const onChatSuccessFunction = (data) => {
     setChatMessage(data);
-    console.log(data);
   };
 
   const { isLoading: chatLoading } = useGetChatById(id, onChatSuccessFunction);

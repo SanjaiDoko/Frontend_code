@@ -31,7 +31,6 @@ const Index = () => {
   const { id } = useParams();
 
   const onChatSuccessFunction = (data) => {
-    console.log(data, ":asasa");
     // setAssigneData(data[0], "data");
   };
 
@@ -61,10 +60,8 @@ const Index = () => {
 
   const onSubmit = (data) => {
     data.callId = id;
-    console.log(data, "dataaa");
     mutate(data);
   };
-  console.log(data, "asdasd");
   if (isLoading) {
     return <Loader />;
   }

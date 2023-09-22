@@ -3,7 +3,6 @@ import { URL } from "../config";
 // import * as CryptoJS from "crypto-js";
 
 export const saveregistration = async (data) => {
-  console.log(data, "data");
   // payload encryption
   // const encryptedPayload = CryptoJS.AES.encrypt(
   // 	JSON.stringify({ data: [data] }),
@@ -25,7 +24,6 @@ export const saveregistration = async (data) => {
     }
     return responseJson;
   } catch (error) {
-    // console.log(error, "error");
     toast.error(error.message);
     throw new Error(error.message);
   }

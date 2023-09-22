@@ -15,7 +15,6 @@ const CreateDemoCalls = () => {
   };
   const { mutate } = useInsertDemoCalls(onSuccess);
   const { data, isloading } = useGetSalesCallByAssignee();
-  console.log(data)
   const { data:employee, isloading:employeeLoading } = useGetAllEmployee();
   const {
     handleSubmit,

@@ -55,10 +55,8 @@ const Index = () => {
 
   const onSubmit = (data) => {
     data.callId = id
-    console.log(data,"dataaa")
     mutate(data);
   };
-console.log(data,"asdasd")
   if (isLoading) {
     return <Loader />;
   }

@@ -141,7 +141,6 @@ function Dashboard() {
               placeholder="Search by Company Name"
             />
           </div>
-          {console.log(data)}
           {data && data.length > 0 ? (
             <div className={styles.girdoverflow}>
               <DataGrid

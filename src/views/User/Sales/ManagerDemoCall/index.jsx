@@ -18,8 +18,6 @@ function Dashboard() {
 
   const [searchValue, setSearchValue] = useState("");
 
-console.log(data,"data")
-
   const returnStatus = (status) => {
     let ticketStatus = "";
     if (status == 0) {

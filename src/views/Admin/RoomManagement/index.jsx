@@ -39,7 +39,7 @@ const RoomManagement = () => {
       field: "status",
       headerName: "STATUS",
       flex: 1,
-      renderCell: (value) => { console.log(value.value,"value"); return value.value === 1 ? "Active" : "Inactive"} ,
+      renderCell: (value) => { return value.value === 1 ? "Active" : "Inactive"} ,
     },
     {
       flex: 1,
