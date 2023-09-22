@@ -1,41 +1,20 @@
-import styles from "./index.module.css";
-import { Controller, useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { bookRoomValidation } from "../../validationSchema/roomValidation";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import "./index.css";
 import { AiOutlineClose } from "react-icons/ai";
+import { useDispatch, useSelector } from "react-redux";
+import { closePopup } from "../../redux/slices/popupSlice";
+import { Controller, useForm } from "react-hook-form";
 import { Form } from "react-bootstrap";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { resolutionValidation } from "../../validationSchema/resolutaionValidation";
+import { useAssignedUpdateTicket } from "../../hooks/ticketHooks";
 import { useNavigate } from "react-router-dom";
-import { closePopup } from "../../redux/slices/roomPopup";
-import { MobileDateTimePicker } from "@mui/x-date-pickers";
-import { useDispatch } from "react-redux";
-import { useInsertRoomBooking } from "../../hooks/room";
-import moment from "moment";
-import { useGetAllUsers } from "../../hooks/userManagement";
-import Loader from "../Loader/Loader";
-import MenuItem from "@mui/material/MenuItem";
-import ListItemText from "@mui/material/ListItemText";
-import Select from "@mui/material/Select";
-import { Checkbox } from "@mui/material";
 
-
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-	PaperProps: {
-		style: {
-			maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-			width: 250,
-			textTransform: "capitalize",
-		},
-	},
-};
-
-
-export const RoomPopup = ({ open, titleText, roomId }) => {
+export const CompanyPopup = () => {
   const userId = localStorage.getItem("allMasterId");
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -176,8 +155,6 @@ export const RoomPopup = ({ open, titleText, roomId }) => {
                     <MobileDateTimePicker
                       sx={{ display: "block" }}
                       disabled={!Boolean(watch("startsAt"))}
-                      // views={["year", "month", "day"]}
-                      // format="DD-MM-YYYY"
                       minDate={moment(watch("startsAt")) ?? null}
                       {...field}
                       type="date"
@@ -252,4 +229,4 @@ export const RoomPopup = ({ open, titleText, roomId }) => {
       </DialogContent>
     </Dialog>
   );
-};
+}

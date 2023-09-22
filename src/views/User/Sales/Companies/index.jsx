@@ -5,12 +5,15 @@ import { useState } from "react";
 import searchLogo from "../../../../assets/Images/searchLogo.png";
 import { useGetAllCompanies, useUpdateCompany } from "../../../../hooks/sales";
 import Loader from "../../../../components/Loader/Loader";
+import { openPopup } from "../../../../redux/slices/roomPopup";
+import { useDispatch } from "react-redux";
 
 function Dashboard() {
   const id = localStorage.getItem("allMasterId");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { data, isloading } = useGetAllCompanies();
-  const {mutate} = useUpdateCompany()
+  const { mutate } = useUpdateCompany();
 
   const [searchValue, setSearchValue] = useState("");
 
@@ -56,14 +59,25 @@ function Dashboard() {
       sortable: false,
       width: 100,
       renderCell: (params) => {
-        console.log(params,"parms")
-        return <button
-          className={styles.editBtn}
-          disabled={params.row.status === 2}
-          onClick={() => mutate({id:params.row._id})}
-        >
-          Delete
-        </button>
+        console.log(params, "parms");
+        return (
+          <div>
+            <button
+              className={styles.editBtn}
+              disabled={params.row.status === 2}
+              onClick={() => dispatch()}
+            >
+              Edit
+            </button>
+            <button
+              className={styles.editBtn}
+              disabled={params.row.status === 2}
+              onClick={() => mutate({ id: params.row._id })}
+            >
+              Delete
+            </button>
+          </div>
+        );
       },
     },
   ];
@@ -72,11 +86,12 @@ function Dashboard() {
     return <Loader />;
   }
 
-  
   const generateRowsWithIndex = (data) => {
-    return data.filter(item => item.status != 0).map((row, index) => {
-      return { ...row, index: index + 1 };
-    });
+    return data
+      .filter((item) => item.status != 0)
+      .map((row, index) => {
+        return { ...row, index: index + 1 };
+      });
   };
 
   if (data !== undefined) {
