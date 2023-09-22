@@ -16,9 +16,9 @@ import { openPopup } from "../../../../redux/slices/roomPopup";
 function Dashboard() {
   const id = localStorage.getItem("allMasterId");
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [selectedRows, setSelectedRows] = useState([]);
   const [selectedRowsData, setSelectedRowsData] = useState([]);
+  const dispatch = useDispatch();
   const { data, isloading } = useGetAllCompanies();
   const { mutate } = useUpdateCompany();
   const onSuccess = () => {
