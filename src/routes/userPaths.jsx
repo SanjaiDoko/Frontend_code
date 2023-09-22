@@ -47,14 +47,77 @@ const LandingPageComponent = lazy(() =>
 );
 
 const userPaths = [
+  // {
+  //   path: "user",
+  //   element: MainUserLayoutComponent,
+  //   children: [
+  //     {
+  //       path: "dashboard",
+  //       element: DashboardComponent,
+  //     },
+  //     {
+  //       path: "mytickets",
+  //       element: MyTicketComponent,
+  //     },
+  //     {
+  //       path: "addticket",
+  //       element: AddTicketComponent,
+  //     },
+  //     {
+  //       path: "editticket/:id",
+  //       element: EditTicketComponent,
+  //     },
+  //     {
+  //       path: "manageticket",
+  //       element: ManageTicketComponent,
+  //     },
+  //     {
+  //       path: "updatemanageticket/:id",
+  //       element: UpdateManageTicketComponent,
+  //     },
+  //     {
+  //       path: "dashboard/:id",
+  //       element: UpdateDashboardComponent,
+  //     },
+  //     {
+  //       path: "eodstatus/:id",
+  //       element: UserEodMailViewComponent,
+  //     },
+  //     {
+  //       path: "eodstatus",
+  //       element: EodMailComponent,
+  //     },
+  //     {
+  //       path: "eodList",
+  //       element: EodMailListComponent,
+  //     },
+  //     {
+  //       path: "rooms",
+  //       element: Room,
+  //     },
+  //     {
+  //       path: "myroombookings",
+  //       element: RoomBookings,
+  //     },
+  //     {
+  //       path: "roombookingdetails/:id",
+  //       element: RoomBookingDetail,
+  //     },
+  //     {
+  //       path: "managereodview",
+  //       element: ManageEodMailComponent,
+  //     },
+  //   ],
+  //   status: [1],
+  // },
   {
-    path: "user",
+    path: "ticket",
     element: MainUserLayoutComponent,
     children: [
       {
-        path: "dashboard",
-        element: DashboardComponent,
-      },
+              path: "receivedTicket",
+              element: DashboardComponent,
+            },
       {
         path: "mytickets",
         element: MyTicketComponent,
@@ -79,6 +142,16 @@ const userPaths = [
         path: "dashboard/:id",
         element: UpdateDashboardComponent,
       },
+     
+      
+    ],
+    status: [1],
+  },
+  {
+    path: "eod",
+    element: MainUserLayoutComponent,
+    children: [
+     
       {
         path: "eodstatus/:id",
         element: UserEodMailViewComponent,
@@ -92,6 +165,20 @@ const userPaths = [
         element: EodMailListComponent,
       },
       {
+        path: "manager/eodview",
+        path: "managereodview",
+        element: ManageEodMailComponent,
+      },
+    ],
+    status: [1],
+  },
+  {
+    path: "room",
+    element: MainUserLayoutComponent,
+    children: [
+      
+     
+      {
         path: "rooms",
         element: Room,
       },
@@ -102,11 +189,6 @@ const userPaths = [
       {
         path: "roombookingdetails/:id",
         element: RoomBookingDetail,
-      },
-      {
-        path: "manager/eodview",
-        path: "managereodview",
-        element: ManageEodMailComponent,
       },
     ],
     status: [1],

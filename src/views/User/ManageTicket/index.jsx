@@ -95,7 +95,7 @@ function Index() {
 
   const rowClickFunction = (data) => {
     if (data.field === "Options") {
-      navigate("/user/updatemanageticket/" + data.row._id);
+      navigate("/ticket/updatemanageticket/" + data.row._id);
     }
   };
 

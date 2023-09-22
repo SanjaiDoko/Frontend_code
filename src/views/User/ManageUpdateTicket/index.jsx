@@ -99,7 +99,7 @@ const Index = () => {
     useGetAllGroups(userId);
 
   const onSuccess = () => {
-    navigate("/user/manageticket/");
+    navigate("/ticket/manageticket/");
   };
 
   const editorConfiguration = {

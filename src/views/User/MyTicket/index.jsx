@@ -88,7 +88,7 @@ function Dashboard() {
 
   const rowClickFunction = (data) => {
     if (data.field === "Options") {
-      navigate("/user/editticket/" + data.row._id);
+      navigate("/ticket/editticket/" + data.row._id);
     }
   };
 
@@ -99,7 +99,7 @@ function Dashboard() {
           <div className={styles.subDiv}>
             <h3>My Ticket </h3>
             <button
-              onClick={() => navigate("/user/addticket")}
+              onClick={() => navigate("/ticket/addticket")}
               className={styles.addTicketBtn}
             >
               Create Ticket

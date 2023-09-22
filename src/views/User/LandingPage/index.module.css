@@ -1,10 +1,10 @@
 :root {
   --color-text: #616161;
   --color-text-btn: #ffffff;
-  --card1-gradient-color1: #0051ff;
-  --card1-gradient-color2: #a0dcff;
-  --card2-gradient-color1: #7f00ff;
-  --card2-gradient-color2: #e100ff;
+  --card1-gradient-color1: #7f00ff;
+  --card1-gradient-color2: #e100ff;
+  --card2-gradient-color1: #0051ff;
+  --card2-gradient-color2: #a0dcff;
   --card3-gradient-color1: #3f2b96;
   --card3-gradient-color2: #a8c0ff;
   --card4-gradient-color1: #11998e;

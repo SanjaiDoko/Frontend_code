@@ -74,7 +74,7 @@ function EodList() {
 
   const rowClickFunction = (data) => {
     if (data.field === "Options") {
-      navigate("/user/eodstatus/" + data.row._id);
+      navigate("/eod/eodstatus/" + data.row._id);
     }
   };
 
@@ -89,7 +89,7 @@ function EodList() {
               My EOD<sup>'</sup>s{" "}
             </h3>
             <button
-              onClick={() => navigate("/user/eodstatus")}
+              onClick={() => navigate("/eod/eodstatus")}
               className={styles.addTicketBtn}
             >
               New EOD

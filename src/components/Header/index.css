@@ -37,7 +37,6 @@
   color: #f2f2f2;
 }
 .navbar {
-  background: #00a1ff;
   position: fixed;
   padding: 13px 0px;
   top: 0;
@@ -142,4 +141,55 @@
     justify-content: left;
     text-align: left;
   }
+}
+
+:root {
+  --color-text: #616161;
+  --color-text-btn: #ffffff;
+  --card1-gradient-color1: #7f00ff;
+  --card1-gradient-color2: #e100ff;
+  --card2-gradient-color1: #0051ff;
+  --card2-gradient-color2: #a0dcff;
+  --card3-gradient-color1: #3f2b96;
+  --card3-gradient-color2: #a8c0ff;
+  --card4-gradient-color1: #11998e;
+  --card4-gradient-color2: #38ef7d;
+  --card5-gradient-color1: #ef3838;
+  --card5-gradient-color2: #ffc000;
+}
+
+.navbar4 {
+  background: linear-gradient(
+    to bottom left,
+    var(--card1-gradient-color1),
+    var(--card1-gradient-color2)
+  );
+}
+.navbar1 {
+  background: linear-gradient(
+    to bottom left,
+    var(--card2-gradient-color1),
+    var(--card2-gradient-color2)
+  );
+}
+.navbar2 {
+  background: linear-gradient(
+    to bottom left,
+    var(--card3-gradient-color1),
+    var(--card3-gradient-color2)
+  );
+}
+.navbar3 {
+  background: linear-gradient(
+    to bottom left,
+    var(--card4-gradient-color1),
+    var(--card4-gradient-color2)
+  );
+}
+.navbar5 {
+  background: linear-gradient(
+    to bottom left,
+    var(--card5-gradient-color1),
+    var(--card5-gradient-color2)
+  );
 }

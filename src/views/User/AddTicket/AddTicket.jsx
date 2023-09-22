@@ -21,7 +21,7 @@ const AddTicket = () => {
   const createdBy = localStorage.getItem("allMasterId");
   const groupId = localStorage.getItem("groupId");
   const onSuccess = () => {
-    navigate("/user/mytickets");
+    navigate("/ticket/mytickets");
   };
   const { mutate } = useInsertTicket(onSuccess);
   const { data: allGroupData, isLoading: groupLoading } = useGetAllGroups();
