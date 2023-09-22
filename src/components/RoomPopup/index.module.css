@@ -33,22 +33,22 @@
 }
 
 .yesbtn {
-    background: #00a1ff !important;
+    background: #3f2b96 !important;
     color: #fff !important;
     padding: 3px 20px !important;
     font-family: "Rubik" !important;
 	font-size: 15px !important;
-    border: 1.5px solid #00a1ff !important;
+    border: 1.5px solid #3f2b96 !important;
     border-radius: 4px !important;
     margin: 10px 0px;
 }
 .nobtn {
     background: #fff !important;
-    color: #00a1ff !important;
+    color: #3f2b96 !important;
     padding: 3px 20px !important;
     font-family: "Rubik" !important;
 	font-size: 15px !important;
-    border: 1.5px solid #00a1ff !important;
+    border: 1.5px solid #3f2b96 !important;
     border-radius: 4px !important;
     margin: 10px 0px;
 }

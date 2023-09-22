@@ -7,7 +7,7 @@
   .editBtn {
     border-radius: 5px;
     color: #fff;
-    background-color: #00a1ff;
+    background-color: #3f2b96;
     border: none;
     padding: 5px 20px !important;
     font-weight: bold;
@@ -18,8 +18,8 @@
   .cancelBtn{
     background-color: transparent;
     font-weight: bold;
-    color: #00a1ff;
-    border: 2px solid #00a1ff;
+    color: #3f2b96;
+    border: 2px solid #3f2b96;
     border-radius: 5px;
     padding: 5px 10px !important;
   }
