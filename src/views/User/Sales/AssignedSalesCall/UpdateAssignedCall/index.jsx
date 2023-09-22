@@ -57,14 +57,13 @@ const Index = () => {
   const navigate = useNavigate();
 
   const onSuccess = () => {
-    setShowReport(false)
-    reset()
+    setShowReport(false);
+    reset();
   };
-  
+
   const { mutate } = useInsertRemarks(onSuccess);
-  const onSuccessFunction = () => {
-  };
-  const { mutate :demoInsert } = useInsertDemoCalls(onSuccessFunction);
+  const onSuccessFunction = () => {};
+  const { mutate: demoInsert } = useInsertDemoCalls(onSuccessFunction);
 
   const {
     handleSubmit,
@@ -85,20 +84,18 @@ const Index = () => {
   const onSubmit = (data) => {
     data.callId = id;
     mutate(data);
-    if(data.assignedTo.length > 0){
+    if (data.assignedTo.length > 0) {
       const postData = {
-        callId : data.callId,
-        assignedTo: data.assignedTo
-      }
-      demoInsert(postData)
+        callId: data.callId,
+        assignedTo: data.assignedTo,
+      };
+      demoInsert(postData);
     }
-    
   };
 
   if (isLoading || employeeLoading) {
     return <Loader />;
   }
-
 
   return (
     <div className="container">
@@ -108,7 +105,6 @@ const Index = () => {
             <div>
               <div className={classes.addDivHeading}>
                 <h3>Update Sales Call</h3>
-               
               </div>
               <div className={classes.flexdiv}>
                 <div className={classes.infodiv}>
@@ -148,7 +144,7 @@ const Index = () => {
                       </Form.Group>
                       <Form.Group className="pt-2">
                         <Form.Label htmlFor="type" className="formlabel">
-                          AssignedBy
+                          Assigned To
                         </Form.Label>
                         <Controller
                           name="type"
@@ -215,7 +211,7 @@ const Index = () => {
                   {
                     <div>
                       <div className={classes.addDivHeading}>
-                        <h3>Notes</h3>
+                        <h3>Reports</h3>
                       </div>
                       <div
                         className={classes.inputdiv}
@@ -232,7 +228,6 @@ const Index = () => {
                                 return (
                                   <div key={remark._id}>
                                     <p>
-                                     
                                       {moment(remark.enteredDate).format(
                                         "DD-MM-YYYY"
                                       )}{" "}
@@ -388,7 +383,7 @@ const Index = () => {
                                 className={classes.addTicketBtn}
                               >
                                 Create Note
-                                {console.log(watch().assignedTo,"sadasdasd")}
+                                {console.log(watch().assignedTo, "sadasdasd")}
                               </button>
                               <button
                                 type="button"
@@ -408,18 +403,22 @@ const Index = () => {
                     </div>
                   }
                   {console.log(data[0].status)}
-                  {!showReport && data[0].status !== 1 && data[0].status !== 3 && data[0].status !== 4 && (
-                                    <div style={{display:"flex", justifyContent:"flex-end"}}>
-
-                    <button
-                      type="button"
-                      onClick={() => setShowReport(true)}
-                      className={classes.addTicketBtn}
-                    >
-                      Update Note
-                    </button>
-                    </div>
-                  )}
+                  {!showReport &&
+                    data[0].status !== 1 &&
+                    data[0].status !== 3 &&
+                    data[0].status !== 4 && (
+                      <div
+                        style={{ display: "flex", justifyContent: "flex-end" }}
+                      >
+                        <button
+                          type="button"
+                          onClick={() => setShowReport(true)}
+                          className={classes.addTicketBtn}
+                        >
+                          Update Note
+                        </button>
+                      </div>
+                    )}
                 </div>
                 {/* <div className={classes.inputdivs}> */}
                 {/* <div>

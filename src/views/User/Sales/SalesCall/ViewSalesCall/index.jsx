@@ -17,31 +17,59 @@ import CancelScheduleSendIcon from "@mui/icons-material/CancelScheduleSend";
 import SendIcon from "@mui/icons-material/Send";
 import { updateReceivedTicketValidation } from "../../../../../validationSchema/updateReceivedTicketValidation";
 import Loader from "../../../../../components/Loader/Loader";
-import { useGetSalesCallByCallId, useInsertRemarks } from "../../../../../hooks/sales";
+import {
+  useGetDemoCallByCallId,
+  useGetDemoCallBySalesId,
+  useGetSalesCallByCallId,
+  useInsertRemarks,
+} from "../../../../../hooks/sales";
 import { updateReportValidation } from "../../../../../validationSchema/updateReportValidation";
+import { getSalesMessage } from "../../../../../helper";
 
 const Index = () => {
+  const [reportData, setReportData] = useState([]);
 
-  const array = [1, 2, 3, 4, 5];
   const [showReport, setShowReport] = useState(false);
 
   const { id } = useParams();
 
   const onChatSuccessFunction = (data) => {
-    console.log(data,":asasa")
-    // setAssigneData(data[0], "data");
+    const isDataAlreadyPresent = data.some((data) =>
+      reportData.some((report) => report.id === data.callId)
+    );
+
+    if (!isDataAlreadyPresent) {
+      const transformedData = data.map((item) =>
+        item.remarks.map((remark) => ({
+          id: item.callId,
+          enteredDate: remark.enteredDate,
+          data: remark.data,
+          assignedByName: item.assignedByName,
+        }))
+      );
+      const flattenedData = [].concat(...transformedData);
+      setReportData((prev) => [...prev, ...flattenedData]);
+    }
   };
 
-
-  const { data, isLoading } = useGetSalesCallByCallId(
+  console.log(reportData, "show");
+  const { data, isLoading, refetch } = useGetSalesCallByCallId(
     id,
     onChatSuccessFunction
   );
 
-  // const userId = localStorage.getItem("allMasterId");
+  const {
+    data: demoData,
+    isLoading: demoLoading,
+    refetch: demoRefetch,
+  } = useGetDemoCallBySalesId(id, onChatSuccessFunction);
+
+  useEffect(() => {
+    refetch();
+    demoRefetch();
+  }, []);
 
   const navigate = useNavigate();
-
 
   const onSuccess = () => {
     navigate("/user/assginedsalescall");
@@ -62,15 +90,18 @@ const Index = () => {
   });
 
   const onSubmit = (data) => {
-    data.callId = id
-    console.log(data,"dataaa")
+    data.callId = id;
+    console.log(data, "dataaa");
     mutate(data);
   };
-console.log(data,"asdasd")
-  if (isLoading) {
+  if (isLoading || demoLoading) {
     return <Loader />;
   }
-
+  function compareDates(a, b) {
+    const dateA = moment(a.enteredDate);
+    const dateB = moment(b.enteredDate);
+    return dateA - dateB;
+  }
 
   return (
     <div className="container">
@@ -79,8 +110,9 @@ console.log(data,"asdasd")
           <form onSubmit={handleSubmit(onSubmit)} className={classes.addDiv}>
             <div>
               <div className={classes.addDivHeading}>
-                <h3>Sales Call</h3>
-                
+                <h3 style={{ textTransform: "capitalize" }}>
+                  {data[0].companyName}'s Sales Call
+                </h3>
               </div>
               <div className={classes.flexdiv}>
                 <div className={classes.infodiv}>
@@ -91,8 +123,7 @@ console.log(data,"asdasd")
                         marginBottom: "0",
                         textTransform: "uppercase",
                       }}
-                    >
-                    </p>
+                    ></p>
                     <div className={classes.flexeddiv}>
                       <Form.Group className="pt-2">
                         <Form.Label htmlFor="issueName" className="formlabel">
@@ -116,7 +147,7 @@ console.log(data,"asdasd")
                       </Form.Group>
                       <Form.Group className="pt-2">
                         <Form.Label htmlFor="type" className="formlabel">
-                          AssignedBy
+                          Assigned To
                         </Form.Label>
                         <Controller
                           name="type"
@@ -151,7 +182,9 @@ console.log(data,"asdasd")
                               id="issueName"
                               disabled
                               placeholder="Enter Issue Name"
-                              value={moment(data[0].assignedOn).format("DD-MM-YYYY")}
+                              value={moment(data[0].assignedOn).format(
+                                "DD-MM-YYYY"
+                              )}
                             />
                           )}
                         />
@@ -171,7 +204,7 @@ console.log(data,"asdasd")
                               id="type"
                               disabled
                               placeholder="Enter Type"
-                              value={data[0].status}
+                              value={getSalesMessage(data[0].status)}
                             />
                           )}
                         />
@@ -195,7 +228,7 @@ console.log(data,"asdasd")
                   {
                     <div>
                       <div className={classes.addDivHeading}>
-                        <h3>Notes</h3>
+                        <h3>Reports</h3>
                       </div>
                       <div
                         className={classes.inputdiv}
@@ -208,21 +241,32 @@ console.log(data,"asdasd")
                             style={{ display: "flex", flexDirection: "column" }}
                           >
                             <div>
-                              {data[0].remarks?.map((remark, i) => {
-                                return (
-                                  <div key={remark._id}>
-                                    <p>
-                                      
-                                      {moment(remark.enteredDate).format(
-                                        "DD-MM-YYYY"
-                                      )}{" "}
-                                      <p className={classes.reportDiv}>
-                                        {remark.data}
+                              {reportData
+                                .sort(compareDates)
+                                .map((remark, i) => {
+                                  console.log(remark);
+                                  return (
+                                    <div
+                                      className={classes.reportDiv}
+                                      key={remark._id}
+                                    >
+                                      <div style={{display:"flex", justifyContent:"space-between"}}>
+                                      <p style={{ marginBottom: "0px" }}>
+                                        Report : {remark.data}
                                       </p>
-                                    </p>
-                                  </div>
-                                );
-                              })}
+                                      <p style={{ marginBottom: "0px", justifyContent:"flex-end" }}>
+                                        {moment(remark.enteredDate).format(
+                                          "DD-MM-YYYY hh:mm a"
+                                        )}{" "}
+                                      </p>
+                                      
+                                      </div>
+                                      <p style={{ marginBottom: "0px" }}>
+                                        Reported By : {remark.assignedByName}
+                                      </p>
+                                    </div>
+                                  );
+                                })}
                             </div>
                           </div>
                         )}
@@ -296,7 +340,6 @@ console.log(data,"asdasd")
                                   />
                                 )}
                               />
-                              {console.log(errors)}
                               {errors.remark && (
                                 <span className={classes.error}>
                                   {errors.remark.message}
@@ -387,7 +430,6 @@ console.log(data,"asdasd")
                     </div>
                   }
                 </div>
-                
               </div>
             </div>
           </form>

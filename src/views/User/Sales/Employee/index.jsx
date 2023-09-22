@@ -3,7 +3,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import searchLogo from "../../../../assets/Images/searchLogo.png";
-import { useGetMyEmployee, useRemoveUser } from "../../../../hooks/sales";
+import { useGetMyEmployee, useGetUnAssignedEmployee, useRemoveUser } from "../../../../hooks/sales";
 import Loader from "../../../../components/Loader/Loader";
 import Select from "@mui/material/Select";
 import EmployeePopup from "../../../../components/EmployeePopup";
@@ -17,6 +17,7 @@ function Index() {
   const popup = useSelector((state) => state.roomPopup.popupStatus);
 
   const { data, isloading } = useGetMyEmployee();
+  const {data:allEmployee, isLoading:employeeLoading} = useGetUnAssignedEmployee()
 
   console.log(data)
 
@@ -50,12 +51,12 @@ function Index() {
     {
       field: "username",
       flex: 1,
-      headerName: "username",
+      headerName: "Employee Name",
       width: 150,
     },
     {
       flex: 1,
-      field: "Options",
+      field: "Option",
       sortable: false,
       width: 100,
       renderCell: () => (
@@ -66,7 +67,7 @@ function Index() {
     },
   ];
 
-  if (isloading) {
+  if (isloading || employeeLoading) {
     return <Loader />;
   }
 
@@ -88,13 +89,15 @@ function Index() {
       <div className="container">
         <div className={styles.mainDiv}>
           <div className={styles.subDiv}>
-            <h3>Employee</h3>
+            <h3>Manage Employee</h3>
+            {allEmployee.length !==0 &&
             <button
               onClick={() =>  dispatch(openPopup())}
               className={styles.addTicketBtn}
             >
               Add Employee
             </button>
+            }
           </div>
           <div className={styles.searchDiv}>
             <img src={searchLogo} alt="searchlogo" />
@@ -134,8 +137,7 @@ function Index() {
             </div>
           ) : (
             <div className={styles.nogroup}>
-              <h4>Do you face any Issue ?</h4>
-              <h4>Create a Ticket for the Solution.</h4>
+              <h4>No Employees Found Under You</h4>
             </div>
           )}
         </div>

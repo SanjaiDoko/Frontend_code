@@ -190,6 +190,12 @@ const useInsertEmployee = (onSuccessFunctions) => {
       queryClient.invalidateQueries({
         queryKey: ["myEmployee"],
       });
+      queryClient.invalidateQueries({
+        queryKey: ["allUnassignedComapny"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["getEmployeeById"],
+      });
     },
     onError: (error) => {
       toast.error(error.message.split(":")[1]);
@@ -244,9 +250,19 @@ const useInsertSales = (onSuccessFunctions) => {
       ),
     onSuccess: async () => {
       toast.success("Sales Call Created Successfully");
+      window.location.reload();
       onSuccessFunctions();
       queryClient.invalidateQueries({
         queryKey: ["allSales"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["allCompanies"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["myEmployee"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["getEmployeeById"],
       });
     },
     onError: (error) => {
@@ -379,6 +395,9 @@ const useInsertDemoCalls = (onSuccessFunctions) => {
       queryClient.invalidateQueries({
         queryKey: ["allDemo"],
       });
+      queryClient.invalidateQueries({
+        queryKey: ["myDemo"],
+      });
     },
     onError: (error) => {
       toast.error(error.message.split(":")[1]);
@@ -404,7 +423,6 @@ const useGetMyDemo = () => {
 
 //get Demo call by callId
 const useGetDemoCallByCallId = (id) => {
-  console.log(id)
   return useQuery({
     queryKey: ["demoById"],
     queryFn: () =>
@@ -424,6 +442,35 @@ const useGetDemoCallByCallId = (id) => {
       ),
     refetchOnMount: true,
     
+    onError: (error) => {
+      toast.error(error.message.split(":")[1]);
+    },
+  });
+};
+
+//get Demo sales by callId
+const useGetDemoCallBySalesId = (id,onSuccess) => {
+  return useQuery({
+    queryKey: ["demoById"],
+    queryFn: () =>
+      fetchData(
+        {
+          url: newUrl + "demoCalls/getDemoByCallId",
+          isAuthRequired: true,
+          method: "POST"
+        },
+        {
+          data: [
+            {
+              id,
+            },
+          ],
+        }
+      ),
+    refetchOnMount: true,
+    onSuccess:(data)=>{
+      onSuccess(data)
+    },
     onError: (error) => {
       toast.error(error.message.split(":")[1]);
     },
@@ -482,5 +529,6 @@ export {
   useGetMyDemo,
   useGetDemoCallByCallId,
   useInsertDemoRemarks,
-  useGetMangerDemo
+  useGetMangerDemo,
+  useGetDemoCallBySalesId,
 };

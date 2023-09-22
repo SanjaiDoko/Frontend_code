@@ -46,13 +46,13 @@ function Dashboard() {
     {
       field: "employeeName",
       flex: 1,
-      headerName: "employeeName",
+      headerName: "Assigned To",
       width: 150,
     },
     {
       field: "assignedOn",
       flex: 1,
-      headerName: "assignedOn",
+      headerName: "assigned On",
       width: 200,
       renderCell: (params) => moment(params.row.eodDate).format("DD-MM-YYYY"),
     },
@@ -92,13 +92,13 @@ function Dashboard() {
       <div className="container">
         <div className={styles.mainDiv}>
           <div className={styles.subDiv}>
-            <h3>Sales</h3>
-            <button
+            <h3>Manage Sales Calls</h3>
+            {/* <button
               onClick={() => navigate("/user/createsalescall")}
               className={styles.addTicketBtn}
             >
               Create Sales Call
-            </button>
+            </button> */}
           </div>
           <div className={styles.searchDiv}>
             <img src={searchLogo} alt="searchlogo" />

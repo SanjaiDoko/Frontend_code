@@ -3,14 +3,28 @@ import { DataGrid } from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import searchLogo from "../../../../assets/Images/searchLogo.png";
-import { useGetAllCompanies, useUpdateCompany } from "../../../../hooks/sales";
+import {
+  useGetAllCompanies,
+  useInsertSales,
+  useUpdateCompany,
+} from "../../../../hooks/sales";
 import Loader from "../../../../components/Loader/Loader";
+import AssignEmployeePopup from "../../../../components/AssignEmployeePopup";
+import { useDispatch } from "react-redux";
+import { openPopup } from "../../../../redux/slices/roomPopup";
 
 function Dashboard() {
   const id = localStorage.getItem("allMasterId");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [selectedRows, setSelectedRows] = useState([]);
+  const [selectedRowsData, setSelectedRowsData] = useState([]);
   const { data, isloading } = useGetAllCompanies();
-  const {mutate} = useUpdateCompany()
+  const { mutate } = useUpdateCompany();
+  const onSuccess = () => {
+    // navigate("/user/salescall");
+  };
+  const { mutate: insertSales } = useInsertSales(onSuccess);
 
   const [searchValue, setSearchValue] = useState("");
 
@@ -47,23 +61,37 @@ function Dashboard() {
     {
       field: "contact",
       flex: 1,
-      headerName: "Contact",
+      headerName: "Mobile Number",
       width: 200,
     },
     {
+      field: "status",
       flex: 1,
-      field: "Options",
+      headerName: "Status",
+      width: 200,
+      renderCell: (params) => {
+        if (params.row.status === 2) {
+          return "Assigned";
+        } else {
+          return "Not Assigned";
+        }
+      },
+    },
+    {
+      flex: 1,
+      field: "Option",
       sortable: false,
       width: 100,
       renderCell: (params) => {
-        console.log(params,"parms")
-        return <button
-          className={styles.editBtn}
-          disabled={params.row.status === 2}
-          onClick={() => mutate({id:params.row._id})}
-        >
-          Delete
-        </button>
+        return (
+          <button
+            className={styles.editBtn}
+            disabled={params.row.status === 2}
+            onClick={() => mutate({ id: params.row._id })}
+          >
+            Delete
+          </button>
+        );
       },
     },
   ];
@@ -72,11 +100,12 @@ function Dashboard() {
     return <Loader />;
   }
 
-  
   const generateRowsWithIndex = (data) => {
-    return data.filter(item => item.status != 0).map((row, index) => {
-      return { ...row, index: index + 1 };
-    });
+    return data
+      .filter((item) => item.status != 0)
+      .map((row, index) => {
+        return { ...row, index: index + 1 };
+      });
   };
 
   if (data !== undefined) {
@@ -85,7 +114,17 @@ function Dashboard() {
       <div className="container">
         <div className={styles.mainDiv}>
           <div className={styles.subDiv}>
-            <h3>Companies</h3>
+            <h3 style={{ flex: 2 }}>Manage Company</h3>
+            {selectedRows.length !== 0 && (
+              <button
+                style={{ marginRight: "10px" }}
+                // onClick={() => navigate("/user/addCompany")}
+                className={styles.addTicketBtn}
+                onClick={() => dispatch(openPopup())}
+              >
+                Assign Sales Call
+              </button>
+            )}
             <button
               onClick={() => navigate("/user/addCompany")}
               className={styles.addTicketBtn}
@@ -102,6 +141,7 @@ function Dashboard() {
               placeholder="Search by Company Name"
             />
           </div>
+          {console.log(data)}
           {data && data.length > 0 ? (
             <div className={styles.girdoverflow}>
               <DataGrid
@@ -117,6 +157,16 @@ function Dashboard() {
                     : rowsWithIndex
                 }
                 columns={columns}
+                checkboxSelection
+                disableRowSelectionOnClick
+                isRowSelectable={(params) => params.row.status ===1}
+                onRowSelectionModelChange={(newRowSelectionModel) => {
+                  setSelectedRows(newRowSelectionModel);
+                  const filteredArray = data.filter((obj) =>
+                    newRowSelectionModel.includes(obj._id)
+                  );
+                  setSelectedRowsData(filteredArray, "filtered");
+                }}
                 getRowId={(rowsWithIndex) => rowsWithIndex._id}
                 hideFooterSelectedRowCount={true}
                 // onCellClick={(row) => rowClickFunction(row)}
@@ -131,10 +181,17 @@ function Dashboard() {
             </div>
           ) : (
             <div className={styles.nogroup}>
-              <h4>Looks empty !</h4>
+              <h4>Still, You Did not Added Any Company</h4>
             </div>
           )}
         </div>
+
+        <AssignEmployeePopup
+          titleText="Assign Sales Call"
+          content="Are You Sure You Want To Assign This Employee for the Selected company"
+          rowId={selectedRows}
+          rowData={selectedRowsData}
+        />
       </div>
     );
   }

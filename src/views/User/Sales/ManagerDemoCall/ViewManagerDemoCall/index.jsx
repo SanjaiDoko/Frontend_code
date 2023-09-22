@@ -192,7 +192,7 @@ const Index = () => {
                   {
                     <div>
                       <div className={classes.addDivHeading}>
-                        <h3>Notes</h3>
+                        <h3>Reports</h3>
                       </div>
                       <div
                         className={classes.inputdiv}

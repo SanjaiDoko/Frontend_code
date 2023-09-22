@@ -71,7 +71,7 @@ console.log(data,"asdasd")
           <form onSubmit={handleSubmit(onSubmit)} className={classes.addDiv}>
             <div>
               <div className={classes.addDivHeading}>
-                <h3>Assign Ticket</h3>
+                <h3 style={{textTransform:"capitalize"}}>{data[0].companyName}'s Demo call</h3>
                 {/* {uniqueTicketData[0].status === 0 && (
                   <button
                     type="button"
@@ -127,7 +127,7 @@ console.log(data,"asdasd")
                       </Form.Group>
                       <Form.Group className="pt-2">
                         <Form.Label htmlFor="type" className="formlabel">
-                          AssignedBy
+                          Assigned By
                         </Form.Label>
                         <Controller
                           name="type"
@@ -162,7 +162,7 @@ console.log(data,"asdasd")
                               id="issueName"
                               disabled
                               placeholder="Enter Issue Name"
-                              value={data[0].assignedDate}
+                              value={moment(data[0].assignedDate).format("DD-MM-YYYY")}
                             />
                           )}
                         />
@@ -193,7 +193,7 @@ console.log(data,"asdasd")
                   {
                     <div>
                       <div className={classes.addDivHeading}>
-                        <h3>Notes</h3>
+                        <h3>Reports</h3>
                       </div>
                       <div
                         className={classes.inputdiv}

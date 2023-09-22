@@ -56,7 +56,7 @@ function Index() {
     {
       field: "assignedOn",
       flex: 1,
-      headerName: "assignedOn",
+      headerName: "assigned On",
       width: 150,
       renderCell: (params) => moment(params.row.eodDate).format("DD-MM-YYYY"),
     },

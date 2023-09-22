@@ -46,13 +46,13 @@ console.log(data,"data")
     {
       field: "employeeName",
       flex: 1,
-      headerName: "employeeName",
+      headerName: "Assigned To",
       width: 150,
     },
     {
       field: "assignedOn",
       flex: 1,
-      headerName: "assignedOn",
+      headerName: "assigned On",
       width: 150,
       renderCell: (params) => moment(params.row.eodDate).format("DD-MM-YYYY"),
     },
@@ -132,8 +132,8 @@ console.log(data,"data")
             </div>
           ) : (
             <div className={styles.nogroup}>
-              <h4>Do you face any Issue ?</h4>
-              <h4>Create a Ticket for the Solution.</h4>
+              <h4>Untill Now, You did not created anu Demo Call</h4>
+              <h4>Create a Demo Call.</h4>
             </div>
           )}
         </div>

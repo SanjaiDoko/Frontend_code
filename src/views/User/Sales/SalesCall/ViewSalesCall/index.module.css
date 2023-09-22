@@ -634,15 +634,16 @@
   border: none;
 }
 .reportDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   margin-top: 5px;
-  padding-bottom: 10px;
-  margin-left: 10px;
   border-bottom: 2px solid #d8d9da;
   background-color: #fff;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
-  padding: 5px;
-  padding-left: 10px !important;
+  padding: 10px;
+  padding-left: 20px !important;
   box-sizing: border-box;
   transition: transform 0.2s;
   -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);

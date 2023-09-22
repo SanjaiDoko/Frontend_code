@@ -138,8 +138,7 @@ console.log(data,"data")
             </div>
           ) : (
             <div className={styles.nogroup}>
-              <h4>Do you face any Issue ?</h4>
-              <h4>Create a Ticket for the Solution.</h4>
+              <h4>Still Now, No Demo Call is Created !</h4>
             </div>
           )}
         </div>

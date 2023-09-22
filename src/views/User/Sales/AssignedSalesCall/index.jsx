@@ -50,13 +50,13 @@ function Index() {
     {
       field: "assignedBy",
       flex: 1,
-      headerName: "Assigne By",
+      headerName: "Assigned By",
       width: 150,
     },
     {
       field: "assignedOn",
       flex: 1,
-      headerName: "assignedOn",
+      headerName: "Assigned On",
       width: 150,
       renderCell: (params) => moment(params.row.eodDate).format("DD-MM-YYYY"),
     },
@@ -97,7 +97,7 @@ function Index() {
     return (
       <div className="container">
         <div className={styles.mainDiv}>
-          <h3>Assigned Sales Call</h3>
+          <h3>My Sales Call</h3>
           <div className={styles.searchDiv}>
             <img src={searchLogo} alt="searchlogo" />
             <input
@@ -136,7 +136,7 @@ function Index() {
             </div>
           ) : (
             <div className={styles.nogroup}>
-              <h4>Until now, You have not received any tickets to solve.</h4>
+              <h4>Until now, You have not received any Sales Call To Handle.</h4>
               <h4>Please wait for one to be created</h4>
             </div>
           )}
