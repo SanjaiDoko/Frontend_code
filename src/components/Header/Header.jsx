@@ -5,6 +5,8 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { RiShutDownLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import Mainlogo from "../../assets/Images/mainlogo.png";
+import EodLogo from "../../assets/Images/eodLogo.png";
+import RoomLogo from "../../assets/Images/roomLogo.png";
 import { useSelector } from "react-redux";
 import { useLogoutUser } from "../../hooks/logout";
 import { useGetUserDetailsById } from "../../hooks/userManagement";
@@ -14,13 +16,11 @@ import { useNavigate } from "react-router-dom";
 function Header() {
   const type = useSelector((state) => state.profile.type);
   const menu = useSelector((state) => state.menu.menu);
-  console.log(menu)
   const { mutate } = useLogoutUser(type);
   const role = useSelector((state) => state.profile.role);
   const userId = localStorage.getItem("allMasterId");
   const navigate = useNavigate();
   const { data, isLoading } = useGetUserDetailsById(userId, type);
-  
 
   if (isLoading) {
     return <Loader />;
@@ -30,7 +30,9 @@ function Header() {
     <Navbar className={`navbar${menu}`} collapseOnSelect expand="lg">
       <Container className="container">
         <Link to="/ticket/receivedTicket" className="brandlogo">
-          <img src={Mainlogo} className="headerlogo" alt="" />
+          {menu === 1 && <img src={Mainlogo} className="headerlogo" alt="" />}
+          {menu === 2 && <img src={RoomLogo} className="headerlogo" alt="" />}
+          {menu === 3 && <img src={EodLogo} className="headerlogo" alt="" />}
         </Link>
         <Navbar.Toggle aria-controls="responsive-navbar-nav">
           <GiHamburgerMenu />
@@ -55,12 +57,12 @@ function Header() {
                 Received Ticket
               </Link>
             )}
-            {role === 3 && menu === 3 &&(
+            {role === 3 && menu === 3 && (
               <Link className="linktag" to={"/eod/managereodview"}>
                 EOD
               </Link>
             )}
-            {role === 3  && menu === 1 && (
+            {role === 3 && menu === 1 && (
               <Link className="linktag" to="/ticket/manageticket">
                 Manage Ticket
               </Link>
@@ -95,12 +97,12 @@ function Header() {
                 Room
               </Link>
             )}
-            {(role === 1 || role === 3) && menu ===2 && (
+            {(role === 1 || role === 3) && menu === 2 && (
               <Link className="linktag" to={"/room/rooms"}>
                 Room Book
               </Link>
             )}
-            {(role === 1 || role === 3) && menu ===2 && (
+            {(role === 1 || role === 3) && menu === 2 && (
               <Link className="linktag" to={"/room/myroombookings"}>
                 My Bookings
               </Link>
