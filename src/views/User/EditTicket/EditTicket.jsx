@@ -407,7 +407,7 @@ const EditTicket = () => {
               )}
               <button
                 type="button"
-                onClick={() => navigate("/user/mytickets")}
+                onClick={() => navigate("/ticket/mytickets")}
                 className={classes.savebtn}
               >
                 Back

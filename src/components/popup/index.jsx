@@ -20,7 +20,7 @@ function CommanPopup({ uniqueTicketData, contentText, titleText }) {
   const navigate = useNavigate();
 
   const onSuccess = () => {
-    navigate("/user/dashboard/");
+    navigate("/ticket/receivedTicket/");
   };
   const { mutate } = useAssignedUpdateTicket(onSuccess);
   const dispatch = useDispatch();

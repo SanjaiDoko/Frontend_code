@@ -19,7 +19,7 @@ const useMutateEod = () => {
       ),
     onSuccess: async () => {
       toast.success("EOD Added Successfully");
-      navigate("/user/eodlist");
+      navigate("/eod/eodlist");
       queryClient.invalidateQueries({
         queryKey: ["allEods"],
       });

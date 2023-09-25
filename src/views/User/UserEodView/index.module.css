@@ -3,12 +3,12 @@
   padding-top: 80px;
 }
 .table > tr > th {
-  border: 1px solid #00a1ff;
+  border: 1px solid #11998e;
   text-align: center;
   padding: 8px;
 }
 .table > tr > td {
-  border: 1px solid #00a1ff;
+  border: 1px solid #11998e;
   text-align: center;
   padding: 8px;
 }
@@ -40,7 +40,7 @@
 }
 .eodList {
   margin-top: 20px;
-  background-color: #00a1ff08;
+  background-color: #dcfffc;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   padding: 20px 10px;

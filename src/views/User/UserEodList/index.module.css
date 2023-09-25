@@ -4,7 +4,7 @@
 .editBtn {
   border-radius: 5px;
   color: #fff;
-  background-color: #00a1ff;
+  background-color: #11998e;
   border: none;
   padding: 5px 10px !important;
   font-weight: bold;
@@ -70,11 +70,11 @@
   border: none;
   font-weight: bold;
   padding: 5px 20px;
-  color: #00a1ff;
-  border: 2px solid #00a1ff;
+  color: #11998e;
+  border: 2px solid #11998e;
 }
 .addTicketBtn:hover {
-  background: #00a1ff;
+  background: #11998e;
   color: #fff;
   border: none;
   border: 2px solid #fff;

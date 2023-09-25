@@ -5,6 +5,8 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { RiShutDownLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import Mainlogo from "../../assets/Images/mainlogo.png";
+import EodLogo from "../../assets/Images/eodLogo.png";
+import RoomLogo from "../../assets/Images/roomLogo.png";
 import { useSelector } from "react-redux";
 import { useLogoutUser } from "../../hooks/logout";
 import { useGetUserDetailsById } from "../../hooks/userManagement";
@@ -13,22 +15,24 @@ import { useNavigate } from "react-router-dom";
 
 function Header() {
   const type = useSelector((state) => state.profile.type);
+  const menu = useSelector((state) => state.menu.menu);
   const { mutate } = useLogoutUser(type);
   const role = useSelector((state) => state.profile.role);
   const userId = localStorage.getItem("allMasterId");
   const navigate = useNavigate();
   const { data, isLoading } = useGetUserDetailsById(userId, type);
-  
 
   if (isLoading) {
     return <Loader />;
   }
 
   return (
-    <Navbar collapseOnSelect expand="lg">
+    <Navbar className={`navbar${menu}`} collapseOnSelect expand="lg">
       <Container className="container">
-        <Link to="/user/dashboard" className="brandlogo">
-          <img src={Mainlogo} className="headerlogo" alt="" />
+        <Link to="/ticket/receivedTicket" className="brandlogo">
+          {menu === 1 && <img src={Mainlogo} className="headerlogo" alt="" />}
+          {menu === 2 && <img src={RoomLogo} className="headerlogo" alt="" />}
+          {menu === 3 && <img src={EodLogo} className="headerlogo" alt="" />}
         </Link>
         <Navbar.Toggle aria-controls="responsive-navbar-nav">
           <GiHamburgerMenu />
@@ -43,33 +47,33 @@ function Header() {
                 Menu
               </Link>
             )}
-            {role === 1 && (
-              <Link className="linktag" to="/user/eodlist">
+            {role === 1 && menu === 3 && (
+              <Link className="linktag" to="/eod/eodlist">
                 EOD
               </Link>
             )}
-            {role === 1 && (
-              <Link className="linktag" to="/user/dashboard">
+            {role === 1 && menu === 1 && (
+              <Link className="linktag" to="/ticket/receivedTicket">
                 Received Ticket
               </Link>
             )}
-            {role === 3 && (
-              <Link className="linktag" to={"/user/managereodview"}>
+            {role === 3 && menu === 3 && (
+              <Link className="linktag" to={"/eod/managereodview"}>
                 EOD
               </Link>
             )}
-            {role === 3 && (
-              <Link className="linktag" to="/user/manageticket">
+            {role === 3 && menu === 1 && (
+              <Link className="linktag" to="/ticket/manageticket">
                 Manage Ticket
               </Link>
             )}
-            {(role === 1 || role === 3) && (
-              <Link className="linktag" to="/user/mytickets">
+            {(role === 1 || role === 3) && menu === 1 && (
+              <Link className="linktag" to="/ticket/mytickets">
                 My Ticket
               </Link>
             )}
-            {role === 3 && (
-              <Link className="linktag" to="/user/dashboard">
+            {role === 3 && menu === 1 && (
+              <Link className="linktag" to="/ticket/receivedTicket">
                 Received Ticket
               </Link>
             )}
@@ -93,28 +97,16 @@ function Header() {
                 Room
               </Link>
             )}
-            <Nav.Item className="linktag">
-              {(role === 1 || role === 3) && (
-                <NavDropdown title="Room" id="basic-nav-dropdown">
-                  <NavDropdown.Item
-                    className="dropdownlink"
-                    onClick={() => {
-                      navigate("/user/rooms");
-                    }}
-                  >
-                    Room Book
-                  </NavDropdown.Item>
-                  <NavDropdown.Item
-                    className="dropdownlink"
-                    onClick={() => {
-                      navigate("/user/myroombookings");
-                    }}
-                  >
-                    My Bookings
-                  </NavDropdown.Item>
-                </NavDropdown>
-              )}
-            </Nav.Item>
+            {(role === 1 || role === 3) && menu === 2 && (
+              <Link className="linktag" to={"/room/rooms"}>
+                Room Book
+              </Link>
+            )}
+            {(role === 1 || role === 3) && menu === 2 && (
+              <Link className="linktag" to={"/room/myroombookings"}>
+                My Bookings
+              </Link>
+            )}
 
             <Nav.Item className="d-flex gap-2">
               <div className="hellotextdiv">

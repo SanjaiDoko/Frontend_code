@@ -42,7 +42,7 @@ export const RoomPopup = ({ open, titleText, roomId }) => {
 
   const onSuccessFunctions = () => {
     dispatch(closePopup());
-    navigate("/user/myroombookings");
+    navigate("/room/myroombookings");
   };
   const {data: usersData, isLoading: userDataLoading} = useGetAllUsers()
   const { mutate } = useInsertRoomBooking(onSuccessFunctions);

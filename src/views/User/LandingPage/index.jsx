@@ -6,11 +6,17 @@ import { FaHandshake } from "react-icons/fa";
 import { HiNewspaper } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
 import MenuHeader from "../../../components/MenuHeader";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { changeMenu } from "../../../redux/slices/menuSlice";
 
+//Menu
+   // ticket - 1
+   // eod - 3
+   // room - 2
 function LandingPage() {
   const navigate = useNavigate();
   const role = useSelector((state) => state.profile.role);
+  const dispatch = useDispatch()
   return (
     <div>
       <MenuHeader />
@@ -44,7 +50,7 @@ function LandingPage() {
                 find value.
               </p>
               <button
-                onClick={() => navigate("/user/mytickets")}
+                onClick={() =>{ navigate("/ticket/receivedTicket"); dispatch(changeMenu(1))}}
                 className={`${styles.cardbtn} ${styles.two}`}
               >
                 Click
@@ -62,7 +68,7 @@ function LandingPage() {
                 ideas are born, decisions are made, and visions take shape.
               </p>
               <button
-                onClick={() => navigate("/user/rooms")}
+                onClick={() => {navigate("/room/rooms"); dispatch(changeMenu(2))}}
                 className={`${styles.cardbtn} ${styles.three}`}
               >
                 Click
@@ -83,8 +89,9 @@ function LandingPage() {
               <button
                 onClick={() => {
                   role === 3
-                    ? navigate("/user/managereodview")
-                    : navigate("/user/eodlist");
+                    ? navigate("/eod/managereodview")
+                    : navigate("/eod/eodlist");
+                    dispatch(changeMenu(3))
                 }}
                 className={`${styles.cardbtn} ${styles.four}`}
               >
