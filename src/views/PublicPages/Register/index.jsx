@@ -1,5 +1,5 @@
 import styles from "./index.module.css";
-import Logo from "../../../assets/Images/blacklogo.png";
+import Logo from "../../../assets/Images/Dokotools.png";
 import { AiFillEye } from "react-icons/ai";
 import { BsFillEyeSlashFill } from "react-icons/bs";
 import { Form, Button } from "react-bootstrap";
@@ -55,8 +55,8 @@ function Register() {
   const onSubmit = (data) => {
     mutate(data);
   };
-  if(registerLoading){
-    return <Loader />
+  if (registerLoading) {
+    return <Loader />;
   }
 
   return (
@@ -73,174 +73,177 @@ function Register() {
           </button>
         </div>
         <Form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-          <div className={styles.Logodiv}>
-            <div>
-          <img
-							src={Logo}
-							alt="AllMasters Logo"
-							className="masterlogo"
-						/>
+          <div className={styles.registerformdiv}>
+            <div className={styles.Logodiv}>
+              <img src={Logo} alt="AllMasters Logo" className="masterlogo" />
+              <h5 className="pt-2">Get Started</h5>
             </div>
-            <h5 className="pt-2">Get Started</h5>
-            <p>Solution For Your Issues</p>
+            <div className={styles.forminputs}>
+              <Form.Group className="pt-2">
+                <Form.Label
+                  className={styles.registerlabels}
+                  htmlFor="fullname"
+                >
+                  Full Name <span style={{ color: "red" }}>*</span>
+                </Form.Label>
+                <Controller
+                  name="fullName"
+                  control={control}
+                  render={({ field }) => (
+                    <Form.Control
+                      {...field}
+                      type="text"
+                      id="fullname"
+                      className="form-control col-md-3"
+                      placeholder="ex. John Lin Doe"
+                      autoComplete="new-password"
+                    />
+                  )}
+                />
+                {errors.fullName && (
+                  <p className="errormsg">{errors.fullName.message}</p>
+                )}
+              </Form.Group>
+              <Form.Group className="pt-2">
+                <Form.Label
+                  className={styles.registerlabels}
+                  htmlFor="mobileCode"
+                >
+                  Mobile Number <span style={{ color: "red" }}>*</span>
+                </Form.Label>
+                <Controller
+                  name="mobileNumber"
+                  control={control}
+                  render={({ field }) => (
+                    <Form.Control
+                      {...field}
+                      type="text"
+                      maxLength={10}
+                      onChange={(event) =>
+                        field.onChange(
+                          event.target.value.replace(/[^\d]+/g, "")
+                        )
+                      }
+                      id="phoneCode"
+                      className={"form-control col-md-3"}
+                      placeholder="Enter Mobile Number"
+                      autoComplete="new-password"
+                    />
+                  )}
+                />
+                {errors.mobileNumber && (
+                  <p className="errormsg">{errors.mobileNumber.message}</p>
+                )}
+              </Form.Group>
+              <Form.Group className="pt-2">
+                <Form.Label htmlFor="email" className={styles.registerlabels}>
+                  Email Address <span style={{ color: "red" }}>*</span>
+                </Form.Label>
+                <Controller
+                  name="email"
+                  control={control}
+                  render={({ field }) => (
+                    <Form.Control
+                      {...field}
+                      type="email"
+                      id="email"
+                      className="form-control col-md-3"
+                      placeholder="Enter Email Address"
+                      autoComplete="new-password"
+                    />
+                  )}
+                />
+                {errors.email && (
+                  <p className="errormsg">{errors.email.message}</p>
+                )}
+              </Form.Group>
+              <Form.Group className={`${styles.iconposition} pt-2`}>
+                <Form.Label
+                  htmlFor="Password"
+                  className={styles.registerlabels}
+                >
+                  Password <span style={{ color: "red" }}>*</span>
+                </Form.Label>
+                <Controller
+                  name="password"
+                  control={control}
+                  render={({ field }) => (
+                    <Form.Control
+                      {...field}
+                      type={passwordVisibile ? "text" : "password"}
+                      id="Password"
+                      className="form-control col-md-3"
+                      placeholder="Enter Password"
+                      autoComplete="new-password"
+                      onCut={preventEvents}
+                      onCopy={preventEvents}
+                      onPaste={preventEvents}
+                      maxLength={16}
+                    />
+                  )}
+                />
+                <div
+                  className={styles.passicons}
+                  onClick={() => {
+                    togglePasswordVisiblity("password");
+                  }}
+                >
+                  {passwordVisibile ? <BsFillEyeSlashFill /> : <AiFillEye />}
+                </div>
+                {errors.password && (
+                  <p className="errormsg">{errors.password.message}</p>
+                )}
+              </Form.Group>
+              <Form.Group className={`${styles.iconposition} pt-2`}>
+                <Form.Label
+                  htmlFor="ConfirmPassword"
+                  className={styles.registerlabels}
+                >
+                  Confirm Password <span style={{ color: "red" }}>*</span>
+                </Form.Label>
+                <Controller
+                  name="confirmPassword"
+                  control={control}
+                  render={({ field }) => (
+                    <Form.Control
+                      {...field}
+                      type={confirmPasswordVisibile ? "text" : "password"}
+                      id="ConfirmPassword"
+                      className="form-control col-md-3"
+                      placeholder="Enter Password"
+                      autoComplete="new-password"
+                      onCut={preventEvents}
+                      onCopy={preventEvents}
+                      onPaste={preventEvents}
+                      maxLength={16}
+                    />
+                  )}
+                />
+                <div
+                  className={styles.passicons}
+                  onClick={() => {
+                    togglePasswordVisiblity("confirmPassword");
+                  }}
+                >
+                  {confirmPasswordVisibile ? (
+                    <BsFillEyeSlashFill />
+                  ) : (
+                    <AiFillEye />
+                  )}
+                </div>
+                {errors.confirmPassword && (
+                  <p className="errormsg">{errors.confirmPassword.message}</p>
+                )}
+              </Form.Group>
+            </div>
+            <Button
+              type="submit"
+              id="Signin"
+              className={`${styles.loginbtn} w-100 mt-3`}
+            >
+              Get Started
+            </Button>
           </div>
-          <div className={styles.forminputs}>
-            <Form.Group className="pt-2">
-              <Form.Label className={styles.registerlabels} htmlFor="fullname">
-                Full Name <span style={{ color: "red" }}>*</span>
-              </Form.Label>
-              <Controller
-                name="fullName"
-                control={control}
-                render={({ field }) => (
-                  <Form.Control
-                    {...field}
-                    type="text"
-                    id="fullname"
-                    className="form-control col-md-3"
-                    placeholder="ex. John Lin Doe"
-                    autoComplete="new-password"
-                  />
-                )}
-              />
-              {errors.fullName && (
-                <p className="errormsg">{errors.fullName.message}</p>
-              )}
-            </Form.Group>
-            <Form.Group className="pt-2">
-              <Form.Label
-                className={styles.registerlabels}
-                htmlFor="mobileCode"
-              >
-                Mobile Number <span style={{ color: "red" }}>*</span>
-              </Form.Label>
-              <Controller
-                name="mobileNumber"
-                control={control}
-                render={({ field }) => (
-                  <Form.Control
-                    {...field}
-                    type="text"
-                    maxLength={10}
-                    onChange={(event) =>
-                      field.onChange(event.target.value.replace(/[^\d]+/g, ""))
-                    }
-                    id="phoneCode"
-                    className={"form-control col-md-3"}
-                    placeholder="Enter Mobile Number"
-                    autoComplete="new-password"
-                  />
-                )}
-              />
-              {errors.mobileNumber && (
-                <p className="errormsg">{errors.mobileNumber.message}</p>
-              )}
-            </Form.Group>
-            <Form.Group className="pt-2">
-              <Form.Label htmlFor="email" className={styles.registerlabels}>
-                Email Address <span style={{ color: "red" }}>*</span>
-              </Form.Label>
-              <Controller
-                name="email"
-                control={control}
-                render={({ field }) => (
-                  <Form.Control
-                    {...field}
-                    type="email"
-                    id="email"
-                    className="form-control col-md-3"
-                    placeholder="Enter Email Address"
-                    autoComplete="new-password"
-                  />
-                )}
-              />
-              {errors.email && (
-                <p className="errormsg">{errors.email.message}</p>
-              )}
-            </Form.Group>
-            <Form.Group className={`${styles.iconposition} pt-2`}>
-              <Form.Label htmlFor="Password" className={styles.registerlabels}>
-                Password <span style={{ color: "red" }}>*</span>
-              </Form.Label>
-              <Controller
-                name="password"
-                control={control}
-                render={({ field }) => (
-                  <Form.Control
-                    {...field}
-                    type={passwordVisibile ? "text" : "password"}
-                    id="Password"
-                    className="form-control col-md-3"
-                    placeholder="Enter Password"
-                    autoComplete="new-password"
-                    onCut={preventEvents}
-                    onCopy={preventEvents}
-                    onPaste={preventEvents}
-                    maxLength={16}
-                  />
-                )}
-              />
-              <div
-                className={styles.passicons}
-                onClick={() => {
-                  togglePasswordVisiblity("password");
-                }}
-              >
-                {passwordVisibile ? <BsFillEyeSlashFill /> : <AiFillEye />}
-              </div>
-              {errors.password && (
-                <p className="errormsg">{errors.password.message}</p>
-              )}
-            </Form.Group>
-            <Form.Group className={`${styles.iconposition} pt-2`}>
-              <Form.Label
-                htmlFor="ConfirmPassword"
-                className={styles.registerlabels}
-              >
-                Confirm Password <span style={{ color: "red" }}>*</span>
-              </Form.Label>
-              <Controller
-                name="confirmPassword"
-                control={control}
-                render={({ field }) => (
-                  <Form.Control
-                    {...field}
-                    type={confirmPasswordVisibile ? "text" : "password"}
-                    id="ConfirmPassword"
-                    className="form-control col-md-3"
-                    placeholder="Enter Password"
-                    autoComplete="new-password"
-                    onCut={preventEvents}
-                    onCopy={preventEvents}
-                    onPaste={preventEvents}
-                    maxLength={16}
-                  />
-                )}
-              />
-              <div
-                className={styles.passicons}
-                onClick={() => {
-                  togglePasswordVisiblity("confirmPassword");
-                }}
-              >
-                {confirmPasswordVisibile ? (
-                  <BsFillEyeSlashFill />
-                ) : (
-                  <AiFillEye />
-                )}
-              </div>
-              {errors.confirmPassword && (
-                <p className="errormsg">{errors.confirmPassword.message}</p>
-              )}
-            </Form.Group>
-          </div>
-          <Button
-            type="submit"
-            id="Signin"
-            className={`${styles.loginbtn} w-100 mt-3`}
-          >
-            Get Started
-          </Button>
         </Form>
       </div>
     </div>

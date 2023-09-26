@@ -53,7 +53,7 @@ const AddAndEditGroup = ({ onCloseButtonClick, editData, isEdit, type }) => {
   const { mutate: removeUserMuate, isLoading: removeLoader } =
     useRemoveUserById();
 
-  const managedData = userList.filter((e) => e.status === 2);
+  const managedData = userList.filter((e) => e.status === 1);
   const {
     handleSubmit,
     formState: { errors },
