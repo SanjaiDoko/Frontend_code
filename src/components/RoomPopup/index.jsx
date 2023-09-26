@@ -60,7 +60,7 @@ export const RoomPopup = ({ open, titleText, roomId }) => {
       startsAt: null,
       endsAt: null,
       emailcc: [],
-      headCount: 0,
+      headCount: "",
     },
   });
 

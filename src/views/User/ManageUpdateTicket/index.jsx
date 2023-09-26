@@ -190,14 +190,14 @@ const Index = () => {
         uniqueTicketData[0].assignedTo,
         uniqueTicketData[0].createdBy,
       ],
-      text: sendMessage,
+      text: sendMessage.trim(),
       createdAt: moment().toISOString(),
     });
 
     mutateChat({
       ticketId: id,
       messageFrom: userId,
-      content: sendMessage,
+      content: sendMessage.trim(),
     });
 
     setSendMessage("");
@@ -305,7 +305,11 @@ const Index = () => {
                             <Form.Select
                               className={`formcontrol`}
                               {...field}
-                              style={{ textTransform: "capitalize" }}
+                              style={{
+                                textOverflow: "ellipsis",
+                                maxWidth: "250px",
+                                textTransform: "capitalize",
+                              }}
                               id="issueGroup"
                               disabled={role === 3}
                               onChange={(e) => {
@@ -431,51 +435,55 @@ const Index = () => {
                       )}
                     </div>
                   </div>
-                  {uniqueTicketData[0].assignedTo &&
-                  <>
-                  
-                  <div className={classes.chattitle}>
-                  <h4>Chat</h4>
-                </div>
-                <div className={classes.chat} ref={messagesDivRef}>
-                  <div className={classes.chatdiv}>
-                    <div className={chatMessage.length <2 ? `${classes.msgdiv}` : ""}>
-                    {chatMessage.map((chat, i) => (
-                      <Chat
-                        key={i}
-                        message={chat.message}
-                        beforeDate={chatMessage[i - 1]?.message.createdAt}
-                        senderName={chat.senderName}
-                        senderId={chat.senderId === createdBy}
-                      />
-                    ))}
-                    </div>
-                    <div className={classes.chatInput}>
-                      <input
-                        type="text"
-                        className={classes.chatInputBox}
-                        value={sendMessage}
-                        placeholder="Message"
-                        onChange={(e) => setSendMessage(e.target.value)}
-                      />
-                      {sendMessage ? (
-                        <SendIcon
-                          className={classes.sendMessage}
-                          width={10}
-                          onClick={sendChatMessage}
-                        />
-                      ) : (
-                        <CancelScheduleSendIcon
-                          className={classes.sendMessage}
-                          width={10}
-                        />
-                      )}
-                    </div>
-                  </div>
-                </div>
-                </>
-                  }
-                  
+                  {uniqueTicketData[0].assignedTo && (
+                    <>
+                      <div className={classes.chattitle}>
+                        <h4>Chat</h4>
+                      </div>
+                      <div className={classes.chat} ref={messagesDivRef}>
+                        <div className={classes.chatdiv}>
+                          <div
+                            className={
+                              chatMessage.length < 2 ? `${classes.msgdiv}` : ""
+                            }
+                          >
+                            {chatMessage.map((chat, i) => (
+                              <Chat
+                                key={i}
+                                message={chat.message}
+                                beforeDate={
+                                  chatMessage[i - 1]?.message.createdAt
+                                }
+                                senderName={chat.senderName}
+                                senderId={chat.senderId === createdBy}
+                              />
+                            ))}
+                          </div>
+                          <div className={classes.chatInput}>
+                            <input
+                              type="text"
+                              className={classes.chatInputBox}
+                              value={sendMessage}
+                              placeholder="Message"
+                              onChange={(e) => setSendMessage(e.target.value)}
+                            />
+                            {sendMessage.trim() !== "" ? (
+                              <SendIcon
+                                className={classes.sendMessage}
+                                width={10}
+                                onClick={sendChatMessage}
+                              />
+                            ) : (
+                              <CancelScheduleSendIcon
+                                className={classes.sendMessage}
+                                width={10}
+                              />
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </>
+                  )}
                 </div>
                 <div className={classes.inputdivs}>
                   <div>

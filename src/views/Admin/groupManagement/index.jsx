@@ -26,7 +26,7 @@ function IndividualStatusUserList() {
             e.name
               .toLowerCase()
               .replace(/\s/, "")
-              .includes(searchValue.toLowerCase().replace(/\s/, "")) &&
+              .includes(searchValue.trim().toLowerCase().replace(/\s/, "")) &&
             e.userId == null
         );
     } else {
@@ -109,12 +109,9 @@ function IndividualStatusUserList() {
             <div className={styles.titlediv}>
               <h3 className={styles.title}>Group Management</h3>
               {/* {userList.filter((e) => e.groupId === null).length > 1 && ( */}
-                <button
-                  className={styles.grpbtn}
-                  onClick={() => setPopup(true)}
-                >
-                  Add Group
-                </button>
+              <button className={styles.grpbtn} onClick={() => setPopup(true)}>
+                Add Group
+              </button>
               {/* )} */}
             </div>
           </div>
