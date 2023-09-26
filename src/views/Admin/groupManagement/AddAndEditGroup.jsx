@@ -53,7 +53,7 @@ const AddAndEditGroup = ({ onCloseButtonClick, editData, isEdit, type }) => {
   const { mutate: removeUserMuate, isLoading: removeLoader } =
     useRemoveUserById();
 
-  const managedData = userList.filter((e) => e.status === 1);
+  const managedData = userList.filter((e) => e.status === 2);
   const {
     handleSubmit,
     formState: { errors },
@@ -210,7 +210,7 @@ const AddAndEditGroup = ({ onCloseButtonClick, editData, isEdit, type }) => {
           )}
         </Form.Group>
         <Form.Group className="pt-2">
-          <Form.Label htmlFor="type" className="formlabel">
+          <Form.Label htmlFor="users" className="formlabel">
             Members
           </Form.Label>
           <Controller
@@ -231,14 +231,14 @@ const AddAndEditGroup = ({ onCloseButtonClick, editData, isEdit, type }) => {
                 }
                 displayValue="name"
                 closeIcon="cancel"
-                placeholder="Select Options"
+                placeholder="Select Members"
                 selectedValues={selectedOptions}
                 className="multiSelectContainer"
               />
             )}
           />
-          {errors.managedBy && (
-            <span className="error">{errors.managedBy.message}</span>
+          {errors.users && (
+            <span className="error">{errors.users.message}</span>
           )}
         </Form.Group>
         {editData && (

@@ -255,6 +255,7 @@ const AddTicket = () => {
                   control={control}
                   render={({ field }) => (
                     <Form.Control
+                      style={{ textTransform: "capitalize" }}
                       type="text"
                       disabled
                       {...field}
@@ -273,7 +274,8 @@ const AddTicket = () => {
             <div>
               <Form.Group className="pt-2">
                 <Form.Label htmlFor="mailList" className="formlabel">
-                  CC Mail <span className={classes.optionaltxt}>(Optional)</span>
+                  CC Mail{" "}
+                  <span className={classes.optionaltxt}>(Optional)</span>
                 </Form.Label>
                 <Controller
                   name="mailList"
@@ -301,7 +303,9 @@ const AddTicket = () => {
                     style={{ marginTop: "0px", marginLeft: "7px" }}
                   >
                     <Uploadicon className={classes.uploadicon} />{" "}
-                    <span style={{ marginLeft: "10px" , color:'#00a1ff' }}>Upload</span>
+                    <span style={{ marginLeft: "10px", color: "#00a1ff" }}>
+                      Upload
+                    </span>
                   </Form.Label>
                 </div>
                 <input

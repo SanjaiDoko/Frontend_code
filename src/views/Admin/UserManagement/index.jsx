@@ -33,7 +33,7 @@ function IndividualStatusUserList() {
             e.fullName
               .toLowerCase()
               .replace(/\s/, "")
-              .includes(searchValue.toLowerCase().replace(/\s/, "")) &&
+              .includes(searchValue.trim().toLowerCase().replace(/\s/, "")) &&
             e.userId == null
         );
     } else {
@@ -95,7 +95,6 @@ function IndividualStatusUserList() {
   if (isError) {
     return <div>{error.message}</div>;
   }
-
 
   return (
     <div className={styles.countrydiv}>

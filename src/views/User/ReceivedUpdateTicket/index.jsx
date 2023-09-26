@@ -177,14 +177,14 @@ const EditTicket = () => {
         uniqueTicketData[0].managerBy,
         uniqueTicketData[0].createdBy,
       ],
-      text: sendMessage,
+      text: sendMessage.trim(),
       createdAt: moment().toISOString(),
     });
 
     mutateChat({
       ticketId: id,
       messageFrom: createdBy,
-      content: sendMessage,
+      content: sendMessage.trim(),
     });
 
     setSendMessage("");
@@ -281,6 +281,11 @@ const EditTicket = () => {
                             <Form.Select
                               className={`formcontrol`}
                               {...field}
+                              style={{
+                                textOverflow: "ellipsis",
+                                maxWidth: "250px",
+                                textTransform: "capitalize",
+                              }}
                               id="issueGroup"
                               disabled={
                                 role === 3 || uniqueTicketData[0].status !== 0
@@ -308,7 +313,11 @@ const EditTicket = () => {
                               {allGroupData &&
                                 allGroupData.map((e, i) => {
                                   return (
-                                    <option key={i} value={e.groupId}>
+                                    <option
+                                      key={i}
+                                      value={e.groupId}
+                                      title={e.name}
+                                    >
                                       {e.name}
                                     </option>
                                   );
@@ -461,7 +470,7 @@ const EditTicket = () => {
                           placeholder="Message"
                           onChange={(e) => setSendMessage(e.target.value)}
                         />
-                        {sendMessage ? (
+                        {sendMessage.trim() !== "" ? (
                           <SendIcon
                             className={classes.sendMessage}
                             width={10}

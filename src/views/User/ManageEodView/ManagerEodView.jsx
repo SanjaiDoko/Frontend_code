@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { useGetEodsByMangerId } from "../../../hooks/eodHooks";
 import moment from "moment/moment";
 import Loader from "../../../components/Loader/Loader";
+import { toast } from "react-toastify";
 
 const ManagerEodView = () => {
   const {
@@ -41,12 +42,30 @@ const ManagerEodView = () => {
     data.managedBy = userId;
     data.startDate = moment(data.startDate).toISOString();
     data.endDate = moment(data.endDate).toString();
-    mutateUserEodList(data);
+    if (moment(data.startDate).isBefore(data.endDate)) {
+      mutateUserEodList(data);
+    }
+    if (moment(data.startDate).isAfter(data.endDate)) {
+      toast.error("Start Date should be before End Date");
+    }
+    if (moment(data.startDate).isSame(data.endDate)) {
+      toast.error("Start Date should not be same as End Date");
+    }
   };
 
   if (getEodLoading || isLoading) {
     return <Loader />;
   }
+
+  let sortedEod =
+    userListEodData &&
+    userListEodData.sort((a, b) =>
+      a.eodDate
+        .split("/")
+        .reverse()
+        .join()
+        .localeCompare(b.eodDate.split("/").reverse().join())
+    );
 
   if (UserByGroupIdData !== undefined) {
     return (
@@ -144,13 +163,13 @@ const ManagerEodView = () => {
             </div>
           </div>
           <div className={styles.eodMainDiv}>
-            {userListEodData?.length === 0 && (
+            {sortedEod?.length === 0 && (
               <div className={styles.nodatafound}>
                 <h4>Data Not Found</h4>
               </div>
             )}
-            {userListEodData ? (
-              userListEodData.map((e, i) => {
+            {sortedEod ? (
+              sortedEod.map((e, i) => {
                 return (
                   <div key={i} className={styles.eodList}>
                     <div className={styles.eoddatdiv}>
