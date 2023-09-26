@@ -68,6 +68,10 @@ div {
 .MuiDataGrid-columnHeaderTitle {
   font-weight: bold !important;
 }
+
+.ck.ck-reset_all{
+  display: none;
+}
 @media (max-width: 500px) {
   .MuiDrawer-paper {
     width: 350px;
