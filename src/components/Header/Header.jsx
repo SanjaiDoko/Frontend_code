@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 import Mainlogo from "../../assets/Images/mainlogo.png";
 import EodLogo from "../../assets/Images/eodLogo.png";
 import RoomLogo from "../../assets/Images/roomLogo.png";
-import DokoInt from "../../assets/Images/AdminDokoint.png";
 import { useSelector } from "react-redux";
 import { useLogoutUser } from "../../hooks/logout";
 import { useGetUserDetailsById } from "../../hooks/userManagement";
@@ -66,7 +65,9 @@ function Header() {
           {menu === 1 && <img src={Mainlogo} className="headerlogo" alt="" />}
           {menu === 2 && <img src={RoomLogo} className="headerlogo" alt="" />}
           {menu === 3 && <img src={EodLogo} className="headerlogo" alt="" />}
-          {menu === 0 && <img src={DokoInt} className="headerlogo" alt="" />}
+          {menu === 0 && (
+            <h1 className="dokotools">Doko Tools</h1>
+          )}
         </Link>
         <Navbar.Toggle aria-controls="responsive-navbar-nav">
           <GiHamburgerMenu />

@@ -1,5 +1,4 @@
 import styles from "./index.module.css";
-import Logo from "../../assets/Images/Dokoint.png";
 import { RiShutDownLine } from "react-icons/ri";
 import { useSelector } from "react-redux";
 import { useLogoutUser } from "../../hooks/logout";
@@ -12,7 +11,7 @@ function MenuHeader() {
     <div className={styles.maindiv}>
       <div className="container">
         <div className={styles.headercontent}>
-          <img src={Logo} alt="Logo" className={styles.logo} />
+          <h1 className={styles.dokotools}>Doko Tools</h1>
           <button className={styles.logoutbtn} onClick={() => mutate()}>
             Log Out
             <RiShutDownLine
