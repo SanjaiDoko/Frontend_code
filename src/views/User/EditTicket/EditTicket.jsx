@@ -141,14 +141,14 @@ const EditTicket = () => {
         uniqueTicketData[0].assignedTo,
         uniqueTicketData[0].managerBy,
       ],
-      text: sendMessage,
+      text: sendMessage.trim(),
       createdAt: moment().toISOString(),
     });
 
     mutateChat({
       ticketId: id,
       messageFrom: createdBy,
-      content: sendMessage,
+      content: sendMessage.trim(),
     });
 
     setSendMessage("");
@@ -250,7 +250,11 @@ const EditTicket = () => {
                       render={({ field }) => (
                         <Form.Select
                           className={`formcontrol`}
-                          style={{ textTransform: "capitalize" }}
+                          style={{
+                            textOverflow: "ellipsis",
+                            maxWidth: "250px",
+                            textTransform: "capitalize",
+                          }}
                           {...field}
                           id="issueGroup"
                           disabled
@@ -363,6 +367,41 @@ const EditTicket = () => {
                     )}
                   </Form.Group>
 
+                  <div className={classes.disablediv}>
+                    {uniqueTicketData[0]?.problem && (
+                      <div className={classes.disablediv}>
+                        <Form.Group className="pt-2">
+                          <Form.Label htmlFor="type" className="formlabel">
+                            Problem :
+                          </Form.Label>
+                          <Form.Control
+                            type="text"
+                            value={uniqueTicketData[0]?.problem}
+                            id="type"
+                            disabled
+                            placeholder="Enter Type"
+                          />
+                        </Form.Group>
+                      </div>
+                    )}
+                    {uniqueTicketData[0]?.resolution && (
+                      <div className={classes.disablediv}>
+                        <Form.Group className="pt-2">
+                          <Form.Label htmlFor="type" className="formlabel">
+                            Resolution :
+                          </Form.Label>
+                          <Form.Control
+                            type="text"
+                            value={uniqueTicketData[0]?.resolution}
+                            id="type"
+                            disabled
+                            placeholder="Enter Type"
+                          />
+                        </Form.Group>
+                      </div>
+                    )}
+                  </div>
+
                   <Form.Group className="pt-2">
                     {uploadFile && uploadFile.length > 0 && (
                       <Form.Label htmlFor="mailList" className="formlabel">
@@ -446,7 +485,7 @@ const EditTicket = () => {
                       placeholder="Message"
                       onChange={(e) => setSendMessage(e.target.value)}
                     />
-                    {sendMessage ? (
+                    {sendMessage.trim() !== "" ? (
                       <SendIcon
                         className={classes.sendMessage}
                         width={10}

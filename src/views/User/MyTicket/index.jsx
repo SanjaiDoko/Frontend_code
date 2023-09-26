@@ -38,6 +38,9 @@ function Dashboard() {
       flex: 1,
       headerName: "Ticket ID",
       width: 150,
+      valueFormatter: (params) => {
+        return params.value ? params.value.toString().toUpperCase() : "";
+      },
     },
     {
       field: "issueName",

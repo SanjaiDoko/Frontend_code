@@ -166,7 +166,7 @@ const Index = () => {
   const onSubmit = (data) => {
     const values = getValues();
     data.managedBy = values["managedId"];
-    data.endTime = moment(data.endTime);
+    data.endTime = moment(data.endTime).format("DD-MM-YYYYTHH:mm");
     data.id = uniqueTicketData[0]._id;
     delete data.files;
     mutate(data);
@@ -190,14 +190,14 @@ const Index = () => {
         uniqueTicketData[0].assignedTo,
         uniqueTicketData[0].createdBy,
       ],
-      text: sendMessage,
+      text: sendMessage.trim(),
       createdAt: moment().toISOString(),
     });
 
     mutateChat({
       ticketId: id,
       messageFrom: userId,
-      content: sendMessage,
+      content: sendMessage.trim(),
     });
 
     setSendMessage("");
@@ -305,7 +305,11 @@ const Index = () => {
                             <Form.Select
                               className={`formcontrol`}
                               {...field}
-                              style={{ textTransform: "capitalize" }}
+                              style={{
+                                textOverflow: "ellipsis",
+                                maxWidth: "250px",
+                                textTransform: "capitalize",
+                              }}
                               id="issueGroup"
                               disabled={role === 3}
                               onChange={(e) => {

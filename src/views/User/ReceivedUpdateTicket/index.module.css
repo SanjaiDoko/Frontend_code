@@ -465,6 +465,7 @@
 .disablediv > div {
   display: flex;
   align-items: center;
+  width: 100% !important;
 }
 @media (max-width: 500px) {
   .inputdiv {
@@ -484,7 +485,7 @@
   }
 }
 
-.chattitle{
+.chattitle {
   background-color: #00a1ff2b !important;
   border-bottom: 2px solid #d8d9da;
   background-color: #fff;
@@ -496,7 +497,7 @@
   border-radius: 8px 8px 0px 0px;
   margin-top: 20px;
 }
-.chattitle>h4{
+.chattitle > h4 {
   margin-bottom: 0;
   font-weight: bold;
 }
@@ -515,12 +516,12 @@
   height: 300px;
 }
 
-.chatdiv{
+.chatdiv {
   padding: 20px 20px 0px 20px;
   border: 1.5px solid #00a1ff;
 }
 
-.chatInput{
+.chatInput {
   display: flex;
   width: 100%;
   margin-top: 10px;
@@ -530,7 +531,7 @@
   padding: 20px 0px;
 }
 
-.chatInputBox{
+.chatInputBox {
   width: 100%;
   border: 1px solid grey;
   border-radius: 5px 0px 0px 5px;
@@ -538,14 +539,13 @@
   outline: none;
 }
 
-.sendMessage{
-  color:#00a1ff;
+.sendMessage {
+  color: #00a1ff;
   border: 2px solid;
   border-radius: 0px 5px 5px 0px;
   width: 100px !important;
   height: 39px !important;
-
 }
-.msgdiv{
+.msgdiv {
   min-height: 400px !important;
 }
