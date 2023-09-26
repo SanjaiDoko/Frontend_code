@@ -156,7 +156,7 @@ export const RoomPopup = ({ open, titleText, roomId }) => {
                       sx={{ display: "block" }}
                       {...field}
                       type="date"
-                      ampm={false}
+                      // ampm={false}
                       disablePast
                       defaultValue={null}
                       format="DD/MM/YYYY hh:mm a"
@@ -180,7 +180,7 @@ export const RoomPopup = ({ open, titleText, roomId }) => {
                       disabled={!Boolean(watch("startsAt"))}
                       // views={["year", "month", "day"]}
                       // format="DD-MM-YYYY"
-                      ampm={false}
+                      // ampm={false}
                       minDate={moment(watch("startsAt")) ?? null}
                       {...field}
                       type="date"
