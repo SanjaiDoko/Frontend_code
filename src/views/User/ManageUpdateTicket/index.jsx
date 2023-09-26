@@ -435,7 +435,7 @@ const Index = () => {
                       )}
                     </div>
                   </div>
-                  {uniqueTicketData[0].assignedTo && (
+                  {uniqueTicketData[0].assignedTo && uniqueTicketData[0].status !==1 && (
                     <>
                       <div className={classes.chattitle}>
                         <h4>Chat</h4>
@@ -454,7 +454,9 @@ const Index = () => {
                                 beforeDate={
                                   chatMessage[i - 1]?.message.createdAt
                                 }
+                                afterTime={chatMessage[i + 1]?.message.createdAt}
                                 senderName={chat.senderName}
+                                prevSenderName={chatMessage[i + 1]?.senderName}
                                 senderId={chat.senderId === createdBy}
                               />
                             ))}
@@ -467,7 +469,7 @@ const Index = () => {
                               placeholder="Message"
                               onChange={(e) => setSendMessage(e.target.value)}
                             />
-                            {sendMessage.trim() !== "" ? (
+                            {sendMessage ? (
                               <SendIcon
                                 className={classes.sendMessage}
                                 width={10}

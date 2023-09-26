@@ -501,6 +501,11 @@ function formatNumber(input) {
   }
 }
 
+ const editorConfiguration = {
+    toolbar: ['heading', '|', 'bold', 'italic', 'blockQuote', 'link', 'numberedList', 'bulletedList',  'insertTable', '|' ,'undo', 'redo','tableColumn', 'tableRow', 'mergeTableCells']
+        
+  };
+
 export {
   checkDuplicates,
   removeSpacesInString,
@@ -519,4 +524,5 @@ export {
   convertIntoCm,
   roundToDecimal,
   formatNumber,
+  editorConfiguration,
 };
