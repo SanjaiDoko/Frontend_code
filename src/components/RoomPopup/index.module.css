@@ -81,3 +81,7 @@
 .inputdiv>div>div>div{
     width: 100% !important;
 }
+.optionaltxt{
+    font-size: 13px;
+    color: #989898;
+}

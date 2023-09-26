@@ -49,11 +49,10 @@ function AdminDashboard() {
               Groups
             </h1>
           </div>
-          {groupList.length > 0 ? 
-          <div className={styles.groupcards}>
-            {groupList.map((e, i) => {
-              return (
-                <>
+          {groupList.length > 0 ? (
+            <div className={styles.groupcards}>
+              {groupList.map((e, i) => {
+                return (
                   <div key={i} className={`${styles.groupcard} ${styles.item}`}>
                     <div className={styles.headergroup}>
                       <h5
@@ -66,7 +65,10 @@ function AdminDashboard() {
                       </h5>
                     </div>
                     <div className={styles.groupcontent}>
-                      <div className={styles.manager} style={{marginBottom:"10px"}}>
+                      <div
+                        className={styles.manager}
+                        style={{ marginBottom: "10px" }}
+                      >
                         <h5>Group Manager</h5>
                         <h5>{e.managedBy.name}</h5>
                       </div>
@@ -85,15 +87,12 @@ function AdminDashboard() {
                           <h5>{e.completedTicket}</h5>
                         </div>
                         <div className={styles.manager}>
-
-                        <h5>Rejected </h5>
-                        <h5>{e.rejectedTicket}</h5>
+                          <h5>Rejected </h5>
+                          <h5>{e.rejectedTicket}</h5>
                         </div>
                       </div>
                       <div className={styles.userNamediv}>
-                        <h5>
-                          Group Members
-                        </h5>
+                        <h5>Group Members</h5>
                         <h5>
                           {e.users.map((data) => {
                             return <p key={i}>{data.fullName}</p>;
@@ -102,16 +101,15 @@ function AdminDashboard() {
                       </div>
                     </div>
                   </div>
-                </>
-              );
-            })}
-          </div>
-          :
-          <div className={styles.nogroup}>
-            <h4>No Groups Find!</h4>
-            <h4>Hurry Up... Go and Create The Group</h4>
-          </div>
-          }
+                );
+              })}
+            </div>
+          ) : (
+            <div className={styles.nogroup}>
+              <h4>No Groups Find!</h4>
+              <h4>Hurry Up... Go and Create The Group</h4>
+            </div>
+          )}
         </div>
       </div>
     </div>

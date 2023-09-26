@@ -105,6 +105,7 @@
   font-weight: 500;
   font-size: 16px;
   color: #f2f2f2;
+  cursor: pointer;
 }
 .linktags {
   text-decoration: none;
@@ -112,10 +113,10 @@
   font-size: 16px;
   color: #f2f2f2;
 }
-.linktag:hover {
+/* .linktag:hover {
   cursor: pointer;
   border-bottom: 2px solid #f2f2f2;
-}
+} */
 .headerlogo {
   width: 120px;
 }
@@ -192,4 +193,14 @@
     var(--card5-gradient-color1),
     var(--card5-gradient-color2)
   );
+}
+.navbar0 {
+  background: #00a1ff;
+}
+.activeStep{
+  cursor: pointer;
+  border-bottom: 2px solid #f2f2f2 !important;
+}
+.inactiveStep{
+  background: transparent !important;
 }

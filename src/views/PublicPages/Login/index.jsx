@@ -1,6 +1,6 @@
 import styles from "./index.module.css";
 import { AiFillEye } from "react-icons/ai";
-import Logo from "../../../assets/Images/blacklogo.png";
+import Logo from "../../../assets/Images/Dokoint.png";
 import { BsFillEyeSlashFill } from "react-icons/bs";
 import { Form, Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";

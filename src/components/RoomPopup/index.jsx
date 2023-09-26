@@ -158,6 +158,7 @@ export const RoomPopup = ({ open, titleText, roomId }) => {
                       type="date"
                       disablePast
                       defaultValue={null}
+                      format="DD/MM/YYYY hh:mm a"
                     />
                   )}
                 />
@@ -176,12 +177,11 @@ export const RoomPopup = ({ open, titleText, roomId }) => {
                     <MobileDateTimePicker
                       sx={{ display: "block" }}
                       disabled={!Boolean(watch("startsAt"))}
-                      // views={["year", "month", "day"]}
-                      // format="DD-MM-YYYY"
                       minDate={moment(watch("startsAt")) ?? null}
                       {...field}
                       type="date"
                       disablePast
+                      format="DD/MM/YYYY hh:mm a"
                       defaultValue={null}
                     />
                   )}
@@ -193,7 +193,7 @@ export const RoomPopup = ({ open, titleText, roomId }) => {
             </div>
             <Form.Group className="pt-2">
               <Form.Label id="emailcc">
-              Participating Members
+              Participating Members <span  className={styles.optionaltxt}>(Optional)</span>
               </Form.Label>
               <Controller
                 control={control}

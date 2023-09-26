@@ -69,6 +69,7 @@ const ManagerEodView = () => {
                     render={({ field }) => (
                       <Form.Select
                         {...field}
+                        style={{textTransform:'capitalize'}}
                         type="number"
                         id="createdBy"
                         className="formcontrol"
