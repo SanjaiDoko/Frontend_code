@@ -208,9 +208,10 @@ function EodMail() {
                           control={control}
                           rules={{
                             required: "Task Description is required",
-                            pattern: {
-                              value: /^\S/,
-                              message: "Task Description is required",
+                            validate: (value) => {
+                              return (
+                                !!value.trim() || "Task Description is required"
+                              );
                             },
                           }}
                           render={({ field }) => (

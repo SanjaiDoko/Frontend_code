@@ -5,9 +5,11 @@ import { useSelector } from "react-redux";
 import Loader from "../../../components/Loader/Loader";
 import { useState } from "react";
 import searchLogo from "../../../assets/Images/searchLogo.png";
-import { useCancelRoomBooking, useGetRoomBookingsByUserId } from "../../../hooks/room";
+import {
+  useCancelRoomBooking,
+  useGetRoomBookingsByUserId,
+} from "../../../hooks/room";
 import moment from "moment";
-
 
 function RoomBookings() {
   const id = localStorage.getItem("allMasterId");
@@ -16,7 +18,7 @@ function RoomBookings() {
 
   const { data, isloading } = useGetRoomBookingsByUserId(id);
 
-  const {mutate} = useCancelRoomBooking()
+  const { mutate } = useCancelRoomBooking();
 
   const navigate = useNavigate();
 
@@ -56,7 +58,7 @@ function RoomBookings() {
       headerName: "Start Time",
       width: 200,
       renderCell: (params) => {
-        return moment(params.row.startsAt).format('DD-MM-YYYY /HH:mm');
+        return moment(params.row.startsAt).format("DD-MM-YYYY hh:mm A");
       },
     },
     {
@@ -65,7 +67,7 @@ function RoomBookings() {
       headerName: "End Time",
       width: 200,
       renderCell: (params) => {
-        return moment(params.row.endsAt).format('DD-MM-YYYY /HH:mm');
+        return moment(params.row.endsAt).format("DD-MM-YYYY hh:mm A");
       },
     },
     {
@@ -81,15 +83,26 @@ function RoomBookings() {
       sortable: false,
       width: 100,
       renderCell: (params) => {
-       let status = params.row.status
-       let data = {
-        id: params.row.bookingId
-       }
-       return <>{status ? <button disabled={status === 2} onClick={(e,params) =>  mutate(data)} className={styles.editBtn}>
-          Cancel
-        </button> : <button className={styles.cancelBtn}>Canceled</button>}</>
-      }
-      
+        let status = params.row.status;
+        let data = {
+          id: params.row.bookingId,
+        };
+        return (
+          <>
+            {status ? (
+              <button
+                disabled={status === 2}
+                onClick={(e, params) => mutate(data)}
+                className={styles.editBtn}
+              >
+                Cancel
+              </button>
+            ) : (
+              <button className={styles.cancelBtn}>Canceled</button>
+            )}
+          </>
+        );
+      },
     },
   ];
 
@@ -97,12 +110,12 @@ function RoomBookings() {
     return <Loader />;
   }
 
-
   if (data !== undefined) {
     return (
       <div className="container">
         <div className={styles.mainDiv}>
           <h3>My Room Bookings</h3>
+            {data && data.length > 0 &&
           <div className={styles.searchDiv}>
             <img src={searchLogo} alt="searchlogo" />
             <input
@@ -112,6 +125,7 @@ function RoomBookings() {
               placeholder="Search by Room Name"
             />
           </div>
+  }
           {data && data.length > 0 ? (
             <div className={styles.girdoverflow}>
               <DataGrid

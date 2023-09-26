@@ -177,14 +177,14 @@ const EditTicket = () => {
         uniqueTicketData[0].managerBy,
         uniqueTicketData[0].createdBy,
       ],
-      text: sendMessage,
+      text: sendMessage.trim(),
       createdAt: moment().toISOString(),
     });
 
     mutateChat({
       ticketId: id,
       messageFrom: createdBy,
-      content: sendMessage,
+      content: sendMessage.trim(),
     });
 
     setSendMessage("");
@@ -231,6 +231,7 @@ const EditTicket = () => {
                           control={control}
                           render={({ field }) => (
                             <Form.Control
+                            style={{ textTransform: "capitalize" }}
                               {...field}
                               type="text"
                               id="issueName"
@@ -254,6 +255,7 @@ const EditTicket = () => {
                           control={control}
                           render={({ field }) => (
                             <Form.Control
+                            style={{ textTransform: "capitalize" }}
                               type="text"
                               {...field}
                               id="type"
@@ -280,7 +282,13 @@ const EditTicket = () => {
                           render={({ field }) => (
                             <Form.Select
                               className={`formcontrol`}
+                              style={{ textTransform: "capitalize" }}
                               {...field}
+                              style={{
+                                textOverflow: "ellipsis",
+                                maxWidth: "250px",
+                                textTransform: "capitalize",
+                              }}
                               id="issueGroup"
                               disabled={
                                 role === 3 || uniqueTicketData[0].status !== 0
@@ -308,7 +316,11 @@ const EditTicket = () => {
                               {allGroupData &&
                                 allGroupData.map((e, i) => {
                                   return (
-                                    <option key={i} value={e.groupId}>
+                                    <option
+                                      key={i}
+                                      value={e.groupId}
+                                      title={e.name}
+                                    >
                                       {e.name}
                                     </option>
                                   );
@@ -332,6 +344,7 @@ const EditTicket = () => {
                           render={({ field }) => (
                             <Form.Control
                               type="text"
+                              style={{ textTransform: "capitalize" }}
                               disabled
                               {...field}
                               id="managerName"
@@ -433,6 +446,8 @@ const EditTicket = () => {
                       )}
                     </div>
                   </div>
+                  {uniqueTicketData[0].status !==1 &&
+                  <>
                   <div className={classes.chattitle}>
                     <h4>Chat</h4>
                   </div>
@@ -448,7 +463,9 @@ const EditTicket = () => {
                             key={i}
                             message={chat.message}
                             beforeDate={chatMessage[i - 1]?.message.createdAt}
+                            afterTime={chatMessage[i + 1]?.message.createdAt}
                             senderName={chat.senderName}
+                            prevSenderName={chatMessage[i + 1]?.senderName}
                             senderId={chat.senderId === createdBy}
                           />
                         ))}
@@ -461,7 +478,7 @@ const EditTicket = () => {
                           placeholder="Message"
                           onChange={(e) => setSendMessage(e.target.value)}
                         />
-                        {sendMessage ? (
+                        {sendMessage.trim() !== "" ? (
                           <SendIcon
                             className={classes.sendMessage}
                             width={10}
@@ -476,6 +493,8 @@ const EditTicket = () => {
                       </div>
                     </div>
                   </div>
+                  </>
+                  }
                 </div>
                 <div className={classes.inputdetailsdiv}>
                   {uploadFile.map((e, i) => {

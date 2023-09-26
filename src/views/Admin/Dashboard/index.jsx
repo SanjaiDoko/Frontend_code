@@ -12,6 +12,9 @@ function AdminDashboard() {
   if (userLoading || groupLoading) {
     return <Loader />;
   }
+
+  console.log(groupList, "hhoh");
+
   return (
     <div className={styles.maindiv}>
       <div>
@@ -51,58 +54,65 @@ function AdminDashboard() {
           </div>
           {groupList.length > 0 ? (
             <div className={styles.groupcards}>
-              {groupList.map((e, i) => {
-                return (
-                  <div key={i} className={`${styles.groupcard} ${styles.item}`}>
-                    <div className={styles.headergroup}>
-                      <h5
-                        style={{
-                          textTransform: "capitalize",
-                          textAlign: "center",
-                        }}
-                      >
-                        {e.name}
-                      </h5>
-                    </div>
-                    <div className={styles.groupcontent}>
+              {groupList
+                .filter((e) => e.status == 1)
+                .map((e, i) => {
+                  return (
+                    <>
                       <div
-                        className={styles.manager}
-                        style={{ marginBottom: "10px" }}
+                        key={i}
+                        className={`${styles.groupcard} ${styles.item}`}
                       >
-                        <h5>Group Manager</h5>
-                        <h5>{e.managedBy.name}</h5>
+                        <div className={styles.headergroup}>
+                          <h5
+                            style={{
+                              textTransform: "capitalize",
+                              textAlign: "center",
+                            }}
+                          >
+                            {e.name}
+                          </h5>
+                        </div>
+                        <div className={styles.groupcontent}>
+                          <div
+                            className={styles.manager}
+                            style={{ marginBottom: "10px" }}
+                          >
+                            <h5>Group Manager</h5>
+                            <h5>{e.managedBy.name}</h5>
+                          </div>
+                          <div className={styles.tickets}>
+                            <h5 style={{ textAlign: "center" }}>Tickets</h5>
+                            <div className={styles.manager}>
+                              <h5>Total Tickets</h5>
+                              <h5>{e.totalTicket}</h5>
+                            </div>
+                            <div className={styles.manager}>
+                              <h5>Open Tickets</h5>
+                              <h5>{e.openTicket + e.inProgressTicket}</h5>
+                            </div>
+                            <div className={styles.manager}>
+                              <h5>Completed </h5>
+                              <h5>{e.completedTicket}</h5>
+                            </div>
+                            <div className={styles.manager}>
+                              <h5>Rejected </h5>
+                              <h5>{e.rejectedTicket}</h5>
+                            </div>
+                          </div>
+                          <div className={styles.userNamediv}>
+                            <h5>Group Members</h5>
+                            <h5>
+                              {e.users.map((data) => {
+                                return <p key={i}>{data.fullName}</p>;
+                              })}
+                            </h5>
+                          </div>
+                        </div>
                       </div>
-                      <div className={styles.tickets}>
-                        <h5 style={{ textAlign: "center" }}>Tickets</h5>
-                        <div className={styles.manager}>
-                          <h5>Total Ticket</h5>
-                          <h5>{e.totalTicket}</h5>
-                        </div>
-                        <div className={styles.manager}>
-                          <h5>Open Tickets</h5>
-                          <h5>{e.openTicket + e.inProgressTicket}</h5>
-                        </div>
-                        <div className={styles.manager}>
-                          <h5>Completed </h5>
-                          <h5>{e.completedTicket}</h5>
-                        </div>
-                        <div className={styles.manager}>
-                          <h5>Rejected </h5>
-                          <h5>{e.rejectedTicket}</h5>
-                        </div>
-                      </div>
-                      <div className={styles.userNamediv}>
-                        <h5>Group Members</h5>
-                        <h5>
-                          {e.users.map((data) => {
-                            return <p key={i}>{data.fullName}</p>;
-                          })}
-                        </h5>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
+                    </>
+                  );
+                })}
             </div>
           ) : (
             <div className={styles.nogroup}>

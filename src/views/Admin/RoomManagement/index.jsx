@@ -108,7 +108,7 @@ const RoomManagement = () => {
                     ? roomData.filter((e) =>
                         e.roomName
                           .toLowerCase()
-                          .includes(searchValue.toLowerCase())
+                          .includes(searchValue.trim().toLowerCase())
                       )
                     : roomData
                 }

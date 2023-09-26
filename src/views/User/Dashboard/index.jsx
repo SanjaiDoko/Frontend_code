@@ -49,6 +49,9 @@ function Dashboard() {
       flex: 1,
       headerName: "Ticket ID",
       width: 150,
+      valueFormatter: (params) => {
+        return params.value ? params.value.toString().toUpperCase() : "";
+      },
     },
     {
       field: "issueName",
@@ -122,7 +125,7 @@ function Dashboard() {
 
   const rowClickFunction = (data) => {
     if (data.field === "Options") {
-      navigate("/ticket/dashboard/" + data.row._id);
+      navigate("/ticket/receivedTicket/" + data.row._id);
     }
   };
 

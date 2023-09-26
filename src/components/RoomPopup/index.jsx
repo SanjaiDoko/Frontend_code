@@ -60,7 +60,7 @@ export const RoomPopup = ({ open, titleText, roomId }) => {
       startsAt: null,
       endsAt: null,
       emailcc: [],
-      headCount: 0,
+      headCount: "",
     },
   });
 
@@ -156,6 +156,7 @@ export const RoomPopup = ({ open, titleText, roomId }) => {
                       sx={{ display: "block" }}
                       {...field}
                       type="date"
+                      ampm={false}
                       disablePast
                       defaultValue={null}
                       format="DD/MM/YYYY hh:mm a"
@@ -177,6 +178,9 @@ export const RoomPopup = ({ open, titleText, roomId }) => {
                     <MobileDateTimePicker
                       sx={{ display: "block" }}
                       disabled={!Boolean(watch("startsAt"))}
+                      // views={["year", "month", "day"]}
+                      // format="DD-MM-YYYY"
+                      ampm={false}
                       minDate={moment(watch("startsAt")) ?? null}
                       {...field}
                       type="date"

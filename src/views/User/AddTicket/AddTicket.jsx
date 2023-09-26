@@ -3,7 +3,7 @@ import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import classes from "./index.module.css";
 import { addTicketValidation } from "../../../validationSchema/addTicketValidation";
-import { fileReaderFunction, openFileNewWindow } from "../../../helper";
+import { editorConfiguration, fileReaderFunction, openFileNewWindow } from "../../../helper";
 import { useState } from "react";
 import { useInsertTicket } from "../../../hooks/ticketHooks";
 import { ReactComponent as Uploadicon } from "../../../../src/assets/Icons/uploadicon.svg";
@@ -214,6 +214,7 @@ const AddTicket = () => {
                       const data = editor.getData();
                       field.onChange(data);
                     }}
+                    config={editorConfiguration} 
                     defaultValue=""
                     name="issueDescription"
                   />
@@ -255,6 +256,7 @@ const AddTicket = () => {
                   control={control}
                   render={({ field }) => (
                     <Form.Control
+                      style={{ textTransform: "capitalize" }}
                       type="text"
                       disabled
                       {...field}
@@ -273,7 +275,8 @@ const AddTicket = () => {
             <div>
               <Form.Group className="pt-2">
                 <Form.Label htmlFor="mailList" className="formlabel">
-                  CC Mail <span className={classes.optionaltxt}>(Optional)</span>
+                  CC Mail{" "}
+                  <span className={classes.optionaltxt}>(Optional)</span>
                 </Form.Label>
                 <Controller
                   name="mailList"
@@ -301,7 +304,9 @@ const AddTicket = () => {
                     style={{ marginTop: "0px", marginLeft: "7px" }}
                   >
                     <Uploadicon className={classes.uploadicon} />{" "}
-                    <span style={{ marginLeft: "10px" , color:'#00a1ff' }}>Upload</span>
+                    <span style={{ marginLeft: "10px", color: "#00a1ff" }}>
+                      Upload
+                    </span>
                   </Form.Label>
                 </div>
                 <input

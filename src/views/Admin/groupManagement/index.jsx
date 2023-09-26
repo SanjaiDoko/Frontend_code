@@ -26,7 +26,7 @@ function IndividualStatusUserList() {
             e.name
               .toLowerCase()
               .replace(/\s/, "")
-              .includes(searchValue.toLowerCase().replace(/\s/, "")) &&
+              .includes(searchValue.trim().toLowerCase().replace(/\s/, "")) &&
             e.userId == null
         );
     } else {
@@ -57,7 +57,7 @@ function IndividualStatusUserList() {
       headerName: "MANAGED BY",
       width: 180,
       flex: 1,
-      valueGetter: ({ value }) => value.name,
+      renderCell: (value) =>  { return <p style={{textTransform:"capitalize"}}>{value.row.managedBy.name ?? ""}</p>},
     },
     {
       field: "users",
@@ -109,12 +109,9 @@ function IndividualStatusUserList() {
             <div className={styles.titlediv}>
               <h3 className={styles.title}>Group Management</h3>
               {/* {userList.filter((e) => e.groupId === null).length > 1 && ( */}
-                <button
-                  className={styles.grpbtn}
-                  onClick={() => setPopup(true)}
-                >
-                  Add Group
-                </button>
+              <button className={styles.grpbtn} onClick={() => setPopup(true)}>
+                Add Group
+              </button>
               {/* )} */}
             </div>
           </div>
@@ -156,7 +153,7 @@ function IndividualStatusUserList() {
             <div className={styles.girdoverflow}>
               <DataGrid
                 className={styles.dataGrid}
-                sx={{ textTransform: "capitalize", minHeight: "350px" }}
+                sx={{  minHeight: "350px" }}
                 rows={filterArray(data)}
                 columns={columns}
                 initialState={{
