@@ -57,7 +57,7 @@ function IndividualStatusUserList() {
       headerName: "MANAGED BY",
       width: 180,
       flex: 1,
-      valueGetter: ({ value }) => value.name,
+      renderCell: (value) =>  { return <p style={{textTransform:"capitalize"}}>{value.row.managedBy.name ?? ""}</p>},
     },
     {
       field: "users",
@@ -153,7 +153,7 @@ function IndividualStatusUserList() {
             <div className={styles.girdoverflow}>
               <DataGrid
                 className={styles.dataGrid}
-                sx={{ textTransform: "capitalize", minHeight: "350px" }}
+                sx={{  minHeight: "350px" }}
                 rows={filterArray(data)}
                 columns={columns}
                 initialState={{
