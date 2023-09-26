@@ -166,7 +166,7 @@ const Index = () => {
   const onSubmit = (data) => {
     const values = getValues();
     data.managedBy = values["managedId"];
-    data.endTime = moment(data.endTime);
+    data.endTime = moment(data.endTime).format("DD-MM-YYYYTHH:mm");
     data.id = uniqueTicketData[0]._id;
     delete data.files;
     mutate(data);
