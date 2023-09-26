@@ -1,6 +1,6 @@
 import styles from "./index.module.css";
 import { AiFillEye } from "react-icons/ai";
-import Logo from "../../../assets/Images/Dokoint.png";
+import Logo from "../../../assets/Images/Dokotools.png";
 import { BsFillEyeSlashFill } from "react-icons/bs";
 import { Form, Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
@@ -122,6 +122,7 @@ const Loginpage = () => {
             className={styles.form}
             onSubmit={handleSubmit(onSubmit)}
           >
+            <div className={styles.loginformdiv}>
             <div className={styles.Logodiv}>
               <img src={Logo} alt="AllMasters Logo" className="masterlogo" />
               <h5 className="pt-2">Welcome back !</h5>
@@ -204,7 +205,6 @@ const Loginpage = () => {
                 <p className="errormsg">{errors.password.message}</p>
               )}
             </Form.Group>
-
             <div className="form-check pt-1 pb-2 d-flex justify-content-between">
               <div className={styles.checkdiv}>
                 <input
@@ -233,6 +233,7 @@ const Loginpage = () => {
             >
               Sign In
             </Button>
+            </div>
           </Form>
         </div>
         <AlreadyLoggedInPopup

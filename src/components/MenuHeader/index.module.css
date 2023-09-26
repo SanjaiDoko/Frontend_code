@@ -2,7 +2,6 @@
   width: 100%;
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
   background-color: #e5e5e5;
-  height: 59px;
   position: fixed;
   padding: 13px 0px;
   top: 0;
@@ -10,7 +9,7 @@
   z-index: 111;
 }
 .logo {
-  width: 130px;
+  width: 110px;
 }
 .headercontent {
   display: flex;
@@ -25,4 +24,11 @@
   display: flex;
   align-items: center;
   gap: 10px;
+}
+.dokotools {
+  font-weight: bold;
+  font-size: 25px;
+  margin-bottom: 0;
+  color: #000;
+  font-family: system-ui !important;
 }

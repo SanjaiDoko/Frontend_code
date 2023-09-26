@@ -204,3 +204,10 @@
 .inactiveStep{
   background: transparent !important;
 }
+.dokotools{
+  font-weight: bold;
+  font-size: 25px;
+  margin-bottom: 0;
+  color:#fff;
+  font-family: system-ui !important;
+}

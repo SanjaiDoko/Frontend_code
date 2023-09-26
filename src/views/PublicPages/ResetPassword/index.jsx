@@ -1,5 +1,5 @@
 import styles from "./index.module.css";
-import Logo from "../../../assets/Images/blacklogo.png";
+import Logo from "../../../assets/Images/Dokotools.png";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { Link, useNavigate } from "react-router-dom";
@@ -45,10 +45,10 @@ function ResetPassword() {
           </p>
         </div>
         <Form className={`${styles.form}`} onSubmit={handleSubmit(onSubmit)}>
+          <div className={styles.loginformdiv}>
           <div className={styles.Logodiv}>
             <img src={Logo} alt="AllMasters Logo" className="masterlogo" />
             <h5 className="pt-2">Reset Password</h5>
-            <p>& take back control now</p>
           </div>
           <div className="form-group pt-2 pb-3">
             <Form.Group className="pt-2">
@@ -105,6 +105,7 @@ function ResetPassword() {
           <Link to="/login" className={styles.gobacklink}>
             <div className={styles.goback}>Go back</div>
           </Link>
+          </div>
         </Form>
       </div>
     </div>
