@@ -14,10 +14,28 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import Loader from "../../../components/Loader/Loader";
+import { useGetAllUsers } from "../../../hooks/userManagement";
+import MenuItem from "@mui/material/MenuItem";
+import ListItemText from "@mui/material/ListItemText";
+import Select from "@mui/material/Select";
+import { Checkbox } from "@mui/material";
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+	PaperProps: {
+		style: {
+			maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+			width: 250,
+			textTransform: "capitalize",
+		},
+	},
+};
 
 const AddTicket = () => {
   const [uploadFile, setUploadFile] = useState([]);
   const navigate = useNavigate();
+  const userId = localStorage.getItem("allMasterId");
   const createdBy = localStorage.getItem("allMasterId");
   const groupId = localStorage.getItem("groupId");
   const onSuccess = () => {
@@ -25,6 +43,7 @@ const AddTicket = () => {
   };
   const { mutate } = useInsertTicket(onSuccess);
   const { data: allGroupData, isLoading: groupLoading } = useGetAllGroups();
+  const {data: usersData, isLoading: userDataLoading} = useGetAllUsers()
   const {
     handleSubmit,
     control,
@@ -42,7 +61,7 @@ const AddTicket = () => {
       issueDescription: "",
       managerName: "",
       managedId: "",
-      mailList: "",
+      mailList: [],
       createdBy: createdBy,
     },
   });
@@ -55,10 +74,7 @@ const AddTicket = () => {
     delete data.managerName;
     const values = getValues();
     data.managedBy = values["managedId"];
-    data.mailList =
-      data.mailList && data.mailList.includes(",")
-        ? data.mailList.split(",")
-        : data.mailList;
+    console.log(data,"data")
     data.files = uploadFile;
     mutate(data);
   };
@@ -273,29 +289,49 @@ const AddTicket = () => {
               </Form.Group>
             </div>
             <div>
-              <Form.Group className="pt-2">
-                <Form.Label htmlFor="mailList" className="formlabel">
-                  CC Mail{" "}
-                  <span className={classes.optionaltxt}>(Optional)</span>
-                </Form.Label>
-                <Controller
-                  name="mailList"
-                  control={control}
-                  render={({ field }) => (
-                    <Form.Control
-                      type="text"
-                      {...field}
-                      id="mailList"
-                      placeholder="Enter CC Mail"
-                    />
-                  )}
-                />
-                {errors.mailList && (
-                  <span className={classes.error}>
-                    {errors.mailList.message}
-                  </span>
+            <Form.Group className="pt-2">
+              <Form.Label id="mailList">
+              CC Mail (Optional)
+              </Form.Label>
+              <Controller
+                control={control}
+                name="mailList"
+                render={({ field: { onChange, value } }) => (
+                  <Select
+                    fullWidth
+                    id="mailList"
+                    multiple
+                    displayEmpty
+                    value={value}
+                    onChange={onChange}
+                    className={classes.costheadingSelect}
+                    sx={{
+                      fontSize: "14px",
+                    }}
+                    renderValue={(selected) => {
+                      if (selected.length === 0) {
+                        return <span>Choose Users</span>;
+                      }
+                      return selected.join(", ");
+                    }}
+                    MenuProps={MenuProps}
+                  >
+                    {usersData &&
+                      usersData.filter(user => (user._id != userId)).map((user) => (
+                        <MenuItem key={user._id} value={user.email}>
+                          <Checkbox
+                            checked={
+                              watch("mailList").indexOf(user.email) > -1
+                            }
+                          />
+                          <ListItemText primary={user.fullName} />
+                        </MenuItem>
+                      ))}
+                  </Select>
                 )}
-              </Form.Group>
+              />
+              <p className={classes.error}>{errors.mailList?.message}</p>
+            </Form.Group>
               <Form.Group className="pt-2">
                 <div className={classes.uploaddiv}>
                   <Form.Label

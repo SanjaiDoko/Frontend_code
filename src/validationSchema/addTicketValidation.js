@@ -5,7 +5,7 @@ export const addTicketValidation = yup.object({
   type: yup.string().trim().required("Type is required"),
   issueDescription: yup.string().trim().required("Description is required"),
   issueGroup: yup.string().trim().required("Issue Group is required"),
-  mailList: yup.string().trim().lowercase().email("Enter valid email"),
+  mailList: yup.array(),
   // managerName: yup.string().trim().required("Managed By is required"),
   // assignedTo: yup.string().trim().required("Assigned To is required"),
   // startTime: yup.string().trim().required("Start Time is required"),
