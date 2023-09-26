@@ -1,5 +1,5 @@
 import styles from "./index.module.css";
-import Logo from "../../assets/Images/blacklogo.png";
+import Logo from "../../assets/Images/Dokoint.png";
 import { RiShutDownLine } from "react-icons/ri";
 import { useSelector } from "react-redux";
 import { useLogoutUser } from "../../hooks/logout";
