@@ -159,6 +159,7 @@ export const RoomPopup = ({ open, titleText, roomId }) => {
                       // ampm={false}
                       disablePast
                       defaultValue={null}
+                      format="DD/MM/YYYY hh:mm a"
                     />
                   )}
                 />
@@ -184,6 +185,7 @@ export const RoomPopup = ({ open, titleText, roomId }) => {
                       {...field}
                       type="date"
                       disablePast
+                      format="DD/MM/YYYY hh:mm a"
                       defaultValue={null}
                     />
                   )}
@@ -195,7 +197,7 @@ export const RoomPopup = ({ open, titleText, roomId }) => {
             </div>
             <Form.Group className="pt-2">
               <Form.Label id="emailcc">
-              Participating Members
+              Participating Members <span  className={styles.optionaltxt}>(Optional)</span>
               </Form.Label>
               <Controller
                 control={control}

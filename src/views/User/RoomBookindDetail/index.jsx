@@ -12,6 +12,20 @@ function RoomBookingDetail() {
 
   const { data, isloading } = useGetRoomBookingsDetails(roomId);
 
+  const returnStatus = (status) => {
+    let ticketStatus = "";
+    if (status == 1) {
+      ticketStatus = "Upcoming";
+    }
+    if (status == 2) {
+      ticketStatus = "In Progress";
+    }
+    if (status == 3) {
+      ticketStatus = "Completed";
+    }
+    return ticketStatus;
+  };
+
   const columns = [
     {
       field: "userBooked",
@@ -19,15 +33,6 @@ function RoomBookingDetail() {
       headerName: "Booked Person",
       width: 150,
     },
-    // {
-    //   field: "date",
-    //   flex: 1,
-    //   headerName: "Date",
-    //   width: 150,
-    //   renderCell: (params) => {
-    //     return moment(params.row.startsAt).format("DD-MM-YYYY");
-    //   },
-    // },
     {
       field: "startsAt",
       flex: 1,
@@ -60,7 +65,7 @@ function RoomBookingDetail() {
       flex: 1,
       headerName: "Status",
       width: 200,
-      renderCell: (value) => "Not start yet",
+      renderCell: (value) => returnStatus(value.row.status),
     },
   ];
 
