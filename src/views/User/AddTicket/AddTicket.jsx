@@ -3,7 +3,7 @@ import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import classes from "./index.module.css";
 import { addTicketValidation } from "../../../validationSchema/addTicketValidation";
-import { fileReaderFunction, openFileNewWindow } from "../../../helper";
+import { editorConfiguration, fileReaderFunction, openFileNewWindow } from "../../../helper";
 import { useState } from "react";
 import { useInsertTicket } from "../../../hooks/ticketHooks";
 import { ReactComponent as Uploadicon } from "../../../../src/assets/Icons/uploadicon.svg";
@@ -214,6 +214,7 @@ const AddTicket = () => {
                       const data = editor.getData();
                       field.onChange(data);
                     }}
+                    config={editorConfiguration} 
                     defaultValue=""
                     name="issueDescription"
                   />

@@ -556,6 +556,7 @@
 }
 .chatdiv{
   padding: 20px;
+  border: 1.5px solid  #00a1ff
 }
 .msgdiv{
   min-height: 400px !important;

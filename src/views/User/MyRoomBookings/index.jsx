@@ -115,6 +115,7 @@ function RoomBookings() {
       <div className="container">
         <div className={styles.mainDiv}>
           <h3>My Room Bookings</h3>
+            {data && data.length > 0 &&
           <div className={styles.searchDiv}>
             <img src={searchLogo} alt="searchlogo" />
             <input
@@ -124,6 +125,7 @@ function RoomBookings() {
               placeholder="Search by Room Name"
             />
           </div>
+  }
           {data && data.length > 0 ? (
             <div className={styles.girdoverflow}>
               <DataGrid

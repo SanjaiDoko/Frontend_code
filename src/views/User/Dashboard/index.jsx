@@ -125,7 +125,7 @@ function Dashboard() {
 
   const rowClickFunction = (data) => {
     if (data.field === "Options") {
-      navigate("/ticket/dashboard/" + data.row._id);
+      navigate("/ticket/receivedTicket/" + data.row._id);
     }
   };
 
