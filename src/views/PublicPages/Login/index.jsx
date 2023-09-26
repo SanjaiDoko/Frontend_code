@@ -125,7 +125,6 @@ const Loginpage = () => {
             <div className={styles.Logodiv}>
               <img src={Logo} alt="AllMasters Logo" className="masterlogo" />
               <h5 className="pt-2">Welcome back !</h5>
-              <p>Raise & Resolve Tickets </p>
             </div>
             <Form.Group className="pt-2">
               <Form.Label htmlFor="type" className="formlabel">
