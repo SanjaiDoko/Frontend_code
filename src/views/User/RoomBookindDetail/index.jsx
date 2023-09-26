@@ -34,7 +34,7 @@ function RoomBookingDetail() {
       headerName: "Start Time",
       width: 200,
       renderCell: (params) => {
-        return moment(params.row.startsAt).format("DD-MM-YYYY /HH:mm");
+        return moment(params.row.startsAt).format("DD-MM-YYYY hh:mm A");
       },
     },
     {
@@ -43,7 +43,7 @@ function RoomBookingDetail() {
       headerName: "End Time",
       width: 200,
       renderCell: (params) => {
-        return moment(params.row.endsAt).format("DD-MM-YYYY /HH:mm");
+        return moment(params.row.endsAt).format("DD-MM-YYYY hh:mm A");
       },
     },
     {
