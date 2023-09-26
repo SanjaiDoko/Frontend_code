@@ -414,7 +414,7 @@ const EditTicket = () => {
               </button>
             </div>
           </form>
-          {uniqueTicketData[0].assignedTo && (
+          {uniqueTicketData[0].assignedTo && uniqueTicketData[0].status !==1 && (
             <div className={classes.rightchat}>
               <div className={classes.chattitle}>
                 <h4>Chat</h4>
@@ -431,7 +431,9 @@ const EditTicket = () => {
                         key={i}
                         message={chat.message}
                         beforeDate={chatMessage[i - 1]?.message.createdAt}
+                        afterTime={chatMessage[i + 1]?.message.createdAt}
                         senderName={chat.senderName}
+                        prevSenderName={chatMessage[i + 1]?.senderName}
                         senderId={chat.senderId === createdBy}
                       />
                     ))}

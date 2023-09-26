@@ -115,9 +115,9 @@ const userPaths = [
     element: MainUserLayoutComponent,
     children: [
       {
-              path: "receivedTicket",
-              element: DashboardComponent,
-            },
+        path: "receivedTicket",
+        element: DashboardComponent,
+      },
       {
         path: "mytickets",
         element: MyTicketComponent,
@@ -139,11 +139,9 @@ const userPaths = [
         element: UpdateManageTicketComponent,
       },
       {
-        path: "dashboard/:id",
+        path: "receivedTicket/:id",
         element: UpdateDashboardComponent,
       },
-     
-      
     ],
     status: [1],
   },
@@ -151,7 +149,6 @@ const userPaths = [
     path: "eod",
     element: MainUserLayoutComponent,
     children: [
-     
       {
         path: "eodstatus/:id",
         element: UserEodMailViewComponent,
@@ -176,8 +173,6 @@ const userPaths = [
     path: "room",
     element: MainUserLayoutComponent,
     children: [
-      
-     
       {
         path: "rooms",
         element: Room,

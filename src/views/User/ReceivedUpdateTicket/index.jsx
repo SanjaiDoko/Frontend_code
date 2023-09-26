@@ -231,6 +231,7 @@ const EditTicket = () => {
                           control={control}
                           render={({ field }) => (
                             <Form.Control
+                            style={{ textTransform: "capitalize" }}
                               {...field}
                               type="text"
                               id="issueName"
@@ -254,6 +255,7 @@ const EditTicket = () => {
                           control={control}
                           render={({ field }) => (
                             <Form.Control
+                            style={{ textTransform: "capitalize" }}
                               type="text"
                               {...field}
                               id="type"
@@ -280,6 +282,7 @@ const EditTicket = () => {
                           render={({ field }) => (
                             <Form.Select
                               className={`formcontrol`}
+                              style={{ textTransform: "capitalize" }}
                               {...field}
                               id="issueGroup"
                               disabled={
@@ -332,6 +335,7 @@ const EditTicket = () => {
                           render={({ field }) => (
                             <Form.Control
                               type="text"
+                              style={{ textTransform: "capitalize" }}
                               disabled
                               {...field}
                               id="managerName"
@@ -433,6 +437,8 @@ const EditTicket = () => {
                       )}
                     </div>
                   </div>
+                  {uniqueTicketData[0].status !==1 &&
+                  <>
                   <div className={classes.chattitle}>
                     <h4>Chat</h4>
                   </div>
@@ -448,7 +454,9 @@ const EditTicket = () => {
                             key={i}
                             message={chat.message}
                             beforeDate={chatMessage[i - 1]?.message.createdAt}
+                            afterTime={chatMessage[i + 1]?.message.createdAt}
                             senderName={chat.senderName}
+                            prevSenderName={chatMessage[i + 1]?.senderName}
                             senderId={chat.senderId === createdBy}
                           />
                         ))}
@@ -476,6 +484,8 @@ const EditTicket = () => {
                       </div>
                     </div>
                   </div>
+                  </>
+                  }
                 </div>
                 <div className={classes.inputdetailsdiv}>
                   {uploadFile.map((e, i) => {
