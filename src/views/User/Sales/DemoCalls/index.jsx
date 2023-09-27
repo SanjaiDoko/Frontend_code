@@ -11,13 +11,12 @@ import { getDemoMessage } from "../../../../helper";
 function Dashboard() {
   const id = localStorage.getItem("allMasterId");
   const navigate = useNavigate();
-  
 
   const { data, isloading } = useGetDemo();
 
   const [searchValue, setSearchValue] = useState("");
 
-console.log(data,"data")
+  console.log(data, "data");
 
   const returnStatus = (status) => {
     let ticketStatus = "";
@@ -62,7 +61,6 @@ console.log(data,"data")
       headerName: "status",
       width: 150,
       renderCell: (params) => getDemoMessage(params.row.status),
-      
     },
     {
       flex: 1,
@@ -70,9 +68,7 @@ console.log(data,"data")
       sortable: false,
       width: 100,
       renderCell: () => (
-        <button className={styles.editBtn}>
-          { "View Report"}
-        </button>
+        <button className={styles.editBtn}>{"View Report"}</button>
       ),
     },
   ];
@@ -94,42 +90,44 @@ console.log(data,"data")
           <div className={styles.subDiv}>
             <h3>Assigned Demo Call</h3>
           </div>
-          <div className={styles.searchDiv}>
-            <img src={searchLogo} alt="searchlogo" />
-            <input
-              type="text"
-              className={styles.searchInput}
-              onChange={(e) => setSearchValue(e.target.value)}
-              placeholder="Search by Company Name"
-            />
-          </div>
           {data && data.length > 0 ? (
-            <div className={styles.girdoverflow}>
-              <DataGrid
-                className={styles.dataGrid}
-                sx={{ textTransform: "capitalize", minHeight: "400px" }}
-                rows={
-                  data && searchValue !== ""
-                    ? data.filter((e) =>
-                        e.companyName
-                          .toLowerCase()
-                          .includes(searchValue.toLowerCase())
-                      )
-                    : data
-                }
-                columns={columns}
-                getRowId={(data) => data.callId}
-                hideFooterSelectedRowCount={true}
-                onCellClick={(row) => rowClickFunction(row)}
-                initialState={{
-                  pagination: {
-                    paginationModel: {
-                      pageSize: 10,
+            <>
+              <div className={styles.searchDiv}>
+                <img src={searchLogo} alt="searchlogo" />
+                <input
+                  type="text"
+                  className={styles.searchInput}
+                  onChange={(e) => setSearchValue(e.target.value)}
+                  placeholder="Search by Company Name"
+                />
+              </div>
+              <div className={styles.girdoverflow}>
+                <DataGrid
+                  className={styles.dataGrid}
+                  sx={{ textTransform: "capitalize", minHeight: "400px" }}
+                  rows={
+                    data && searchValue !== ""
+                      ? data.filter((e) =>
+                          e.companyName
+                            .toLowerCase()
+                            .includes(searchValue.toLowerCase())
+                        )
+                      : data
+                  }
+                  columns={columns}
+                  getRowId={(data) => data.callId}
+                  hideFooterSelectedRowCount={true}
+                  onCellClick={(row) => rowClickFunction(row)}
+                  initialState={{
+                    pagination: {
+                      paginationModel: {
+                        pageSize: 10,
+                      },
                     },
-                  },
-                }}
-              />
-            </div>
+                  }}
+                />
+              </div>
+            </>
           ) : (
             <div className={styles.nogroup}>
               <h4>Untill Now, You did not created anu Demo Call</h4>

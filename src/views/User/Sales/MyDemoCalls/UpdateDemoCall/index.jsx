@@ -35,8 +35,8 @@ const Index = () => {
 
   const onSuccess = () => {
     // navigate("/user/mydemocall");
-    setShowReport(false)
-    reset()
+    setShowReport(false);
+    reset();
   };
 
   const { mutate } = useInsertDemoRemarks(onSuccess);
@@ -87,7 +87,7 @@ const Index = () => {
                     <div className={classes.flexeddiv}>
                       <Form.Group className="pt-2">
                         <Form.Label htmlFor="issueName" className="formlabel">
-                          Company Name
+                          Company Name :
                         </Form.Label>
                         <Controller
                           name="issueName"
@@ -107,7 +107,7 @@ const Index = () => {
                       </Form.Group>
                       <Form.Group className="pt-2">
                         <Form.Label htmlFor="type" className="formlabel">
-                          Assigned By
+                          Assigned By :
                         </Form.Label>
                         <Controller
                           name="type"
@@ -129,7 +129,7 @@ const Index = () => {
                     <div className={classes.flexeddiv}>
                       <Form.Group className="pt-2">
                         <Form.Label htmlFor="issueName" className="formlabel">
-                          Assigned On
+                          Assigned On :
                         </Form.Label>
                         <Controller
                           name="issueName"
@@ -151,7 +151,7 @@ const Index = () => {
                       </Form.Group>
                       <Form.Group className="pt-2">
                         <Form.Label htmlFor="type" className="formlabel">
-                          Status
+                          Status :
                         </Form.Label>
                         <Controller
                           name="type"
@@ -185,17 +185,16 @@ const Index = () => {
                     ) : (
                       <div style={{ display: "flex", flexDirection: "column" }}>
                         <div>
-                          {data[0].remarks?.map((remark, i) => {
+                          {data[0].remarks?.map((remark) => {
                             return (
-                              <div key={remark._id}>
+                              <div key={remark._id} className={classes.reportcon}>
                                 <p>
-                                  
+                                  {remark.data}
+                                </p>
+                                <p className={classes.datestyle}>
                                   {moment(remark.enteredDate).format(
-                                    "DD-MM-YYYY"
-                                  )}{" "}
-                                  <p className={classes.reportDiv}>
-                                    {remark.data}
-                                  </p>
+                                    "DD-MM-YYYY hh:mm a"
+                                  )}
                                 </p>
                               </div>
                             );
@@ -284,23 +283,18 @@ const Index = () => {
                         >
                           <button
                             type="submit"
-                            style={{
-                              marginRight: "30px",
-                              backgroundColor: "#8be877",
-                            }}
                             onClick={() => setShowReport(true)}
-                            className={classes.addTicketBtn}
+                            className={classes.createbtn}
                           >
                             Create Note
                           </button>
                           <button
                             type="button"
-                            style={{ backgroundColor: "#ee9b9b" }}
                             onClick={() => {
                               setShowReport(false);
                               reset("");
                             }}
-                            className={classes.addTicketBtn}
+                            className={classes.clearebtn}
                           >
                             Clear Note
                           </button>

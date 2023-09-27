@@ -76,7 +76,7 @@ const Index = () => {
           <form onSubmit={handleSubmit(onSubmit)} className={classes.addDiv}>
             <div>
               <div className={classes.addDivHeading}>
-                <h3>Demo Call</h3>
+                <h3>Demo Calls</h3>
               </div>
               <div className={classes.flexdiv}>
                 <div className={classes.infodiv}>
@@ -91,7 +91,7 @@ const Index = () => {
                     <div className={classes.flexeddiv}>
                       <Form.Group className="pt-2">
                         <Form.Label htmlFor="issueName" className="formlabel">
-                          Company Name
+                          Company Name :
                         </Form.Label>
                         <Controller
                           name="issueName"
@@ -111,7 +111,7 @@ const Index = () => {
                       </Form.Group>
                       <Form.Group className="pt-2">
                         <Form.Label htmlFor="type" className="formlabel">
-                          Assigned By
+                          Assigned By :
                         </Form.Label>
                         <Controller
                           name="type"
@@ -133,7 +133,7 @@ const Index = () => {
                     <div className={classes.flexeddiv}>
                       <Form.Group className="pt-2">
                         <Form.Label htmlFor="issueName" className="formlabel">
-                          Assigned On
+                          Assigned On :
                         </Form.Label>
                         <Controller
                           name="issueName"
@@ -155,7 +155,7 @@ const Index = () => {
                       </Form.Group>
                       <Form.Group className="pt-2">
                         <Form.Label htmlFor="type" className="formlabel">
-                          Status
+                          Status :
                         </Form.Label>
                         <Controller
                           name="type"
@@ -205,16 +205,16 @@ const Index = () => {
                             style={{ display: "flex", flexDirection: "column" }}
                           >
                             <div>
-                              {data[0].remarks?.map((remark, i) => {
+                              {data[0].remarks?.map((remark) => {
                                 return (
-                                  <div key={remark._id}>
-                                    <p>
-                                      {moment(remark.enteredDate).format(
-                                        "DD-MM-YYYY"
-                                      )}{" "}
+                                  <div key={remark._id} className={classes.reportcon}>
                                       <p className={classes.reportDiv}>
                                         {remark.data}
                                       </p>
+                                    <p className={classes.datatxt}>
+                                      {moment(remark.enteredDate).format(
+                                        "DD-MM-YYYY hh:mm a"
+                                      )}
                                     </p>
                                   </div>
                                 );

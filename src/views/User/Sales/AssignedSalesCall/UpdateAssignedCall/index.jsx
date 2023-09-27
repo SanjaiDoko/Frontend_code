@@ -104,7 +104,9 @@ const Index = () => {
           <form onSubmit={handleSubmit(onSubmit)} className={classes.addDiv}>
             <div>
               <div className={classes.addDivHeading}>
-                <h3 style={{textTransform:"capitalize"}}>Update {data[0].companyName}'s Sales Call</h3>
+                <h3 style={{ textTransform: "capitalize" }}>
+                  Update {data[0].companyName}'s Sales Call
+                </h3>
               </div>
               <div className={classes.flexdiv}>
                 <div className={classes.infodiv}>
@@ -124,7 +126,7 @@ const Index = () => {
                     <div className={classes.flexeddiv}>
                       <Form.Group className="pt-2">
                         <Form.Label htmlFor="issueName" className="formlabel">
-                          Company Name
+                          Company Name :
                         </Form.Label>
                         <Controller
                           name="issueName"
@@ -144,7 +146,7 @@ const Index = () => {
                       </Form.Group>
                       <Form.Group className="pt-2">
                         <Form.Label htmlFor="type" className="formlabel">
-                          Assigned By
+                          Assigned By :
                         </Form.Label>
                         <Controller
                           name="type"
@@ -166,7 +168,7 @@ const Index = () => {
                     <div className={classes.flexeddiv}>
                       <Form.Group className="pt-2">
                         <Form.Label htmlFor="issueName" className="formlabel">
-                          Assigned On
+                          Assigned On :
                         </Form.Label>
                         <Controller
                           name="issueName"
@@ -188,7 +190,7 @@ const Index = () => {
                       </Form.Group>
                       <Form.Group className="pt-2">
                         <Form.Label htmlFor="type" className="formlabel">
-                          Status
+                          Status :
                         </Form.Label>
                         <Controller
                           name="type"
@@ -218,22 +220,25 @@ const Index = () => {
                         style={{ flexDirection: "column" }}
                       >
                         {data[0].remarks?.length === 0 ? (
-                          <p>No data</p>
+                          <p style={{textAlign:'center'}}>No data</p>
                         ) : (
                           <div
                             style={{ display: "flex", flexDirection: "column" }}
                           >
                             <div>
-                              {data[0].remarks?.map((remark, i) => {
+                              {data[0].remarks?.map((remark) => {
                                 return (
-                                  <div key={remark._id}>
-                                    <p>
+                                  <div
+                                    key={remark._id}
+                                    className={classes.reportcon}
+                                  >
+                                    <p className={classes.reportDiv}>
+                                      {remark.data}
+                                    </p>
+                                    <p className={classes.datetxt}>
                                       {moment(remark.enteredDate).format(
-                                        "DD-MM-YYYY"
-                                      )}{" "}
-                                      <p className={classes.reportDiv}>
-                                        {remark.data}
-                                      </p>
+                                        "DD-MM-YYYY hh:mm a"
+                                      )}
                                     </p>
                                   </div>
                                 );
@@ -375,24 +380,18 @@ const Index = () => {
                             >
                               <button
                                 type="submit"
-                                style={{
-                                  marginRight: "30px",
-                                  backgroundColor: "#8be877",
-                                }}
                                 onClick={() => setShowReport(true)}
-                                className={classes.addTicketBtn}
+                                className={classes.createBtn}
                               >
                                 Create Note
-                                {console.log(watch().assignedTo, "sadasdasd")}
                               </button>
                               <button
                                 type="button"
-                                style={{ backgroundColor: "#ee9b9b" }}
                                 onClick={() => {
                                   setShowReport(false);
                                   reset("");
                                 }}
-                                className={classes.addTicketBtn}
+                                className={classes.clearBtn}
                               >
                                 Clear Note
                               </button>
@@ -402,7 +401,6 @@ const Index = () => {
                       </div>
                     </div>
                   }
-                  {console.log(data[0].status)}
                   {!showReport &&
                     data[0].status !== 1 &&
                     data[0].status !== 3 &&

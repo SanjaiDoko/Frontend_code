@@ -7,7 +7,7 @@
 .editBtn {
   border-radius: 5px;
   color: #fff;
-  background-color: #00a1ff;
+  background-color: #b100ff;
   border: none;
   padding: 5px 10px !important;
   font-weight: bold;
@@ -16,6 +16,9 @@
   display: flex;
   justify-content: space-between;
   gap: 5px;
+}
+.subDiv>h3{
+  font-weight: bold;
 }
 .attachement {
   margin: 2em;
@@ -349,7 +352,7 @@
   align-items: center;
   justify-content: center;
   margin: auto;
-  height: 200px;
+  padding-top: 150px;
 }
 @media (max-width: 500px) {
   .mainDiv {

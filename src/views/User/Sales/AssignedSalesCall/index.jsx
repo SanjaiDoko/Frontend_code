@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 import searchLogo from "../../../../assets/Images/searchLogo.png";
 import Loader from "../../../../components/Loader/Loader";
-import {  useGetSalesCallByAssignee } from "../../../../hooks/sales";
+import { useGetSalesCallByAssignee } from "../../../../hooks/sales";
 import moment from "moment";
 import { getSalesMessage } from "../../../../helper";
 
@@ -19,7 +19,7 @@ function Index() {
 
   const { data, isloading } = useGetSalesCallByAssignee();
 
-  console.log(data)
+  console.log(data);
 
   const navigate = useNavigate();
 
@@ -66,8 +66,6 @@ function Index() {
       headerName: "status",
       width: 150,
       renderCell: (params) => getSalesMessage(params.row.status),
-
-      
     },
     {
       flex: 1,
@@ -75,9 +73,7 @@ function Index() {
       sortable: false,
       width: 100,
       renderCell: () => (
-        <button className={styles.editBtn}>
-          { "Update Call"}
-        </button>
+        <button className={styles.editBtn}>{"Update Call"}</button>
       ),
     },
   ];
@@ -87,27 +83,28 @@ function Index() {
   }
 
   const rowClickFunction = (data) => {
-    console.log(data)
+    console.log(data);
     if (data.field === "Options") {
       navigate("/user/updateassginedsalescall/" + data.row.callId);
     }
   };
 
   // if (data !== undefined) {
-    return (
-      <div className="container">
-        <div className={styles.mainDiv}>
-          <h3>My Sales Call</h3>
-          <div className={styles.searchDiv}>
-            <img src={searchLogo} alt="searchlogo" />
-            <input
-              type="text"
-              className={styles.searchInput}
-              onChange={(e) => setSearchValue(e.target.value)}
-              placeholder="Search by Company Name"
-            />
-          </div>
-          {data && data.length > 0 ? (
+  return (
+    <div className="container">
+      <div className={styles.mainDiv}>
+        <h3>My Sales Call</h3>
+        {data && data.length > 0 ? (
+          <>
+            <div className={styles.searchDiv}>
+              <img src={searchLogo} alt="searchlogo" />
+              <input
+                type="text"
+                className={styles.searchInput}
+                onChange={(e) => setSearchValue(e.target.value)}
+                placeholder="Search by Company Name"
+              />
+            </div>
             <div className={styles.girdoverflow}>
               <DataGrid
                 className={styles.dataGrid}
@@ -134,15 +131,16 @@ function Index() {
                 }}
               />
             </div>
-          ) : (
-            <div className={styles.nogroup}>
-              <h4>Until now, You have not received any Sales Call To Handle.</h4>
-              <h4>Please wait for one to be created</h4>
-            </div>
-          )}
-        </div>
+          </>
+        ) : (
+          <div className={styles.nogroup}>
+            <h4>Until now, You have not received any Sales Call To Handle.</h4>
+            <h4>Please wait for one to be created</h4>
+          </div>
+        )}
       </div>
-    );
+    </div>
+  );
   // }
 }
 

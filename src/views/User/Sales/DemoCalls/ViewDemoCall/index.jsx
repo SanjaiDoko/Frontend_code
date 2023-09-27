@@ -17,22 +17,21 @@ import CancelScheduleSendIcon from "@mui/icons-material/CancelScheduleSend";
 import SendIcon from "@mui/icons-material/Send";
 import { updateReceivedTicketValidation } from "../../../../../validationSchema/updateReceivedTicketValidation";
 import Loader from "../../../../../components/Loader/Loader";
-import { useGetDemoCallByCallId, useInsertDemoRemarks } from "../../../../../hooks/sales";
+import {
+  useGetDemoCallByCallId,
+  useInsertDemoRemarks,
+} from "../../../../../hooks/sales";
 import { updateReportValidation } from "../../../../../validationSchema/updateReportValidation";
 import { getDemoMessage } from "../../../../../helper";
 
 const Index = () => {
-
   const array = [1, 2, 3, 4, 5];
 
   const { id } = useParams();
 
-  const { data, isLoading } = useGetDemoCallByCallId(
-    id
-  );
+  const { data, isLoading } = useGetDemoCallByCallId(id);
 
   const navigate = useNavigate();
-
 
   const onSuccess = () => {
     navigate("/user/mydemocall");
@@ -54,15 +53,14 @@ const Index = () => {
   });
 
   const onSubmit = (data) => {
-    data.callId = id
-    console.log(data,"dataaa")
+    data.callId = id;
+    console.log(data, "dataaa");
     mutate(data);
   };
-console.log(data,"asdasd")
+  console.log(data, "asdasd");
   if (isLoading) {
     return <Loader />;
   }
-
 
   return (
     <div className="container">
@@ -71,7 +69,9 @@ console.log(data,"asdasd")
           <form onSubmit={handleSubmit(onSubmit)} className={classes.addDiv}>
             <div>
               <div className={classes.addDivHeading}>
-                <h3 style={{textTransform:"capitalize"}}>{data[0].companyName}'s Demo call</h3>
+                <h3 style={{ textTransform: "capitalize" }}>
+                  {data[0].companyName}'s Demo call
+                </h3>
                 {/* {uniqueTicketData[0].status === 0 && (
                   <button
                     type="button"
@@ -102,12 +102,11 @@ console.log(data,"asdasd")
                         marginBottom: "0",
                         textTransform: "uppercase",
                       }}
-                    >
-                    </p>
+                    ></p>
                     <div className={classes.flexeddiv}>
                       <Form.Group className="pt-2">
                         <Form.Label htmlFor="issueName" className="formlabel">
-                          Company Name
+                          Company Name :
                         </Form.Label>
                         <Controller
                           name="issueName"
@@ -127,7 +126,7 @@ console.log(data,"asdasd")
                       </Form.Group>
                       <Form.Group className="pt-2">
                         <Form.Label htmlFor="type" className="formlabel">
-                          Assigned By
+                          Assigned By :
                         </Form.Label>
                         <Controller
                           name="type"
@@ -149,7 +148,7 @@ console.log(data,"asdasd")
                     <div className={classes.flexeddiv}>
                       <Form.Group className="pt-2">
                         <Form.Label htmlFor="issueName" className="formlabel">
-                          Assigned On
+                          Assigned On :
                         </Form.Label>
                         <Controller
                           name="issueName"
@@ -162,14 +161,16 @@ console.log(data,"asdasd")
                               id="issueName"
                               disabled
                               placeholder="Enter Issue Name"
-                              value={moment(data[0].assignedDate).format("DD-MM-YYYY")}
+                              value={moment(data[0].assignedDate).format(
+                                "DD-MM-YYYY"
+                              )}
                             />
                           )}
                         />
                       </Form.Group>
                       <Form.Group className="pt-2">
                         <Form.Label htmlFor="type" className="formlabel">
-                          Status
+                          Status :
                         </Form.Label>
                         <Controller
                           name="type"
@@ -188,7 +189,6 @@ console.log(data,"asdasd")
                         />
                       </Form.Group>
                     </div>
-                    
                   </div>
                   {
                     <div>
@@ -200,23 +200,22 @@ console.log(data,"asdasd")
                         style={{ flexDirection: "column" }}
                       >
                         {data[0].remarks?.length === 0 ? (
-                          <p>No data</p>
+                          <p style={{ textAlign: "center" }}>No data</p>
                         ) : (
                           <div
                             style={{ display: "flex", flexDirection: "column" }}
                           >
                             <div>
-                              {data[0].remarks?.map((remark, i) => {
+                              {data[0].remarks?.map((remark) => {
                                 return (
-                                  <div key={remark._id}>
-                                    <p>
-                                      
+                                  <div key={remark._id} className={classes.reportcon}>
+                                    <p className={classes.reportDiv}>
+                                      {remark.data}
+                                    </p>
+                                    <p className={classes.datetxt}>
                                       {moment(remark.enteredDate).format(
-                                        "DD-MM-YYYY"
-                                      )}{" "}
-                                      <p className={classes.reportDiv}>
-                                        {remark.data}
-                                      </p>
+                                        "DD-MM-YYYY hh:mm a"
+                                      )}
                                     </p>
                                   </div>
                                 );
@@ -224,12 +223,10 @@ console.log(data,"asdasd")
                             </div>
                           </div>
                         )}
-
                       </div>
                     </div>
                   }
                 </div>
-                
               </div>
             </div>
           </form>

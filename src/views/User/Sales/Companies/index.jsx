@@ -28,7 +28,7 @@ function Dashboard() {
   const { mutate: insertSales } = useInsertSales(onSuccess);
 
   const { data: employeeData, isloading: employeeLoading } =
-  useGetEmployeeById();
+    useGetEmployeeById();
 
   const [searchValue, setSearchValue] = useState("");
 
@@ -123,7 +123,7 @@ function Dashboard() {
               <button
                 style={{ marginRight: "10px" }}
                 // onClick={() => navigate("/user/addCompany")}
-                className={styles.addTicketBtn}
+                className={styles.assignBtn}
                 onClick={() => dispatch(openPopup())}
               >
                 Assign Sales Call
@@ -136,53 +136,54 @@ function Dashboard() {
               Add Company
             </button>
           </div>
-          <div className={styles.searchDiv}>
-            <img src={searchLogo} alt="searchlogo" />
-            <input
-              type="text"
-              className={styles.searchInput}
-              onChange={(e) => setSearchValue(e.target.value)}
-              placeholder="Search by Company Name"
-            />
-          </div>
-          {console.log(data)}
           {data && data.length > 0 ? (
-            <div className={styles.girdoverflow}>
-              <DataGrid
-                className={styles.dataGrid}
-                sx={{ textTransform: "capitalize", minHeight: "400px" }}
-                rows={
-                  rowsWithIndex && searchValue !== ""
-                    ? rowsWithIndex.filter((e) =>
-                        e.companyName
-                          .toLowerCase()
-                          .includes(searchValue.toLowerCase())
-                      )
-                    : rowsWithIndex
-                }
-                columns={columns}
-                checkboxSelection
-                disableRowSelectionOnClick
-                isRowSelectable={(params) => params.row.status ===1}
-                onRowSelectionModelChange={(newRowSelectionModel) => {
-                  setSelectedRows(newRowSelectionModel);
-                  const filteredArray = data.filter((obj) =>
-                    newRowSelectionModel.includes(obj._id)
-                  );
-                  setSelectedRowsData(filteredArray, "filtered");
-                }}
-                getRowId={(rowsWithIndex) => rowsWithIndex._id}
-                hideFooterSelectedRowCount={true}
-                // onCellClick={(row) => rowClickFunction(row)}
-                initialState={{
-                  pagination: {
-                    paginationModel: {
-                      pageSize: 10,
+            <>
+              <div className={styles.searchDiv}>
+                <img src={searchLogo} alt="searchlogo" />
+                <input
+                  type="text"
+                  className={styles.searchInput}
+                  onChange={(e) => setSearchValue(e.target.value)}
+                  placeholder="Search by Company Name"
+                />
+              </div>
+              <div className={styles.girdoverflow}>
+                <DataGrid
+                  className={styles.dataGrid}
+                  sx={{ textTransform: "capitalize", minHeight: "400px" }}
+                  rows={
+                    rowsWithIndex && searchValue !== ""
+                      ? rowsWithIndex.filter((e) =>
+                          e.companyName
+                            .toLowerCase()
+                            .includes(searchValue.toLowerCase())
+                        )
+                      : rowsWithIndex
+                  }
+                  columns={columns}
+                  checkboxSelection
+                  disableRowSelectionOnClick
+                  isRowSelectable={(params) => params.row.status === 1}
+                  onRowSelectionModelChange={(newRowSelectionModel) => {
+                    setSelectedRows(newRowSelectionModel);
+                    const filteredArray = data.filter((obj) =>
+                      newRowSelectionModel.includes(obj._id)
+                    );
+                    setSelectedRowsData(filteredArray, "filtered");
+                  }}
+                  getRowId={(rowsWithIndex) => rowsWithIndex._id}
+                  hideFooterSelectedRowCount={true}
+                  // onCellClick={(row) => rowClickFunction(row)}
+                  initialState={{
+                    pagination: {
+                      paginationModel: {
+                        pageSize: 10,
+                      },
                     },
-                  },
-                }}
-              />
-            </div>
+                  }}
+                />
+              </div>
+            </>
           ) : (
             <div className={styles.nogroup}>
               <h4>Still, You Did not Added Any Company</h4>

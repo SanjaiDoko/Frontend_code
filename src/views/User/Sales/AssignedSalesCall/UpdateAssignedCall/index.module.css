@@ -25,11 +25,11 @@
 }
 .filecontainer > p {
   margin-bottom: 0;
-  color: #00a1ff;
+  color: #b100ff;
 }
 .filecontainer > a {
   margin-bottom: 0;
-  color: #00a1ff;
+  color: #b100ff;
 }
 .completed {
   font-weight: 500 !important;
@@ -89,12 +89,31 @@
 }
 .addTicketBtn {
   margin-top: 1em;
-  background: #f4da47;
+  background: #b100ff;
   border-radius: 4px;
   border: none;
   font-weight: 500;
   font-size: 17px;
-  color: #272727;
+  color: #fff;
+}
+.createBtn {
+  margin-top: 1em;
+  background: #b100ff;
+  border-radius: 4px;
+  border: none;
+  font-weight: 500;
+  font-size: 17px;
+  color: #fff;
+  margin-right: 30px;
+}
+.clearBtn {
+  margin-top: 1em;
+  background: transparent;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 17px;
+  color: #b100ff;
+  border: 2px solid #b100ff;
 }
 
 .button {
@@ -172,10 +191,10 @@
   background: transparent;
   font-weight: 500;
   font-size: 16px;
-  color: #00a1ff;
+  color: #b100ff;
   width: 100%;
   text-align: center;
-  border: 2px solid #00a1ff;
+  border: 2px solid #b100ff;
   outline: none;
   font-weight: bold;
   margin-top: 2em;
@@ -184,7 +203,7 @@
   border-radius: 5px;
 }
 .savebtn:hover {
-  background: #00a1ff;
+  background: #b100ff;
   color: #fff;
   border: none;
   border: 2px solid #fff;
@@ -193,16 +212,16 @@
   background: transparent;
   font-weight: 500;
   font-size: 16px;
-  color: #00a1ff;
+  color: #b100ff;
   text-align: center;
-  border: 2px solid #00a1ff;
+  border: 2px solid #b100ff;
   outline: none;
   font-weight: bold;
   padding: 5px 10px !important;
   border-radius: 5px;
 }
 .rejectBtn:hover {
-  background: #00a1ff;
+  background: #b100ff;
   color: #fff;
   border: none;
   border: 2px solid #fff;
@@ -452,21 +471,7 @@
   border: none;
 }
 .reportDiv {
-  margin-top: 5px;
-  padding-bottom: 10px;
-  margin-left: 10px;
-  border-bottom: 2px solid #d8d9da;
-  background-color: #fff;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  padding: 5px;
-  padding-left: 10px !important;
-  box-sizing: border-box;
-  transition: transform 0.2s;
-  -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
-  box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
-  border: none;
-  margin-bottom: 30px;
+  width: 80%;
 }
 
 .infodiv > h3 {
@@ -548,7 +553,7 @@
 }
 
 .sendMessage{
-  color:#00a1ff;
+  color:#b100ff;
   border: 2px solid;
   border-radius: 0px 5px 5px 0px;
   width: 100px !important;
@@ -556,7 +561,7 @@
 
 }
 .chattitle{
-  background-color: #00a1ff2b !important;
+  background-color: #b100ff2b !important;
   border-bottom: 2px solid #d8d9da;
   background-color: #fff;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -575,4 +580,20 @@
 }
 .msgdiv{
   min-height: 400px !important;
+}
+.reportcon{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid #d4d4d4;
+  padding-bottom: 10px !important;
+  padding-top: 20px;
+}
+.reportcon>p{
+  margin-bottom: 0 !important;
+  text-transform: capitalize;
+}
+.datetxt{
+  color: #a3a3a3;
+  font-size: 14px;
 }

@@ -20,7 +20,7 @@
 
 .title{
     margin-bottom: 0 !important;
-    color: #00a1ff;
+    color: #b100ff;
 }
 
 .contentText{
@@ -28,21 +28,21 @@
 }
 
 .yesbtn {
-    background: #00a1ff !important;
+    background: #b100ff !important;
     color: #fff !important;
     padding: 3px 20px !important;
     font-family: "Rubik" !important;
 	font-size: 15px !important;
-    border: 1.5px solid #00a1ff !important;
+    border: 1.5px solid #b100ff !important;
     border-radius: 4px !important;
 }
 .nobtn {
     background: #fff !important;
-    color: #00a1ff !important;
+    color: #b100ff !important;
     padding: 3px 20px !important;
     font-family: "Rubik" !important;
 	font-size: 15px !important;
-    border: 1.5px solid #00a1ff !important;
+    border: 1.5px solid #b100ff !important;
     border-radius: 4px !important;
 }
 .closebtns{

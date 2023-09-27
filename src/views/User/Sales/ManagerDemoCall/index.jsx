@@ -11,14 +11,12 @@ import { getDemoMessage } from "../../../../helper";
 function Dashboard() {
   const id = localStorage.getItem("allMasterId");
   const navigate = useNavigate();
-  
 
   const { data, isloading } = useGetMangerDemo();
 
-
   const [searchValue, setSearchValue] = useState("");
 
-console.log(data,"data")
+  console.log(data, "data");
 
   const returnStatus = (status) => {
     let ticketStatus = "";
@@ -76,9 +74,7 @@ console.log(data,"data")
       sortable: false,
       width: 100,
       renderCell: () => (
-        <button className={styles.editBtn}>
-          { "View Call"}
-        </button>
+        <button className={styles.editBtn}>{"View Call"}</button>
       ),
     },
   ];
@@ -100,42 +96,44 @@ console.log(data,"data")
           <div className={styles.subDiv}>
             <h3>Demo Calls</h3>
           </div>
-          <div className={styles.searchDiv}>
-            <img src={searchLogo} alt="searchlogo" />
-            <input
-              type="text"
-              className={styles.searchInput}
-              onChange={(e) => setSearchValue(e.target.value)}
-              placeholder="Search by Company Name"
-            />
-          </div>
           {data && data.length > 0 ? (
-            <div className={styles.girdoverflow}>
-              <DataGrid
-                className={styles.dataGrid}
-                sx={{ textTransform: "capitalize", minHeight: "400px" }}
-                rows={
-                  data && searchValue !== ""
-                    ? data.filter((e) =>
-                        e.companyName
-                          .toLowerCase()
-                          .includes(searchValue.toLowerCase())
-                      )
-                    : data
-                }
-                columns={columns}
-                getRowId={(data) => data.callId}
-                hideFooterSelectedRowCount={true}
-                onCellClick={(row) => rowClickFunction(row)}
-                initialState={{
-                  pagination: {
-                    paginationModel: {
-                      pageSize: 10,
+            <>
+              <div className={styles.searchDiv}>
+                <img src={searchLogo} alt="searchlogo" />
+                <input
+                  type="text"
+                  className={styles.searchInput}
+                  onChange={(e) => setSearchValue(e.target.value)}
+                  placeholder="Search by Company Name"
+                />
+              </div>
+              <div className={styles.girdoverflow}>
+                <DataGrid
+                  className={styles.dataGrid}
+                  sx={{ textTransform: "capitalize", minHeight: "400px" }}
+                  rows={
+                    data && searchValue !== ""
+                      ? data.filter((e) =>
+                          e.companyName
+                            .toLowerCase()
+                            .includes(searchValue.toLowerCase())
+                        )
+                      : data
+                  }
+                  columns={columns}
+                  getRowId={(data) => data.callId}
+                  hideFooterSelectedRowCount={true}
+                  onCellClick={(row) => rowClickFunction(row)}
+                  initialState={{
+                    pagination: {
+                      paginationModel: {
+                        pageSize: 10,
+                      },
                     },
-                  },
-                }}
-              />
-            </div>
+                  }}
+                />
+              </div>
+            </>
           ) : (
             <div className={styles.nogroup}>
               <h4>Still Now, No Demo Call is Created !</h4>

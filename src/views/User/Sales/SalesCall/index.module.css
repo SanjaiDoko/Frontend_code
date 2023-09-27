@@ -352,7 +352,7 @@
   align-items: center;
   justify-content: center;
   margin: auto;
-  height: 200px;
+  padding-top: 150px;
 }
 @media (max-width: 500px) {
   .mainDiv {

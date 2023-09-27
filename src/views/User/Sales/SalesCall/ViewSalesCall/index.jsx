@@ -251,8 +251,8 @@ console.log(data,"data")
                                       key={remark._id}
                                     >
                                       <div style={{display:"flex", justifyContent:"space-between"}}>
-                                      <p style={{ marginBottom: "0px" }}>
-                                        Report : {remark.data}
+                                      <p className={classes.datatxt}>
+                                        {remark.data}
                                       </p>
                                       <p  className={classes.datestyle} style={{ marginBottom: "0px", justifyContent:"flex-end" }}>
                                         {moment(remark.enteredDate).format(
@@ -261,9 +261,9 @@ console.log(data,"data")
                                       </p>
                                       
                                       </div>
-                                      <p style={{ marginBottom: "0px" }}>
+                                      {/* <p style={{ marginBottom: "0px" }}>
                                         Reported By : {remark.assignedByName}
-                                      </p>
+                                      </p> */}
                                     </div>
                                   );
                                 })}
