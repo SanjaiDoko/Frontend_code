@@ -45,6 +45,7 @@ const RoomBookingDetail = lazy(() =>
 const LandingPageComponent = lazy(() =>
   import("../views/User/LandingPage/index")
 );
+const AddRequirement = lazy(() => import("../views/User/Requirement/index"));
 
 const userPaths = [
   // {
@@ -184,6 +185,17 @@ const userPaths = [
       {
         path: "roombookingdetails/:id",
         element: RoomBookingDetail,
+      },
+    ],
+    status: [1],
+  },
+  {
+    path: "requirement",
+    element: MainUserLayoutComponent,
+    children: [
+      {
+        path: "addrequirement",
+        element: AddRequirement,
       },
     ],
     status: [1],
