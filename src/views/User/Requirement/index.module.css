@@ -1,0 +1,43 @@
+.emptyheader {
+  height: 50px;
+  background-color: #007bff;
+}
+.Main {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+.maindiv {
+  padding-top: 90px !important;
+}
+.adddiv {
+  width: 600px !important;
+  margin: auto;
+}
+.adddiv > h2 {
+  font-weight: bold;
+  font-size: 28px;
+}
+.forminput {
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  outline: none;
+  width: 100%;
+}
+.btn {
+  background-color: white;
+  color: #f67a1c;
+  border: 2px solid #f67a1c;
+  padding: 10px;
+  border-radius: 3px;
+  width: 100%;
+  margin-top: 30px;
+}
+.error {
+  color: red;
+  font-size: 14px;
+}
+.label {
+  width: 100%;
+}

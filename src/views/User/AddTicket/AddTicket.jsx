@@ -70,13 +70,10 @@ const AddTicket = () => {
     return <Loader />;
   }
 
-  console.log(usersData,"users data")
-
   const onSubmit = (data) => {
     delete data.managerName;
     const values = getValues();
     data.managedBy = values["managedId"];
-    console.log(data,"data")
     data.files = uploadFile;
     mutate(data);
   };
