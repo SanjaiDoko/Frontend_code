@@ -85,7 +85,7 @@ function RoomBookingDetail() {
                 sx={{ textTransform: "capitalize", minHeight: "400px" }}
                 rows={
                   data && searchValue !== ""
-                    ? data.filter((e) =>
+                    ? data.filter(e => e.status === 1).filter((e) =>
                         e.roomName
                           .toLowerCase()
                           .includes(searchValue.toLowerCase())
