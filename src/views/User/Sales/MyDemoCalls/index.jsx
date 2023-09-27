@@ -50,7 +50,7 @@ function Index() {
     {
       field: "employeeName",
       flex: 1,
-      headerName: "Assigne By",
+      headerName: "Assigned By",
       width: 150,
     },
     {

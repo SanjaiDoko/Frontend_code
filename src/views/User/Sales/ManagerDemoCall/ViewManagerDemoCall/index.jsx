@@ -111,7 +111,7 @@ const Index = () => {
                       </Form.Group>
                       <Form.Group className="pt-2">
                         <Form.Label htmlFor="type" className="formlabel">
-                          AssignedBy
+                          Assigned By
                         </Form.Label>
                         <Controller
                           name="type"
