@@ -66,9 +66,11 @@ const AddTicket = () => {
     },
   });
 
-  if (groupLoading) {
+  if (groupLoading || userDataLoading) {
     return <Loader />;
   }
+
+  console.log(usersData,"users data")
 
   const onSubmit = (data) => {
     delete data.managerName;
@@ -312,12 +314,12 @@ const AddTicket = () => {
                       if (selected.length === 0) {
                         return <span>Choose Users</span>;
                       }
-                      return selected.join(", ");
+                      return usersData.filter((user) => selected.includes(user.email)).map((user) => user.fullName).join(", ")
                     }}
                     MenuProps={MenuProps}
                   >
                     {usersData &&
-                      usersData.filter(user => (user._id != userId)).map((user) => (
+                      usersData.filter(user => (user._id != userId || user.status != 2)).map((user) => (
                         <MenuItem key={user._id} value={user.email}>
                           <Checkbox
                             checked={

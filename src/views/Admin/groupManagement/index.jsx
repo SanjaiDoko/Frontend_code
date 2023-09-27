@@ -108,11 +108,9 @@ function IndividualStatusUserList() {
           <div className={styles.headingdiv}>
             <div className={styles.titlediv}>
               <h3 className={styles.title}>Group Management</h3>
-              {/* {userList.filter((e) => e.groupId === null).length > 1 && ( */}
               <button className={styles.grpbtn} onClick={() => setPopup(true)}>
                 Add Group
               </button>
-              {/* )} */}
             </div>
           </div>
           <div className={styles.searchdiv}>
@@ -163,6 +161,7 @@ function IndividualStatusUserList() {
                     },
                   },
                 }}
+                hideFooterSelectedRowCount={true}
                 pageSizeOptions={[10]}
                 loading={isLoading}
                 getRowId={(row) => row.groupId}
@@ -176,16 +175,13 @@ function IndividualStatusUserList() {
           <AddAndEditGroup
             isEdit={popup === "edit"}
             managedData={userList.filter((e) => e.status === 1)}
-            // handleAlignment={handleAlignment}
             onCloseButtonClick={() => setPopup(null)}
             setPopup={setPopup}
             type="add"
           />
         ) : (
           <AddAndEditGroup
-            // alignment={alignment}
             managedData={userList.filter((e) => e.status === 1)}
-            // handleAlignment={handleAlignment}
             onCloseButtonClick={() => setPopup(null)}
             isEdit={popup === "edit"}
             type="edit"

@@ -271,9 +271,7 @@ const AddAndEditGroup = ({ onCloseButtonClick, editData, isEdit, type }) => {
         <div className="pt-4">
           <ToggleButtonGroup
             sx={{ width: "100%" }}
-            // value={alignment}
             exclusive
-            // onChange={handleAlignment}
             aria-label="text alignment"
             className="togglebtn"
           >
