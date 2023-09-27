@@ -7,9 +7,9 @@ import { Link } from "react-router-dom";
 import Mainlogo from "../../assets/Images/mainlogo.png";
 import { useSelector } from "react-redux";
 import { useLogoutUser } from "../../hooks/logout";
-import { useGetUserDetailsById } from "../../hooks/userManagement";
 import Loader from "../Loader/Loader";
 import { useNavigate } from "react-router-dom";
+import { useGetUserDetailsById } from "../../hooks/sales";
 
 function Header() {
   const type = useSelector((state) => state.profile.type);
@@ -17,13 +17,14 @@ function Header() {
   const role = useSelector((state) => state.profile.role);
   const userId = localStorage.getItem("allMasterId");
   const navigate = useNavigate();
-  // const { data, isLoading } = useGetUserDetailsById(userId, type);
+  const { data, isLoading } = useGetUserDetailsById(userId);
   const site = 2;
 
 
-  // if (isLoading) {
-  //   return <Loader />;
-  // }
+  if (isLoading) {
+    return <Loader />;
+  }
+  console.log(data,"daty")
 
   return (
     <Navbar collapseOnSelect expand="lg">
@@ -177,6 +178,17 @@ function Header() {
                   Demo Call
                 </Link>
               )}
+               <Nav.Item className="d-flex gap-2">
+                <div className="hellotextdiv">
+                  <span className="linktags">Hello</span>
+                  <span
+                    className="linktags"
+                    style={{ textTransform: "capitalize" }}
+                  >
+                    {data && data[0].username}
+                  </span>
+                </div>
+              </Nav.Item> 
               
               <button className="logoutbtn" onClick={() =>{window.location.replace("/login") ; localStorage.clear()}}>
                 <RiShutDownLine
