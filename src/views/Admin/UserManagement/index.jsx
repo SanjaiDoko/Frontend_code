@@ -49,6 +49,20 @@ function IndividualStatusUserList() {
     mutate(data);
   }
 
+  function handleStatus(row) {
+    var statusState = "";
+    if (row.status === 1) {
+      statusState = "Active";
+    }
+    if (row.status === 1 && row.groupId === null) {
+      statusState = "Group not Assigned";
+    }
+    if (row.status === 2) {
+      statusState = "InActive";
+    }
+    return statusState;
+  }
+
   const columns = [
     {
       field: "fullName",
@@ -66,7 +80,8 @@ function IndividualStatusUserList() {
       field: "status",
       headerName: "STATUS",
       flex: 1,
-      renderCell: (value) => <ActiveButton status={value.row.status} />,
+      renderCell: (value) => handleStatus(value.row),
+      // <ActiveButton status={value.row.status}
     },
     {
       flex: 1,
