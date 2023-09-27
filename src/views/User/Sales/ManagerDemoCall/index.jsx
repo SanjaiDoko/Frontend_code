@@ -45,13 +45,13 @@ console.log(data,"data")
       width: 150,
     },
     {
-      field: "demoForwardedTo",
+      field: "salesCallAssignedTo",
       flex: 1,
       headerName: "Created By",
       width: 150,
     },
     {
-      field: "salesCallAssignedTo",
+      field: "demoForwardedTo",
       flex: 1,
       headerName: "Assigned To",
       width: 150,
