@@ -13,6 +13,7 @@ import { changeMenu } from "../../../redux/slices/menuSlice";
    // ticket - 1
    // eod - 3
    // room - 2
+   // requirement -5
 function LandingPage() {
   const navigate = useNavigate();
   const role = useSelector((state) => state.profile.role);
@@ -109,7 +110,7 @@ function LandingPage() {
                 Innovation thrives in the face of new requirements; it{"'"}s
                 where creativity shines.
               </p>
-              <button className={`${styles.cardbtn} ${styles.five}`}>
+              <button onClick={() => {navigate("/requirement/addrequirement"); dispatch(changeMenu(5))}} className={`${styles.cardbtn} ${styles.five}`}>
                 Click
               </button>
             </div>

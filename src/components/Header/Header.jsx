@@ -32,6 +32,7 @@ function Header() {
   if (isLoading) {
     return <Loader />;
   }
+
   function headerNavigation(menu, role) {
     var navigation = "";
     if (menu === 1 && role === 3) {
@@ -55,6 +56,9 @@ function Header() {
     if (menu === 0 && role === 2) {
       navigation = "/admin/dashboard";
     }
+    if (menu === 5 && (role === 1 || role === 3)) {
+      navigation = "/requirement/addrequirement";
+    }
     return navigation;
   }
 
@@ -65,9 +69,8 @@ function Header() {
           {menu === 1 && <img src={Mainlogo} className="headerlogo" alt="" />}
           {menu === 2 && <img src={RoomLogo} className="headerlogo" alt="" />}
           {menu === 3 && <img src={EodLogo} className="headerlogo" alt="" />}
-          {menu === 0 && (
-            <h1 className="dokotools">Doko Tools</h1>
-          )}
+          {menu === 0 && <h1 className="dokotools">Doko Tools</h1>}
+          {menu === 5 && <h1 className="dokotools">Requirement</h1>}
         </Link>
         <Navbar.Toggle aria-controls="responsive-navbar-nav">
           <GiHamburgerMenu />
@@ -94,6 +97,18 @@ function Header() {
                 to="/eod/eodlist"
               >
                 EOD
+              </Link>
+            )}
+            {(role === 1 || role === 3) && menu === 5 && (
+              <Link
+                className={`linktag ${
+                  activeStep === "addrequirement"
+                    ? "activeStep"
+                    : "inactiveStep"
+                }`}
+                to="/requirement/addrequirement"
+              >
+                Requirement
               </Link>
             )}
             {role === 1 && menu === 1 && (

@@ -13,8 +13,6 @@ function AdminDashboard() {
     return <Loader />;
   }
 
-  console.log(groupList, "hhoh");
-
   return (
     <div className={styles.maindiv}>
       <div>
