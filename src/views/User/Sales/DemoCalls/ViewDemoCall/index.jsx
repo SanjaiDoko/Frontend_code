@@ -126,7 +126,7 @@ const Index = () => {
                       </Form.Group>
                       <Form.Group className="pt-2">
                         <Form.Label htmlFor="type" className="formlabel">
-                          Assigned By :
+                          Assigned To
                         </Form.Label>
                         <Controller
                           name="type"
@@ -139,7 +139,7 @@ const Index = () => {
                               id="type"
                               disabled
                               placeholder="Enter Type"
-                              value={data[0].assignedByName}
+                              value={data[0].assignedToName}
                             />
                           )}
                         />
