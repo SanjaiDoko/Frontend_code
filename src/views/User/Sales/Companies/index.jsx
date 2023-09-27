@@ -5,6 +5,7 @@ import { useState } from "react";
 import searchLogo from "../../../../assets/Images/searchLogo.png";
 import {
   useGetAllCompanies,
+  useGetEmployeeById,
   useInsertSales,
   useUpdateCompany,
 } from "../../../../hooks/sales";
@@ -25,6 +26,9 @@ function Dashboard() {
     // navigate("/user/salescall");
   };
   const { mutate: insertSales } = useInsertSales(onSuccess);
+
+  const { data: employeeData, isloading: employeeLoading } =
+  useGetEmployeeById();
 
   const [searchValue, setSearchValue] = useState("");
 
@@ -96,7 +100,7 @@ function Dashboard() {
     },
   ];
 
-  if (isloading) {
+  if (isloading || employeeLoading) {
     return <Loader />;
   }
 
@@ -115,7 +119,7 @@ function Dashboard() {
         <div className={styles.mainDiv}>
           <div className={styles.subDiv}>
             <h3 style={{ flex: 2 }}>Manage Company</h3>
-            {selectedRows.length !== 0 && (
+            {selectedRows.length !== 0 && employeeData.length !== 0 && (
               <button
                 style={{ marginRight: "10px" }}
                 // onClick={() => navigate("/user/addCompany")}

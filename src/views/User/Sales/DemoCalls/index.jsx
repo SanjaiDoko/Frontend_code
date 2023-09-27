@@ -100,7 +100,7 @@ console.log(data,"data")
               type="text"
               className={styles.searchInput}
               onChange={(e) => setSearchValue(e.target.value)}
-              placeholder="Search by Ticket ID"
+              placeholder="Search by Company Name"
             />
           </div>
           {data && data.length > 0 ? (

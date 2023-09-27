@@ -58,15 +58,15 @@ const Index = () => {
     onChatSuccessFunction
   );
 
-  const {
-    data: demoData,
-    isLoading: demoLoading,
-    refetch: demoRefetch,
-  } = useGetDemoCallBySalesId(id, onChatSuccessFunction);
+  // const {
+  //   data: demoData,
+  //   isLoading: demoLoading,
+  //   refetch: demoRefetch,
+  // } = useGetDemoCallBySalesId(id, onChatSuccessFunction);
 
   useEffect(() => {
     refetch();
-    demoRefetch();
+    // demoRefetch();
   }, []);
 
   const navigate = useNavigate();
@@ -94,7 +94,7 @@ const Index = () => {
     console.log(data, "dataaa");
     mutate(data);
   };
-  if (isLoading || demoLoading) {
+  if (isLoading ) {
     return <Loader />;
   }
   function compareDates(a, b) {
@@ -102,7 +102,7 @@ const Index = () => {
     const dateB = moment(b.enteredDate);
     return dateA - dateB;
   }
-
+console.log(data,"data")
   return (
     <div className="container">
       <div className={classes.mainDiv}>
@@ -160,7 +160,7 @@ const Index = () => {
                               id="type"
                               disabled
                               placeholder="Enter Type"
-                              value={data[0].assignedByName}
+                              value={data[0].assignedToName}
                             />
                           )}
                         />

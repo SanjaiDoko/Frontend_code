@@ -308,6 +308,7 @@ const useGetSalesCallByCallId = (id, onChatSuccessFunction) => {
       ),
     refetchOnMount: true,
     onSuccess: (data)=>{
+      console.log(data,"query")
       onChatSuccessFunction(data)
     },
     onError: (error) => {
