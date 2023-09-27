@@ -90,6 +90,7 @@ const AddAndEditGroup = ({ onCloseButtonClick, editData, isEdit, type }) => {
   }, [watch("managedBy"), userList]);
 
   function onSubmit(data) {
+
     if (isEdit) {
       const payload = {
         name: data.grpName,
@@ -102,11 +103,14 @@ const AddAndEditGroup = ({ onCloseButtonClick, editData, isEdit, type }) => {
       };
       updateMutate(payload);
     } else {
-      data.users.pop();
+
+      if(Array.isArray(data.users)){
+        data.users.pop();
+      }
       const payload = {
         name: data.grpName,
         managedBy: data.managedBy,
-        users: data.users.map((e) => e.id),
+        users: Array.isArray(data.users) ? data.users.map((e) => e.id) : "",
         status: data.status,
       };
       insertMutate(payload);
