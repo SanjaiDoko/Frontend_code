@@ -48,7 +48,7 @@ const EditTicket = () => {
     setChatMessage(data);
   };
 
-  const { isLoading: chatLoading } = useGetChatById(id, onChatSuccessFunction);
+  const { isLoading: chatLoading, refetch } = useGetChatById(id, onChatSuccessFunction);
 
   const { data: userData } = useGetUserDetailsById(createdBy, type);
 
@@ -88,6 +88,10 @@ const EditTicket = () => {
       messagesDivRef.current.scrollTop = messagesDivRef.current.scrollHeight;
     }
   }, [socket, messagesDivRef.current, chatMessage]);
+
+  useEffect(() => {
+    refetch();
+  }, []);
 
   useEffect(() => {
     socket?.emit("users", id, createdBy, role);

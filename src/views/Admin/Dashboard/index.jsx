@@ -102,11 +102,9 @@ function AdminDashboard() {
                           </div>
                           <div className={styles.userNamediv}>
                             <h5>Group Members</h5>
-                            <h5>
-                              {e.users.map((data) => {
-                                return <p key={i}>{data.fullName}</p>;
-                              })}
-                            </h5>
+                            <h4>
+                              {e.users.map((data) => data.fullName).join(",")}
+                            </h4>
                           </div>
                         </div>
                       </div>
