@@ -51,7 +51,7 @@ const EditTicket = () => {
     setChatMessage(data);
   };
 
-  const { isLoading: chatLoading } = useGetChatById(id, onChatSuccessFunction);
+  const { isLoading: chatLoading, refetch } = useGetChatById(id, onChatSuccessFunction);
 
   const { data: userData } = useGetUserDetailsById(userId, type);
 
@@ -106,6 +106,10 @@ const EditTicket = () => {
       items: [],
     },
   };
+
+  useEffect(() => {
+    refetch();
+  }, []);
 
   useEffect(() => {
     if (messagesDivRef.current) {
