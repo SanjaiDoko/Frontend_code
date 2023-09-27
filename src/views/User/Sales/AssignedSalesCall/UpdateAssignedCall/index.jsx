@@ -104,7 +104,7 @@ const Index = () => {
           <form onSubmit={handleSubmit(onSubmit)} className={classes.addDiv}>
             <div>
               <div className={classes.addDivHeading}>
-                <h3>Update Sales Call</h3>
+                <h3 style={{textTransform:"capitalize"}}>Update {data[0].companyName}'s Sales Call</h3>
               </div>
               <div className={classes.flexdiv}>
                 <div className={classes.infodiv}>
@@ -144,7 +144,7 @@ const Index = () => {
                       </Form.Group>
                       <Form.Group className="pt-2">
                         <Form.Label htmlFor="type" className="formlabel">
-                          Assigned To
+                          Assigned By
                         </Form.Label>
                         <Controller
                           name="type"

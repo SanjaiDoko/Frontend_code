@@ -109,7 +109,7 @@ console.log("open")
                               watch("employeeId").indexOf(user._id) > -1
                             }
                           />
-                          <ListItemText primary={user.username} />
+                          <ListItemText style={{textTransform:"capitalize"}}primary={user.username} />
                         </MenuItem>
                       ))}
                   </Select>

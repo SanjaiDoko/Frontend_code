@@ -50,7 +50,7 @@ function Index() {
     {
       field: "employeeName",
       flex: 1,
-      headerName: "Assigne By",
+      headerName: "Assigned By",
       width: 150,
     },
     {
@@ -101,7 +101,7 @@ function Index() {
                 type="text"
                 className={styles.searchInput}
                 onChange={(e) => setSearchValue(e.target.value)}
-                placeholder="Search by Ticket ID"
+                placeholder="Search by Company Name"
               />
             </div>
             <div className={styles.girdoverflow}>

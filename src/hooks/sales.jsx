@@ -6,6 +6,27 @@ import { URL as newUrl } from "../config";
 // const newUrl = "http://192.168.0.205:9000"
 // const newUrl = import.meta.VITE_URL
 
+//get User By Id
+const useGetUserDetailsById = (id, type) =>
+  useQuery({
+    queryKey: ["userId", id, type],
+    queryFn: () => {
+      return fetchData(
+        {
+          url:  newUrl+"user/getUserDetailsById",
+          method: "POST",
+          isAuthRequired: true,
+        },
+        {
+          data: [
+            {
+              id,
+            },
+          ],
+        }
+      );
+    },
+  });
 
 //get companies
 const useGetAllCompanies = () => {
@@ -308,6 +329,7 @@ const useGetSalesCallByCallId = (id, onChatSuccessFunction) => {
       ),
     refetchOnMount: true,
     onSuccess: (data)=>{
+      console.log(data,"query")
       onChatSuccessFunction(data)
     },
     onError: (error) => {
@@ -531,4 +553,5 @@ export {
   useInsertDemoRemarks,
   useGetMangerDemo,
   useGetDemoCallBySalesId,
+  useGetUserDetailsById
 };

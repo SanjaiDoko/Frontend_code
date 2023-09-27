@@ -59,7 +59,7 @@ console.log(data,"data")
     {
       field: "assignedOn",
       flex: 1,
-      headerName: "assignedOn",
+      headerName: "assigned On",
       width: 200,
       renderCell: (params) => moment(params.row.eodDate).format("DD-MM-YYYY"),
     },
@@ -106,7 +106,7 @@ console.log(data,"data")
               type="text"
               className={styles.searchInput}
               onChange={(e) => setSearchValue(e.target.value)}
-              placeholder="Search by Ticket ID"
+              placeholder="Search by Company Name"
             />
           </div>
           {data && data.length > 0 ? (
