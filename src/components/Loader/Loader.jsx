@@ -1,4 +1,4 @@
-import { ReactComponent as LoaderSvg } from "../../assets/Images/loader.svg";
+import { ReactComponent as LoaderSvg } from "../../assets/Images/salesLoader.svg";
 
 export default function Loader(){
     return(

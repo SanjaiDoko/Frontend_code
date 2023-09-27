@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin:auto;background:#fff;display:block;" width="200px" height="200px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+<style type="text/css">
+  #undefined { width: 100px!important;height:100px!important}
+</style>
+<defs>
+  <filter id="ldio-2ge6xf4a9x3-filter" x="0" y="0" width="100" height="100" filterUnits="userSpaceOnUse">
+    <feColorMatrix type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  -1 -1 -1 1 0"></feColorMatrix>
+  </filter>
+  <mask id="ldio-2ge6xf4a9x3-mask" x="0" y="0" width="100" height="100" maskUnits="userSpaceOnUse">
+    <image id="ldio-2ge6xf4a9x3-img" xlink:href="data:image/svg+xml;base64, PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBmaWxsPSIjMDAwIiBkPSJNNDkuOTk5LDEyLjQ3OWMtMjAuNjg5LDAtMzcuNTIsMTYuODMxLTM3LjUyLDM3LjUyYzAsMjAuNjg5LDE2LjgzMSwzNy41MjIsMzcuNTIsMzcuNTIyIHMzNy41MjItMTYuODMzLDM3LjUyMi0zNy41MjJDODcuNTIxLDI5LjMxLDcwLjY4OCwxMi40NzksNDkuOTk5LDEyLjQ3OXogTTUyLjg4OCw2OS42MzJ2My40MDFjMCwxLjczNi0xLjQwNywzLjE0NC0zLjE0NCwzLjE0NCBoLTAuMDAyYy0xLjczNiwwLTMuMTQ0LTEuNDA3LTMuMTQ0LTMuMTQ0di0yLjk1MmMtMi43NjMtMC4xMjMtNS40NzQtMC42NDUtNy43MDUtMS4zNzdjLTEuODUyLTAuNjA3LTIuOS0yLjU1Ny0yLjQxNi00LjQ0NSBsMC4wNzctMC4zMDFjMC41MzUtMi4wODUsMi43MzctMy4yMDYsNC43NzQtMi41MTJjMi4wNzMsMC43MDYsNC40MzcsMS4xOTIsNi45MzksMS4xOTJjMy42NTcsMCw2LjE1OS0xLjQxLDYuMTU5LTMuOTc3IGMwLTIuNDM3LTIuMDUyLTMuOTc3LTYuODAxLTUuNTgyYy02Ljg2NS0yLjMxLTExLjU0OS01LjUxOC0xMS41NDktMTEuNzQxYzAtNS42NDcsMy45NzktMTAuMDczLDEwLjg0NC0xMS40MjF2LTIuOTUgYzAtMS43MzYsMS40MDctMy4xNDQsMy4xNDQtMy4xNDRzMy4xNDQsMS40MDcsMy4xNDQsMy4xNDR2Mi41MDFjMi4yOTYsMC4xMDMsNC4xODksMC40MDgsNS43NzgsMC44MjUgYzEuOTkzLDAuNTI0LDMuMjA4LDIuNTI3LDIuNjk2LDQuNTIzYy0wLjUxNiwyLjAxMi0yLjU5MiwzLjI0NS00LjU4MiwyLjY1MmMtMS41MTctMC40NTItMy4zOTctMC44MTUtNS42ODgtMC44MTUgYy00LjE3MSwwLTUuNTE4LDEuNzk2LTUuNTE4LDMuNTk0YzAsMi4xMTcsMi4yNDUsMy40NjQsNy42OTksNS41MTZjNy42MzUsMi42OTYsMTAuNzE2LDYuMjI1LDEwLjcxNiwxMS45OTggQzY0LjMwOCw2My40NzMsNjAuMjY1LDY4LjM0OSw1Mi44ODgsNjkuNjMyeiIvPjwvc3ZnPgo=" x="0" y="0" width="100" height="100" filter="url(#ldio-2ge6xf4a9x3-filter)"></image>
+  </mask>
+</defs>
+<g mask="url(#ldio-2ge6xf4a9x3-mask)">
+<g><rect x="0" y="0" width="17.666666666666668" height="100" fill="#b100ff">
+  <animate attributeName="fill" values="#b100ff;#b100ff;#b100ff;#ffffff;#b100ff" keyTimes="0;0.25;0.5;0.75;1" dur="1.6666666666666667s" repeatCount="indefinite" begin="-0.6s"></animate>
+</rect><rect x="16.666666666666668" y="0" width="17.666666666666668" height="100" fill="#ffffff">
+  <animate attributeName="fill" values="#b100ff;#b100ff;#b100ff;#ffffff;#b100ff" keyTimes="0;0.25;0.5;0.75;1" dur="1.6666666666666667s" repeatCount="indefinite" begin="-0.5s"></animate>
+</rect><rect x="33.333333333333336" y="0" width="17.666666666666668" height="100" fill="#b100ff">
+  <animate attributeName="fill" values="#b100ff;#b100ff;#b100ff;#ffffff;#b100ff" keyTimes="0;0.25;0.5;0.75;1" dur="1.6666666666666667s" repeatCount="indefinite" begin="-0.39999999999999997s"></animate>
+</rect><rect x="50" y="0" width="17.666666666666668" height="100" fill="#b100ff">
+  <animate attributeName="fill" values="#b100ff;#b100ff;#b100ff;#ffffff;#b100ff" keyTimes="0;0.25;0.5;0.75;1" dur="1.6666666666666667s" repeatCount="indefinite" begin="-0.3s"></animate>
+</rect><rect x="66.66666666666667" y="0" width="17.666666666666668" height="100" fill="#b100ff">
+  <animate attributeName="fill" values="#b100ff;#b100ff;#b100ff;#ffffff;#b100ff" keyTimes="0;0.25;0.5;0.75;1" dur="1.6666666666666667s" repeatCount="indefinite" begin="-0.19999999999999998s"></animate>
+</rect><rect x="83.33333333333334" y="0" width="17.666666666666668" height="100" fill="#ffffff">
+  <animate attributeName="fill" values="#b100ff;#b100ff;#b100ff;#ffffff;#b100ff" keyTimes="0;0.25;0.5;0.75;1" dur="1.6666666666666667s" repeatCount="indefinite" begin="-0.09999999999999999s"></animate>
+</rect><anximatetransform attributeName="transform" type="translate" filter="url(#ldio-2ge6xf4a9x3-filter)" values="0 0;100 0" keyTimes="0;1" dur="1.6666666666666667s" repeatCount="indefinite"></anximatetransform>
+</g></g>
+</svg>

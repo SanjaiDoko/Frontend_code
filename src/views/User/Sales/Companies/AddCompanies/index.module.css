@@ -28,11 +28,11 @@
 }
 .filecontainer > p {
   margin-bottom: 0;
-  color: #00a1ff;
+  color: #B100FF;
 }
 .filecontainer > a {
   margin-bottom: 0;
-  color: #00a1ff;
+  color: #B100FF !important;
 }
 .subDiv {
   display: flex;
@@ -167,10 +167,10 @@
   background: transparent;
   font-weight: 500;
   font-size: 16px;
-  color: #00a1ff;
+  color: #B100FF;
   width: 100%;
   text-align: center;
-  border: 2px solid #00a1ff;
+  border: 2px solid #B100FF;
   outline: none;
   font-weight: bold;
   margin-top: 2em;
@@ -179,7 +179,7 @@
   border-radius: 5px;
 }
 .savebtn:hover {
-  background: #00a1ff;
+  background: #B100FF;
   color: #fff;
   border: none;
   border: 2px solid #fff;

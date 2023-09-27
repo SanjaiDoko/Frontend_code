@@ -20,7 +20,7 @@
 
 .title{
     margin-bottom: 0 !important;
-    color: #00a1ff;
+    color: #B100FF;
 }
 
 .contentText{
@@ -28,21 +28,21 @@
 }
 
 .yesbtn {
-    background: #00a1ff !important;
+    background: #B100FF !important;
     color: #fff !important;
     padding: 3px 20px !important;
     font-family: "Rubik" !important;
 	font-size: 15px !important;
-    border: 1.5px solid #00a1ff !important;
+    border: 1.5px solid #B100FF !important;
     border-radius: 4px !important;
 }
 .nobtn {
     background: #fff !important;
-    color: #00a1ff !important;
+    color: #B100FF !important;
     padding: 3px 20px !important;
     font-family: "Rubik" !important;
 	font-size: 15px !important;
-    border: 1.5px solid #00a1ff !important;
+    border: 1.5px solid #B100FF !important;
     border-radius: 4px !important;
 }
 .closebtns{
@@ -50,7 +50,4 @@
     color: #919191 !important;
     font-size: 24px !important;
     display: contents !important;
-}
-.terms {
-	color: #f4da47 !important;
 }

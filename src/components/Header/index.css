@@ -24,7 +24,7 @@
 .navbar-expand-lg .navbar-nav .nav-link {
   color: #f2f2f2;
 }
-.nav-link{
+.nav-link {
   text-decoration: none;
   font-weight: 500;
   font-size: 16px !important;
@@ -36,8 +36,9 @@
   line-height: 16px;
   color: #f2f2f2;
 }
+
 .navbar {
-  background: #00a1ff;
+  background: linear-gradient(to bottom left, #7f00ff, #e100ff);
   position: fixed;
   padding: 13px 0px;
   top: 0;

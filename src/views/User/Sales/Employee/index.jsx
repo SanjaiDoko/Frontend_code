@@ -3,7 +3,11 @@ import { DataGrid } from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import searchLogo from "../../../../assets/Images/searchLogo.png";
-import { useGetMyEmployee, useGetUnAssignedEmployee, useRemoveUser } from "../../../../hooks/sales";
+import {
+  useGetMyEmployee,
+  useGetUnAssignedEmployee,
+  useRemoveUser,
+} from "../../../../hooks/sales";
 import Loader from "../../../../components/Loader/Loader";
 import Select from "@mui/material/Select";
 import EmployeePopup from "../../../../components/EmployeePopup";
@@ -17,9 +21,8 @@ function Index() {
   const popup = useSelector((state) => state.roomPopup.popupStatus);
 
   const { data, isloading } = useGetMyEmployee();
-  const {data:allEmployee, isLoading:employeeLoading} = useGetUnAssignedEmployee()
-
-  console.log(data)
+  const { data: allEmployee, isLoading: employeeLoading } =
+    useGetUnAssignedEmployee();
 
   const [searchValue, setSearchValue] = useState("");
   const { mutate } = useRemoveUser();
@@ -60,9 +63,7 @@ function Index() {
       sortable: false,
       width: 100,
       renderCell: () => (
-        <button className={styles.editBtn}>
-          { "Remove User"}
-        </button>
+        <button className={styles.editBtn}>{"Remove User"}</button>
       ),
     },
   ];
@@ -90,58 +91,60 @@ function Index() {
         <div className={styles.mainDiv}>
           <div className={styles.subDiv}>
             <h3>Manage Employee</h3>
-            {allEmployee.length !==0 &&
-            <button
-              onClick={() =>  dispatch(openPopup())}
-              className={styles.addTicketBtn}
-            >
-              Add Employee
-            </button>
-            }
-          </div>
-          <div className={styles.searchDiv}>
-            <img src={searchLogo} alt="searchlogo" />
-            <input
-              type="text"
-              className={styles.searchInput}
-              onChange={(e) => setSearchValue(e.target.value)}
-              placeholder="Search by User Name"
-            />
+            {allEmployee.length !== 0 && (
+              <button
+                onClick={() => dispatch(openPopup())}
+                className={styles.addTicketBtn}
+              >
+                Add Employee
+              </button>
+            )}
           </div>
           {data && data.length > 0 ? (
-            <div className={styles.girdoverflow}>
-              <DataGrid
-                className={styles.dataGrid}
-                sx={{ textTransform: "capitalize", minHeight: "400px" }}
-                rows={
-                  rowsWithIndex && searchValue !== ""
-                    ? rowsWithIndex.filter((e) =>
-                        e.username
-                          .toLowerCase()
-                          .includes(searchValue.toLowerCase())
-                      )
-                    : rowsWithIndex
-                }
-                columns={columns}
-                getRowId={(rowsWithIndex) => rowsWithIndex._id}
-                hideFooterSelectedRowCount={true}
-                onCellClick={(row) => mutate(row.id)}
-                initialState={{
-                  pagination: {
-                    paginationModel: {
-                      pageSize: 10,
+            <>
+              <div className={styles.searchDiv}>
+                <img src={searchLogo} alt="searchlogo" />
+                <input
+                  type="text"
+                  className={styles.searchInput}
+                  onChange={(e) => setSearchValue(e.target.value)}
+                  placeholder="Search by Employee Name"
+                />
+              </div>
+              <div className={styles.girdoverflow}>
+                <DataGrid
+                  className={styles.dataGrid}
+                  sx={{ textTransform: "capitalize", minHeight: "400px" }}
+                  rows={
+                    rowsWithIndex && searchValue !== ""
+                      ? rowsWithIndex.filter((e) =>
+                          e.username
+                            .toLowerCase()
+                            .includes(searchValue.toLowerCase())
+                        )
+                      : rowsWithIndex
+                  }
+                  columns={columns}
+                  getRowId={(rowsWithIndex) => rowsWithIndex._id}
+                  hideFooterSelectedRowCount={true}
+                  onCellClick={(row) => mutate(row.id)}
+                  initialState={{
+                    pagination: {
+                      paginationModel: {
+                        pageSize: 10,
+                      },
                     },
-                  },
-                }}
-              />
-            </div>
+                  }}
+                />
+              </div>
+            </>
           ) : (
             <div className={styles.nogroup}>
               <h4>No Employees Found Under You</h4>
             </div>
           )}
         </div>
-        <EmployeePopup  titleText="Add Employee" />
+        <EmployeePopup titleText="Add Employee" />
       </div>
     );
   }

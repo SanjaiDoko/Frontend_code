@@ -504,14 +504,14 @@
   .flexdiv {
     flex-direction: column;
   }
-  .addDivHeading{
+  .addDivHeading {
     flex-direction: column;
     justify-content: baseline !important;
-    align-items:baseline !important;
+    align-items: baseline !important;
   }
 }
 
-.chatInput{
+.chatInput {
   display: flex;
   width: 100%;
   margin-top: 10px;
@@ -519,11 +519,10 @@
   bottom: 0;
   background-color: #fff;
   padding: 20px 0px;
-    box-shadow: 0 -5px 5px -5px #ababab;
-  
+  box-shadow: 0 -5px 5px -5px #ababab;
 }
 
-.chatInputBox{
+.chatInputBox {
   width: 100%;
   border: 1px solid grey;
   border-radius: 5px 0px 0px 5px;
@@ -531,15 +530,14 @@
   outline: none;
 }
 
-.sendMessage{
-  color:#00a1ff;
+.sendMessage {
+  color: #00a1ff;
   border: 2px solid;
   border-radius: 0px 5px 5px 0px;
   width: 100px !important;
   height: 39px !important;
-
 }
-.chattitle{
+.chattitle {
   background-color: #00a1ff2b !important;
   border-bottom: 2px solid #d8d9da;
   background-color: #fff;
@@ -550,14 +548,14 @@
   padding: 10px;
   border-radius: 8px 8px 0px 0px;
 }
-.chattitle>h4{
+.chattitle > h4 {
   margin-bottom: 0;
   font-weight: bold;
 }
-.chatdiv{
+.chatdiv {
   padding: 20px;
 }
-.msgdiv{
+.msgdiv {
   min-height: 400px !important;
 }
 .flexdiv {
@@ -638,18 +636,9 @@
   flex-direction: column;
   justify-content: space-between;
   margin-top: 5px;
-  border-bottom: 2px solid #d8d9da;
-  background-color: #fff;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  padding: 10px;
-  padding-left: 20px !important;
-  box-sizing: border-box;
-  transition: transform 0.2s;
-  -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
-  box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
-  border: none;
   margin-bottom: 30px;
+  border-bottom: 2px solid #d7d7d7;
+  padding-bottom: 5px;
 }
 
 .infodiv > h3 {
@@ -682,4 +671,8 @@
 .disablediv > div {
   display: flex;
   align-items: center;
+}
+.datestyle {
+  color: #787878;
+  font-size: 15px;
 }

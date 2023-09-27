@@ -127,7 +127,7 @@ const Index = () => {
                     <div className={classes.flexeddiv}>
                       <Form.Group className="pt-2">
                         <Form.Label htmlFor="issueName" className="formlabel">
-                          Company Name
+                          Company Name :
                         </Form.Label>
                         <Controller
                           name="issueName"
@@ -147,7 +147,7 @@ const Index = () => {
                       </Form.Group>
                       <Form.Group className="pt-2">
                         <Form.Label htmlFor="type" className="formlabel">
-                          Assigned To
+                          Assigned To :
                         </Form.Label>
                         <Controller
                           name="type"
@@ -169,7 +169,7 @@ const Index = () => {
                     <div className={classes.flexeddiv}>
                       <Form.Group className="pt-2">
                         <Form.Label htmlFor="issueName" className="formlabel">
-                          Assigned On
+                          Assigned On :
                         </Form.Label>
                         <Controller
                           name="issueName"
@@ -191,7 +191,7 @@ const Index = () => {
                       </Form.Group>
                       <Form.Group className="pt-2">
                         <Form.Label htmlFor="type" className="formlabel">
-                          Status
+                          Status :
                         </Form.Label>
                         <Controller
                           name="type"
@@ -254,7 +254,7 @@ const Index = () => {
                                       <p style={{ marginBottom: "0px" }}>
                                         Report : {remark.data}
                                       </p>
-                                      <p style={{ marginBottom: "0px", justifyContent:"flex-end" }}>
+                                      <p  className={classes.datestyle} style={{ marginBottom: "0px", justifyContent:"flex-end" }}>
                                         {moment(remark.enteredDate).format(
                                           "DD-MM-YYYY hh:mm a"
                                         )}{" "}

@@ -1,5 +1,5 @@
 .mainDiv {
-  padding-top: 80px;
+  padding-top: 75px;
 }
 .mainDiv > h3 {
   font-weight: bold;
@@ -7,7 +7,7 @@
 .editBtn {
   border-radius: 5px;
   color: #fff;
-  background-color: #00a1ff;
+  background-color: #B100FF;
   border: none;
   padding: 5px 10px !important;
   font-weight: bold;
@@ -16,6 +16,9 @@
   display: flex;
   justify-content: space-between;
   gap: 5px;
+}
+.subDiv>h3{
+  font-weight: bold;
 }
 .attachement {
   margin: 2em;

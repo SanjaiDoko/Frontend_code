@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 import searchLogo from "../../../../assets/Images/searchLogo.png";
 import Loader from "../../../../components/Loader/Loader";
-import {  useGetMyDemo } from "../../../../hooks/sales";
+import { useGetMyDemo } from "../../../../hooks/sales";
 import moment from "moment";
 import { getDemoMessage } from "../../../../helper";
 
@@ -19,7 +19,7 @@ function Index() {
 
   const { data, isloading } = useGetMyDemo();
 
-  console.log(data)
+  console.log(data);
 
   const navigate = useNavigate();
 
@@ -65,8 +65,7 @@ function Index() {
       flex: 1,
       headerName: "status",
       width: 150,
-      renderCell: (params) => getDemoMessage(params.row.status)
-      
+      renderCell: (params) => getDemoMessage(params.row.status),
     },
     {
       flex: 1,
@@ -74,9 +73,7 @@ function Index() {
       sortable: false,
       width: 100,
       renderCell: () => (
-        <button className={styles.editBtn}>
-          { "Update Call"}
-        </button>
+        <button className={styles.editBtn}>{"Update Call"}</button>
       ),
     },
   ];
@@ -92,20 +89,21 @@ function Index() {
   };
 
   // if (data !== undefined) {
-    return (
-      <div className="container">
-        <div className={styles.mainDiv}>
-          <h3>My Demo Calls</h3>
-          <div className={styles.searchDiv}>
-            <img src={searchLogo} alt="searchlogo" />
-            <input
-              type="text"
-              className={styles.searchInput}
-              onChange={(e) => setSearchValue(e.target.value)}
-              placeholder="Search by Ticket ID"
-            />
-          </div>
-          {data && data.length > 0 ? (
+  return (
+    <div className="container">
+      <div className={styles.mainDiv}>
+        <h3>My Demo Calls</h3>
+        {data && data.length > 0 ? (
+          <>
+            <div className={styles.searchDiv}>
+              <img src={searchLogo} alt="searchlogo" />
+              <input
+                type="text"
+                className={styles.searchInput}
+                onChange={(e) => setSearchValue(e.target.value)}
+                placeholder="Search by Ticket ID"
+              />
+            </div>
             <div className={styles.girdoverflow}>
               <DataGrid
                 className={styles.dataGrid}
@@ -132,15 +130,16 @@ function Index() {
                 }}
               />
             </div>
-          ) : (
-            <div className={styles.nogroup}>
-              <h4>Until now, You have not received any Demo Calls.</h4>
-              <h4>Please wait for one to be created</h4>
-            </div>
-          )}
-        </div>
+          </>
+        ) : (
+          <div className={styles.nogroup}>
+            <h4>Until now, You have not received any Demo Calls.</h4>
+            <h4>Please wait for one to be created</h4>
+          </div>
+        )}
       </div>
-    );
+    </div>
+  );
   // }
 }
 
