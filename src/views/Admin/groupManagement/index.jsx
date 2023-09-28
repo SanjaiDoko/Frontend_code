@@ -9,6 +9,7 @@ import moment from "moment";
 import RightDrawer from "../../../components/RightDrawer/RightDrawer";
 import AddAndEditGroup from "./AddAndEditGroup";
 import { useGetAllGroups } from "../../../hooks/groupManagement";
+import { TbMoodEmpty } from "react-icons/tb";
 
 function IndividualStatusUserList() {
   const [searchValue, setSearchValue] = useState("");
@@ -107,7 +108,6 @@ function IndividualStatusUserList() {
     return <div>{error.message}</div>;
   }
 
-
   return (
     <>
       <div className={styles.countrydiv}>
@@ -121,7 +121,7 @@ function IndividualStatusUserList() {
             </div>
           </div>
 
-          {data && data.length > 0 && (
+          {data && data.length > 0 ? (
             <>
               <div className={styles.searchdiv}>
                 <div className={styles.searchbox}>
@@ -160,6 +160,11 @@ function IndividualStatusUserList() {
                 </div>
               </div>
             </>
+          ) : (
+            <div className={styles.nodatafound}>
+              <h4>Looks Empty</h4>
+              <TbMoodEmpty style={{ fontSize: "30px" }} />
+            </div>
           )}
         </div>
       </div>

@@ -23,6 +23,7 @@ import { useGetUserDetailsById } from "../../../hooks/userManagement";
 import CancelScheduleSendIcon from "@mui/icons-material/CancelScheduleSend";
 import SendIcon from "@mui/icons-material/Send";
 import { useSocket } from "../../../hooks/socket";
+import { TbMoodEmpty } from "react-icons/tb";
 
 const EditTicket = () => {
   const messagesDivRef = useRef(null);
