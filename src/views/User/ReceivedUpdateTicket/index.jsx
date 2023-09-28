@@ -295,7 +295,6 @@ const EditTicket = () => {
                           render={({ field }) => (
                             <Form.Select
                               className={`formcontrol`}
-                              style={{ textTransform: "capitalize" }}
                               {...field}
                               style={{
                                 textOverflow: "ellipsis",
