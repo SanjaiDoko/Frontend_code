@@ -371,33 +371,37 @@ const EditTicket = () => {
                         )}
                       </Form.Group>
                     </div>
-                    {uniqueTicketData[0].mailList[0] !== "" && (
-                      <div className={classes.mailflexed}>
-                        <Form.Group className="pt-2">
-                          <Form.Label htmlFor="mailList" className="formlabel">
-                            Mail To :
-                          </Form.Label>
-                          <Controller
-                            name="mailList"
-                            control={control}
-                            render={({ field }) => (
-                              <Form.Control
-                                type="text"
-                                {...field}
-                                id="mailList"
-                                disabled
-                                placeholder="Enter Mail To"
-                              />
+                    {uniqueTicketData &&
+                      uniqueTicketData[0].mailList.length > 0 && (
+                        <div className={classes.mailflexed}>
+                          <Form.Group className="pt-2">
+                            <Form.Label
+                              htmlFor="mailList"
+                              className="formlabel"
+                            >
+                              Mail To :
+                            </Form.Label>
+                            <Controller
+                              name="mailList"
+                              control={control}
+                              render={({ field }) => (
+                                <Form.Control
+                                  type="text"
+                                  {...field}
+                                  id="mailList"
+                                  disabled
+                                  placeholder="Enter Mail To"
+                                />
+                              )}
+                            />
+                            {errors.mailTo && (
+                              <span className={classes.error}>
+                                {errors.mailTo.message}
+                              </span>
                             )}
-                          />
-                          {errors.mailTo && (
-                            <span className={classes.error}>
-                              {errors.mailTo.message}
-                            </span>
-                          )}
-                        </Form.Group>
-                      </div>
-                    )}
+                          </Form.Group>
+                        </div>
+                      )}
                     <div>
                       <Form.Label style={{ fontWeight: "bold" }}>
                         Issue Description :

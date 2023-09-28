@@ -48,7 +48,10 @@ const EditTicket = () => {
     setChatMessage(data);
   };
 
-  const { isLoading: chatLoading, refetch } = useGetChatById(id, onChatSuccessFunction);
+  const { isLoading: chatLoading, refetch } = useGetChatById(
+    id,
+    onChatSuccessFunction
+  );
 
   const { data: userData } = useGetUserDetailsById(createdBy, type);
 
@@ -345,7 +348,7 @@ const EditTicket = () => {
                   </span>
                 )}
               </div>
-              {uniqueTicketData[0].mailList[0] !== "" && (
+              {uniqueTicketData && uniqueTicketData[0].mailList.length > 0 && (
                 <div>
                   <Form.Group className="pt-2">
                     <Form.Label htmlFor="mailList" className="formlabel">
@@ -457,55 +460,56 @@ const EditTicket = () => {
               </button>
             </div>
           </form>
-          {uniqueTicketData[0].assignedTo && uniqueTicketData[0].status !==1 && (
-            <div className={classes.rightchat}>
-              <div className={classes.chattitle}>
-                <h4>Chat</h4>
-              </div>
-              <div className={classes.chat} ref={messagesDivRef}>
-                <div className={classes.chatdiv}>
-                  <div
-                    className={
-                      chatMessage.length < 2 ? `${classes.msgdiv}` : ""
-                    }
-                  >
-                    {chatMessage.map((chat, i) => (
-                      <Chat
-                        key={i}
-                        message={chat.message}
-                        beforeDate={chatMessage[i - 1]?.message.createdAt}
-                        afterTime={chatMessage[i + 1]?.message.createdAt}
-                        senderName={chat.senderName}
-                        prevSenderName={chatMessage[i + 1]?.senderName}
-                        senderId={chat.senderId === createdBy}
+          {uniqueTicketData[0].assignedTo &&
+            uniqueTicketData[0].status !== 1 && (
+              <div className={classes.rightchat}>
+                <div className={classes.chattitle}>
+                  <h4>Chat</h4>
+                </div>
+                <div className={classes.chat} ref={messagesDivRef}>
+                  <div className={classes.chatdiv}>
+                    <div
+                      className={
+                        chatMessage.length < 2 ? `${classes.msgdiv}` : ""
+                      }
+                    >
+                      {chatMessage.map((chat, i) => (
+                        <Chat
+                          key={i}
+                          message={chat.message}
+                          beforeDate={chatMessage[i - 1]?.message.createdAt}
+                          afterTime={chatMessage[i + 1]?.message.createdAt}
+                          senderName={chat.senderName}
+                          prevSenderName={chatMessage[i + 1]?.senderName}
+                          senderId={chat.senderId === createdBy}
+                        />
+                      ))}
+                    </div>
+                    <div className={classes.chatInput}>
+                      <input
+                        type="text"
+                        className={classes.chatInputBox}
+                        value={sendMessage}
+                        placeholder="Message"
+                        onChange={(e) => setSendMessage(e.target.value)}
                       />
-                    ))}
-                  </div>
-                  <div className={classes.chatInput}>
-                    <input
-                      type="text"
-                      className={classes.chatInputBox}
-                      value={sendMessage}
-                      placeholder="Message"
-                      onChange={(e) => setSendMessage(e.target.value)}
-                    />
-                    {sendMessage.trim() !== "" ? (
-                      <SendIcon
-                        className={classes.sendMessage}
-                        width={10}
-                        onClick={sendChatMessage}
-                      />
-                    ) : (
-                      <CancelScheduleSendIcon
-                        className={classes.sendMessage}
-                        width={10}
-                      />
-                    )}
+                      {sendMessage.trim() !== "" ? (
+                        <SendIcon
+                          className={classes.sendMessage}
+                          width={10}
+                          onClick={sendChatMessage}
+                        />
+                      ) : (
+                        <CancelScheduleSendIcon
+                          className={classes.sendMessage}
+                          width={10}
+                        />
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
         </div>
       </div>
     </div>
