@@ -71,8 +71,6 @@ function RoomBookingDetail() {
     return <Loader />;
   }
 
-  console.log(data,"data")
-
   if (data !== undefined) {
     return (
       <div className="container">
@@ -84,9 +82,7 @@ function RoomBookingDetail() {
                 className={styles.dataGrid}
                 sx={{ textTransform: "capitalize", minHeight: "400px" }}
                 rows={
-                  data && searchValue !== ""
-                    ? data.filter(e => e.status === 1)
-                    : data
+                  data &&  data.filter(e => e.status === 1)
                 }
                 columns={columns}
                 getRowId={(data) => data.bookingId}
