@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useGetAllRooms } from "../../../hooks/room";
 import Loader from "../../../components/Loader/Loader";
 import { RoomCard } from "../../../components/RoomCard";
 import classes from "./index.module.css";
-import { useSelector, useDispatch } from "react-redux";
-import { openPopup } from "../../../redux/slices/roomPopup";
+import { useSelector } from "react-redux";
 import { RoomPopup } from "../../../components/RoomPopup";
+import { TbMoodEmpty } from "react-icons/tb";
 
 const Room = () => {
   const { data: roomData, isLoading: roomLoading } = useGetAllRooms();
@@ -24,7 +24,7 @@ const Room = () => {
             <h3 className={classes.title}>Room Booking</h3>
           </div>
         </div>
-        {roomData ? (
+        {roomData && roomData.length > 0 ? (
           <div className={classes.roomsContainer}>
             {roomData &&
               roomData.length > 0 &&
@@ -39,8 +39,9 @@ const Room = () => {
                 ))}
           </div>
         ) : (
-          <div className={classes.nodata}>
-            <h3>No Rooms found</h3>
+          <div className={classes.nodatafound}>
+            <h4>Looks Empty</h4>
+            <TbMoodEmpty style={{ fontSize: "30px" }} />
           </div>
         )}
         <RoomPopup open={popup} roomId={roomId} titleText="Room Book" />

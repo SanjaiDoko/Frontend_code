@@ -130,42 +130,46 @@ function IndividualStatusUserList() {
             <h3 className={styles.title}>User Management</h3>
           </div>
         </div>
-        <div className={styles.searchdiv}>
-          <div className={styles.searchbox}>
-            <img src={searchlogo} alt="searchlogo" />
-            <input
-              type="text"
-              placeholder="Search by Full Name"
-              onChange={(e) => setSearchValue(e.target.value)}
-            />
-          </div>
-        </div>
-        <div
-          style={{
-            width: "100%",
-            marginTop: "10px",
-            borderRadius: "5px",
-          }}
-        >
-          <div className={styles.girdoverflow}>
-            <DataGrid
-              sx={{ minHeight: "350px" }}
-              className={styles.dataGrid}
-              rows={filterArray(data)}
-              columns={columns}
-              initialState={{
-                pagination: {
-                  paginationModel: {
-                    pageSize: 10,
-                  },
-                },
+        {data && data.length > 0 && (
+          <>
+            <div className={styles.searchdiv}>
+              <div className={styles.searchbox}>
+                <img src={searchlogo} alt="searchlogo" />
+                <input
+                  type="text"
+                  placeholder="Search by Full Name"
+                  onChange={(e) => setSearchValue(e.target.value)}
+                />
+              </div>
+            </div>
+            <div
+              style={{
+                width: "100%",
+                marginTop: "10px",
+                borderRadius: "5px",
               }}
-              pageSizeOptions={[10]}
-              loading={isLoading}
-              getRowId={(row) => row._id}
-            />
-          </div>
-        </div>
+            >
+              <div className={styles.girdoverflow}>
+                <DataGrid
+                  sx={{ minHeight: "350px" }}
+                  className={styles.dataGrid}
+                  rows={filterArray(data)}
+                  columns={columns}
+                  initialState={{
+                    pagination: {
+                      paginationModel: {
+                        pageSize: 10,
+                      },
+                    },
+                  }}
+                  pageSizeOptions={[10]}
+                  loading={isLoading}
+                  getRowId={(row) => row._id}
+                />
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

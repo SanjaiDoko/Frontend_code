@@ -8,8 +8,6 @@ import moment from "moment";
 
 function RoomBookingDetail() {
   const { id: roomId } = useParams();
-  const [searchValue, setSearchValue] = useState("");
-
   const { data, isloading } = useGetRoomBookingsDetails(roomId);
 
   const returnStatus = (status) => {
@@ -73,6 +71,8 @@ function RoomBookingDetail() {
     return <Loader />;
   }
 
+  console.log(data,"data")
+
   if (data !== undefined) {
     return (
       <div className="container">
@@ -85,11 +85,7 @@ function RoomBookingDetail() {
                 sx={{ textTransform: "capitalize", minHeight: "400px" }}
                 rows={
                   data && searchValue !== ""
-                    ? data.filter(e => e.status === 1).filter((e) =>
-                        e.roomName
-                          .toLowerCase()
-                          .includes(searchValue.toLowerCase())
-                      )
+                    ? data.filter(e => e.status === 1)
                     : data
                 }
                 columns={columns}
