@@ -6,6 +6,7 @@ import Loader from "../../../components/Loader/Loader";
 import RightDrawer from "../../../components/RightDrawer/RightDrawer";
 import { useGetAllRooms } from "../../../hooks/room";
 import AddAndEditRoom from "./AddAndEditRoom";
+import { TbMoodEmpty } from "react-icons/tb";
 
 const RoomManagement = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -82,51 +83,60 @@ const RoomManagement = () => {
               </button>
             </div>
           </div>
-          <div className={styles.searchdiv}>
-            <div className={styles.searchbox}>
-              <img src={searchlogo} alt="searchlogo" />
-              <input
-                type="text"
-                placeholder="Search by Room Name"
-                onChange={(e) => setSearchValue(e.target.value)}
-              />
-            </div>
-          </div>
-          <div
-            style={{
-              width: "100%",
-              marginTop: "10px",
-              borderRadius: "5px",
-            }}
-          >
-            <div className={styles.girdoverflow}>
-              <DataGrid
-                className={styles.dataGrid}
-                sx={{ textTransform: "capitalize", minHeight: "350px" }}
-                rows={
-                  roomData && roomData.length > 0 && searchValue !== ""
-                    ? roomData.filter((e) =>
-                        e.roomName
-                          .toLowerCase()
-                          .includes(searchValue.trim().toLowerCase())
-                      )
-                    : roomData
-                }
-                columns={columns}
-                initialState={{
-                  pagination: {
-                    paginationModel: {
-                      pageSize: 10,
-                    },
-                  },
+          {roomData && roomData.length > 0 ? (
+            <>
+              <div className={styles.searchdiv}>
+                <div className={styles.searchbox}>
+                  <img src={searchlogo} alt="searchlogo" />
+                  <input
+                    type="text"
+                    placeholder="Search by Room Name"
+                    onChange={(e) => setSearchValue(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div
+                style={{
+                  width: "100%",
+                  marginTop: "10px",
+                  borderRadius: "5px",
                 }}
-                hideFooterSelectedRowCount={true}
-                pageSizeOptions={[10]}
-                loading={roomLoading}
-                getRowId={(row) => row.roomId}
-              />
+              >
+                <div className={styles.girdoverflow}>
+                  <DataGrid
+                    className={styles.dataGrid}
+                    sx={{ textTransform: "capitalize", minHeight: "350px" }}
+                    rows={
+                      roomData && roomData.length > 0 && searchValue !== ""
+                        ? roomData.filter((e) =>
+                            e.roomName
+                              .toLowerCase()
+                              .includes(searchValue.trim().toLowerCase())
+                          )
+                        : roomData
+                    }
+                    columns={columns}
+                    initialState={{
+                      pagination: {
+                        paginationModel: {
+                          pageSize: 10,
+                        },
+                      },
+                    }}
+                    hideFooterSelectedRowCount={true}
+                    pageSizeOptions={[10]}
+                    loading={roomLoading}
+                    getRowId={(row) => row.roomId}
+                  />
+                </div>
+              </div>
+            </>
+          ) : (
+            <div className={styles.nodatafound}>
+              <h4>Looks Empty</h4>
+              <TbMoodEmpty style={{ fontSize: "30px" }} />
             </div>
-          </div>
+          )}
         </div>
       </div>
       <RightDrawer popup={popup !== null} handleDrawer={toggleDrawer}>

@@ -9,6 +9,7 @@ import moment from "moment";
 import RightDrawer from "../../../components/RightDrawer/RightDrawer";
 import AddAndEditGroup from "./AddAndEditGroup";
 import { useGetAllGroups } from "../../../hooks/groupManagement";
+import { TbMoodEmpty } from "react-icons/tb";
 
 function IndividualStatusUserList() {
   const [searchValue, setSearchValue] = useState("");
@@ -57,7 +58,13 @@ function IndividualStatusUserList() {
       headerName: "MANAGED BY",
       width: 180,
       flex: 1,
-      renderCell: (value) =>  { return <p style={{textTransform:"capitalize"}}>{value.row.managedBy.name ?? ""}</p>},
+      renderCell: (value) => {
+        return (
+          <p style={{ textTransform: "capitalize" }}>
+            {value.row.managedBy.name ?? ""}
+          </p>
+        );
+      },
     },
     {
       field: "users",
@@ -113,61 +120,52 @@ function IndividualStatusUserList() {
               </button>
             </div>
           </div>
-          <div className={styles.searchdiv}>
-            <div className={styles.searchbox}>
-              <img src={searchlogo} alt="searchlogo" />
-              <input
-                type="text"
-                placeholder="Search by Group Name"
-                onChange={(e) => setSearchValue(e.target.value)}
-              />
-            </div>
-            {/* <div className={styles.selectbox}>
-              <h4>Filter by</h4>
-              <div>
-                <select
-                  style={{ background: "transparent" }}
-                  value={selectBoxValue}
-                  id="filterSelect"
-                  className={styles.selectuser}
-                  onChange={(e) => {
-                    setSelectedBoxValue(e.target.value);
-                  }}
-                >
-                  <option value={""}>Active</option>
-                  <option value={1}>Inactive</option>
-                </select>
+
+          {data && data.length > 0 ? (
+            <>
+              <div className={styles.searchdiv}>
+                <div className={styles.searchbox}>
+                  <img src={searchlogo} alt="searchlogo" />
+                  <input
+                    type="text"
+                    placeholder="Search by Group Name"
+                    onChange={(e) => setSearchValue(e.target.value)}
+                  />
+                </div>
               </div>
-            </div> */}
-            {/* )} */}
-          </div>
-          <div
-            style={{
-              width: "100%",
-              marginTop: "10px",
-              borderRadius: "5px",
-            }}
-          >
-            <div className={styles.girdoverflow}>
-              <DataGrid
-                className={styles.dataGrid}
-                sx={{  minHeight: "350px" }}
-                rows={filterArray(data)}
-                columns={columns}
-                initialState={{
-                  pagination: {
-                    paginationModel: {
-                      pageSize: 10,
-                    },
-                  },
+              <div
+                style={{
+                  width: "100%",
+                  marginTop: "10px",
+                  borderRadius: "5px",
                 }}
-                hideFooterSelectedRowCount={true}
-                pageSizeOptions={[10]}
-                loading={isLoading}
-                getRowId={(row) => row.groupId}
-              />
+              >
+                <div className={styles.girdoverflow}>
+                  <DataGrid
+                    className={styles.dataGrid}
+                    sx={{ minHeight: "350px" }}
+                    rows={filterArray(data)}
+                    columns={columns}
+                    initialState={{
+                      pagination: {
+                        paginationModel: {
+                          pageSize: 10,
+                        },
+                      },
+                    }}
+                    pageSizeOptions={[10]}
+                    loading={isLoading}
+                    getRowId={(row) => row.groupId}
+                  />
+                </div>
+              </div>
+            </>
+          ) : (
+            <div className={styles.nodatafound}>
+              <h4>Looks Empty</h4>
+              <TbMoodEmpty style={{ fontSize: "30px" }} />
             </div>
-          </div>
+          )}
         </div>
       </div>
       <RightDrawer popup={popup !== null} handleDrawer={toggleDrawer}>

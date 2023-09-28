@@ -1,15 +1,12 @@
 import styles from "./index.module.css";
 import { DataGrid } from "@mui/x-data-grid";
 import Loader from "../../../components/Loader/Loader";
-import { useState } from "react";
 import { useGetRoomBookingsDetails } from "../../../hooks/room";
 import { useParams } from "react-router-dom";
 import moment from "moment";
 
 function RoomBookingDetail() {
   const { id: roomId } = useParams();
-  const [searchValue, setSearchValue] = useState("");
-
   const { data, isloading } = useGetRoomBookingsDetails(roomId);
 
   const returnStatus = (status) => {
@@ -83,19 +80,10 @@ function RoomBookingDetail() {
               <DataGrid
                 className={styles.dataGrid}
                 sx={{ textTransform: "capitalize", minHeight: "400px" }}
-                rows={
-                  data && searchValue !== ""
-                    ? data.filter(e => e.status === 1).filter((e) =>
-                        e.roomName
-                          .toLowerCase()
-                          .includes(searchValue.toLowerCase())
-                      )
-                    : data
-                }
+                rows={data && data.filter((e) => e.status === 1)}
                 columns={columns}
                 getRowId={(data) => data.bookingId}
                 hideFooterSelectedRowCount={true}
-                onCellClick={(row) => rowClickFunction(row)}
                 initialState={{
                   pagination: {
                     paginationModel: {

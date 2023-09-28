@@ -3,7 +3,11 @@ import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import classes from "./index.module.css";
 import { addTicketValidation } from "../../../validationSchema/addTicketValidation";
-import { editorConfiguration, fileReaderFunction, openFileNewWindow } from "../../../helper";
+import {
+  editorConfiguration,
+  fileReaderFunction,
+  openFileNewWindow,
+} from "../../../helper";
 import { useState } from "react";
 import { useInsertTicket } from "../../../hooks/ticketHooks";
 import { ReactComponent as Uploadicon } from "../../../../src/assets/Icons/uploadicon.svg";
@@ -23,13 +27,13 @@ import { Checkbox } from "@mui/material";
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
-	PaperProps: {
-		style: {
-			maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-			width: 250,
-			textTransform: "capitalize",
-		},
-	},
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+      textTransform: "capitalize",
+    },
+  },
 };
 
 const AddTicket = () => {
@@ -37,13 +41,13 @@ const AddTicket = () => {
   const navigate = useNavigate();
   const userId = localStorage.getItem("allMasterId");
   const createdBy = localStorage.getItem("allMasterId");
-  const groupId = localStorage.getItem("groupId");
+
   const onSuccess = () => {
     navigate("/ticket/mytickets");
   };
   const { mutate } = useInsertTicket(onSuccess);
   const { data: allGroupData, isLoading: groupLoading } = useGetAllGroups();
-  const {data: usersData, isLoading: userDataLoading} = useGetAllUsers()
+  const { data: usersData, isLoading: userDataLoading } = useGetAllUsers();
   const {
     handleSubmit,
     control,
@@ -196,15 +200,13 @@ const AddTicket = () => {
                       </option>
 
                       {allGroupData &&
-                        allGroupData
-                          .filter((e) => e.groupId !== groupId)
-                          .map((e, i) => {
-                            return (
-                              <option key={i} value={e.groupId}>
-                                {e.name}
-                              </option>
-                            );
-                          })}
+                        allGroupData.map((e, i) => {
+                          return (
+                            <option key={i} value={e.groupId}>
+                              {e.name}
+                            </option>
+                          );
+                        })}
                     </Form.Select>
                   )}
                 />
@@ -229,7 +231,7 @@ const AddTicket = () => {
                       const data = editor.getData();
                       field.onChange(data);
                     }}
-                    config={editorConfiguration} 
+                    config={editorConfiguration}
                     defaultValue=""
                     name="issueDescription"
                   />
@@ -288,49 +290,54 @@ const AddTicket = () => {
               </Form.Group>
             </div>
             <div>
-            <Form.Group className="pt-2">
-              <Form.Label id="mailList">
-              CC Mail (Optional)
-              </Form.Label>
-              <Controller
-                control={control}
-                name="mailList"
-                render={({ field: { onChange, value } }) => (
-                  <Select
-                    fullWidth
-                    id="mailList"
-                    multiple
-                    displayEmpty
-                    value={value}
-                    onChange={onChange}
-                    className={classes.costheadingSelect}
-                    sx={{
-                      fontSize: "14px",
-                    }}
-                    renderValue={(selected) => {
-                      if (selected.length === 0) {
-                        return <span>Choose Users</span>;
-                      }
-                      return usersData.filter((user) => selected.includes(user.email)).map((user) => user.fullName).join(", ")
-                    }}
-                    MenuProps={MenuProps}
-                  >
-                    {usersData &&
-                      usersData.filter(user => (user._id != userId || user.status != 2)).map((user) => (
-                        <MenuItem key={user._id} value={user.email}>
-                          <Checkbox
-                            checked={
-                              watch("mailList").indexOf(user.email) > -1
-                            }
-                          />
-                          <ListItemText primary={user.fullName} />
-                        </MenuItem>
-                      ))}
-                  </Select>
-                )}
-              />
-              <p className={classes.error}>{errors.mailList?.message}</p>
-            </Form.Group>
+              <Form.Group className="pt-2">
+                <Form.Label id="mailList">CC Mail (Optional)</Form.Label>
+                <Controller
+                  control={control}
+                  name="mailList"
+                  render={({ field: { onChange, value } }) => (
+                    <Select
+                      fullWidth
+                      id="mailList"
+                      multiple
+                      displayEmpty
+                      value={value}
+                      onChange={onChange}
+                      className={classes.costheadingSelect}
+                      sx={{
+                        fontSize: "14px",
+                      }}
+                      renderValue={(selected) => {
+                        if (selected.length === 0) {
+                          return <span>Choose Users</span>;
+                        }
+                        return usersData
+                          .filter((user) => selected.includes(user.email))
+                          .map((user) => user.fullName)
+                          .join(", ");
+                      }}
+                      MenuProps={MenuProps}
+                    >
+                      {usersData &&
+                        usersData
+                          .filter(
+                            (user) => user._id != userId || user.status != 2
+                          )
+                          .map((user) => (
+                            <MenuItem key={user._id} value={user.email}>
+                              <Checkbox
+                                checked={
+                                  watch("mailList").indexOf(user.email) > -1
+                                }
+                              />
+                              <ListItemText primary={user.fullName} />
+                            </MenuItem>
+                          ))}
+                    </Select>
+                  )}
+                />
+                <p className={classes.error}>{errors.mailList?.message}</p>
+              </Form.Group>
               <Form.Group className="pt-2">
                 <div className={classes.uploaddiv}>
                   <Form.Label

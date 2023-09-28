@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { Form } from "react-bootstrap";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -23,6 +22,8 @@ import { useGetUserDetailsById } from "../../../hooks/userManagement";
 import CancelScheduleSendIcon from "@mui/icons-material/CancelScheduleSend";
 import SendIcon from "@mui/icons-material/Send";
 import { useSocket } from "../../../hooks/socket";
+import { toast } from "react-toastify";
+import { TbMoodEmpty } from "react-icons/tb";
 
 const EditTicket = () => {
   const messagesDivRef = useRef(null);
@@ -51,7 +52,10 @@ const EditTicket = () => {
     setChatMessage(data);
   };
 
-  const { isLoading: chatLoading, refetch } = useGetChatById(id, onChatSuccessFunction);
+  const { isLoading: chatLoading, refetch } = useGetChatById(
+    id,
+    onChatSuccessFunction
+  );
 
   const { data: userData } = useGetUserDetailsById(userId, type);
 
@@ -89,14 +93,14 @@ const EditTicket = () => {
       issueGroup: "",
       type: "",
       issueDescription: "",
-      // assignedTo: "",
       mailList: "",
       managerName: "",
       managedId: "",
       startTime: null,
       actualEndTime: null,
       endTime: null,
-      timeLog: "",
+      hours: "",
+      minutes: "0",
       createdBy: createdBy,
     },
   });
@@ -145,6 +149,8 @@ const EditTicket = () => {
         uniqueTicketData[0].endTime = moment(uniqueTicketData[0].endTime);
       }
       uniqueTicketData[0].startTime = moment(uniqueTicketData[0].startTime);
+      uniqueTicketData[0].hours = uniqueTicketData[0].timeLog?.hours;
+      uniqueTicketData[0].minutes = uniqueTicketData[0].timeLog?.minutes;
       reset(uniqueTicketData[0]);
       setUploadFile(uniqueTicketData[0].files);
     }
@@ -155,6 +161,9 @@ const EditTicket = () => {
   }
 
   const onSubmit = (data) => {
+    if (data.hours === "0" && data.minutes === "0") {
+      return toast.error("Invalid time log");
+    }
     dispatch(openPopup());
     const values = getValues();
     data.managedBy = values["managedId"];
@@ -235,7 +244,7 @@ const EditTicket = () => {
                           control={control}
                           render={({ field }) => (
                             <Form.Control
-                            style={{ textTransform: "capitalize" }}
+                              style={{ textTransform: "capitalize" }}
                               {...field}
                               type="text"
                               id="issueName"
@@ -259,7 +268,7 @@ const EditTicket = () => {
                           control={control}
                           render={({ field }) => (
                             <Form.Control
-                            style={{ textTransform: "capitalize" }}
+                              style={{ textTransform: "capitalize" }}
                               type="text"
                               {...field}
                               id="type"
@@ -286,7 +295,6 @@ const EditTicket = () => {
                           render={({ field }) => (
                             <Form.Select
                               className={`formcontrol`}
-                              style={{ textTransform: "capitalize" }}
                               {...field}
                               style={{
                                 textOverflow: "ellipsis",
@@ -363,33 +371,37 @@ const EditTicket = () => {
                         )}
                       </Form.Group>
                     </div>
-                    {uniqueTicketData[0].mailList[0] !== "" && (
-                      <div className={classes.mailflexed}>
-                        <Form.Group className="pt-2">
-                          <Form.Label htmlFor="mailList" className="formlabel">
-                            Mail To :
-                          </Form.Label>
-                          <Controller
-                            name="mailList"
-                            control={control}
-                            render={({ field }) => (
-                              <Form.Control
-                                type="text"
-                                {...field}
-                                id="mailList"
-                                disabled
-                                placeholder="Enter Mail To"
-                              />
+                    {uniqueTicketData &&
+                      uniqueTicketData[0].mailList.length > 0 && (
+                        <div className={classes.mailflexed}>
+                          <Form.Group className="pt-2">
+                            <Form.Label
+                              htmlFor="mailList"
+                              className="formlabel"
+                            >
+                              Mail To :
+                            </Form.Label>
+                            <Controller
+                              name="mailList"
+                              control={control}
+                              render={({ field }) => (
+                                <Form.Control
+                                  type="text"
+                                  {...field}
+                                  id="mailList"
+                                  disabled
+                                  placeholder="Enter Mail To"
+                                />
+                              )}
+                            />
+                            {errors.mailTo && (
+                              <span className={classes.error}>
+                                {errors.mailTo.message}
+                              </span>
                             )}
-                          />
-                          {errors.mailTo && (
-                            <span className={classes.error}>
-                              {errors.mailTo.message}
-                            </span>
-                          )}
-                        </Form.Group>
-                      </div>
-                    )}
+                          </Form.Group>
+                        </div>
+                      )}
                     <div>
                       <Form.Label style={{ fontWeight: "bold" }}>
                         Issue Description :
@@ -450,55 +462,59 @@ const EditTicket = () => {
                       )}
                     </div>
                   </div>
-                  {uniqueTicketData[0].status !==1 &&
-                  <>
-                  <div className={classes.chattitle}>
-                    <h4>Chat</h4>
-                  </div>
-                  <div className={classes.chat} ref={messagesDivRef}>
-                    <div className={classes.chatdiv}>
-                      <div
-                        className={
-                          chatMessage.length < 2 ? `${classes.msgdiv}` : ""
-                        }
-                      >
-                        {chatMessage.map((chat, i) => (
-                          <Chat
-                            key={i}
-                            message={chat.message}
-                            beforeDate={chatMessage[i - 1]?.message.createdAt}
-                            afterTime={chatMessage[i + 1]?.message.createdAt}
-                            senderName={chat.senderName}
-                            prevSenderName={chatMessage[i + 1]?.senderName}
-                            senderId={chat.senderId === createdBy}
-                          />
-                        ))}
+                  {uniqueTicketData[0].status !== 1 && (
+                    <>
+                      <div className={classes.chattitle}>
+                        <h4>Chat</h4>
                       </div>
-                      <div className={classes.chatInput}>
-                        <input
-                          type="text"
-                          className={classes.chatInputBox}
-                          value={sendMessage}
-                          placeholder="Message"
-                          onChange={(e) => setSendMessage(e.target.value)}
-                        />
-                        {sendMessage.trim() !== "" ? (
-                          <SendIcon
-                            className={classes.sendMessage}
-                            width={10}
-                            onClick={sendChatMessage}
-                          />
-                        ) : (
-                          <CancelScheduleSendIcon
-                            className={classes.sendMessage}
-                            width={10}
-                          />
-                        )}
+                      <div className={classes.chat} ref={messagesDivRef}>
+                        <div className={classes.chatdiv}>
+                          <div
+                            className={
+                              chatMessage.length < 2 ? `${classes.msgdiv}` : ""
+                            }
+                          >
+                            {chatMessage.map((chat, i) => (
+                              <Chat
+                                key={i}
+                                message={chat.message}
+                                beforeDate={
+                                  chatMessage[i - 1]?.message.createdAt
+                                }
+                                afterTime={
+                                  chatMessage[i + 1]?.message.createdAt
+                                }
+                                senderName={chat.senderName}
+                                prevSenderName={chatMessage[i + 1]?.senderName}
+                                senderId={chat.senderId === createdBy}
+                              />
+                            ))}
+                          </div>
+                          <div className={classes.chatInput}>
+                            <input
+                              type="text"
+                              className={classes.chatInputBox}
+                              value={sendMessage}
+                              placeholder="Message"
+                              onChange={(e) => setSendMessage(e.target.value)}
+                            />
+                            {sendMessage.trim() !== "" ? (
+                              <SendIcon
+                                className={classes.sendMessage}
+                                width={10}
+                                onClick={sendChatMessage}
+                              />
+                            ) : (
+                              <CancelScheduleSendIcon
+                                className={classes.sendMessage}
+                                width={10}
+                              />
+                            )}
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                  </>
-                  }
+                    </>
+                  )}
                 </div>
                 <div className={classes.inputdetailsdiv}>
                   {uploadFile.map((e, i) => {
@@ -521,15 +537,6 @@ const EditTicket = () => {
                             {e.fileName}
                           </p>
                         )}
-                        {/* <div>
-                          <DeleteIcon
-                            sx={{
-                              cursor: "pointer",
-                              color: "red",
-                            }}
-                            onClick={() => removeFileHandler(uploadFile, i)}
-                          />
-                        </div> */}
                       </div>
                     );
                   })}
@@ -620,29 +627,54 @@ const EditTicket = () => {
                       </span>
                     )}
                   </Form.Group>
-                  <Form.Group className="pt-2">
-                    <Form.Label htmlFor="timeLog" className="formlabel">
-                      Time Log
-                    </Form.Label>
-                    <Controller
-                      name="timeLog"
-                      control={control}
-                      render={({ field }) => (
-                        <Form.Control
-                          type="text"
-                          {...field}
-                          disabled={uniqueTicketData[0].status === 1}
-                          id="timeLog"
-                          placeholder="Enter timelog"
+                  <div className={`pt-2 ${classes.timeLogdiv}`}>
+                    <Form.Label className="formlabel">Time Log</Form.Label>
+                    <div className={`pt-2 ${classes.rowflexdiv}`}>
+                      <Form.Group>
+                        <Controller
+                          name="hours"
+                          control={control}
+                          render={({ field }) => (
+                            <Form.Control
+                              type="text"
+                              {...field}
+                              disabled={uniqueTicketData[0].status === 1}
+                              id="hours"
+                              maxLength={2}
+                              placeholder="Enter Hours"
+                            />
+                          )}
                         />
-                      )}
-                    />
-                    {errors.timeLog && (
-                      <span className={classes.error}>
-                        {errors.timeLog.message}
-                      </span>
-                    )}
-                  </Form.Group>
+                        {errors.hours && (
+                          <span className={classes.error}>
+                            {errors.hours.message}
+                          </span>
+                        )}
+                      </Form.Group>
+                      <Form.Group>
+                        <Controller
+                          name="minutes"
+                          control={control}
+                          render={({ field }) => (
+                            <Form.Control
+                              value={watch("minutes")}
+                              type="text"
+                              {...field}
+                              disabled={uniqueTicketData[0].status === 1}
+                              id="minutes"
+                              maxLength={2}
+                              placeholder="Enter Minutes"
+                            />
+                          )}
+                        />
+                        {errors.minutes && (
+                          <span className={classes.error}>
+                            {errors.minutes.message}
+                          </span>
+                        )}
+                      </Form.Group>
+                    </div>
+                  </div>
                   {uniqueTicketData[0].status !== 1 &&
                   uniqueTicketData[0].status !== 3 ? (
                     <button type="submit" className={classes.savebtn}>

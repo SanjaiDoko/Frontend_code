@@ -467,6 +467,10 @@
   align-items: center;
   width: 100% !important;
 }
+.rowflexdiv{
+  display: flex;
+  column-gap: 10px;
+}
 @media (max-width: 500px) {
   .inputdiv {
     flex-direction: column;

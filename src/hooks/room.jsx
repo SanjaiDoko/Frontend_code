@@ -9,7 +9,7 @@ const useGetAllRooms = () => {
     queryFn: () =>
       fetchData({
         url: URL + "room/getAllRooms",
-        isAuthRequired: false,
+        isAuthRequired: true,
       }),
     refetchOnMount: true,
     onError: (error) => {
@@ -26,7 +26,7 @@ const useInsertRoom = (onSuccessFunctions) => {
         {
           url: URL + "room/createRoom",
           method: "POST",
-          isAuthRequired: false,
+          isAuthRequired: true,
         },
         { data: [data] }
       ),
@@ -51,7 +51,7 @@ const useUpdateRoom = (onSuccessFunctions) => {
         {
           url: URL + "room/updateRoom",
           method: "POST",
-          isAuthRequired: false,
+          isAuthRequired: true,
         },
         { data: [data] }
       ),
@@ -76,7 +76,7 @@ const useInsertRoomBooking = (onSuccessFunctions) => {
         {
           url: URL + "room/bookRoom",
           method: "POST",
-          isAuthRequired: false,
+          isAuthRequired: true,
         },
         { data: [data] }
       ),
@@ -104,6 +104,7 @@ const useGetRoomBookingsByUserId = (id) => {
         {
           url: URL + "room/getMyBookings",
           method: "POST",
+          isAuthRequired: true,
         },
         {
           data: [
@@ -153,7 +154,7 @@ const useCancelRoomBooking = () => {
         {
           url: URL + "room/cancelMeeting",
           method: "POST",
-          isAuthRequired: false,
+          isAuthRequired: true,
         },
         { data: [data] }
       ),

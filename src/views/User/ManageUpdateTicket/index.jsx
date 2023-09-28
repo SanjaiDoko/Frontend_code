@@ -383,7 +383,6 @@ const Index = () => {
                         )}
                       </Form.Group>
                     </div>
-                    {/* <div className={classes.flexeddiv}> */}
                     <Form.Label style={{ fontWeight: "bold" }}>
                       Issue Description
                     </Form.Label>
@@ -483,7 +482,7 @@ const Index = () => {
                                 placeholder="Message"
                                 onChange={(e) => setSendMessage(e.target.value)}
                               />
-                              {sendMessage ? (
+                              {sendMessage.trim() !== "" ? (
                                 <SendIcon
                                   className={classes.sendMessage}
                                   width={10}
