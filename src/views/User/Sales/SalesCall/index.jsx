@@ -134,8 +134,7 @@ function Dashboard() {
             </>
           ) : (
             <div className={styles.nogroup}>
-              <h4>Do you face any Issue ?</h4>
-              <h4>Create a Ticket for the Solution.</h4>
+              <h4>Till Now, No Sales Call is Created ..</h4>
             </div>
           )}
         </div>
