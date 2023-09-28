@@ -45,6 +45,12 @@
   margin-bottom: 0px;
 }
 
+.nodatafound {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /* -------Add Country ----------- */
 .addDiv {
   padding: 15px 25px;

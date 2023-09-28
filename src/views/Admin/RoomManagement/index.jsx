@@ -6,6 +6,7 @@ import Loader from "../../../components/Loader/Loader";
 import RightDrawer from "../../../components/RightDrawer/RightDrawer";
 import { useGetAllRooms } from "../../../hooks/room";
 import AddAndEditRoom from "./AddAndEditRoom";
+import { TbMoodEmpty } from "react-icons/tb";
 
 const RoomManagement = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -82,7 +83,7 @@ const RoomManagement = () => {
               </button>
             </div>
           </div>
-          {roomData && roomData.length > 0 && (
+          {roomData && roomData.length > 0 ? (
             <>
               <div className={styles.searchdiv}>
                 <div className={styles.searchbox}>
@@ -130,6 +131,11 @@ const RoomManagement = () => {
                 </div>
               </div>
             </>
+          ) : (
+            <div className={styles.nodatafound}>
+              <h4>Looks Empty</h4>
+              <TbMoodEmpty style={{ fontSize: "30px" }} />
+            </div>
           )}
         </div>
       </div>

@@ -79,7 +79,16 @@ function EodList() {
   };
 
   if (data !== undefined) {
-    const rowsWithIndex = generateRowsWithIndex(data);
+    let sortedEod =
+      data &&
+      data.sort((a, b) =>
+        a.eodDate
+          .split("/")
+          .reverse()
+          .join()
+          .localeCompare(b.eodDate.split("/").reverse().join())
+      );
+    const rowsWithIndex = generateRowsWithIndex(sortedEod);
 
     return (
       <div className="container">
