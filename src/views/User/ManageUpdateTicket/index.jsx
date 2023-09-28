@@ -482,34 +482,24 @@ const Index = () => {
                                 placeholder="Message"
                                 onChange={(e) => setSendMessage(e.target.value)}
                               />
+                              {sendMessage.trim() !== "" ? (
+                                <SendIcon
+                                  className={classes.sendMessage}
+                                  width={10}
+                                  onClick={sendChatMessage}
+                                />
+                              ) : (
+                                <CancelScheduleSendIcon
+                                  className={classes.sendMessage}
+                                  width={10}
+                                />
+                              )}
+                            </div>
                           </div>
-                          <div className={classes.chatInput}>
-                            <input
-                              type="text"
-                              className={classes.chatInputBox}
-                              value={sendMessage}
-                              placeholder="Message"
-                              onChange={(e) => setSendMessage(e.target.value)}
-                            />
-                            {sendMessage.trim() !== "" ? (
-                              <SendIcon
-                                className={classes.sendMessage}
-                                width={10}
-                                onClick={sendChatMessage}
-                              />
-                            ) : (
-                              <CancelScheduleSendIcon
-                                className={classes.sendMessage}
-                                width={10}
-                              />
-                            )}
-                          </div>
-                        </div>
                         </div>
                       </>
-                    
                     )}
-               
+                </div>
                 <div className={classes.inputdivs}>
                   <div>
                     {uploadFile &&
@@ -645,7 +635,6 @@ const Index = () => {
                 </div>
               </div>
             </div>
-           </div> 
           </form>
         </div>
       </div>
