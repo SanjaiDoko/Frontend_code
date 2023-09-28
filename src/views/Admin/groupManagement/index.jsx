@@ -57,7 +57,13 @@ function IndividualStatusUserList() {
       headerName: "MANAGED BY",
       width: 180,
       flex: 1,
-      renderCell: (value) =>  { return <p style={{textTransform:"capitalize"}}>{value.row.managedBy.name ?? ""}</p>},
+      renderCell: (value) => {
+        return (
+          <p style={{ textTransform: "capitalize" }}>
+            {value.row.managedBy.name ?? ""}
+          </p>
+        );
+      },
     },
     {
       field: "users",
@@ -101,6 +107,7 @@ function IndividualStatusUserList() {
     return <div>{error.message}</div>;
   }
 
+
   return (
     <>
       <div className={styles.countrydiv}>
@@ -115,16 +122,19 @@ function IndividualStatusUserList() {
               {/* )} */}
             </div>
           </div>
-          <div className={styles.searchdiv}>
-            <div className={styles.searchbox}>
-              <img src={searchlogo} alt="searchlogo" />
-              <input
-                type="text"
-                placeholder="Search by Group Name"
-                onChange={(e) => setSearchValue(e.target.value)}
-              />
-            </div>
-            {/* <div className={styles.selectbox}>
+
+          {data && data.length > 0 && (
+            <>
+              <div className={styles.searchdiv}>
+                <div className={styles.searchbox}>
+                  <img src={searchlogo} alt="searchlogo" />
+                  <input
+                    type="text"
+                    placeholder="Search by Group Name"
+                    onChange={(e) => setSearchValue(e.target.value)}
+                  />
+                </div>
+                {/* <div className={styles.selectbox}>
               <h4>Filter by</h4>
               <div>
                 <select
@@ -141,34 +151,36 @@ function IndividualStatusUserList() {
                 </select>
               </div>
             </div> */}
-            {/* )} */}
-          </div>
-          <div
-            style={{
-              width: "100%",
-              marginTop: "10px",
-              borderRadius: "5px",
-            }}
-          >
-            <div className={styles.girdoverflow}>
-              <DataGrid
-                className={styles.dataGrid}
-                sx={{  minHeight: "350px" }}
-                rows={filterArray(data)}
-                columns={columns}
-                initialState={{
-                  pagination: {
-                    paginationModel: {
-                      pageSize: 10,
-                    },
-                  },
+                {/* )} */}
+              </div>
+              <div
+                style={{
+                  width: "100%",
+                  marginTop: "10px",
+                  borderRadius: "5px",
                 }}
-                pageSizeOptions={[10]}
-                loading={isLoading}
-                getRowId={(row) => row.groupId}
-              />
-            </div>
-          </div>
+              >
+                <div className={styles.girdoverflow}>
+                  <DataGrid
+                    className={styles.dataGrid}
+                    sx={{ minHeight: "350px" }}
+                    rows={filterArray(data)}
+                    columns={columns}
+                    initialState={{
+                      pagination: {
+                        paginationModel: {
+                          pageSize: 10,
+                        },
+                      },
+                    }}
+                    pageSizeOptions={[10]}
+                    loading={isLoading}
+                    getRowId={(row) => row.groupId}
+                  />
+                </div>
+              </div>
+            </>
+          )}
         </div>
       </div>
       <RightDrawer popup={popup !== null} handleDrawer={toggleDrawer}>

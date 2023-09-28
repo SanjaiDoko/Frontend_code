@@ -469,7 +469,7 @@ const Index = () => {
                               placeholder="Message"
                               onChange={(e) => setSendMessage(e.target.value)}
                             />
-                            {sendMessage ? (
+                            {sendMessage.trim() !== "" ? (
                               <SendIcon
                                 className={classes.sendMessage}
                                 width={10}
