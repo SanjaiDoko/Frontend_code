@@ -120,7 +120,7 @@ function LandingPage() {
       <div className={styles.footerdiv}>
         <div className="container">
           <h4 className={styles.footertxt}>
-            2023 © TicketLy, All Rights Reserved
+            2023 © Doko Tools, All Rights Reserved
           </h4>
         </div>
       </div>

@@ -1,5 +1,6 @@
 .mainDiv {
-  width: 100%;
+  width: 600px;
+  margin: auto;
   padding-top: 80px;
   display: flex;
   justify-content: center;

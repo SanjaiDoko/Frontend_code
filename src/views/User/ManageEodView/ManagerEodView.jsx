@@ -88,7 +88,7 @@ const ManagerEodView = () => {
                     render={({ field }) => (
                       <Form.Select
                         {...field}
-                        style={{textTransform:'capitalize'}}
+                        style={{ textTransform: "capitalize" }}
                         type="number"
                         id="createdBy"
                         className="formcontrol"
@@ -121,9 +121,9 @@ const ManagerEodView = () => {
                     rules={{
                       required: "Start Date is required",
                     }}
+                    sx={{ width: "100%", padding: "7px" }}
                     render={({ field }) => (
                       <DatePicker
-                        sx={{ width: "100%" }}
                         {...field}
                         format="DD-MM-YYYY"
                         disableFuture
@@ -141,12 +141,12 @@ const ManagerEodView = () => {
                   <Controller
                     name="endDate"
                     control={control}
+                    sx={{ width: "100%", padding: "7px" }}
                     rules={{
                       required: "End Date is required",
                     }}
                     render={({ field }) => (
                       <DatePicker
-                        sx={{ width: "100%" }}
                         {...field}
                         format="DD-MM-YYYY"
                         disableFuture
@@ -183,7 +183,8 @@ const ManagerEodView = () => {
                           <tr>
                             <th className={styles.col1}>S.No</th>
                             <th className={styles.col2}>Task Description</th>
-                            <th className={styles.col3}>Hours</th>
+                            <th className={styles.col3}>Task Status</th>
+                            <th className={styles.col4}>Hours</th>
                           </tr>
                           {e.eodSummary &&
                             e.eodSummary.map((data, index) => {
@@ -194,9 +195,14 @@ const ManagerEodView = () => {
                                     {data.taskDescription}
                                   </td>
                                   <td className={styles.col3}>
+                                    {e.taskStatus === 1
+                                      ? "Completed"
+                                      : "In Progress"}
+                                  </td>
+                                  <td className={styles.col4}>
                                     {data.hours}:
                                     {data.minutes <= 9
-                                      ? `0${data.minutes}`
+                                      ? `0${parseInt(data.minutes)}`
                                       : data.minutes}{" "}
                                     Hrs
                                   </td>

@@ -7,6 +7,7 @@ import moment from "moment/moment";
 const UserEodView = () => {
   const { id } = useParams();
   const { data, isLoading } = useGetEodDetailsById(id);
+  console.log(data, "data");
 
   if (isLoading) {
     return <Loader />;
@@ -27,18 +28,29 @@ const UserEodView = () => {
                 <tr>
                   <th className={styles.col1}>S.No</th>
                   <th className={styles.col2}>Task Description</th>
-                  <th className={styles.col3}>Hours</th>
+                  <th className={styles.col3}>Task Status</th>
+                  <th className={styles.col4}>Hours</th>
                 </tr>
-                {data && data[0].eodSummary.map((e, index) => {
-                  return (
-                    // eslint-disable-next-line react/jsx-key
-                    <tr>
-                      <td className={styles.col1}>{index + 1}</td>
-                      <td className={styles.col2}>{e.taskDescription}</td>
-                      <td className={styles.col3}>{e.hours}:{e.minutes <= 9 ? `0${e.minutes}`:e.minutes} Hrs</td>
-                    </tr>
-                  );
-                })}
+                {data &&
+                  data[0].eodSummary.map((e, index) => {
+                    return (
+                      // eslint-disable-next-line react/jsx-key
+                      <tr>
+                        <td className={styles.col1}>{index + 1}</td>
+                        <td className={styles.col2}>{e.taskDescription}</td>
+                        <td className={styles.col3}>
+                          {e.taskStatus === 1 ? "Completed" : "In Progress"}
+                        </td>
+                        <td className={styles.col4}>
+                          {e.hours}:
+                          {e.minutes <= 9
+                            ? `0${parseInt(e.minutes)}`
+                            : e.minutes}{" "}
+                          Hrs
+                        </td>
+                      </tr>
+                    );
+                  })}
               </table>
             </div>
           </div>

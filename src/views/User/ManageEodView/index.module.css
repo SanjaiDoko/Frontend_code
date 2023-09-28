@@ -76,14 +76,19 @@
 .eodMainDiv {
   padding-bottom: 30px;
 }
-.col1,
-.col3 {
-  width: 25%;
+.col1 {
+  width: 15%;
 }
 .col2 {
   width: 50%;
 }
-.nodatafound{
+.col3 {
+  width: 20%;
+}
+.col4 {
+  width: 15%;
+}
+.nodatafound {
   text-align: center;
   padding-top: 200px;
 }
