@@ -127,7 +127,7 @@ function Index() {
                       ? data.filter((e) =>
                           e.ticketId
                             .toLowerCase()
-                            .includes(searchValue.toLowerCase())
+                            .includes(searchValue.trim().toLowerCase())
                         )
                       : data
                   }
