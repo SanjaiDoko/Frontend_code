@@ -86,14 +86,14 @@ const AddTicket = () => {
     const errorMessage = {
       NoFileError: `Upload file first`,
       fileTypeErr: `Upload only Pdf`,
-      fileSizeErr: "Please upload file",
+      fileSizeErr: "File size should not be more than 5 MB",
     };
     try {
       let fileDataArray = await fileReaderFunction({
         fileEvent: event,
         errorMessage,
         fileType: "pdf",
-        noLimit: true,
+        fileSize: 1024 * 1024 * 5,
       });
       let sameFileExists;
       if (fileDataArray.length > 0) {

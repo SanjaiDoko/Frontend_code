@@ -23,7 +23,6 @@ import CancelScheduleSendIcon from "@mui/icons-material/CancelScheduleSend";
 import SendIcon from "@mui/icons-material/Send";
 import { useSocket } from "../../../hooks/socket";
 import { toast } from "react-toastify";
-import { TbMoodEmpty } from "react-icons/tb";
 
 const EditTicket = () => {
   const messagesDivRef = useRef(null);

@@ -209,6 +209,9 @@ const Index = () => {
 
     setSendMessage("");
   };
+
+
+  
   return (
     <div className="container">
       <div className={classes.mainDiv}>
@@ -547,18 +550,23 @@ const Index = () => {
                                 Choose Type
                               </option>
                               {allUser &&
-                                allUser.map((e, i) => {
-                                  return (
-                                    <option
-                                      key={i}
-                                      value={e._id}
-                                      style={{ textTransform: "capitalize" }}
-                                    >
-                                      {e.fullName}{" "}
-                                      {e._id === userId && "(Assign Myself)"}
-                                    </option>
-                                  );
-                                })}
+                                allUser
+                                  .filter(
+                                    (e) =>
+                                      e._id !== uniqueTicketData[0].createdBy
+                                  )
+                                  .map((e, i) => {
+                                    return (
+                                      <option
+                                        key={i}
+                                        value={e._id}
+                                        style={{ textTransform: "capitalize" }}
+                                      >
+                                        {e.fullName}{" "}
+                                        {e._id === userId && "(Assign Myself)"}
+                                      </option>
+                                    );
+                                  })}
                             </Form.Select>
                           )}
                         />
