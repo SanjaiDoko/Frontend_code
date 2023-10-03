@@ -203,7 +203,7 @@ const EditTicket = () => {
   };
 
   return (
-    <div className="container">
+    <div className="container updateTicket">
       <div className={classes.mainDiv}>
         <div className={classes.AddTicketDiv}>
           <form onSubmit={handleSubmit(onSubmit)} className={classes.addDiv}>
