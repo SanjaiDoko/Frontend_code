@@ -130,6 +130,9 @@ const useInsertTicket = (onSuccessFunctions) => {
     onSuccess: (data) => {
       onSuccessFunctions(data);
       queryClient.invalidateQueries({ queryKey: ["allTickets"] });
+      queryClient.invalidateQueries({ queryKey: ["specifiTickets"] });
+      queryClient.invalidateQueries({ queryKey: ["ReceivedTickets"] });
+      queryClient.invalidateQueries({ queryKey: ["ManageTickets"] });
     },
   });
 };
@@ -209,5 +212,5 @@ export {
   useGetAllUserByGroupId,
   useGetSpecificTicketById,
   useAssignedUpdateTicket,
-  useMangerUpdateTicket
+  useMangerUpdateTicket,
 };
