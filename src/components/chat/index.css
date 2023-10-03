@@ -44,6 +44,7 @@
 
 .message.own {
   align-items: flex-end;
+  word-break: break-all;
 }
 
 .message.own .messageText {
